@@ -12,4 +12,4 @@ Interaction Portal for platform Enera WiFi
 
 ## Security Vulnerabilities
 
-modifications to the readmeIf you discover a security vulnerability within Enera Portal, please send an e-mail to servers@enera.mx. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within Enera Portal, please send an e-mail to servers@enera.mx. All security vulnerabilities will be promptly addressed.
