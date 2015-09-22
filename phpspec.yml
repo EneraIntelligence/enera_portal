@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: EneraPortal
+        psr4_prefix: EneraPortal
+        src_path: app
