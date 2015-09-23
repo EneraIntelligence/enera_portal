@@ -1,6 +1,6 @@
 <?php
 
-namespace EneraPortal\Http\Controllers;
+namespace Portal\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

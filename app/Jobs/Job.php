@@ -1,6 +1,6 @@
 <?php
 
-namespace EneraPortal\Jobs;
+namespace Portal\Jobs;
 
 use Illuminate\Bus\Queueable;
 

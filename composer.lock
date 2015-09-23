@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "115e75edaca02997785906f0b36572f8",
-    "content-hash": "a1ad0b17db7340ac5040446dbf1d6b3a",
+    "hash": "fa71080985a9b000833a84bb4ff54a2b",
+    "content-hash": "817bf812d76a8f068e1c386fbd6b29ed",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -369,24 +369,23 @@
         },
         {
             "name": "jenssegers/mongodb",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jenssegers/laravel-mongodb.git",
-                "reference": "dd1959f25405ddc3df263e0e3ac9bcf0d5176a46"
+                "reference": "b4dd5830feb2141c5073b5306a8d460fb683e9a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/laravel-mongodb/zipball/dd1959f25405ddc3df263e0e3ac9bcf0d5176a46",
-                "reference": "dd1959f25405ddc3df263e0e3ac9bcf0d5176a46",
+                "url": "https://api.github.com/repos/jenssegers/laravel-mongodb/zipball/b4dd5830feb2141c5073b5306a8d460fb683e9a4",
+                "reference": "b4dd5830feb2141c5073b5306a8d460fb683e9a4",
                 "shasum": ""
             },
             "require": {
                 "illuminate/container": "^5.1",
                 "illuminate/database": "^5.1",
                 "illuminate/events": "^5.1",
-                "illuminate/support": "^5.1",
-                "php": ">=5.4.0"
+                "illuminate/support": "^5.1"
             },
             "require-dev": {
                 "mockery/mockery": "*",
@@ -423,7 +422,7 @@
                 "mongo",
                 "mongodb"
             ],
-            "time": "2015-09-14 18:38:44"
+            "time": "2015-09-17 08:03:50"
         },
         {
             "name": "jeremeamia/SuperClosure",
@@ -485,16 +484,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.1.16",
+            "version": "v5.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "e34dcc0c57e0f560248aec5128161256ff8bf4e1"
+                "reference": "415b5d824e15ee7cd18b8b23f96ae32b0b51d6a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/e34dcc0c57e0f560248aec5128161256ff8bf4e1",
-                "reference": "e34dcc0c57e0f560248aec5128161256ff8bf4e1",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/415b5d824e15ee7cd18b8b23f96ae32b0b51d6a0",
+                "reference": "415b5d824e15ee7cd18b8b23f96ae32b0b51d6a0",
                 "shasum": ""
             },
             "require": {
@@ -609,24 +608,27 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-09-04 12:46:14"
+            "time": "2015-09-16 16:57:12"
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.12",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "7323424a9d39c24e597ed3f2144419dfbb52e086"
+                "reference": "202c7775d959f377e2e302d93e7127c47604438a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/7323424a9d39c24e597ed3f2144419dfbb52e086",
-                "reference": "7323424a9d39c24e597ed3f2144419dfbb52e086",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/202c7775d959f377e2e302d93e7127c47604438a",
+                "reference": "202c7775d959f377e2e302d93e7127c47604438a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
+            },
+            "conflict": {
+                "league/flysystem-sftp": "<1.0.6"
             },
             "require-dev": {
                 "ext-fileinfo": "*",
@@ -690,7 +692,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-09-05 12:06:41"
+            "time": "2015-09-22 19:18:28"
         },
         {
             "name": "monolog/monolog",
@@ -861,16 +863,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "196f177cfefa0f1f7166c0a05d8255889be12418"
+                "reference": "f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/196f177cfefa0f1f7166c0a05d8255889be12418",
-                "reference": "196f177cfefa0f1f7166c0a05d8255889be12418",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51",
+                "reference": "f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51",
                 "shasum": ""
             },
             "require": {
@@ -902,7 +904,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2015-07-14 17:31:05"
+            "time": "2015-09-19 14:15:08"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -1913,6 +1915,47 @@
     ],
     "packages-dev": [
         {
+            "name": "darsain/laravel-console",
+            "version": "dev-L5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/teepluss/laravel-console.git",
+                "reference": "8df5717ede4dd6cdc8ff09b7d8ec04f968d1ebb9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/teepluss/laravel-console/zipball/8df5717ede4dd6cdc8ff09b7d8ec04f968d1ebb9",
+                "reference": "8df5717ede4dd6cdc8ff09b7d8ec04f968d1ebb9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.0.1",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/controllers"
+                ],
+                "psr-0": {
+                    "Darsain\\Console\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Browser console for Laravel Framework.",
+            "keywords": [
+                "browser",
+                "console",
+                "laravel"
+            ],
+            "support": {
+                "source": "https://github.com/teepluss/laravel-console/tree/L5"
+            },
+            "time": "2015-09-07 04:09:46"
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
             "source": {
@@ -2541,16 +2584,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.7",
+            "version": "4.8.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa"
+                "reference": "73fad41adb5b7bc3a494bb930d90648df1d5e74b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
-                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/73fad41adb5b7bc3a494bb930d90648df1d5e74b",
+                "reference": "73fad41adb5b7bc3a494bb930d90648df1d5e74b",
                 "shasum": ""
             },
             "require": {
@@ -2609,7 +2652,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-09-14 06:57:22"
+            "time": "2015-09-20 12:56:44"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3090,7 +3133,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "darsain/laravel-console": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

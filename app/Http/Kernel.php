@@ -1,6 +1,6 @@
 <?php
 
-namespace EneraPortal\Http;
+namespace Portal\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -13,11 +13,11 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \EneraPortal\Http\Middleware\EncryptCookies::class,
+        \Portal\Http\Middleware\EncryptCookies::class,
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \EneraPortal\Http\Middleware\VerifyCsrfToken::class,
+        \Portal\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -26,8 +26,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \EneraPortal\Http\Middleware\Authenticate::class,
+        'auth' => \Portal\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \EneraPortal\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => \Portal\Http\Middleware\RedirectIfAuthenticated::class,
     ];
 }

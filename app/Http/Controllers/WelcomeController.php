@@ -1,11 +1,13 @@
 <?php
 
-namespace EneraPortal\Http\Controllers;
+namespace Portal\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use EneraPortal\Http\Requests;
-use EneraPortal\Http\Controllers\Controller;
+use Input;
+use MongoDate;
+use Portal\Http\Requests;
+use Portal\Http\Controllers\Controller;
 
 class WelcomeController extends Controller
 {
@@ -16,7 +18,7 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        return "HOLA MUNDO!!";
+        return view('welcome.index');
     }
 
     /**

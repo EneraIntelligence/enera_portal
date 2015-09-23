@@ -1,6 +1,6 @@
 <?php
 
-namespace EneraPortal\Providers;
+namespace Portal\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'EneraPortal\Events\SomeEvent' => [
-            'EneraPortal\Listeners\EventListener',
+        'Portal\Events\SomeEvent' => [
+            'Portal\Listeners\EventListener',
         ],
     ];
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace EneraPortal\Exceptions;
+namespace Portal\Exceptions;
 
 use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;

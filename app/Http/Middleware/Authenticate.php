@@ -1,6 +1,6 @@
 <?php
 
-namespace EneraPortal\Http\Middleware;
+namespace Portal\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;

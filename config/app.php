@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Mexico_City',
 
     /*
     |--------------------------------------------------------------------------
@@ -140,14 +140,15 @@ return [
         /*
          * Application Service Providers...
          */
-        EneraPortal\Providers\AppServiceProvider::class,
-        EneraPortal\Providers\EventServiceProvider::class,
-        EneraPortal\Providers\RouteServiceProvider::class,
+        Portal\Providers\AppServiceProvider::class,
+        Portal\Providers\EventServiceProvider::class,
+        Portal\Providers\RouteServiceProvider::class,
 
         /* Custom Service Providers */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Darsain\Console\ConsoleServiceProvider::class,
 
     ],
 

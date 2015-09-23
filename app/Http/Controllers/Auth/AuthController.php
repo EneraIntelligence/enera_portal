@@ -1,10 +1,10 @@
 <?php
 
-namespace EneraPortal\Http\Controllers\Auth;
+namespace Portal\Http\Controllers\Auth;
 
-use EneraPortal\User;
+use Portal\User;
 use Validator;
-use EneraPortal\Http\Controllers\Controller;
+use Portal\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 

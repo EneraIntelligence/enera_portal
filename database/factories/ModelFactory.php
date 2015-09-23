@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(EneraPortal\User::class, function ($faker) {
+$factory->define(Portal\User::class, function ($faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
