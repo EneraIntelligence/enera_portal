@@ -1,6 +1,6 @@
 <?php
 
-namespace EneraPortal\Console\Commands;
+namespace Portal\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;

@@ -1,6 +1,6 @@
 <?php
 
-namespace EneraPortal\Http\Requests;
+namespace Portal\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

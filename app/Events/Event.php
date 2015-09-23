@@ -1,6 +1,6 @@
 <?php
 
-namespace EneraPortal\Events;
+namespace Portal\Events;
 
 abstract class Event
 {

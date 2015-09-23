@@ -1,6 +1,6 @@
 <?php
 
-namespace EneraPortal\Providers;
+namespace Portal\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

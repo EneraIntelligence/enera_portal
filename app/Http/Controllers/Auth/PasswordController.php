@@ -1,8 +1,8 @@
 <?php
 
-namespace EneraPortal\Http\Controllers\Auth;
+namespace Portal\Http\Controllers\Auth;
 
-use EneraPortal\Http\Controllers\Controller;
+use Portal\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller

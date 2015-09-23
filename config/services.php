@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model'  => EneraPortal\User::class,
+        'model'  => Portal\User::class,
         'key'    => '',
         'secret' => '',
     ],
