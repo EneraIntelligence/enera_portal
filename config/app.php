@@ -149,6 +149,7 @@ return [
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Darsain\Console\ConsoleServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -200,6 +201,8 @@ return [
 
         /* Custom Aliases */
         'Moloquent' => Jenssegers\Mongodb\Model::class,
+        'Form'      => Collective\Html\FormFacade::class,
+        'HTML'      => Collective\Html\HtmlFacade::class,
 
 
     ],
