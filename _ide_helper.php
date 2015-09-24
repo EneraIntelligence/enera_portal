@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.1.17 (LTS) on 2015-09-23.
+ * Generated for Laravel 5.1.17 (LTS) on 2015-09-24.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1090,7 +1090,7 @@ namespace {
          */
         public static function handle($input, $output = null){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \EneraPortal\Console\Kernel::handle($input, $output);
+            return \Portal\Console\Kernel::handle($input, $output);
         }
         
         /**
@@ -1103,7 +1103,7 @@ namespace {
          */
         public static function terminate($input, $status){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \EneraPortal\Console\Kernel::terminate($input, $status);
+            \Portal\Console\Kernel::terminate($input, $status);
         }
         
         /**
@@ -1116,7 +1116,7 @@ namespace {
          */
         public static function call($command, $parameters = array()){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \EneraPortal\Console\Kernel::call($command, $parameters);
+            return \Portal\Console\Kernel::call($command, $parameters);
         }
         
         /**
@@ -1129,7 +1129,7 @@ namespace {
          */
         public static function queue($command, $parameters = array()){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \EneraPortal\Console\Kernel::queue($command, $parameters);
+            \Portal\Console\Kernel::queue($command, $parameters);
         }
         
         /**
@@ -1140,7 +1140,7 @@ namespace {
          */
         public static function all(){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \EneraPortal\Console\Kernel::all();
+            return \Portal\Console\Kernel::all();
         }
         
         /**
@@ -1151,7 +1151,7 @@ namespace {
          */
         public static function output(){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \EneraPortal\Console\Kernel::output();
+            return \Portal\Console\Kernel::output();
         }
         
         /**
@@ -1162,7 +1162,7 @@ namespace {
          */
         public static function bootstrap(){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \EneraPortal\Console\Kernel::bootstrap();
+            \Portal\Console\Kernel::bootstrap();
         }
         
     }
@@ -1270,7 +1270,7 @@ namespace {
         /**
          * Get the currently authenticated user.
          *
-         * @return \EneraPortal\User|null 
+         * @return \Portal\User|null 
          * @static 
          */
         public static function user(){
@@ -1372,7 +1372,7 @@ namespace {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \EneraPortal\User 
+         * @return \Portal\User 
          * @static 
          */
         public static function loginUsingId($id, $remember = false){
@@ -1477,7 +1477,7 @@ namespace {
         /**
          * Return the currently cached user.
          *
-         * @return \EneraPortal\User|null 
+         * @return \Portal\User|null 
          * @static 
          */
         public static function getUser(){
@@ -1519,7 +1519,7 @@ namespace {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \EneraPortal\User 
+         * @return \Portal\User 
          * @static 
          */
         public static function getLastAttempted(){
