@@ -10,10 +10,10 @@
 
     <div style="margin: 20px auto 0; width:290px;">
         <a id="fb-btn" onclick="showLoader()" href="{{ $loginUrl }}">
-            <img id="fb-img" src="https://scontent-dfw1-1.xx.fbcdn.net/hphotos-xaf1/t39.2178-6/851579_209602122530903_1060396115_n.png" alt="">
+            <img id="fb-img" src="img/fb-login.png" alt="">
         </a>
 
-        <div style=" width: 70px; height: 70px; margin-top: -64px; margin-left: 110px;" id="canvasloader-container" class="wrapper"></div>
+        <div style=" width: 70px; height: 70px; margin-top: -50px; margin-left: 110px;" id="canvasloader-container" class="wrapper"></div>
     </div>
 
 
