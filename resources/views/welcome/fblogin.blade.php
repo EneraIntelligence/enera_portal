@@ -1,14 +1,22 @@
 
 @extends('layouts.main')
 @section('head_scripts')
-    <script src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
+    <script src="js/canvasloader.js"></script>
+    <script src="js/greensock/plugins/CSSPlugin.min.js"></script>
+    <script src="js/greensock/easing/EasePack.min.js"></script>
+    <script src="js/greensock/TweenLite.min.js"></script>
 @stop
 @section('content')
-    <a id="fb-btn" onclick="showLoader()" href="{{ $loginUrl }}">
-        <img src="https://scontent-dfw1-1.xx.fbcdn.net/hphotos-xaf1/t39.2178-6/851579_209602122530903_1060396115_n.png" alt="">
-    </a>
 
-    <div style="display:none" id="canvasloader-container" class="wrapper"></div>
+    <div style="margin: 20px auto 0; width:290px;">
+        <a id="fb-btn" onclick="showLoader()" href="{{ $loginUrl }}">
+            <img id="fb-img" src="https://scontent-dfw1-1.xx.fbcdn.net/hphotos-xaf1/t39.2178-6/851579_209602122530903_1060396115_n.png" alt="">
+        </a>
+
+        <div style="display: none; width: 70px; height: 70px; margin-top: -64px; margin-left: 110px;" id="canvasloader-container" class="wrapper"></div>
+    </div>
+
+
 
 
 @stop
@@ -27,8 +35,10 @@
         function showLoader()
         {
             document.getElementById("canvasloader-container").style.display = "block";
-            document.getElementById("fb-btn").style.display = "none";
+            //document.getElementById("fb-btn").style.display = "none";
 
+            TweenLite.to('#fb-img',.4,{scaleX:0, scaleY:0, alpha:0, ease: Back.easeIn});
+            TweenLite.from('#canvasloader-container',.3,{delay:.4, scaleX:0, scaleY:0, alpha:0, ease: Power2.easeOut});
         }
 
     </script>
