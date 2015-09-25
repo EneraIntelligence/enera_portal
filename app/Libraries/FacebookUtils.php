@@ -29,7 +29,7 @@ class FacebookUtils
     {
         $this->helper = $this->fb->getRedirectLoginHelper();
 
-        $permissions = ['email', 'user_likes'];
+        $permissions = ['email', 'user_likes', 'user_birthday', 'user_location'];
         $loginUrl = $this->helper->getLoginUrl($redirectUrl, $permissions);
         return htmlspecialchars($loginUrl);
     }

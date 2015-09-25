@@ -41,7 +41,7 @@ class FacebookLoginController extends Controller
         $userLikes = $fbUtils->getUserLikes();
 
         //dd($userLikes);
-        //dd($userData);
+        dd($userData);
 
         return view('welcome.fbresults',compact('userData','userLikes'));
 
