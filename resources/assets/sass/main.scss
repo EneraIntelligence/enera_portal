@@ -1,4 +1,16 @@
+$error: red;
+
 body {
   margin: 0px;
   padding: 0px;
 }
+
+#captcha{
+  margin: 15px;
+}
+
+#error{
+  display: none;
+  color: $error;
+}
+
