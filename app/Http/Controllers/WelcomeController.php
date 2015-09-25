@@ -4,8 +4,6 @@ namespace Portal\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Input;
-use MongoDate;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 

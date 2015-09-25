@@ -29,5 +29,6 @@ class Kernel extends HttpKernel
         'auth' => \Portal\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \Portal\Http\Middleware\RedirectIfAuthenticated::class,
+        'ajax' => \Portal\Http\Middleware\AjaxMiddleware::class,
     ];
 }
