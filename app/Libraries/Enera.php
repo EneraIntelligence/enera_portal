@@ -11,5 +11,21 @@ namespace Portal\Libraries;
 
 class Enera
 {
+//    protected $_data = ['view'];
+    protected $view;
 
+    public function __construct()
+    {
+
+    }
+
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
 }

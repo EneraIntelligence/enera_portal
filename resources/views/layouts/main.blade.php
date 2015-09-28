@@ -8,7 +8,7 @@
     {!! HTML::script(asset('js/jquery-2.1.4.min.js')) !!}
     @yield('head_scripts')
 </head>
-<body>
+<body style="background-image: url('{!! URL::asset('img/bg_welcome.jpg') !!}')">
 @yield('content')
 @yield('footer_scripts')
 </body>
