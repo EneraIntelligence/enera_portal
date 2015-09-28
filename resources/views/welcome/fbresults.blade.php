@@ -1,19 +1,16 @@
-
+<!-- view that shows the data got by de facebook button -->
 @extends('layouts.main')
 @section('head_scripts')
     <script></script>
 @stop
 @section('content')
 
-    <h1>Welcome {{$userData->getName()}}</h1>
 
-    @if($userLikes!=null)
-        <ul>
-        @foreach($userLikes as $like)
-            <li>{{$like['name']}}</li>
-        @endforeach
-        </ul>
-    @endif
+    <ul>
+    @foreach($userData['facebook']['likes'] as $like)
+        <li> {{ $like['id'] }} </li>
+    @endforeach
+    </ul>
 
 @stop
 @section('footer_scripts')

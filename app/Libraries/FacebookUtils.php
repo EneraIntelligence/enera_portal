@@ -79,7 +79,7 @@ class FacebookUtils
             return null;
         }
 
-        return $userNode;
+        return $userNode->asArray();
     }
 
     public function getUserLikes()
@@ -87,9 +87,9 @@ class FacebookUtils
         if(!$this->isUserLoggedIn())
             return null;
 
-        $userTotalLikes=[];
+        $userLikes=[];
         $currentPage = 0;
-        $userLikes=null;
+        $userPartialLikes=null;
 
         do
         {
@@ -100,11 +100,11 @@ class FacebookUtils
                 {
                     //Facebook limit on likes is 100 (24/09/2015)
                     $response = $this->fb->get('/me/likes?limit=10000');//fields=id,name
-                    $userLikes = $response->getGraphEdge();
+                    $userPartialLikes = $response->getGraphEdge();
                 }
                 else
                 {
-                    $userLikes = $this->fb->next($userLikes);
+                    $userPartialLikes = $this->fb->next($userPartialLikes);
                 }
 
             } catch(Facebook\Exceptions\FacebookResponseException $e) {
@@ -117,27 +117,29 @@ class FacebookUtils
                 return null;
             }
 
-            if(isset($userLikes))
+            if(isset($userPartialLikes))
             {
-                //fill the array of likes
-                foreach ($userLikes as $like)
+                //fill the array of likes jut with the like id
+                /*
+                foreach ($userPartialLikes as $like)
                 {
-                    $userTotalLikes[] = [
-                        'name'=>$like->asArray()['name'],
-                        'date'=>$like->asArray()['created_time']->format('Y-m-d H:i')
-                    ];
-                }
+                    $userLikes[] = $like->asArray()['id'];
+                }*/
+
+                //get all the data
+                $userLikes = array_merge($userLikes,$userPartialLikes->asArray());
 
                 $currentPage++;
 
-                if($userLikes->getNextCursor()!=null)
+                //if the 'next' cursor has something is because there are more pages with likes
+                if($userPartialLikes->getNextCursor()!=null)
                     $allLikesGot=false;
             }
 
         }while(!$allLikesGot);
 
 
-        return $userTotalLikes;
+        return $userLikes;
     }
 
 

@@ -1,4 +1,4 @@
-
+<!-- view that tests the facebook button -->
 @extends('layouts.main')
 @section('head_scripts')
     <script src="js/canvasloader.js"></script>

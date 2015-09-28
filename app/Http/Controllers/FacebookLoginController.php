@@ -7,7 +7,8 @@ use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 use URL;
 use Portal\Libraries\FacebookUtils;
-
+use Portal\User;
+use DB;
 
 class FacebookLoginController extends Controller
 {
@@ -33,18 +34,28 @@ class FacebookLoginController extends Controller
 
         if(!$fbUtils->isUserLoggedIn())
         {
-            echo "fail";
+            echo "User is not logged in";
             return "";
         }
 
-        $userData = $fbUtils->getUserData();
-        $userLikes = $fbUtils->getUserLikes();
+        $userData['facebook'] = $fbUtils->getUserData();
+        $userData['facebook']['likes'] = $fbUtils->getUserLikes();
 
-        //dd($userLikes);
-        dd($userData);
+        //dd($userData);
 
-        return view('welcome.fbresults',compact('userData','userLikes'));
+        //save user's facebook data
+        //$user = new User();
+        //dd($user);
+        //$user->save();
+        //$user->facebook()->create($userData['facebook']);
+
+        $userFBID = $userData['facebook']['id'];
+        DB::collection('users')->where('facebook.id', $userFBID)
+                    ->update($userData, array('upsert' => true));
+
+        return view('welcome.fbresults',compact('userData'));
 
     }
+
 
 }
