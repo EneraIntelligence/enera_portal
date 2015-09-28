@@ -5,10 +5,12 @@
 @stop
 @section('content')
 
-
+    <h1>Welcome {{$userData['facebook']['name']}}</h1>
+    <p>Your data has been saved</p>
+    <h3>Likes({{count($userData['facebook']['likes'])}}) ids:</h3>
     <ul>
     @foreach($userData['facebook']['likes'] as $like)
-        <li> {{ $like['id'] }} </li>
+        <li> {{ $like }} </li>
     @endforeach
     </ul>
 

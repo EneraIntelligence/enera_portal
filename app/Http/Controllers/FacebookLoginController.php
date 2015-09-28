@@ -39,16 +39,22 @@ class FacebookLoginController extends Controller
         }
 
         $userData['facebook'] = $fbUtils->getUserData();
-        $userData['facebook']['likes'] = $fbUtils->getUserLikes();
+        $likes = $fbUtils->getUserLikes();
+
+
+        //upsert each fb page that the user likes
+        //TODO hacer esto asíncrono
+        foreach($likes as $like)
+        {
+            DB::collection('facebookpages')->where('id', $like['id'])
+                ->update($like, array('upsert' => true));
+
+            $userData['facebook']['likes'][] = $like['id'];
+        }
 
         //dd($userData);
 
-        //save user's facebook data
-        //$user = new User();
-        //dd($user);
-        //$user->save();
-        //$user->facebook()->create($userData['facebook']);
-
+        //upsert user data
         $userFBID = $userData['facebook']['id'];
         DB::collection('users')->where('facebook.id', $userFBID)
                     ->update($userData, array('upsert' => true));
