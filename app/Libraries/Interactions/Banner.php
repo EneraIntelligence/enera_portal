@@ -13,5 +13,10 @@ use Portal\Libraries\Enera;
 
 class Banner extends Enera
 {
+    protected $data;
 
+    public function __construct()
+    {
+        $this->view = "interactions.banner";
+    }
 }

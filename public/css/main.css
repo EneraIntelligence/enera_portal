@@ -1,6 +1,8 @@
 body {
   margin: 0px;
-  padding: 0px; }
+  padding: 0px;
+  background-size: cover;
+  background: no-repeat fixed center center; }
 
 #captcha {
   margin: 15px; }
