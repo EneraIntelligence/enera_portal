@@ -8,5 +8,5 @@ use Jenssegers\Mongodb\Model as Model;
 
 class Device extends Model
 {
-    //
+   //
 }
