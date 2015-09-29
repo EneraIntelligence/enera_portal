@@ -24,12 +24,21 @@ Route::group(['as' => 'interaction::'], function () {
         Route::group(['prefix' => 'logs'], function () {
             Route::match(['get', 'post'], 'welcome', ['as' => 'welcome', 'uses' => 'InteractionsController@welcome']);
             Route::match(['get', 'post'], 'joined', ['as' => 'joined', 'uses' => 'InteractionsController@joined']);
+            Route::match(['get', 'post'], 'requested', ['as' => 'requested', 'uses' => 'InteractionsController@requested']);
+
         });
     });
 });
 
 /* ---- routes testing ---- */
 
-Route::get('/fblogin', ['as' => 'fb_login', 'uses' => 'FacebookLoginController@index']);
+Route::get('/fblogin', ['as'=>'fb_login', 'uses'=> 'FacebookLoginController@index']);
 
-Route::get('/fb_login_response', ['as' => 'fb_login_response', 'uses' => 'FacebookLoginController@login_response']);
+Route::get('/fb_login_response', ['as'=>'fb_login_response', 'uses'=> 'FacebookLoginController@login_response']);
+
+//Route::get('/banner/{id_campaign}', ['as' => 'step_3', 'uses' => 'InteractionsController@requested']);
+Route::get('/banner/{id_campaign}', ['as' => 'step_3', 'uses' => 'CampaignsController@prueba']);
+/*Route::get('/banner', function () {
+//    return view('/interaction/banner');
+    return redirect('/libraries/Interactions/Banner.php');
+});*/

@@ -19,13 +19,20 @@ class Enera
 
     }
 
+    /**
+     * @return mixed
+     */
     public function getView()
     {
         return $this->view;
     }
 
+    /**
+     * @return mixed
+     */
     public function getData()
     {
         return $this->data;
     }
+
 }
