@@ -15,4 +15,5 @@ elixir(function (mix) {
     mix.sass('main.scss', 'public/css/main.css');
     mix.sass('app.scss', 'public/css/app.css');
     mix.sass('welcome.scss', 'public/css/welcome.css');
+    mix.sass('captcha.scss', 'public/css/captcha.css');
 });
