@@ -13,6 +13,10 @@
 
 Route::get('/', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
 
+Route::group(['as' => 'welcome::', 'prefix' => 'welcome'], function () {
+    Route::get('response', ['as' => 'response', 'uses' => 'WelcomeController@response']);
+});
+
 Route::group(['as' => 'campaign::', 'prefix' => 'campaign'], function () {
     Route::get('/{id}', ['as' => 'show', 'uses' => 'CampaignsController@show']);
 });

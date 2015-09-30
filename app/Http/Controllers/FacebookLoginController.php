@@ -26,15 +26,14 @@ class FacebookLoginController extends Controller
 
         $loginUrl = $fbUtils->makeLoginUrl($redirectUrl);
 
-        return view('welcome.fblogin',compact('loginUrl'));
+        return view('welcome.fblogin', compact('loginUrl'));
     }
 
     public function login_response()
     {
         $fbUtils = new FacebookUtils();
 
-        if(!$fbUtils->isUserLoggedIn())
-        {
+        if (!$fbUtils->isUserLoggedIn()) {
             echo "User is not logged in";
             return "";
         }
@@ -42,11 +41,9 @@ class FacebookLoginController extends Controller
         $userData['facebook'] = $fbUtils->getUserData();
         $likes = $fbUtils->getUserLikes();
 
-
         //upsert each fb page that the user likes
         //TODO hacer esto asíncrono
-        foreach($likes as $like)
-        {
+        foreach ($likes as $like) {
             DB::collection('facebookpages')->where('id', $like['id'])
                 ->update($like, array('upsert' => true));
 
@@ -58,9 +55,9 @@ class FacebookLoginController extends Controller
         //upsert user data
         $userFBID = $userData['facebook']['id'];
         DB::collection('users')->where('facebook.id', $userFBID)
-                    ->update($userData, array('upsert' => true));
+            ->update($userData, array('upsert' => true));
 
-        return view('welcome.fbresults',compact('userData'));
+        return view('welcome.fbresults', compact('userData'));
 
     }
 
