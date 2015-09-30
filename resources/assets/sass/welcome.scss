@@ -1,4 +1,34 @@
-.conteiner {
+.welcome_conteiner {
   width: 90%;
+  margin: auto;
+  padding: 0px;
+}
+
+.logo {
+  width: 100%;
   margin: 10px auto;
+  padding: 0px;
+  text-align: center;
+}
+
+.logo img {
+  max-height: 300px;
+}
+
+.content {
+  width: 100%;
+  margin: 20px auto;
+  padding: 0px;
+  text-align: center;
+}
+
+.content span {
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+.login_fb{
+  margin: auto;
+  padding: 50px 0px 0px 0px;
+  text-align: center;
 }

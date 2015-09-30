@@ -11,6 +11,9 @@ class Campaign extends Model
     protected $fillable = ['client_id', 'name', 'branches', 'balance', 'interaction', 'filters', 'content', 'status'];
 
     // relations
-    
+    public function logs()
+    {
+        return $this->hasMany('Portal\CampaignLog');
+    }
     // end relations
 }
