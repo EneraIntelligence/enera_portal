@@ -6,8 +6,9 @@
  * Time: 10:32 AM
  */
 
-namespace Portal\Libraries\Interactions;
+namespace Portal\Libraries;
 
+use DateTime;
 use Portal\User;
 use Portal\Campaign;
 use MongoDate;
@@ -28,41 +29,20 @@ class CampaignSelector
     {
         $this->user = User::find($user_id);
         $this->campaign = $this->selector();
-        $this->age = $this->getAge();
     }
 
     private function selector()
     {
         // TODO aqui la consulta para obtener la(s) campaña(s) adecuada(s) al usuario
-        $campaing = Campaign::orderBy('balance', 'desc')->Where(function ($q)
-        {
-            $day = date('w');
-            $hours = date('H');
-            $q->whereIn('filter.week_days', [$day] )->whereIn('filter.week_hours', [$hours]);
-        })->Where(function ($q)
-        {
-            $q->whereIn('filter.age', [$this->age]);
-        })->where(function ($q)
-        {
-            $now= date('Y-m-d',time());
-            $DateBegin = date('Y-m-d', $this->user->filter['date']['start']->sec);
-            $DateEnd = date('Y-m-d', $this->user->filter['date']['end']->sec);
-
-            $q->where($now, '>' ,$DateBegin)->where($now, '<', $DateEnd);
-
-        })->whereIn('filter.gender', [$this->user->facebook['gender']])->where('status', 'active')->get();
-        return $campaing;
-    }
-
-    private function getAge(){
-        $fb_birthday = explode("-",date("Y-m-d", $this->user->facebook['birthday']['date']));
-        $date_now = explode("-",date("Y-m-d"));
-
-        $age = $date_now[0]-$fb_birthday[0];
-        if($date_now[1]<=$fb_birthday[1] and $date_now[2]<=$fb_birthday[2]){
-            $age = $age - 1;
-        }
-         return $age;
-
+        $fb_date = explode('-',$this->user['facebook']['birthday']['date']);
+        $birthday = new DateTime($fb_date[0].'-'.$fb_date[1].'-'.$fb_date[2]);
+        $campaign =  Campaign::whereIn('filter.age',[$birthday->diff(new DateTime(date('Y-m-d')))])
+            ->where( 'filter.date.start', '>', new DateTime(date('Y-m-d')))
+            ->where( 'filter.date.end','<', new DateTime(date('Y-m-d')))
+            ->whereIn('filter.week_days',[date('w')])->whereIn('filter.day_hours', [date('h')])
+            ->whereIn('filter.gender', [$this->user['facebook']['gender']])->where('status', 'active')
+            ->orderBy('balance', 'desc')
+            ->get();
+        return $campaign;
     }
 }

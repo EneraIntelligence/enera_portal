@@ -2,8 +2,6 @@
 $black: #000;
 $red: red;
 
-// Type
-$error: $red;
 
 body {
   margin: 0px;
@@ -16,14 +14,5 @@ body {
 #portal_content {
   width: 100%;
   padding: 10px;
-}
-
-#captcha {
-  margin: 15px;
-}
-
-#error {
-  display: none;
-  color: $error;
 }
 

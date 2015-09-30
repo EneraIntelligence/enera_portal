@@ -1,0 +1,11 @@
+// Type
+$error: red;
+
+#captcha {
+  margin: 15px;
+}
+
+#error {
+  display: none;
+  color: $error;
+}
