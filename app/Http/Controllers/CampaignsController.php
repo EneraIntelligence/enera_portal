@@ -7,6 +7,7 @@ use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 use Portal\Libraries\CampaignSelector;
 use Portal\Libraries\Interactions\Banner;
+use Portal\Libraries\Interactions\MailingList;
 
 class CampaignsController extends Controller
 {
@@ -33,5 +34,13 @@ class CampaignsController extends Controller
         return view($vista, ['data' => $banner->getData()]);
 
 
+    }
+
+    public function pruebaMailing()
+    {
+        $mailing = new MailingList('55c10856a8269769ac822f9a');
+        $mailing->getData();
+        $view=$mailing->getView();
+        return view($view, ['data' => $mailing->getData()]);
     }
 }

@@ -38,6 +38,7 @@ Route::get('/fb_login_response', ['as'=>'fb_login_response', 'uses'=> 'FacebookL
 
 //Route::get('/banner/{id_campaign}', ['as' => 'step_3', 'uses' => 'InteractionsController@requested']);
 Route::get('/banner/{id_campaign}', ['as' => 'step_3', 'uses' => 'CampaignsController@prueba']);
+Route::get('/mailing/{id_campaign}', ['as' => 'mailing', 'uses' => 'CampaignsController@pruebaMailing']);
 /*Route::get('/banner', function () {
 //    return view('/interaction/banner');
     return redirect('/libraries/Interactions/Banner.php');
