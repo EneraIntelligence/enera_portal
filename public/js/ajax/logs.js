@@ -1,30 +1,31 @@
 var logs;
 logs = function () {
 
-    this.welcome = function welcome() {
+    this.welcome = function welcome(paso) {
 
     }
 
-    this.joined = function joined() {
+    this.joined = function joined(paso) {
 
     }
 
-    this.requested = function requested() {
+    this.requested = function requested(paso) {
 
     }
 
-    this.loaded = function loaded() {
+    this.loaded = function loaded(token,paso) {
         console.log('cargado');
-        //ajax(data);
+        console.log(paso);
+        ajax(token,paso);
     }
 
-    this.completed = function metodoCompleted(link) {
+    this.completed = function metodoCompleted(token,link,paso) {
         console.log('presiono boton navegar');
 
-        //ajax(data);
+        ajax(token,paso);
         //ajax('request', 'http://www.enera.mx');
         //cuando termina el ajax
-        redirectOut(link)
+        //redirectOut(link)
     }
 
 
@@ -32,17 +33,18 @@ logs = function () {
         window.location.href = url;
     }
 
-    function ajax(data) {
+    function ajax(token,paso) {
         var request;
         request = $.ajax({
-            url: '/requested',
+            url: '/interaction/logs/'+paso,
             type: 'POST',
             dataType: 'JSON',
-            data: {_token: '{!! csrf_token() !!}', link: "{{ $data['link']}}", body: 'body', valor3: 'valor3'}
+            data: {_token:token,entro:'entro' }
         });
         request.done(function (data) {
             console.log("success");
             console.log(data);
+
             //window.location.href ='http://www.enera.mx'
             //redirectOut(url);
         })

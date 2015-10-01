@@ -29,7 +29,8 @@ Route::group(['as' => 'interaction::'], function () {
             Route::match(['get', 'post'], 'welcome', ['as' => 'welcome', 'uses' => 'InteractionsController@welcome']);
             Route::match(['get', 'post'], 'joined', ['as' => 'joined', 'uses' => 'InteractionsController@joined']);
             Route::match(['get', 'post'], 'requested', ['as' => 'requested', 'uses' => 'InteractionsController@requested']);
-
+            Route::match(['get', 'post'], 'loaded', ['as' => 'loaded', 'uses' => 'InteractionsController@loaded']);
+            Route::match(['get', 'post'], 'completed', ['as' => 'completed', 'uses' => 'InteractionsController@completed']);
         });
     });
 });
@@ -43,7 +44,4 @@ Route::get('/fb_login_response', ['as'=>'fb_login_response', 'uses'=> 'FacebookL
 //Route::get('/banner/{id_campaign}', ['as' => 'step_3', 'uses' => 'InteractionsController@requested']);
 Route::get('/banner/{id_campaign}', ['as' => 'step_3', 'uses' => 'CampaignsController@prueba']);
 Route::get('/mailing/{id_campaign}', ['as' => 'mailing', 'uses' => 'CampaignsController@pruebaMailing']);
-/*Route::get('/banner', function () {
-//    return view('/interaction/banner');
-    return redirect('/libraries/Interactions/Banner.php');
-});*/
+
