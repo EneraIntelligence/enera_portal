@@ -6,17 +6,16 @@
 
 @section('content')
     <div id="captcha">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <img src="{{asset('img/'. $cover)}}" alt="Enera Portal" style="width: 100%;">
 
             <form action="#">
                 <input id="captcha-value" type="text" name="Captcha" style="width: 100%;"><br>
             </form>
             <div id="error">Respuesta invalida</div>
-            <button class="btn btn-primary" style="margin: 5px;">Check</button>
+            <button class="btn btn-primary btn-lg" style="margin: 5px;">Check</button>
         </div>
     </div>
-    <?php dd($c) ?>
 @endsection
 
 @section('footer_scripts')

@@ -115,12 +115,7 @@ class WelcomeController extends Controller
         return view('welcome.fbresults', compact('userData'));
     }
 
-    public function captcha()
-    {
-        $campaign = Campaign::find('55f6ee95a8265d9826c506cc');
-        $c = new CampaignSelector('5609b6ca1065d14cbccedd28');
-        return view('welcome.captcha', ['captcha' => $campaign->content['captcha'], 'cover' => $campaign->content['cover_path'], 'c' => $c]);
-    }
+
 
     /**
      * Muestra la pantalla de red invalida
