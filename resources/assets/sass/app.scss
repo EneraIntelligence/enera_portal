@@ -9,3 +9,14 @@
   margin: 0 5%;
   width: 90%;
 }
+
+@media screen and (orientation: portrait)
+{
+  .img-landscape { display:none !important; }
+  .img-portrait { display:block !important; }
+}
+@media screen and (orientation: landscape)
+{
+  .img-landscape { display:block !important; }
+  .img-portrait { display:none !important; }
+}
