@@ -5,11 +5,11 @@
         <div class="center-block">
             <img class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}" alt="Enera Portal">
         </div>
-        <div class="bottom-container">
-            <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
-                internet
-            </button>
-        </div>
+    </div>
+    <div class="bottom-container">
+        <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
+            internet
+        </button>
     </div>
 
 @stop
@@ -30,15 +30,11 @@
 
             myLog.loaded(_token,'loaded');
 
-
             $("#navegar").click(function () {
                 console.log('click en el boton');
                 myLog.completed(_token,link,'completed');
             });
-
-
         });
-
     </script>
     <script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/logs.js') }}"></script>
 @stop
