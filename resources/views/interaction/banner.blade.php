@@ -16,21 +16,24 @@
     <script>
         $(document).ready(function () {
             //var elArray = new Array();
-            var elArray = "{{ json_encode($data) }}";
-            var arr = JSON.parse(elArray);
-            console.log(arr[0]);
-            var myLog = new logAjax;
+            //var elArray = "{{ json_encode($data) }}";
+            var link = "{{$data['link']}}";
+            //var arr = JSON.parse(elArray);
+            console.log(link);
+            var myLog = new logs();
             console.log("ready!");
 
-            {{--console.log({{$data}});--}}
-            {{--myLog.loaded({{$data}});--}}
+            myLog.loaded();
 
-            $("#navegar").click(function() {
-//                myLog.completed(data);
-
-
+            $("#navegar").click(function()
+            {
+                myLog.completed(link);
             });
+
+
+
         });
+
     </script>
-    <script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/logAjax.js') }}" ></script>
+    <script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/logs.js') }}" ></script>
 @stop

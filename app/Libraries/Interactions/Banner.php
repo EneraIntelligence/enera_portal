@@ -40,7 +40,7 @@ class Banner extends Enera
 
         $this->data['imagen'] = $contenido['imagen'];
         $this->data['link'] = $contenido['link'];*/
-//        $this->data['link'] = 'www.enera.mx';
+        $this->data['link'] = 'www.enera.mx';
         $this->data['imagen'] = 'enera_logo.png';
         $this->data['idcamp'] = '12345';
 

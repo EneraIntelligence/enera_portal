@@ -1,5 +1,5 @@
-var logAjax;
-logAjax = function () {
+var logs;
+logs = function () {
 
     this.welcome = function welcome() {
 
@@ -13,17 +13,18 @@ logAjax = function () {
 
     }
 
-    this.loaded = function loaded(data) {
+    this.loaded = function loaded() {
         console.log('cargado');
-        console.log(data);
         //ajax(data);
     }
 
-    this.completed = function metodoCompleted(data) {
+    this.completed = function metodoCompleted(link) {
         console.log('presiono boton navegar');
-        console.log(data);
+
         //ajax(data);
         //ajax('request', 'http://www.enera.mx');
+        //cuando termina el ajax
+        redirectOut(link)
     }
 
 
