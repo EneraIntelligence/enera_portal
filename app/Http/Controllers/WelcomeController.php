@@ -12,6 +12,7 @@ use Portal\Branche;
 use Portal\CampaignLog;
 use Portal\Campaign;
 use Portal\Http\Requests;
+use Portal\Jobs\FbLikesJob;
 use Portal\Libraries\CampaignSelector;
 use Portal\Http\Controllers\Controller;
 use Portal\Libraries\FacebookUtils;
@@ -100,23 +101,14 @@ class WelcomeController extends Controller
         $userData['facebook'] = $this->fbUtils->getUserData();
         $likes = $this->fbUtils->getUserLikes();
 
-        //upsert each fb page that the user likes
-        //TODO hacer esto asíncrono
-        foreach ($likes as $like) {
-            DB::collection('facebookpages')->where('id', $like['id'])
-                ->update($like, array('upsert' => true));
-
-            $userData['facebook']['likes'][] = $like['id'];
-        }
-
-        //dd($userData);
-
         //upsert user data
         $userFBID = $userData['facebook']['id'];
         DB::collection('users')->where('facebook.id', $userFBID)
             ->update($userData, array('upsert' => true));
 
-        return view('welcome.fbresults', compact('userData'));
+        $this->dispatch(new FbLikesJob($likes, $userFBID));
+
+        return 'done';
     }
 
 

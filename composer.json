@@ -10,7 +10,8 @@
         "barryvdh/laravel-ide-helper": "^2.1",
         "jenssegers/mongodb": "^2.1",
         "facebook/php-sdk-v4" : "~5.0",
-        "laravelcollective/html": "5.1.*"
+        "laravelcollective/html": "5.1.*",
+        "pda/pheanstalk": "~3.0"
     },
     "repositories": [
         {
