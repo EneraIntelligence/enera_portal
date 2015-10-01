@@ -7,6 +7,7 @@
         </div>
         <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en internet</button>
     </div>
+    {{var_dump($data)}}
 
 @stop
 
@@ -14,16 +15,22 @@
 
     <script>
         $(document).ready(function () {
+            //var elArray = new Array();
+            var elArray = "{{ json_encode($data) }}";
+            var arr = JSON.parse(elArray);
+            console.log(arr[0]);
+            var myLog = new logAjax;
             console.log("ready!");
 
+            {{--console.log({{$data}});--}}
+            {{--myLog.loaded({{$data}});--}}
+
             $("#navegar").click(function() {
-                var url= $("#navegar").attr('data');
-                url="http://www.";
-                console.log(url);
-                window.location.href = url;
-                url: "{!! URL::route('campaign_loaded') !!}",
+//                myLog.completed(data);
+
+
             });
         });
     </script>
-    {{--<script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/bannerAjax.js') }}" ></script>--}}
+    <script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/logAjax.js') }}" ></script>
 @stop

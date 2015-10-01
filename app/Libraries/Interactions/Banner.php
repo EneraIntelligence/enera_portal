@@ -15,12 +15,18 @@ use Portal\Campaign;
 class Banner extends Enera
 {
     protected $data;
-    var $id_campaign = '55c10856a8269769ac822f9a';
+//    var $id_campaign = '55c10856a8269769ac822f9a';
+    var $campaign;
 
-    public function __construct($id_camp)
+    /**
+     * Banner constructor.
+     * @param $campaña
+     */
+    public function __construct($campaña)
     {
         $this->view = "/interaction/banner";
-        $this->id_campaign = $id_camp;
+        $this->campaign = $campaña;
+        var_dump($this->campaign);
     }
 
     /**
@@ -29,13 +35,17 @@ class Banner extends Enera
     public function getData()
     {
 
-        $users = Campaign::where('_id', $this->id_campaign)->first();
+        /*$users = Campaign::where('_id', $this->id_campaign)->first();
         $contenido = $users->content;
-//               $contenido = $users['content'];
-        $this->data['imagen'] = $contenido['imagen'];
-        $this->data['link'] = $contenido['link'];
-//        var_dump($this->data);
 
+        $this->data['imagen'] = $contenido['imagen'];
+        $this->data['link'] = $contenido['link'];*/
+//        $this->data['link'] = 'www.enera.mx';
+        $this->data['imagen'] = 'enera_logo.png';
+        $this->data['idcamp'] = '12345';
+
+//        var_dump($this->data);
+//               $contenido = $users['content'];
         return $this->data;
 
     }
