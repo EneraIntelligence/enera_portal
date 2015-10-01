@@ -14,28 +14,19 @@ use Portal\Campaign;
 class MailingList extends Enera
 {
     protected $data;
-    var $id_campaign = '55c10856a8269769ac822f9a';
+    protected $campaign;
 
-    public function __construct($id_camp)
+    public function __construct(Campaign $campaignData)
     {
         $this->view = "/interaction/mailingList";
-        $this->id_campaign = $id_camp;
+        $this->campaign = $campaignData;
     }
 
     /**
-     *
+     * return data array to populate view
      */
     public function getData()
     {
-
-        $users = Campaign::where('_id', $this->id_campaign)->first();
-        $contenido = $users->content;
-//               $contenido = $users['content'];
-        $this->data['imagen'] = $contenido['imagen'];
-        $this->data['link'] = $contenido['link'];
-//        var_dump($this->data);
-
-        return $this->data;
-
+        return $this->campaign->content;
     }
 }

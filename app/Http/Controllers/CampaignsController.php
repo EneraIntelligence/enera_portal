@@ -31,7 +31,7 @@ class CampaignsController extends Controller
 
         //dd($campaignData);
 
-        $campaignType = "Portal\\Libraries\\Interactions\\" . ucfirst($campaignSelected->interaction['name']);
+        $campaignType = "Portal\\Libraries\\Interactions\\" . studly_case($campaignSelected->interaction['name']);
         $interaction = new $campaignType($campaignSelected);
 
         return view($interaction->getView(), [

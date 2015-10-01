@@ -27,27 +27,32 @@
 
     <script>
 
-        $(function(){
-            //jquery is loaded
+        $(document).ready(function ()
+        {
+            var link = "{!! $data['link'] !!}";
+            var idCamp = "{!! $id !!}";
 
-            //setup clicks
-            $("#subscribe").click(subscribe);
-            $("#navigate").click(navigate);
+            console.log("id campaña: "+idCamp);
+            console.log("link: "+link);
+
+            var myLog = new logs();
+            console.log("ready!");
+            myLog.loaded();
+
+
+            $("#subscribe").click(function()
+            {
+                myLog.completed(link);
+            });
+
+            $("#navigate").click(function()
+            {
+                myLog.completed(link);
+            });
+
+
 
         });
-
-        function subscribe()
-        {
-            console.log("suscribiendo...");
-
-            //al terminar de suscribir dar acceso a internet
-            navigate();
-        }
-
-        function navigate()
-        {
-            console.log("usa el internet");
-        }
 
     </script>
 
