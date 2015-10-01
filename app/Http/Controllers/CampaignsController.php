@@ -8,6 +8,7 @@ use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 use Portal\Libraries\CampaignSelector;
 use Portal\Libraries\Interactions\Banner;
+use Portal\Libraries\Interactions\Captcha;
 use Portal\Libraries\Interactions\MailingList;
 
 class CampaignsController extends Controller
@@ -44,6 +45,9 @@ class CampaignsController extends Controller
             case "mailinglist":
                 $interaction = new MailingList($campaignData);
                 break;
+            case "captcha":
+                $interaction = new Captcha($campaignData);
+                 break;
         }
 
         return view($interaction->getView(), ['data' => $interaction->getData()]);
@@ -73,11 +77,11 @@ class CampaignsController extends Controller
 
 //    public function captcha()
 //    {
-////        $camp = new CampaignSelector();
-//        $banner = new Captcha('55c10856a8269769ac822f9a');
-//        $banner->getData();
-//        $vista=$banner->getView();
-//        return view($vista, ['data' => $banner->getData()]);
+//        $camp = new CampaignSelector('5609b6ca1065d14cbccedd28');
+//        $banner = new Captcha('55f6ee95a8265d9826c506cc');
+////        $camp->getData();
+////        $vista=$camp->getView();
+//        return view($vista, ['data' => $camp->getData()]);
 //
 //
 //    }
