@@ -25,7 +25,7 @@ class CampaignsController extends Controller
         $campaignIndex = rand(0, $numCampaigns - 1);
 
         //eliminar esto de abajo
-        $campaignIndex = 2;
+        $campaignIndex = 3;
 
         $campaignSelected = $campaigns->campaign[$campaignIndex];
 

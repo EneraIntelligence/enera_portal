@@ -15,7 +15,9 @@ class FacebookUtils
     {
         if(!$this->fb)
         {
-            session_start();
+            if(!isset($_SESSION)){
+                session_start();
+            }
             $this->fb = new Facebook\Facebook([
                 'app_id' => '498129860361530',
                 'app_secret' => '60e173239b26b4c070785f31318b3e94',

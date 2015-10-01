@@ -5,22 +5,24 @@
     <div class="center-block container">
 
         <!-- banner -->
-        <img class="img-responsive center-block" style="max-height:80%"
+        <img class="img-responsive center-block"
              src="{{asset('img').'/'.$data['imagen'] }}"
              alt="Enera Portal">
 
-        <div class="bottom-container">
-            <!-- subscribe button -->
-            <button id="subscribe" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}">
-                Deseo suscribirme
-            </button>
+    </div>
 
-            <!-- navigate button -->
+    <div class="bottom-container">
+        <!-- subscribe button -->
+        <button id="subscribe" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}">
+            Deseo suscribirme
+        </button>
+
+        <!-- navigate button -->
+        <div style="margin: 10px 0;">
             <a id="navigate" href="#" data="{{$data['link']}}">
                 <p class="text-center">Navegar en internet</p>
             </a>
         </div>
-
     </div>
 
 @stop
