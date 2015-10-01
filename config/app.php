@@ -148,7 +148,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-//        Darsain\Console\ConsoleServiceProvider::class,
+        Darsain\Console\ConsoleServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
     ],
