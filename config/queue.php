@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_DRIVER', 'sync'),
+    'default' => env('QUEUE_DRIVER', 'beanstalkd'),
 
     /*
     |--------------------------------------------------------------------------
@@ -87,7 +87,7 @@ return [
     */
 
     'failed' => [
-        'database' => 'mysql', 'table' => 'failed_jobs',
+        'database' => 'enera_db', 'table' => 'failed_jobs',
     ],
 
 ];
