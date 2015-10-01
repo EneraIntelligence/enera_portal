@@ -7,6 +7,7 @@
         <!-- banner -->
         <img class="img-responsive center-block"
              src="{{asset('img').'/'.$data['imagen'] }}"
+             id="banner-img"
              alt="Enera Portal">
 
     </div>
@@ -33,6 +34,9 @@
 
         $(document).ready(function ()
         {
+
+            resize();
+
             var link = "{!! $data['link'] !!}";
             var idCamp = "{!! $id !!}";
 
@@ -55,8 +59,27 @@
             });
 
 
-
         });
+
+
+        $(function(){
+            resize();
+        });
+
+        $( window ).resize(resize);
+
+        function resize() {
+            var bannerImg = $( "#banner-img" );
+            bannerImg.height('auto');
+            var imgHeight = bannerImg.height();
+
+            var bottomHeight = $( ".bottom-container" ).height();
+            var windowHeight = $( window ).height();
+            if(imgHeight>windowHeight-bottomHeight)
+            {
+                bannerImg.height(windowHeight-bottomHeight);
+            }
+        }
 
     </script>
 
