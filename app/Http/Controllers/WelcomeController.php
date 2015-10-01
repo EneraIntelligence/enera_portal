@@ -59,14 +59,16 @@ class WelcomeController extends Controller
                     'node_mac' => Input::get('node_mac')
                 ]);
                 // Paso 1: Welcome log
-                DB::collection('campaign_logs')->where('user.session', session('_token'))
+                DB::collection('campaign_logs')
+                    ->where('user.session', session('_token'))
+                    ->where('device.mac', Input::get('client_mac'))
                     ->where('interaction.welcome', 'exists', false)
                     ->update([
                         'user' => [
                             'session' => session('_token')
                         ],
                         'device' => [
-                            'mac' => Input::get('node_mac')
+                            'mac' => Input::get('client_mac')
                         ],
                         'interaction' => [
                             'welcome' => new MongoDate()
