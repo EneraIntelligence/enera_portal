@@ -8,26 +8,29 @@
 
 namespace Portal\Libraries\Interactions;
 
-
 use Portal\Libraries\Enera;
 use Portal\Campaign;
 
 class Banner extends Enera
 {
     protected $data;
-//    var $id_campaign = '55c10856a8269769ac822f9a';
-    var $campaign;
+    // $id_campaign = '55c10856a8269769ac822f9a';
+    protected $campaign;
 
     /**
      * Banner constructor.
-     * @param $campaign
+     * @param Campaign $campaign
      */
-    public function __construct($campaign)
+    public function __construct(Campaign $campaign)
     {
-
         $this->view = "/interaction/banner";
         $this->campaign = $campaign;
         //var_dump($this->campaign);
+    }
+
+    public function getLink()
+    {
+        return $this->campaign->content['link'];
     }
 
     /**
@@ -35,23 +38,7 @@ class Banner extends Enera
      */
     public function getData()
     {
-
-        /*$users = Campaign::where('_id', $this->id_campaign)->first();
-        $contenido = $users->content;
-
-        $this->data['imagen'] = $contenido['imagen'];
-        $this->data['link'] = $contenido['link'];*/
-        $this->data['link'] = $this->campaign['content']['link'];
-        $this->data['imagen'] = $this->campaign['content']['imagen'];
-        $this->data['idcamp'] = $this->campaign['_id'];;
-
-//        var_dump($this->data);
-//               $contenido = $users['content'];
-        return $this->data;
-
+        return $this->campaign->content;
     }
-
-
-
 
 }

@@ -7,9 +7,6 @@ use Portal\Campaign;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 use Portal\Libraries\CampaignSelector;
-use Portal\Libraries\Interactions\Banner;
-use Portal\Libraries\Interactions\Captcha;
-use Portal\Libraries\Interactions\MailingList;
 
 class CampaignsController extends Controller
 {
@@ -25,32 +22,22 @@ class CampaignsController extends Controller
 
         $numCampaigns = count($campaigns);
 
-        $campaignIndex = rand ( 0 , $numCampaigns-1 );
+        $campaignIndex = rand(0, $numCampaigns - 1);
 
         //eliminar esto de abajo
-        $campaignIndex=2;
+        $campaignIndex = 2;
 
-        $campaignType = $campaigns->campaign[$campaignIndex]->interaction['name'];
-        $campaignType = strtolower($campaignType);
-        $campaignData = $campaigns->campaign[$campaignIndex]['original'];
+        $campaignSelected = $campaigns->campaign[$campaignIndex];
 
         //dd($campaignData);
 
-        $interaction=null;
-        switch($campaignType)
-        {
-            case "banner":
-                $interaction = new Banner($campaignData);
-                break;
-            case "mailinglist":
-                $interaction = new MailingList($campaignData);
-                break;
-            case "captcha":
-                $interaction = new Captcha($campaignData);
-                 break;
-        }
+        $campaignType = "Portal\\Libraries\\Interactions\\" . ucfirst($campaignSelected->interaction['name']);
+        $interaction = new $campaignType($campaignSelected);
 
-        return view($interaction->getView(), ['data' => $interaction->getData()]);
+        return view($interaction->getView(), [
+            'id' => $campaignSelected->_id,
+            'data' => $interaction->getData()
+        ]);
 
     }
 
@@ -61,7 +48,7 @@ class CampaignsController extends Controller
     {
         $banner = new Banner('55c10856a8269769ac822f9a');
         $banner->getData();
-        $vista=$banner->getView();
+        $vista = $banner->getView();
         return view($vista, ['data' => $banner->getData()]);
 
 
@@ -71,7 +58,7 @@ class CampaignsController extends Controller
     {
         $mailing = new MailingList('55c10856a8269769ac822f9a');
         $mailing->getData();
-        $view=$mailing->getView();
+        $view = $mailing->getView();
         return view($view, ['data' => $mailing->getData()]);
     }
 

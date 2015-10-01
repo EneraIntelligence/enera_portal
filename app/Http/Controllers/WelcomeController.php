@@ -58,23 +58,25 @@ class WelcomeController extends Controller
                 $url = route('welcome::response', [
                     'node_mac' => Input::get('node_mac')
                 ]);
-                $camplog = new CampaignLog([
-                    'user' => [
-                        'session' => session('_token')
-                    ],
-                    'device' => [
-                        'mac' => Input::get('node_mac')
-                    ],
-                    'interaction' => [
-                        'welcome' => new MongoDate()
-                    ]
-                ]);
-                $camplog->save();
+                // Paso 1: Welcome log
+                DB::collection('campaign_logs')->where('user.session', session('_token'))
+                    ->where('interaction.welcome', 'exists', false)
+                    ->update([
+                        'user' => [
+                            'session' => session('_token')
+                        ],
+                        'device' => [
+                            'mac' => Input::get('node_mac')
+                        ],
+                        'interaction' => [
+                            'welcome' => new MongoDate()
+                        ]
+                    ], array('upsert' => true));
+
                 return view('welcome.index', [
                     'image' => $branche->portal['image'],
                     'message' => $branche->portal['message'],
                     'login_response' => $this->fbUtils->makeLoginUrl($url),
-
                 ]);
             }
         }
@@ -114,7 +116,6 @@ class WelcomeController extends Controller
 
         return view('welcome.fbresults', compact('userData'));
     }
-
 
 
     /**
