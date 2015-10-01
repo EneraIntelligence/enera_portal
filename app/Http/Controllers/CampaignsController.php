@@ -14,12 +14,39 @@ class CampaignsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int $user_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id)
     {
-        //
+        $campaigns = new CampaignSelector($user_id);
+
+        $numCampaigns = count($campaigns);
+
+        $campaignIndex = rand ( 0 , $numCampaigns-1 );
+
+        //eliminar esto de abajo
+        $campaignIndex=2;
+
+        $campaignType = $campaigns->campaign[$campaignIndex]->interaction['name'];
+        $campaignType = strtolower($campaignType);
+        $campaignData = $campaigns->campaign[$campaignIndex]['original'];
+
+        //dd($campaignData);
+
+        $interaction=null;
+        switch($campaignType)
+        {
+            case "banner":
+                $interaction = new Banner($campaignData);
+                break;
+            case "mailinglist":
+                $interaction = new MailingList($campaignData);
+                break;
+        }
+
+        return view($interaction->getView(), ['data' => $interaction->getData()]);
+
     }
 
     /**
@@ -27,7 +54,6 @@ class CampaignsController extends Controller
      */
     public function prueba()
     {
-//        $camp = new CampaignSelector();
         $banner = new Banner('55c10856a8269769ac822f9a');
         $banner->getData();
         $vista=$banner->getView();

@@ -7,7 +7,6 @@
         </div>
         <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en internet</button>
     </div>
-    {{var_dump($data)}}
 
 @stop
 
@@ -18,6 +17,8 @@
             //var elArray = new Array();
             //var elArray = "{{ json_encode($data) }}";
             var link = "{{$data['link']}}";
+            var idCamp = "{{$data['idcamp']}}";
+            console.log("id campaña: "+idCamp);
             //var arr = JSON.parse(elArray);
             console.log(link);
             var myLog = new logs();

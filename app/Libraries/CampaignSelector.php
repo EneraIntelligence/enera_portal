@@ -19,7 +19,7 @@ use Portal\Libraries\Interactions;
 class CampaignSelector
 {
     protected $user;
-    protected $campaign;
+    public $campaign;
 
     /**
      * CampaignSelector constructor.
@@ -29,6 +29,7 @@ class CampaignSelector
     {
         $this->user = User::find($user_id);
         $this->campaign = $this->selector();
+
     }
 
     private function selector()
@@ -43,6 +44,8 @@ class CampaignSelector
             ->whereIn('filter.gender', [$this->user['facebook']['gender']])->where('status', 'active')
             ->orderBy('balance', 'desc')
             ->get();
+
+        $campaign =  Campaign::all();
         return $campaign;
     }
 }

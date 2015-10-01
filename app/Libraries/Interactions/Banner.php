@@ -20,13 +20,14 @@ class Banner extends Enera
 
     /**
      * Banner constructor.
-     * @param $campaña
+     * @param $campaign
      */
-    public function __construct($campaña)
+    public function __construct($campaign)
     {
+
         $this->view = "/interaction/banner";
-        $this->campaign = $campaña;
-        var_dump($this->campaign);
+        $this->campaign = $campaign;
+        //var_dump($this->campaign);
     }
 
     /**
@@ -40,9 +41,9 @@ class Banner extends Enera
 
         $this->data['imagen'] = $contenido['imagen'];
         $this->data['link'] = $contenido['link'];*/
-        $this->data['link'] = 'www.enera.mx';
-        $this->data['imagen'] = 'enera_logo.png';
-        $this->data['idcamp'] = '12345';
+        $this->data['link'] = $this->campaign['content']['link'];
+        $this->data['imagen'] = $this->campaign['content']['imagen'];
+        $this->data['idcamp'] = $this->campaign['_id'];;
 
 //        var_dump($this->data);
 //               $contenido = $users['content'];
