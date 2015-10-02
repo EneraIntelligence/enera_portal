@@ -10,7 +10,7 @@
 @section('content')
     <div class="welcome_conteiner">
         <div class="logo">
-            <img src="{!! asset('img/'.$image) !!}">
+            <img src="{!! asset('img/'.$image) !!}" >
         </div>
         <div class="content">
             <span>
