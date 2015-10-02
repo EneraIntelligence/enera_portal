@@ -13,14 +13,13 @@ class FacebookUtils
 
     public function __construct()
     {
-        if(!$this->fb)
-        {
-            if(!isset($_SESSION)){
+        if (!$this->fb) {
+            if (!isset($_SESSION)) {
                 session_start();
             }
             $this->fb = new Facebook\Facebook([
-                'app_id' => '498129860361530',
-                'app_secret' => '60e173239b26b4c070785f31318b3e94',
+                'app_id' => env('FB_APP_ID', '498129860361530'),
+                'app_secret' => env('FB_APP_SECRET', '60e173239b26b4c070785f31318b3e94'),
                 'default_graph_version' => 'v2.2',
             ]);
         }
@@ -38,11 +37,10 @@ class FacebookUtils
 
     public function isUserLoggedIn()
     {
-        if(isset($this->accessToken))
+        if (isset($this->accessToken))
             return true;
 
-        if(!isset($this->helper))
-        {
+        if (!isset($this->helper)) {
             $this->helper = $this->fb->getRedirectLoginHelper();
         }
 
@@ -50,11 +48,11 @@ class FacebookUtils
             $this->accessToken = $this->helper->getAccessToken();
             $this->fb->setDefaultAccessToken($this->accessToken);
             return true;
-        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
             // When Graph returns an error
             echo 'Graph returned an error: ' . $e->getMessage();
             return false;
-        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
             // When validation fails or other local issues
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
             return false;
@@ -65,17 +63,17 @@ class FacebookUtils
 
     public function getUserData()
     {
-        if(!$this->isUserLoggedIn())
+        if (!$this->isUserLoggedIn())
             return null;
 
         try {
             $response = $this->fb->get('/me');
             $userNode = $response->getGraphUser();
-        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
             // When Graph returns an error
             echo 'Graph returned an error: ' . $e->getMessage();
             return null;
-        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
             // When validation fails or other local issues
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
             return null;
@@ -86,41 +84,36 @@ class FacebookUtils
 
     public function getUserLikes()
     {
-        if(!$this->isUserLoggedIn())
+        if (!$this->isUserLoggedIn())
             return null;
 
-        $userLikes=[];
+        $userLikes = [];
         $currentPage = 0;
-        $userPartialLikes=null;
+        $userPartialLikes = null;
 
-        do
-        {
-            $allLikesGot=true;
+        do {
+            $allLikesGot = true;
 
             try {
-                if($currentPage==0)
-                {
+                if ($currentPage == 0) {
                     //Facebook limit on likes is 100 (24/09/2015)
                     $response = $this->fb->get('/me/likes?limit=10000');//fields=id,name
                     $userPartialLikes = $response->getGraphEdge();
-                }
-                else
-                {
+                } else {
                     $userPartialLikes = $this->fb->next($userPartialLikes);
                 }
 
-            } catch(Facebook\Exceptions\FacebookResponseException $e) {
+            } catch (Facebook\Exceptions\FacebookResponseException $e) {
                 // When Graph returns an error
                 echo 'Graph returned an error: ' . $e->getMessage();
                 return null;
-            } catch(Facebook\Exceptions\FacebookSDKException $e) {
+            } catch (Facebook\Exceptions\FacebookSDKException $e) {
                 // When validation fails or other local issues
                 echo 'Facebook SDK returned an error: ' . $e->getMessage();
                 return null;
             }
 
-            if(isset($userPartialLikes))
-            {
+            if (isset($userPartialLikes)) {
                 //fill the array of likes jut with the like id
                 /*
                 foreach ($userPartialLikes as $like)
@@ -129,16 +122,16 @@ class FacebookUtils
                 }*/
 
                 //get all the data
-                $userLikes = array_merge($userLikes,$userPartialLikes->asArray());
+                $userLikes = array_merge($userLikes, $userPartialLikes->asArray());
 
                 $currentPage++;
 
                 //if the 'next' cursor has something is because there are more pages with likes
-                if($userPartialLikes->getNextCursor()!=null)
-                    $allLikesGot=false;
+                if ($userPartialLikes->getNextCursor() != null)
+                    $allLikesGot = false;
             }
 
-        }while(!$allLikesGot);
+        } while (!$allLikesGot);
 
 
         return $userLikes;
