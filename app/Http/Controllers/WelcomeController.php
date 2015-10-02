@@ -73,7 +73,8 @@ class WelcomeController extends Controller
                         ],
                         'interaction' => [
                             'welcome' => new MongoDate()
-                        ]
+                        ],
+                        'created_at' => new MongoDate()
                     ], array('upsert' => true));
 
                 return view('welcome.index', [
