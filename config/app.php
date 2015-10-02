@@ -149,7 +149,6 @@ return [
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Darsain\Console\ConsoleServiceProvider::class,
 
     ],
 
