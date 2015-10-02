@@ -46,7 +46,8 @@ class CampaignSelector
             ->orderBy('balance', 'desc')
             ->get();
 
-       $campaign = $birthday->diff(new DateTime(date('Y-m-d')));
+//       $campaign = $birthday->diff(new DateTime(date('Y-m-d')));
+        $campaign = Campaign::first()->get();
         return $campaign;
     }
 }

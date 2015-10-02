@@ -36,5 +36,5 @@
             });
         });
     </script>
-    <script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/logs.js') }}"></script>
+
 @stop

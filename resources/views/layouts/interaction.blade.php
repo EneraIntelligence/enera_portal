@@ -16,5 +16,6 @@
 <body>
 @yield('content')
 @yield('footer_scripts')
+<script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/logs.js') }}"></script>
 </body>
 </html>

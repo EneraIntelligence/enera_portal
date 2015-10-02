@@ -11,7 +11,7 @@
              alt="Enera Portal">
 
         <img class="img-landscape img-responsive center-block banner"
-             src="{{asset('img').'/banner-hor.jpg' }}"
+             src="{{asset('img').'/banner-hor.png' }}"
              id="banner-horizontal"
              alt="Enera Portal">
 
@@ -39,6 +39,7 @@
 
         $(document).ready(function ()
         {
+            var _token = '{!! csrf_token() !!}';
 
             resize();
 
@@ -50,7 +51,7 @@
 
             var myLog = new logs();
             console.log("ready!");
-            myLog.loaded();
+            myLog.loaded(_token,'loaded');
 
 
             $("#subscribe").click(function()

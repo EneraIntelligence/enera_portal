@@ -14,7 +14,7 @@ logs = function () {
     }
 
     this.loaded = function loaded(token,paso) {
-        console.log('cargado');
+        console.log('->cargado');
         console.log(paso);
         ajax(token,paso);
     }

@@ -25,7 +25,6 @@ class InteractionsController extends Controller
     public function requested(  )
     {
 
-
 //        return Request::all();
 //        return $data;
 //        Request::getTrustedHeaderName(link());
@@ -53,6 +52,18 @@ class InteractionsController extends Controller
 
     public function loaded()
     {
+        /*$camplog = new CampaignLog([
+            'user' => [
+                'session' => session('_token')
+            ],
+            'device' => [
+                'mac' => Input::get('node_mac')
+            ],
+            'interaction' => [
+                'welcome' => new MongoDate()
+            ]
+        ]);
+        $camplog->save();*/
         return \Request::all();
 //        return true;
     }
