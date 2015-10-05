@@ -52,18 +52,20 @@ class InteractionsController extends Controller
 
     public function loaded()
     {
-        /*$camplog = new CampaignLog([
+        $camplog = new CampaignLog([
             'user' => [
                 'session' => session('_token')
             ],
             'device' => [
-                'mac' => Input::get('node_mac')
+                'mac' => "test mac xD"//Input::get('node_mac')
             ],
             'interaction' => [
                 'welcome' => new MongoDate()
             ]
         ]);
-        $camplog->save();*/
+
+        $camplog->save();
+
         return \Request::all();
 //        return true;
     }
