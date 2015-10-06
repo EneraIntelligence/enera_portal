@@ -35,19 +35,24 @@ class CampaignSelector
     private function selector()
     {
         // TODO aqui la consulta para obtener la(s) campaña(s) adecuada(s) al usuario
-        $date = explode(' ',$this->user['facebook']['birthday']['date']);
-        $fb_date = explode('-',$date[0]);
-        $birthday = new DateTime($fb_date[0].'-'.$fb_date[1].'-'.$fb_date[2]);
-        $campaign =  Campaign::whereIn('filter.age',[$birthday->diff(new DateTime(date('Y')))])
-            ->where( 'filter.date.start', '>', new DateTime(date('Y-m-d')))
-            ->where( 'filter.date.end','<', new DateTime(date('Y-m-d')))
-            ->whereIn('filter.week_days',[date('w')])->whereIn('filter.day_hours', [date('H')])
-            ->whereIn('filter.gender', [$this->user['facebook']['gender']])->where('status', 'active')
+        $date = explode(' ', $this->user['facebook']['birthday']['date']);
+        $fb_date = explode('-', $date[0]);
+        $birthday = new DateTime($fb_date[0] . '-' . $fb_date[1] . '-' . $fb_date[2]);
+        $today = new DateTime(date('Y-m-d'));
+        $campaign = Campaign::where(function ($q) use ($birthday, $today) {
+            $q->where('filters.age.0', '<='[$birthday->diff($today)])
+                ->where('filters.age.1', '>='[$birthday->diff($today)]);
+        })->where(function ($q) use ($today) {
+            $q->where('filters.date.start', '<=', new DateTime($today))
+                ->where('filters.date.end', '>=', new DateTime($today));
+        })
+            ->whereIn('filters.week_days', [date('w')])
+            ->whereIn('filter.day_hours', [date('H')])
+            ->whereIn('filters.gender', [$this->user['facebook']['gender']])
+            ->where('status', 'active')
             ->orderBy('balance', 'desc')
             ->get();
 
-//       $campaign = $birthday->diff(new DateTime(date('Y-m-d')));
-        $campaign = Campaign::first()->get();
         return $campaign;
     }
 }

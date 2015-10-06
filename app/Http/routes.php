@@ -19,10 +19,10 @@ Route::group(['as' => 'welcome::', 'prefix' => 'welcome'], function () {
 
 Route::group(['as' => 'campaign::', 'prefix' => 'campaign'], function () {
     Route::get('/{id}', ['as' => 'show', 'uses' => 'CampaignsController@show']);
-});
 
-Route::group(['as' => 'campaignAction::', 'prefix' => 'campaignAction'], function () {
-    Route::get('/saveMail', ['as' => 'saveMail', 'uses' => 'CampaignsController@saveMail']);
+    Route::group(['as' => 'action::', 'prefix' => 'action'], function () {
+        Route::get('savemail', ['as' => 'save_mail', 'uses' => 'CampaignsController@saveMail']);
+    });
 });
 
 Route::group(['as' => 'interaction::'], function () {
@@ -30,7 +30,7 @@ Route::group(['as' => 'interaction::'], function () {
     /* Logs */
     Route::group(['as' => 'logs::', 'middleware' => 'ajax', 'prefix' => 'interaction'], function () {
         Route::group(['prefix' => 'logs'], function () {
-            Route::match(['get', 'post'], 'welcome', ['as' => 'welcome', 'uses' => 'InteractionsController@welcome']);
+            // Route::match(['get', 'post'], 'welcome', ['as' => 'welcome', 'uses' => 'InteractionsController@welcome']);
             Route::match(['get', 'post'], 'joined', ['as' => 'joined', 'uses' => 'InteractionsController@joined']);
             Route::match(['get', 'post'], 'requested', ['as' => 'requested', 'uses' => 'InteractionsController@requested']);
             Route::match(['get', 'post'], 'loaded', ['as' => 'loaded', 'uses' => 'InteractionsController@loaded']);
@@ -41,9 +41,9 @@ Route::group(['as' => 'interaction::'], function () {
 
 /* ---- routes testing ---- */
 
-Route::get('/fblogin', ['as'=>'fb_login', 'uses'=> 'FacebookLoginController@index']);
+Route::get('/fblogin', ['as' => 'fb_login', 'uses' => 'FacebookLoginController@index']);
 Route::get('/captcha', ['as' => 'step_2', 'uses' => 'CampaignsController@captcha']);
-Route::get('/fb_login_response', ['as'=>'fb_login_response', 'uses'=> 'FacebookLoginController@login_response']);
+Route::get('/fb_login_response', ['as' => 'fb_login_response', 'uses' => 'FacebookLoginController@login_response']);
 
 //Route::get('/banner/{id_campaign}', ['as' => 'step_3', 'uses' => 'InteractionsController@requested']);
 Route::get('/banner/{id_campaign}', ['as' => 'step_3', 'uses' => 'CampaignsController@prueba']);

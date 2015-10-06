@@ -20,16 +20,9 @@ class CampaignsController extends Controller
     {
         $campaigns = new CampaignSelector($user_id);
 
-        $numCampaigns = count($campaigns);
-
-        $campaignIndex = rand(0, $numCampaigns - 1);
-
-        //eliminar esto de abajo
-        $campaignIndex = 3;
+        $campaignIndex = rand(0, count($campaigns) - 1);
 
         $campaignSelected = $campaigns->campaign[$campaignIndex];
-
-        //dd($campaignData);
 
         $campaignType = "Portal\\Libraries\\Interactions\\" . studly_case($campaignSelected->interaction['name']);
         $interaction = new $campaignType($campaignSelected);
@@ -44,7 +37,7 @@ class CampaignsController extends Controller
     public function saveMail()
     {
         //agarrar token, obtener user, identificar campaña y guardar mail
-        return 'guardando correo: '+session('user_mail');
+        return 'guardando correo: ' + session('user_mail');
     }
 
     /**

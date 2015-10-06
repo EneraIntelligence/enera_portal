@@ -10,7 +10,7 @@
 @section('content')
     <div class="welcome_conteiner">
         <div class="logo">
-            <img src="{!! asset('img/'.$image) !!}" >
+            <img src="{!! asset('img/'.$image) !!}">
         </div>
         <div class="content">
             <span>
@@ -30,6 +30,9 @@
 @stop
 @section('footer_scripts')
     <script>
+        $(document).ready(function () {
+
+        });
 
         // code generated from http://heartcode.robertpataki.com/canvasloader/
         var cl = new CanvasLoader('canvasloader-container');
