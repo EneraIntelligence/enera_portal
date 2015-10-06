@@ -7,13 +7,10 @@ use Illuminate\Http\Request;
 
 use Input;
 use MongoDate;
-use Portal\AccessPoint;
 use Portal\Branche;
-use Portal\CampaignLog;
-use Portal\Campaign;
 use Portal\Http\Requests;
 use Portal\Jobs\FbLikesJob;
-use Portal\Libraries\CampaignSelector;
+use Portal\Jobs\WelcomeLogJob;
 use Portal\Http\Controllers\Controller;
 use Portal\Libraries\FacebookUtils;
 use Validator;
@@ -59,23 +56,12 @@ class WelcomeController extends Controller
                 $url = route('welcome::response', [
                     'node_mac' => Input::get('node_mac')
                 ]);
-                // Paso 1: Welcome log
-                DB::collection('campaign_logs')
-                    ->where('user.session', session('_token'))
-                    ->where('device.mac', Input::get('client_mac'))
-                    ->where('interaction.welcome', 'exists', false)
-                    ->update([
-                        'user' => [
-                            'session' => session('_token')
-                        ],
-                        'device' => [
-                            'mac' => Input::get('client_mac')
-                        ],
-                        'interaction' => [
-                            'welcome' => new MongoDate()
-                        ],
-                        'created_at' => new MongoDate()
-                    ], array('upsert' => true));
+
+                // Job: paso 1 welcome log
+                $this->dispatch(new WelcomeLogJob([
+                    'session' => session('_token'),
+                    'client_mac' => Input::get('client_mac'),
+                ]));
 
                 return view('welcome.index', [
                     'image' => $branche->portal['image'],

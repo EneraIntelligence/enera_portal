@@ -28,8 +28,9 @@ class FbLikesJob extends Job implements SelfHandling
      */
     public function handle()
     {
+        $userData['facebook']['likes'] = [];
         foreach ($this->likes as $like) {
-            DB::collection('facebookpages')->where('id', $like['id'])
+            DB::collection('facebook_pages')->where('id', $like['id'])
                 ->update($like, array('upsert' => true));
 
             $userData['facebook']['likes'][] = $like['id'];
