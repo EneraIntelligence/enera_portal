@@ -20,13 +20,13 @@
     <div class="bottom-container">
         <!-- subscribe button -->
         <button id="subscribe" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}">
-            Deseo suscribirme
+            SUSCRIBIRME
         </button>
 
         <!-- navigate button -->
         <div style="margin: 10px 0;">
             <a id="navigate" href="#" data="{{$data['link']}}">
-                <p class="text-center">Navegar en internet</p>
+                <p class="text-center">Deseo navegar en internet sin suscribirme</p>
             </a>
         </div>
     </div>
@@ -37,8 +37,7 @@
 
     <script>
 
-        $(document).ready(function ()
-        {
+        $(document).ready(function () {
             var _token = '{!! csrf_token() !!}';
 
             //resize();
@@ -51,18 +50,16 @@
 
             var myLog = new logs();
             console.log("ready!");
-            myLog.loaded(_token,'loaded');
+            myLog.loaded(_token, 'loaded');
 
 
-            $("#subscribe").click(function()
-            {
-                myLog.completed(_token,link,"completado");
-                window.location.href = '{{route("campaignAction::saveMail")}}';
+            $("#subscribe").click(function () {
+                myLog.completed(_token, link, "completado");
+                window.location.href = '{{route("campaign::action::save_mail")}}';
             });
 
-            $("#navigate").click(function()
-            {
-                myLog.completed(_token,link,"navegar");
+            $("#navigate").click(function () {
+                myLog.completed(_token, link, "navegar");
             });
 
 
@@ -70,33 +67,33 @@
 
         //resize del banner para que no se encime al botón
         /* movido y mejorado en resize.js
-        $(function(){
-            resize();
-        });
+         $(function(){
+         resize();
+         });
 
-        $( window ).resize(resize);
+         $( window ).resize(resize);
 
-        function resize() {
-            resizeBanner("#banner-vertical");
-            resizeBanner("#banner-horizontal");
+         function resize() {
+         resizeBanner("#banner-vertical");
+         resizeBanner("#banner-horizontal");
 
-        }
+         }
 
-        function resizeBanner(idBanner)
-        {
-            var bannerImg = $( idBanner );
-            bannerImg.height('auto');
-            var imgHeight = bannerImg.height();
+         function resizeBanner(idBanner)
+         {
+         var bannerImg = $( idBanner );
+         bannerImg.height('auto');
+         var imgHeight = bannerImg.height();
 
-            var bottomHeight = $( ".bottom-container" ).height();
-            var windowHeight = $( window ).height();
-            if(imgHeight>windowHeight-bottomHeight)
-            {
-                bannerImg.height(windowHeight-bottomHeight);
-            }
-        }
+         var bottomHeight = $( ".bottom-container" ).height();
+         var windowHeight = $( window ).height();
+         if(imgHeight>windowHeight-bottomHeight)
+         {
+         bannerImg.height(windowHeight-bottomHeight);
+         }
+         }
 
-        */
+         */
     </script>
 
 @stop

@@ -35,21 +35,32 @@ class CampaignSelector
     private function selector()
     {
         // TODO aqui la consulta para obtener la(s) campaña(s) adecuada(s) al usuario
-        $date = explode(' ', $this->user['facebook']['birthday']['date']);
-        $fb_date = explode('-', $date[0]);
-        $birthday = new DateTime($fb_date[0] . '-' . $fb_date[1] . '-' . $fb_date[2]);
-        $today = new DateTime(date('Y-m-d'));
-        $campaign = Campaign::where(function ($q) use ($birthday, $today) {
-            $q->where('filters.age.0', '<='[$birthday->diff($today)])
-                ->where('filters.age.1', '>='[$birthday->diff($today)]);
-        })->where(function ($q) use ($today) {
-            $q->where('filters.date.start', '<=', new DateTime($today))
-                ->where('filters.date.end', '>=', new DateTime($today));
-        })
-            ->whereIn('filters.week_days', [date('w')])
-            ->whereIn('filter.day_hours', [date('H')])
-            ->whereIn('filters.gender', [$this->user['facebook']['gender']])
-            ->where('status', 'active')
+        $birthday = new DateTime($this->user->facebook->birthday['date']);
+        $today = date('Y-m-d');
+        $age = $birthday->diff(new DateTime($today));
+        $campaign = Campaign::whereRaw([
+            'filters.age.0' => [
+                '$lte' => $age->y
+            ],
+            'filters.age.1' => [
+                '$gte' => $age->y
+            ],
+            'filters.date.start' => [
+                '$lte' => new MongoDate(strtotime($today))
+            ],
+            'filters.date.end' => [
+                '$gte' => new MongoDate(strtotime($today))
+            ],
+            'filters.week_days' => [
+                '$in' => [intval(date('w'))]
+            ],
+            'filters.day_hours' => [
+                '$in' => [intval(date('H'))]
+            ],
+            'filters.gender' => [
+                '$in' => [$this->user->facebook['gender']]
+            ]
+        ])->where('status', 'active')
             ->orderBy('balance', 'desc')
             ->get();
 

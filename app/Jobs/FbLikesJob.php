@@ -5,6 +5,7 @@ namespace Portal\Jobs;
 use DB;
 use Portal\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Portal\User;
 
 class FbLikesJob extends Job implements SelfHandling
 {
@@ -13,7 +14,8 @@ class FbLikesJob extends Job implements SelfHandling
 
     /**
      * Create a new job instance.
-     *
+     * @param $likes
+     * @param $fb_id
      */
     public function __construct($likes, $fb_id)
     {
@@ -28,16 +30,15 @@ class FbLikesJob extends Job implements SelfHandling
      */
     public function handle()
     {
-        $userData['facebook']['likes'] = [];
+        $likes = [];
         foreach ($this->likes as $like) {
             DB::collection('facebook_pages')->where('id', $like['id'])
                 ->update($like, array('upsert' => true));
-
-            $userData['facebook']['likes'][] = $like['id'];
+            $likes[] = $like['id'];
         }
         //upsert user data
-        DB::collection('users')->where('facebook.id', $this->fb_id)
-            ->update($userData, array('upsert' => true));
-
+        $user = User::where('facebook.id', $this->fb_id)->first();
+        $user->facebook->likes = $likes;
+        $user->facebook->save();
     }
 }

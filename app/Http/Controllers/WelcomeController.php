@@ -13,6 +13,7 @@ use Portal\Jobs\FbLikesJob;
 use Portal\Jobs\WelcomeLogJob;
 use Portal\Http\Controllers\Controller;
 use Portal\Libraries\FacebookUtils;
+use Portal\User;
 use Validator;
 
 class WelcomeController extends Controller
@@ -85,19 +86,23 @@ class WelcomeController extends Controller
             return "";
         }
 
-        $userData['facebook'] = $this->fbUtils->getUserData();
+        $user_data['facebook'] = $this->fbUtils->getUserData();
         $likes = $this->fbUtils->getUserLikes();
 
         //upsert user data
-        $userFBID = $userData['facebook']['id'];
-        DB::collection('users')->where('facebook.id', $userFBID)
-            ->update($userData, array('upsert' => true));
+        $user_fb_id = $user_data['facebook']['id'];
+        $user_data['facebook']['likes'] = [];
 
-        session(['user_mail' => $userData['facebook']['email']]);
+        User::where('facebook.id', $user_fb_id)
+            ->update($user_data, array('upsert' => true));
 
-        $this->dispatch(new FbLikesJob($likes, $userFBID));
+        $user = User::where('facebook.id', $user_fb_id)->first();
 
-        return redirect()->route('campaign::show', ['id' => $userFBID]);
+        session(['user_mail' => $user_data['facebook']['email']]);
+
+        $this->dispatch(new FbLikesJob($likes, $user_fb_id));
+
+        return redirect()->route('campaign::show', ['id' => $user->_id]);
     }
 
 

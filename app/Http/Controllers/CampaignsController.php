@@ -20,7 +20,7 @@ class CampaignsController extends Controller
     {
         $campaigns = new CampaignSelector($user_id);
 
-        $campaignIndex = rand(0, count($campaigns) - 1);
+        $campaignIndex = count($campaigns) > 1 ? rand(0, count($campaigns) - 1) : 0;
 
         $campaignSelected = $campaigns->campaign[$campaignIndex];
 
