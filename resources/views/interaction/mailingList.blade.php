@@ -41,13 +41,13 @@
         {
             var _token = '{!! csrf_token() !!}';
 
-            resize();
+            //resize();
 
             var link = "{!! $data['link'] !!}";
-            var idCamp = "{!! $id !!}";
+            //var idCamp = "{!! $id !!}";
 
-            console.log("id campaña: "+idCamp);
-            console.log("link: "+link);
+            //console.log("id campaña: "+idCamp);
+            //console.log("link: "+link);
 
             var myLog = new logs();
             console.log("ready!");
@@ -56,18 +56,20 @@
 
             $("#subscribe").click(function()
             {
-                myLog.completed(link);
+                myLog.completed(_token,link,"completado");
+                window.location.href = '{{route("campaignAction::saveMail")}}';
             });
 
             $("#navigate").click(function()
             {
-                myLog.completed(link);
+                myLog.completed(_token,link,"navegar");
             });
 
 
         });
 
-
+        //resize del banner para que no se encime al botón
+        /* movido y mejorado en resize.js
         $(function(){
             resize();
         });
@@ -94,6 +96,7 @@
             }
         }
 
+        */
     </script>
 
 @stop

@@ -41,6 +41,12 @@ class CampaignsController extends Controller
 
     }
 
+    public function saveMail()
+    {
+        //agarrar token, obtener user, identificar campaña y guardar mail
+        return 'guardando correo: '+session('user_mail');
+    }
+
     /**
      *
      */

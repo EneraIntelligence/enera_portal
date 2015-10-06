@@ -21,6 +21,10 @@ Route::group(['as' => 'campaign::', 'prefix' => 'campaign'], function () {
     Route::get('/{id}', ['as' => 'show', 'uses' => 'CampaignsController@show']);
 });
 
+Route::group(['as' => 'campaignAction::', 'prefix' => 'campaignAction'], function () {
+    Route::get('/saveMail', ['as' => 'saveMail', 'uses' => 'CampaignsController@saveMail']);
+});
+
 Route::group(['as' => 'interaction::'], function () {
 
     /* Logs */

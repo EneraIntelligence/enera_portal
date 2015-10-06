@@ -16,10 +16,26 @@ function resizeBanner(idBanner)
     bannerImg.height('auto');
     var imgHeight = bannerImg.height();
 
-    var bottomHeight = $( ".bottom-container" ).height();
-    var windowHeight = $( window ).height();
-    if(imgHeight>windowHeight-bottomHeight)
+    if(imgHeight==0)
     {
-        bannerImg.height(windowHeight-bottomHeight);
+        console.log("component not loaded, retry resizing: "+idBanner)
+        //image not loaded, retry resizing
+        setTimeout(function()
+        {
+            resizeBanner(idBanner);
+        },100);
     }
+    else
+    {
+        var bottomHeight = $( ".bottom-container" ).height();
+        var windowHeight = $( window ).height();
+        if(imgHeight>windowHeight-bottomHeight)
+        {
+            bannerImg.height(windowHeight-bottomHeight);
+        }
+
+        console.log("component resized: "+idBanner)
+    }
+
+
 }

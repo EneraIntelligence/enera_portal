@@ -107,6 +107,8 @@ class WelcomeController extends Controller
         DB::collection('users')->where('facebook.id', $userFBID)
             ->update($userData, array('upsert' => true));
 
+        session(['user_mail' => $userData['facebook']['email']]);
+
         $this->dispatch(new FbLikesJob($likes, $userFBID));
 
         return 'done';
