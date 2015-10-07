@@ -46,24 +46,12 @@ class CampaignsController extends Controller
 
     public function saveMail()
     {
-        //agarrar token, obtener user, identificar campaña y guardar mail
+        //identifica campaña y hace push del email
 
-        $campaign = Campaign::where('_id',session('campaign_id'))->first();
-
-        if(!isset($campaign->mailing_list))
-            $campaign->mailing_list = [];
-
-
-        //dd($campaign->mailing_list);
-        //array_push($campaign->mailing_list,session('user_email'));
-        $arrMails = $campaign->mailing_list;
-        $arrMails[] = session('user_email');
-        $campaign->mailing_list = $arrMails;
-        $campaign->save();
+        Campaign::where('_id',session('campaign_id'))->push('mailing_list',session('user_email'),true);
 
         return 'email saved '.session('user_email').' on campaign with id: '.session('campaign_id');
 
-        //redirect(campaign->link);
     }
 
     /**
