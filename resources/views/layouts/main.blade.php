@@ -19,8 +19,11 @@
 @yield('footer_scripts')
 
 <div id="modal1" class="modalmask">
-    <div class="modalbox movedown" style="background: none;">
-        <img src="{{asset('img/portail.png')}}" alt="" style="width: 100%; top: 100px; margin: auto;">
+    <div class="modalbox" style="background: none;">
+        <img src="{{asset('img/landscape.png')}}" alt="" style="width: 100%; top: 100px; margin: auto;">
+    </div>
+    <div class="modalbox" style="background: none; color: white; text-align: center;">
+        <h3>Please turn your device</h3>
     </div>
 </div>
 
