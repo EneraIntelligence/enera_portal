@@ -8,7 +8,7 @@ use Jenssegers\Mongodb\Model as Model;
 
 class Campaign extends Model
 {
-    protected $fillable = ['client_id', 'name', 'branches', 'balance', 'interaction', 'filters', 'content', 'status'];
+    protected $fillable = ['client_id', 'name', 'branches', 'balance', 'interaction', 'filters', 'content', 'status', 'mailing_list'];
 
     // relations
     public function logs()
