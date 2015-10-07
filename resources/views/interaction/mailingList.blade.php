@@ -42,6 +42,7 @@
 
             //resize();
 
+
             var link = "{!! $data['link'] !!}";
             //var idCamp = "{!! $id !!}";
 

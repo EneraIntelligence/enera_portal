@@ -93,7 +93,10 @@ class WelcomeController extends Controller
         $user_fb_id = $user_data['facebook']['id'];
         $user_data['facebook']['likes'] = [];
 
-        User::where('facebook.id', $user_fb_id)
+        /*User::where('facebook.id', $user_fb_id)
+            ->update($user_data, array('upsert' => true));*/
+
+        DB::collection('users')->where('facebook.id', $user_fb_id)
             ->update($user_data, array('upsert' => true));
 
         $user = User::where('facebook.id', $user_fb_id)->first();

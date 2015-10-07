@@ -24,7 +24,7 @@ class Captcha extends Enera
 
     public function getData()
     {
-        $captcha = Campaign::where('_id', $this->id_campaign)->firts();
+        $captcha = Campaign::where('_id', $this->id_campaign)->first();
         $content = $captcha->content;
         $this->data['captcha'] = $content['captcha'];
         $this->data['image_path'] = $content['image_path'];

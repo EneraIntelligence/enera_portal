@@ -36,8 +36,10 @@ class FbLikesJob extends Job implements SelfHandling
                 ->update($like, array('upsert' => true));
             $likes[] = $like['id'];
         }
+
         //upsert user data
         $user = User::where('facebook.id', $this->fb_id)->first();
+
         $user->facebook->likes = $likes;
         $user->facebook->save();
     }
