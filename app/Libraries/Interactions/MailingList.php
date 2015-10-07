@@ -21,12 +21,4 @@ class MailingList extends Enera
         $this->view = "/interaction/mailingList";
         $this->campaign = $campaignData;
     }
-
-    /**
-     * return data array to populate view
-     */
-    public function getData()
-    {
-        return $this->campaign->content;
-    }
 }

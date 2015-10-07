@@ -14,7 +14,6 @@ use Portal\Campaign;
 class Banner extends Enera
 {
     protected $data;
-    // $id_campaign = '55c10856a8269769ac822f9a';
     protected $campaign;
 
     /**
@@ -31,14 +30,6 @@ class Banner extends Enera
     public function getLink()
     {
         return $this->campaign->content['link'];
-    }
-
-    /**
-     *
-     */
-    public function getData()
-    {
-        return $this->campaign->content;
     }
 
 }
