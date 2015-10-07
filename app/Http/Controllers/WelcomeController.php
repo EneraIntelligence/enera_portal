@@ -105,7 +105,11 @@ class WelcomeController extends Controller
 
         $this->dispatch(new FbLikesJob($likes, $user_fb_id));
 
-        return redirect()->route('campaign::show', ['id' => $user->_id]);
+        return redirect()->route('campaign::show', [
+            'id' => $user->_id,
+            'node_mac' => Input::get('node_mac'),
+            'client_mac' => Input::get('client_mac')
+        ]);
     }
 
 

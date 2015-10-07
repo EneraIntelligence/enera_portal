@@ -58,30 +58,7 @@ class InteractionsController extends Controller
      */
     public function requested()
     {
-
-//        return Request::all();
-//        return $data;
-//        Request::getTrustedHeaderName(link());
-        return \Request::all();
-        /*if(Request::all()) {
-            $data = Input::all();
-            print_r($data);
-            return $data;
-        }*/
-
-        /*$camplog = new CampaignLog([
-            'user' => [
-                'session' => session('_token')
-            ],
-            'device' => [
-                'mac' => Input::get('node_mac')
-            ],
-            'interaction' => [
-                'welcome' => new MongoDate()
-            ]
-        ]);
-        $camplog->save();*/
-
+        // in RequestedLogJob
     }
 
     public function loaded()

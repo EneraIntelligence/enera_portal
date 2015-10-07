@@ -2,27 +2,25 @@ var logs;
 logs = function () {
 
     this.welcome = function welcome(paso) {
-
+        // in WelcomeLogJob
     }
 
-    this.joined = function joined(paso) {
-
+    this.joined = function joined(data) {
+        ajax(data, 'joined');
     }
 
     this.requested = function requested(paso) {
-
+        // in RequestedLogJob
     }
 
-    this.loaded = function loaded(token,paso) {
-        console.log('->cargado');
-        console.log(paso);
-        ajax(token,paso);
+    this.loaded = function loaded(data) {
+        ajax(data, 'loaded');
     }
 
-    this.completed = function metodoCompleted(token,link,paso) {
+    this.completed = function metodoCompleted(token, link, paso) {
         console.log('presiono boton navegar');
 
-        ajax(token,paso);
+        ajax(token, paso);
         //ajax('request', 'http://www.enera.mx');
         //cuando termina el ajax
         //redirectOut(link)
@@ -33,27 +31,20 @@ logs = function () {
         window.location.href = url;
     }
 
-    function ajax(token,paso) {
-        var request;
-        request = $.ajax({
-            url: '/interaction/logs/'+paso,
+    function ajax(json_data, paso) {
+        $.ajax({
+            url: '/interaction/logs/' + paso,
             type: 'POST',
             dataType: 'JSON',
-            data: {_token:token,entro:'entro' }
-        });
-        request.done(function (data) {
+            data: json_data
+        }).done(function (data) {
             console.log("success");
             console.log(data);
-
-            //window.location.href ='http://www.enera.mx'
-            //redirectOut(url);
-        })
-        request.fail(function (jqXHR, textStatus, errorThrown) {
+        }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
             console.log(textStatus);
             console.log(errorThrown);
-        })
-        request.always(function () {
+        }).always(function () {
             console.log("complete-");
         });
     }

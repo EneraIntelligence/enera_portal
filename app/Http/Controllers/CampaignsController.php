@@ -3,9 +3,11 @@
 namespace Portal\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Input;
 use Portal\Campaign;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
+use Portal\Jobs\RequestedLogJob;
 use Portal\Libraries\CampaignSelector;
 
 class CampaignsController extends Controller
@@ -29,7 +31,11 @@ class CampaignsController extends Controller
 
         session(['campaign_id' => $campaignSelected->_id]);
 
-
+        $this->dispatch(new RequestedLogJob([
+            'session' => session('_token'),
+            'client_mac' => Input::get('client_mac'),
+            'campaign_id' => $campaignSelected->_id
+        ]));
 
         return view($interaction->getView(), [
             'id' => $campaignSelected->_id,
@@ -41,7 +47,7 @@ class CampaignsController extends Controller
     public function saveMail()
     {
         //agarrar token, obtener user, identificar campaña y guardar mail
-        return 'guardando correo: ' . session('user_mail')." c_id: ".session('campaign_id');
+        return 'guardando correo: ' . session('user_mail') . " c_id: " . session('campaign_id');
 
     }
 
