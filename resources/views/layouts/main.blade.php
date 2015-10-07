@@ -16,8 +16,6 @@
 <div id="portal_content">
     @yield('content')
 </div>
-@yield('footer_scripts')
-
 <div id="modal1" class="modalmask">
     <div class="modalbox" style="background: none;">
         <img src="{{asset('img/landscape.png')}}" alt="" style="width: 100%; top: 100px; margin: auto;">
@@ -26,6 +24,6 @@
         <h3>Please turn your device</h3>
     </div>
 </div>
-
+@yield('footer_scripts')
 </body>
 </html>

@@ -29,6 +29,8 @@ class CampaignsController extends Controller
 
         session(['campaign_id' => $campaignSelected->_id]);
 
+
+
         return view($interaction->getView(), [
             'id' => $campaignSelected->_id,
             'data' => $interaction->getData()

@@ -91,7 +91,7 @@ class WelcomeController extends Controller
 
         //upsert user data
         $user_fb_id = $user_data['facebook']['id'];
-        $user_data['facebook']['likes'] = [];
+        $user_data['facebook']['likes'] = [0];
 
         /*User::where('facebook.id', $user_fb_id)
             ->update($user_data, array('upsert' => true));*/

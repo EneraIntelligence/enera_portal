@@ -35,6 +35,7 @@ class CampaignSelector
     private function selector()
     {
         // TODO aqui la consulta para obtener la(s) campaña(s) adecuada(s) al usuario
+        $user = $this->user;
         $birthday = new DateTime($this->user->facebook->birthday['date']);
         $today = date('Y-m-d');
         $age = $birthday->diff(new DateTime($today));
@@ -60,7 +61,15 @@ class CampaignSelector
             'filters.gender' => [
                 '$in' => [$this->user->facebook['gender']]
             ]
-        ])->where('status', 'active')
+        ])->where(function ($q) use ($user) {
+            if (!isset($user->facebook->email)) {
+                $q->whereRaw([
+                    'interaction.name' => [
+                        '$ne' => 'mailing_list'
+                    ]
+                ]);
+            }
+        })->where('status', 'active')
             ->orderBy('balance', 'desc')
             ->get();
 
