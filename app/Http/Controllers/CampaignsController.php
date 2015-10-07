@@ -27,6 +27,8 @@ class CampaignsController extends Controller
         $campaignType = "Portal\\Libraries\\Interactions\\" . studly_case($campaignSelected->interaction['name']);
         $interaction = new $campaignType($campaignSelected);
 
+        session(['campaign_id' => $campaignSelected->_id]);
+
         return view($interaction->getView(), [
             'id' => $campaignSelected->_id,
             'data' => $interaction->getData()
