@@ -12,5 +12,9 @@ use Portal\Libraries\Enera;
 
 class Survey extends Enera
 {
-
+    public function __construct(Campaign $campaign)
+    {
+        $this->view = "/interaction/banner";
+        $this->campaign = $campaign;
+    }
 }

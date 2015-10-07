@@ -47,7 +47,7 @@ class WelcomeController extends Controller
 //            'user_continue_url' => 'required',
             'node_mac' => 'required',
 //            'client_id' => 'required',
-//            'client_mac' => 'required'
+            'client_mac' => 'required'
         ]);
         if ($validate->passes()) {
             $branche = Branche::whereIn('aps', [Input::get('node_mac')])->first();
@@ -55,7 +55,11 @@ class WelcomeController extends Controller
             if ($branche) {
                 session(['main_bg' => $branche->portal['background']]);
                 $url = route('welcome::response', [
-                    'node_mac' => Input::get('node_mac')
+                    'node_mac' => Input::get('node_mac'),
+                    'client_id' => Input::get('client_id'),
+                    'client_mac' => Input::get('client_mac'),
+                    'base_grant_url' => Input::get('base_grant_url'),
+                    'user_continue_url' => Input::get('user_continue_url'),
                 ]);
 
                 // Job: paso 1 welcome log

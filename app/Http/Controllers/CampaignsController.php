@@ -88,7 +88,7 @@ class CampaignsController extends Controller
 
     public function captcha()
     {
-        $campaign = Campaign::find('55f6ee95a8265d9826c506cc');
+        $campaign = Campaign::find('55c10856a8269769ac822f9a');
         $c = new CampaignSelector('5609b6ca1065d14cbccedd28', '00:18:0a:e8:29:50');
         return view('interaction.captcha', ['captcha' => $campaign->content['captcha'], 'cover' => $campaign->content['cover_path'], 'c' => $c]);
     }

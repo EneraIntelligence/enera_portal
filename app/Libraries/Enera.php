@@ -13,6 +13,7 @@ class Enera
 {
 //    protected $_data = ['view'];
     protected $view;
+//    protected $campaign;
 
     public function __construct()
     {
@@ -32,7 +33,7 @@ class Enera
      */
     public function getData()
     {
-        return $this->data;
+        return $this->campaign->content;
     }
 
 }

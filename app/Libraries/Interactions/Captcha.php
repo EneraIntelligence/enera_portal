@@ -14,21 +14,13 @@ use Portal\Libraries\Enera;
 class Captcha extends Enera
 {
     protected $data;
+    protected $campaign;
 
 
-    public function __construct($id_camp)
+    public function __construct(Campaign $campaign)
     {
         $this->view = "/interaction/captcha";
-        $this->id_campaign = $id_camp;
+        $this->campaign = $campaign;
     }
 
-    public function getData()
-    {
-        $captcha = Campaign::where('_id', $this->id_campaign)->first();
-        $content = $captcha->content;
-        $this->data['captcha'] = $content['captcha'];
-        $this->data['image_path'] = $content['image_path'];
-
-        return $this->data;
-    }
 }
