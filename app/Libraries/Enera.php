@@ -13,6 +13,7 @@ class Enera
 {
 //    protected $_data = ['view'];
     protected $view;
+//    protected $campaign;
 
     public function __construct()
     {
