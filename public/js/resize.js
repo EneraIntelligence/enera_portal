@@ -4,19 +4,14 @@ $(function(){
 
 $( window ).resize(resize);
 
-function resize() {
-    resizeBanner("#banner-vertical");
-    resizeBanner("#banner-horizontal");
-
-    setButtonToBottom("#navegar");
-}
-
-function setButtonToBottom(buttonId)
+function resize()
 {
-    var portalContentHeight = $("#portal_content").height();
-    console.log("portalContentHeight: "+portalContentHeight);
+    //resizeBanner("#banner-vertical");
+    //resizeBanner("#banner-horizontal");
 
 }
+
+
 /*
 //not used anymore
 function resizeBanner(idBanner)
