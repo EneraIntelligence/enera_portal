@@ -6,7 +6,7 @@
     <div>
         <img id="banner"  class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}" alt="Enera Portal">
     </div>
-    <div style="margin: 15px 0; margin: 15px 0; position: absolute; bottom: 10px; width: 93%;">
+    <div style="margin: 15px 0; margin: 15px 0; position: absolute; bottom: 10px; width: 94%; left:3%">
         <div>
             <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
                 internet
