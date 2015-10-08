@@ -9,3 +9,13 @@ $error: red;
   display: none;
   color: $error;
 }
+
+input{
+  width: 100%;
+  margin: 5px 0;
+}
+
+#captcha-img{
+  width: 100%;
+  margin: 0 auto;
+}

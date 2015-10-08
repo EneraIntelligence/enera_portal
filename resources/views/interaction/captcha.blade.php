@@ -8,10 +8,11 @@
     <div id="captcha">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <img src="{{asset('img/'. $data['cover_path'])}}" alt="Enera Portal" style="width: 100%; margin: 0 auto;">
-
+            <div>
+                <img id="captcha-img" src="{{asset('img/'. $data['cover_path'])}}" alt="Enera Portal">
+            </div>
             <form action="#">
-                <input id="captcha-value" type="text" name="Captcha" style="width: 100%; margin: 5px 0;"><br>
+                <input id="captcha-value" type="text" name="Captcha"><br>
             </form>
             <div id="error">Respuesta invalida</div>
             <button id="navegar" class="btn btn-primary btn-block" url="{{$data['link']}}" style="margin: 10px 0;">Navegar por intenet</button>
