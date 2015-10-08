@@ -12,11 +12,12 @@
              id="banner-vertical"
              alt="Enera Portal">
 
+        {{--
         <img class="img-landscape img-responsive center-block banner"
              src="{{asset('img').'/banner-hor.png' }}"
              id="banner-horizontal"
              alt="Enera Portal">
-
+        --}}
     </div>
 
     <div style="margin: 15px 0;">

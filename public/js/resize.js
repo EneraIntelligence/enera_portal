@@ -4,12 +4,16 @@ $(function(){
 
 $( window ).resize(resize);
 
-function resize() {
-    resizeBanner("#banner-vertical");
-    resizeBanner("#banner-horizontal");
+function resize()
+{
+    //resizeBanner("#banner-vertical");
+    //resizeBanner("#banner-horizontal");
 
 }
 
+
+/*
+//not used anymore
 function resizeBanner(idBanner)
 {
     var bannerImg = $( idBanner );
@@ -37,5 +41,4 @@ function resizeBanner(idBanner)
         console.log("component resized: "+idBanner)
     }
 
-
-}
+}*/

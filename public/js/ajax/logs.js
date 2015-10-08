@@ -14,16 +14,13 @@ logs = function () {
     }
 
     this.loaded = function loaded(data) {
+        console.log(data);
         ajax(data, 'loaded');
     }
 
-    this.completed = function metodoCompleted(token, link, paso) {
+    this.completed = function Completed(data) {
         console.log('presiono boton navegar');
-
-        ajax(token, paso);
-        //ajax('request', 'http://www.enera.mx');
-        //cuando termina el ajax
-        //redirectOut(link)
+        ajax(data, 'completed');
     }
 
 
