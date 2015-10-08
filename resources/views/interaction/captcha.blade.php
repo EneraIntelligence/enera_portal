@@ -11,10 +11,13 @@
             <img src="{{asset('img/'. $data['cover_path'])}}" alt="Enera Portal" style="width: 100%; margin: 0 auto;">
 
             <form action="#">
-                <input id="captcha-value" type="text" name="Captcha" style="width: 100%;"><br>
+                <input id="captcha-value" type="text" name="Captcha" style="width: 100%; margin: 5px 0;"><br>
             </form>
             <div id="error">Respuesta invalida</div>
-            <button id="navegar" class="btn btn-primary btn-lg" url="{{$data['link']}}" style="margin: 5px;">Check</button>
+            <button id="navegar" class="btn btn-primary btn-block" url="{{$data['link']}}" style="margin: 10px 0;">Navegar por intenet</button>
+            <div>
+                <p> * Para navegar por internet ingresa la palabra en la imagen </p>
+            </div>
         </div>
         <div class="col-md-4"></div>
     </div>
