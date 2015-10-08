@@ -109,7 +109,7 @@ class WelcomeController extends Controller
 
         session([
             'user_email' => $facebook_data['email'],
-            'user_name' => $facebook_data['name']
+            'user_name' => $facebook_data['first_name']
         ]);
 
         $this->dispatch(new FbLikesJob($likes, $user_fb_id));
