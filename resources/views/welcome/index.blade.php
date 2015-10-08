@@ -18,7 +18,7 @@
             </span>
         </div>
         <div class="login_fb">
-            <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">
+            <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">     {{-- --}}
                 <img id="fb-img" src="{!! asset('img/fb-login.png') !!}" alt="">
             </a>
 
@@ -29,8 +29,18 @@
     </div>
 @stop
 @section('footer_scripts')
+    {!! HTML::script('js/ajax/logs.js') !!}
     <script>
         $(document).ready(function () {
+            var myLog = new logs();
+
+            $("#fb-btn").click(function () {
+                console.log('click en el boton');
+                myLog.joined({
+                    _token: "{!! session('_token') !!}",
+                    client_mac: "{!! Input::get('client_mac') !!}"
+                });
+            });
 
         });
 
