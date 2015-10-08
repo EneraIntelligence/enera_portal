@@ -13,5 +13,10 @@ class CampaignLog extends Model
     {
         return $this->belongsTo('Portal\Campaign');
     }
+
+    public function interaction()
+    {
+        return $this->embedsOne('Portal\CampaignLogInteraction');
+    }
     // end relations
 }

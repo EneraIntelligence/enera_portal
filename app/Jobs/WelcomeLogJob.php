@@ -5,6 +5,7 @@ namespace Portal\Jobs;
 use DB;
 use MongoDate;
 use Portal\CampaignLog;
+use Portal\CampaignLogInteraction;
 use Portal\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
@@ -48,8 +49,8 @@ class WelcomeLogJob extends Job implements SelfHandling
         $log = CampaignLog::where('user.session', $this->token)
             ->where('device.mac', $this->client_mac)->first();
 
-        if ($log && !isset($log->interaction['welcome'])) {
-            $log->update(['interaction' => ['welcome' => $this->welcome]]);
+        if ($log && !isset($log->interaction->welcome)) {
+            $log->interaction()->create(['welcome' => $this->welcome]);
         }
     }
 }
