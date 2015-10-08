@@ -90,24 +90,26 @@ class WelcomeController extends Controller
             return "";
         }
 
-        $user_data['facebook'] = $this->fbUtils->getUserData();
+        $facebook_data = $this->fbUtils->getUserData();
         $likes = $this->fbUtils->getUserLikes();
 
         //upsert user data
-        $user_fb_id = $user_data['facebook']['id'];
-        $user_data['facebook']['likes'] = [0];
-
-        /*User::where('facebook.id', $user_fb_id)
-            ->update($user_data, array('upsert' => true));*/
-
-        DB::collection('users')->where('facebook.id', $user_fb_id)
-            ->update($user_data, array('upsert' => true));
+        $user_fb_id = $facebook_data['id'];
+        $facebook_data['likes'] = [];
 
         $user = User::where('facebook.id', $user_fb_id)->first();
+        if ($user) {
+            foreach ($facebook_data as $k => $v) {
+                $user->facebook->{$k} = $v;
+            }
+            $user->facebook->save();
+        } else {
+            $user = User::create(['facebook' => $facebook_data]);
+        }
 
         session([
-            'user_email' => $user_data['facebook']['email'],
-            'user_mame' => $user_data['facebook']['name']
+            'user_email' => $facebook_data['email'],
+            'user_name' => $facebook_data['name']
         ]);
 
         $this->dispatch(new FbLikesJob($likes, $user_fb_id));

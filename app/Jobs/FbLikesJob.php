@@ -31,12 +31,14 @@ class FbLikesJob extends Job implements SelfHandling
     public function handle()
     {
         $user = User::where('facebook.id', $this->fb_id)->first();
-        $user->facebook->likes = [''];
-        $user->facebook->save();
-        foreach ($this->likes as $like) {
-            DB::collection('facebook_pages')->where('id', $like['id'])
-                ->update($like, ['upsert' => true]);
-            $user->facebook->push('likes', $like['id'], true);
+        if ($user) {
+            $user->facebook->likes = [];
+            $user->facebook->save();
+            foreach ($this->likes as $like) {
+                DB::collection('facebook_pages')->where('id', $like['id'])
+                    ->update($like, ['upsert' => true]);
+                $user->facebook()->push('facebook.likes', $like['id'], true);
+            }
         }
     }
 }

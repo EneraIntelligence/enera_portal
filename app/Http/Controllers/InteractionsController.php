@@ -35,8 +35,9 @@ class InteractionsController extends Controller
         if ($validate->passes()) {
             $log = CampaignLog::where('user.session', $this->token)
                 ->where('device.mac', Input::get('client_mac'))->first();
-            if ($log && !isset($log->interaction['joined'])) {
-                $log->update(['interaction' => ['joined' => new MongoDate()]]);
+            if ($log && !isset($log->interaction->joined)) {
+                $log->interaction->joined = new MongoDate();
+                $log->interaction->save();
                 $response = ['ok' => true];
             } else {
                 $response = [

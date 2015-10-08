@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>@yield('title')</title>
+    <title>ENERA PORTAL | @yield('title')</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=.70,maximum-scale=.70,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="HandheldFriendly" content="true">
-    <title>@yield('title')</title>
     {!! HTML::style(asset('css/app.css')) !!}
     {!! HTML::style(asset('css/main.css')) !!}
     {!! HTML::style(asset('css/bootstrap.css')) !!}
@@ -17,12 +16,12 @@
 
 </head>
 <body style="background-image: url('{!! url('img') !!}/{!! session('main_bg') !!}')">
-<header>
-    Hola, {!! session('user_name') !!}
-</header>
 <div id="portal_content">
     <div class="col-md-4"></div>
     <div class="col-md-4">
+        <header style="font-weight: bold; font-size: 35px; width: 100%; margin: 20px auto; padding: 0px; text-align: center;">
+            Hola, {!! session('user_name') !!}
+        </header>
         @yield('content')
     </div>
     <div class="col-md-4"></div>
