@@ -19,7 +19,7 @@
 <div id="portal_content">
     <div class="col-md-4"></div>
     <div id="center-column" class="col-md-4">
-        <header style="font-weight: bold; font-size: 25px; width: 100%; margin: 20px auto; padding: 0px; text-align: center;">
+        <header style="font-weight: bold; font-size: 25px; width: 100%; margin: 5px auto; padding: 0px; text-align: center;">
             Hola, {!! session('user_name') !!}
         </header>
         @yield('content')
