@@ -12,7 +12,7 @@ function resize()
 
 function resizeInteraction()
 {
-    var windowHeight = $( window ).height()-20;
+    var windowHeight = $( window ).height()-10;
     $("#center-column").height(windowHeight);
 }
 
