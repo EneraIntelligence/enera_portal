@@ -4,8 +4,7 @@
 
 @section('content')
 
-    <div>
-
+    <div style="height: 70%;">
         <!-- banner -->
         <img class="img-portrait img-responsive center-block banner"
              src="{{asset('img').'/'.$data['imagen'] }}"

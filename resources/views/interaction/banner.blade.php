@@ -4,12 +4,15 @@
 @section('content')
 
     <div>
-        <img class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}" alt="Enera Portal">
+        <img id="banner"  class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}" alt="Enera Portal">
     </div>
-    <div style="margin: 15px 0;">
-        <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
-            internet
-        </button>
+    <div style="margin: 15px 0; margin: 15px 0; position: absolute; bottom: 10px; width: 93%;">
+        <div>
+            <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
+                internet
+            </button>
+        </div>
+
     </div>
 @stop
 
