@@ -29,26 +29,17 @@ class RequestedLogJob extends Job implements SelfHandling
     public function handle()
     {
         // Paso 3: Registered log
-        /*DB::collection('campaign_logs')
-            ->where('user.session', $this->token)
-            ->where('device.mac', $this->client_mac)
-            ->update([
-                'user' => [
-                    'session' => $this->token,
-                ],
-                'device' => [
-                    'mac' => $this->client_mac
-                ]
-            ], array('upsert' => true));*/
-
         $log = CampaignLog::where('user.session', $this->token)
             ->where('device.mac', $this->client_mac)->first();
-        $log->campaign_id = $this->campaign_id;
-        $log->save();
 
-        if ($log && !isset($log->interaction->requested)) {
-            $log->interaction->requested = $this->requested;
-            $log->interaction->save();
+        if ($log) {
+            $log->campaign_id = $this->campaign_id;
+            $log->save();
+
+            if (!isset($log->interaction->requested)) {
+                $log->interaction->requested = $this->requested;
+                $log->interaction->save();
+            }
         }
     }
 }
