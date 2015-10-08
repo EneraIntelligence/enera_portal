@@ -107,7 +107,7 @@ class WelcomeController extends Controller
 
         session(['user_email' => $user_data['facebook']['email']]);
 
-        $this->dispatch(new FbLikesJob($likes, $user_fb_id));
+//        $this->dispatch(new FbLikesJob($likes, $user_fb_id));
 
         return redirect()->route('campaign::show', [
             'id' => $user->_id,

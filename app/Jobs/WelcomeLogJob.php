@@ -50,6 +50,8 @@ class WelcomeLogJob extends Job implements SelfHandling
             ->where('device.mac', $this->client_mac)->first();
 
         if ($log && !isset($log->interaction->welcome)) {
+            $log->created_at = new MongoDate();
+            $log->save();
             $log->interaction()->create(['welcome' => $this->welcome]);
         }
     }

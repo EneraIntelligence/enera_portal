@@ -43,10 +43,10 @@ class RequestedLogJob extends Job implements SelfHandling
 
         $log = CampaignLog::where('user.session', $this->token)
             ->where('device.mac', $this->client_mac)->first();
+        $log->campaign_id = $this->campaign_id;
+        $log->save();
 
-        if ($log && isset($log->interaction->requested)) {
-            $log->campaign_id = $this->campaign_id;
-            $log->save();
+        if ($log && !isset($log->interaction->requested)) {
             $log->interaction->requested = $this->requested;
             $log->interaction->save();
         }
