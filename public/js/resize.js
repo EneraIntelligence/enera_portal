@@ -6,8 +6,7 @@ $( window ).resize(resize);
 
 function resize()
 {
-    //resizeBanner("#banner-vertical");
-    //resizeBanner("#banner-horizontal");
+    resizeBanner("#banner");
     resizeInteraction();
 }
 
@@ -17,7 +16,7 @@ function resizeInteraction()
     $("#center-column").height(windowHeight);
 }
 
-/*
+
 //not used anymore
 function resizeBanner(idBanner)
 {
@@ -36,7 +35,7 @@ function resizeBanner(idBanner)
     }
     else
     {
-        var bottomHeight = $( ".bottom-container" ).height();
+        var bottomHeight = 120;
         var windowHeight = $( window ).height();
         if(imgHeight>windowHeight-bottomHeight)
         {
@@ -46,4 +45,4 @@ function resizeBanner(idBanner)
         console.log("component resized: "+idBanner)
     }
 
-}*/
+}
