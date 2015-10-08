@@ -13,10 +13,13 @@ use Validator;
 class InteractionsController extends Controller
 {
     protected $token;
+    protected $fecha;
+    protected $mac;
 
     public function __construct()
     {
         $this->token = session('_token');
+        $this->fecha = new MongoDate();
     }
 
     public function welcome()
@@ -62,28 +65,46 @@ class InteractionsController extends Controller
         // in RequestedLogJob
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function loaded()
     {
-        $camplog = new CampaignLog([
-            'user' => [
-                'session' => session('_token')
-            ],
-            'device' => [
-                'mac' => "test mac xD"//Input::get('node_mac')
-            ],
-            'interaction' => [
-                'welcome' => new MongoDate()
-            ]
-        ]);
-
-        $camplog->save();
-
-        return \Request::all();
-//        return true;
+        $log = CampaignLog::where('user.session', $this->token)
+            ->where('device.mac', Input::get('client_mac'))->first();
+        if ($log && !isset($log->interaction->loaded)) {
+            $log->interaction->loaded = $this->fecha;
+            $log->interaction->save();
+            $response = ['ok' => true];
+        }else {
+            $response = [
+                'ok' => false,
+                'step' => 'Update log-loaded'
+            ];
+        }
+        return response()->json($response);
     }
 
     public function completed()
     {
+        $log = CampaignLog::where('user.session', $this->token)
+            ->where('device.mac', Input::get('client_mac'))->first();
 
+        if ($log && !isset($log->interaction->completed)) {
+            $log->interaction->completed = $this->fecha;
+            $log->interaction->save();
+            $response = ['ok' => true];
+        }else {
+            $response = [
+                'ok' => false,
+                'step' => 'Update log-completed'
+            ];
+        }
+        return response()->json($response);
     }
 }
+
+/*$response = [
+            'default' => false,
+            'step' => 'default log-loaded'
+        ];*/
