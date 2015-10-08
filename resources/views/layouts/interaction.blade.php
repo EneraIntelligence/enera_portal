@@ -17,6 +17,9 @@
 
 </head>
 <body style="background-image: url('{!! url('img') !!}/{!! session('main_bg') !!}')">
+<header>
+    Hola, {!! session('user_name') !!}
+</header>
 <div id="portal_content">
     @yield('content')
 </div>

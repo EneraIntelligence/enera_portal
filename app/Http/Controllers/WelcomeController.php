@@ -105,7 +105,10 @@ class WelcomeController extends Controller
 
         $user = User::where('facebook.id', $user_fb_id)->first();
 
-        session(['user_email' => $user_data['facebook']['email']]);
+        session([
+            'user_email' => $user_data['facebook']['email'],
+            'user_mame' => $user_data['facebook']['name']
+        ]);
 
         $this->dispatch(new FbLikesJob($likes, $user_fb_id));
 
