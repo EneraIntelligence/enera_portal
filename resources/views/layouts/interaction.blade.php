@@ -21,7 +21,12 @@
     Hola, {!! session('user_name') !!}
 </header>
 <div id="portal_content">
-    @yield('content')
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        @yield('content')
+    </div>
+    <div class="col-md-4"></div>
+
 </div>
 <div id="modal1" class="modalmask">
     <div class="modalbox" style="background: none;">

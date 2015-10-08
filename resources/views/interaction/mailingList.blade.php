@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="center-block container">
+    <div>
 
         <!-- banner -->
         <img class="img-portrait img-responsive center-block banner"
@@ -17,7 +17,7 @@
 
     </div>
 
-    <div class="bottom-container">
+    <div style="margin: 15px 0;">
         <!-- subscribe button -->
         <button id="subscribe" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}">
             SUSCRIBIRME

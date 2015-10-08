@@ -2,12 +2,11 @@
 @section('head_scripts')
     {!! HTML::style(asset('css/captcha.css')) !!}
 @endsection
-@section('title', 'Captcha test')
+@section('title', 'Captcha')
 
 @section('content')
     <div id="captcha">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+
             <div>
                 <img id="captcha-img" src="{{asset('img/'. $data['cover_path'])}}" alt="Enera Portal">
             </div>
@@ -19,8 +18,6 @@
             <div>
                 <p> * Para navegar por internet ingresa la palabra en la imagen </p>
             </div>
-        </div>
-        <div class="col-md-4"></div>
     </div>
 
 @endsection

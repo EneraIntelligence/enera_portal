@@ -1,17 +1,16 @@
 @extends('layouts.interaction')
 
+@section('title', 'Banner')
 @section('content')
-    <div class=" container">
-        <div class="center-block">
-            <img class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}" alt="Enera Portal">
-        </div>
+
+    <div>
+        <img class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}" alt="Enera Portal">
     </div>
-    <div class="bottom-container">
+    <div style="margin: 15px 0;">
         <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
             internet
         </button>
     </div>
-
 @stop
 
 @section('footer_scripts')
