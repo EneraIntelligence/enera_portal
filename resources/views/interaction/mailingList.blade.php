@@ -1,5 +1,7 @@
 @extends('layouts.interaction')
 
+@section('title', 'Mailing List')
+
 @section('content')
 
     <div>

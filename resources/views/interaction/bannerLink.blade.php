@@ -1,5 +1,7 @@
 @extends('layouts.interaction')
 
+@section('title', 'Banner Link')
+
 @section('content')
 
     <div>
