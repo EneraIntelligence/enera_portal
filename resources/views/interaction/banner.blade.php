@@ -17,24 +17,20 @@
 
     <script>
         $(document).ready(function () {
-            var _token = '{!! session('_token') !!}';
-            //var elArray = new Array();
-            //var elArray = "{{ json_encode($data) }}";
-            var link = "{!! $data['link'] !!}";
-            var idCamp = "{!! $id !!}";
-            console.log("id campaña: " + idCamp);
-            console.log(link);
             var myLog = new logs();
-            console.log("ready!");
+//            console.log("ready!");
 
             myLog.loaded({
-                token: "{!! session('_token') !!}",
+                _token: "{!! session('_token') !!}",
                 client_mac: "{!! Input::get('client_mac') !!}"
             });
 
             $("#navegar").click(function () {
                 console.log('click en el boton');
-                myLog.completed(_token, link, 'completed');
+                myLog.completed({
+                    _token: "{!! session('_token') !!}",
+                    client_mac: "{!! Input::get('client_mac') !!}"
+                });
             });
         });
     </script>
