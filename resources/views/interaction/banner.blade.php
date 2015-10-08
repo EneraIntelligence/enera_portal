@@ -30,10 +30,14 @@
 
             $("#navegar").click(function () {
                 console.log('click en el boton');
-                myLog.completed({
+                var response =myLog.completed({
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
                 });
+                myLog.redirectOut('http://www.enera.mx');
+                if(response.ok==true){
+
+                }
             });
         });
     </script>

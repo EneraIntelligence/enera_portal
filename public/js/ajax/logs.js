@@ -24,7 +24,7 @@ logs = function () {
     }
 
 
-    function redirectOut(url) {
+    this.redirectOut = function redirectOut(url) {
         window.location.href = url;
     }
 
