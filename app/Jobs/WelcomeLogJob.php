@@ -39,17 +39,16 @@ class WelcomeLogJob extends Job implements SelfHandling
         if ($log && !isset($log->interaction->welcome)) {
             $log->interaction()->create(['welcome' => $this->welcome]);
         } elseif (!$log) {
-            CampaignLog::create([
+            $log = CampaignLog::create([
                 'user' => [
                     'session' => $this->token
                 ],
                 'device' => [
                     'mac' => $this->client_mac
-                ],
-                'interaction' => [
-                    '_id' => new MongoId(),
-                    'welcome' => $this->welcome
                 ]
+            ]);
+            $log->interaction()->create([
+                'welcome' => $this->welcome
             ]);
         }
     }
