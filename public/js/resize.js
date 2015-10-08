@@ -8,8 +8,17 @@ function resize() {
     resizeBanner("#banner-vertical");
     resizeBanner("#banner-horizontal");
 
+    setButtonToBottom("#navegar");
 }
 
+function setButtonToBottom(buttonId)
+{
+    var portalContentHeight = $("#portal_content").height();
+    console.log("portalContentHeight: "+portalContentHeight);
+
+}
+/*
+//not used anymore
 function resizeBanner(idBanner)
 {
     var bannerImg = $( idBanner );
@@ -37,5 +46,4 @@ function resizeBanner(idBanner)
         console.log("component resized: "+idBanner)
     }
 
-
-}
+}*/
