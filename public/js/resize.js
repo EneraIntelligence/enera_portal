@@ -8,9 +8,14 @@ function resize()
 {
     //resizeBanner("#banner-vertical");
     //resizeBanner("#banner-horizontal");
-
+    resizeInteraction();
 }
 
+function resizeInteraction()
+{
+    var windowHeight = $( window ).height()-20;
+    $("#center-column").height(windowHeight);
+}
 
 /*
 //not used anymore
