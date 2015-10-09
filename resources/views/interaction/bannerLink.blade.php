@@ -1,17 +1,22 @@
 @extends('layouts.interaction')
-
+@section('head_scripts')
+    {!! HTML::style(asset('css/banner.css')) !!}
+@endsection
 @section('title', 'Banner Link')
 
 @section('content')
 
     <div>
-        <img class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}" alt="Enera Portal">
+        <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}" alt="Enera Portal">
     </div>
 
-    <div style="margin: 15px 0;">
-        <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
-            internet
-        </button>
+    <div class="banner-button">
+        <div>
+            <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
+                internet
+            </button>
+        </div>
+
     </div>
 @stop
 

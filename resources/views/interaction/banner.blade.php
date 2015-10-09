@@ -1,12 +1,16 @@
 @extends('layouts.interaction')
+@section('head_scripts')
+    {!! HTML::style(asset('css/banner.css')) !!}
+@endsection
 
 @section('title', 'Banner')
 @section('content')
 
     <div>
-        <img id="banner"  class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}" alt="Enera Portal">
+        <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}"
+             alt="Enera Portal">
     </div>
-    <div style="margin: 15px 0; margin: 15px 0; position: absolute; bottom: 10px; width: 94%; left:3%">
+    <div class="banner-button">
         <div>
             <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
                 internet
@@ -30,12 +34,12 @@
 
             $("#navegar").click(function () {
                 console.log('click en el boton');
-                var response =myLog.completed({
+                var response = myLog.completed({
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
                 });
                 myLog.redirectOut('http://www.enera.mx');
-                if(response.ok==true){
+                if (response.ok == true) {
 
                 }
             });

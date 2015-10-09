@@ -1,14 +1,21 @@
 @extends('layouts.interaction')
 
+@section('head_scripts')
+    {!! HTML::style(asset('css/banner.css')) !!}
+@endsection
+
+@section('footer_scripts')
+    {!! HTML::script('js/resize-mailing.js') !!}
+@endsection
 @section('title', 'Mailing List')
 
 @section('content')
 
-    <div style="height: 70%;">
+    <div>
         <!-- banner -->
-        <img class="img-portrait img-responsive center-block banner"
+        <img class="img-responsive center-block"
              src="{{asset('img').'/'.$data['imagen'] }}"
-             id="banner-vertical"
+             id="banner-mailing"
              alt="Enera Portal">
 
         {{--
@@ -32,6 +39,15 @@
             </a>
         </div>
     </div>
+
+    {{--<div class="banner-button">--}}
+        {{--<div>--}}
+            {{--<button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en--}}
+                {{--internet--}}
+            {{--</button>--}}
+        {{--</div>--}}
+
+    {{--</div>--}}
 
 @stop
 

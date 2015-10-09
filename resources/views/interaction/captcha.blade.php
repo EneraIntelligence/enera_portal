@@ -14,7 +14,7 @@
                 <input id="captcha-value" type="text" name="Captcha"><br>
             </form>
             <div id="error">Respuesta invalida</div>
-            <button id="navegar" class="btn btn-primary btn-block" url="{{$data['link']}}" style="margin: 10px 0;">Navegar por intenet</button>
+            <button id="navegar" class="btn btn-primary btn-block" url="{{$data['link']}}">Navegar por intenet</button>
             <div>
                 <p> * Para navegar por internet ingresa la palabra en la imagen </p>
             </div>
