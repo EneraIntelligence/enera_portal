@@ -1,7 +1,7 @@
 @extends('layouts.interaction')
 
 @section('head_scripts')
-    {!! HTML::style(asset('css/banner.css')) !!}
+    {!! HTML::style(asset('css/mailing_list.css')) !!}
 @endsection
 
 @section('footer_scripts')
@@ -26,7 +26,7 @@
         --}}
     </div>
 
-    <div style="margin: 15px 0;">
+    <div class="banner-button">
         <!-- subscribe button -->
         <button id="subscribe" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}">
             SUSCRIBIRME

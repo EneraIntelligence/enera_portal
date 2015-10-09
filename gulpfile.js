@@ -17,4 +17,5 @@ elixir(function (mix) {
     mix.sass('welcome.scss', 'public/css/welcome.css');
     mix.sass('captcha.scss', 'public/css/captcha.css');
     mix.sass('banner.scss', 'public/css/banner.css');
+    mix.sass('mailing_list.scss', 'public/css/mailing_list.css');
 });
