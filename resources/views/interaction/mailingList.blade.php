@@ -67,7 +67,7 @@
                 myLog.saveMail({
                     _token: "{!! session('_token') !!}"
                 });
-//                myLog.redirectOut(btn.attr('susses_url'));
+                myLog.redirectOut(btn.attr('susses_url'));
                 {{--window.location.href = "{!! route("campaign::action::save_mail") !!}";--}}
 
             });
