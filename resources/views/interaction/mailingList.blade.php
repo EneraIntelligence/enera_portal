@@ -4,9 +4,6 @@
     {!! HTML::style(asset('css/mailing_list.css')) !!}
 @endsection
 
-@section('footer_scripts')
-    {!! HTML::script('js/resize-mailing.js') !!}
-@endsection
 @section('title', 'Mailing List')
 
 @section('content')
@@ -28,7 +25,7 @@
 
     <div class="banner-button">
         <!-- subscribe button -->
-        <button id="subscribe" type="button" class="btn btn-primary btn-block" susses_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=3600' }}">
+        <button id="subscribe" type="button" class="btn btn-primary btn-block" susses_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
             SUSCRIBIRME
         </button>
 
@@ -67,8 +64,12 @@
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
                 });
-                window.location.href = "{!! route("campaign::action::save_mail") !!}";
+                myLog.saveMail({
+                    _token: "{!! session('_token') !!}"
+                });
 //                myLog.redirectOut(btn.attr('susses_url'));
+                {{--window.location.href = "{!! route("campaign::action::save_mail") !!}";--}}
+
             });
             var btn = $("#navegar");
             btn.click(function () {

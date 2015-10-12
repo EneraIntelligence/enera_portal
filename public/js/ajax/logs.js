@@ -23,7 +23,6 @@ logs = function () {
         ajax(data, 'completed');
     }
 
-
     this.redirectOut = function redirectOut(url) {
         window.location.href = url;
     }
@@ -31,6 +30,24 @@ logs = function () {
     function ajax(json_data, paso) {
         $.ajax({
             url: '/interaction/logs/' + paso,
+            type: 'POST',
+            dataType: 'JSON',
+            data: json_data
+        }).done(function (data) {
+            console.log("success");
+            console.log(data);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }).always(function () {
+            console.log("complete-");
+        });
+    }
+
+    this.saveMail = function saveMail(json_data){
+        $.ajax({
+            url: '/campaign/action/saveMail',
             type: 'POST',
             dataType: 'JSON',
             data: json_data

@@ -20,8 +20,8 @@ Route::group(['as' => 'welcome::', 'prefix' => 'welcome'], function () {
 Route::group(['as' => 'campaign::', 'prefix' => 'campaign'], function () {
     Route::get('/{id}', ['as' => 'show', 'uses' => 'CampaignsController@show']);
 
-    Route::group(['as' => 'action::', 'prefix' => 'action'], function () {
-        Route::get('savemail', ['as' => 'save_mail', 'uses' => 'CampaignsController@saveMail']);
+    Route::group(['as' => 'action::','middleware' => 'ajax', 'prefix' => 'action'], function () {
+        Route::match(['get', 'post'],'saveMail', ['as' => 'saveMail', 'uses' => 'CampaignsController@saveMail']);
     });
 });
 
