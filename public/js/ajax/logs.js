@@ -46,24 +46,3 @@ logs = function () {
         });
     }
 };
-
-
-//$("#navegarL").click(function() {
-//    var url= $("#navegar").attr('data');
-//    url="http://www."+url;
-//    console.log(url);
-//    window.location.href = url;
-//});
-
-//var url= $("#navegar").attr('data');
-//                var token = $('input:hidden[name=_token]').val();
-//                url="http://www.";
-//                console.log(url);
-//                window.location.href = url;
-//{{--var link = 'enera.mx';--}}
-//{{--var _token = '{!! csrf_token() !!}'--}}
-/*var url= '/requested';
- var data = {_token: '{!! csrf_token() !!}'  , link:'{{$data['link']}}'}
- $.post(url,data,function (result) {
- console.log(result);
- });*/

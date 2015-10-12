@@ -43,8 +43,8 @@ class WelcomeController extends Controller
          */
         // valida que los paramatros esten presentes
         $validate = Validator::make(Input::all(), [
-//            'base_grant_url' => 'required',
-//            'user_continue_url' => 'required',
+            'base_grant_url' => 'required',
+            'user_continue_url' => 'required',
             'node_mac' => 'required',
 //            'client_id' => 'required',
             'client_mac' => 'required'
@@ -116,7 +116,10 @@ class WelcomeController extends Controller
 
         return redirect()->route('campaign::show', [
             'id' => $user->_id,
+            'base_grant_url' => Input::get('base_grant_url'),
+            'user_continue_url' => Input::get('user_continue_url'),
             'node_mac' => Input::get('node_mac'),
+            'client_id' => Input::get('client_id'),
             'client_mac' => Input::get('client_mac')
         ]);
     }

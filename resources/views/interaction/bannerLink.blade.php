@@ -12,7 +12,7 @@
 
     <div class="banner-button">
         <div>
-            <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
+            <button id="navegar" type="button" class="btn btn-primary btn-block" susses_url="{{Input::get('base_grant_url').'?continue_url='.$data['link'].'&duration=900' }}" > Navegar en
                 internet
             </button>
         </div>
@@ -23,19 +23,23 @@
 @section('footer_scripts')
     <script>
         $(document).ready(function () {
-            var _token = '{!! csrf_token() !!}';
-            var link = "{!! $data['link'] !!}";
-            var idCamp = "{!! $id !!}";
-            console.log("id campaña: " + idCamp);
-            console.log(link);
             var myLog = new logs();
-            console.log("ready!");
+//            console.log("ready!");
 
-            myLog.loaded(_token, 'loaded');
+            myLog.loaded({
+                _token: "{!! session('_token') !!}",
+                client_mac: "{!! Input::get('client_mac') !!}"
+            });
 
-            $("#navegar").click(function () {
+            var btn = $("#navegar");
+            btn.click(function () {
                 console.log('click en el boton');
-                myLog.completed(_token, link, 'completed');
+                var response =myLog.completed({
+                    _token: "{!! session('_token') !!}",
+                    client_mac: "{!! Input::get('client_mac') !!}"
+                });
+                myLog.redirectOut(btn.attr('susses_url'));
+
             });
         });
     </script>

@@ -14,7 +14,9 @@
                 <input id="captcha-value" type="text" name="Captcha"><br>
             </form>
             <div id="error">Respuesta invalida</div>
-            <button id="navegar" class="btn btn-primary btn-block" url="{{$data['link']}}">Navegar por intenet</button>
+            <button id="navegar" class="btn btn-primary btn-block" susses_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
+                Navegar por intenet
+            </button>
             <div>
                 <p> * Para navegar por internet ingresa la palabra en la imagen </p>
             </div>
@@ -26,32 +28,28 @@
 
     <script>
         $(document).ready(function () {
+//            console.log("ready!");
             $("button").click(function () {
                 var data = $("form").serializeArray();
                 $.each(data, function (i, field) {
                     if (field.value == "" || field.value == null) {
                         document.getElementById('error').style.display = 'block';
                     } else if (field.value == '{{$data['captcha']}}') {
-                        var _token = '{!! session('_token') !!}';
-                        //var elArray = new Array();
-                        //var elArray = "{{ json_encode($data) }}";
-                        var link = "{!! $data['link'] !!}";
-                        var idCamp = "{!! $id !!}";
-                        console.log("id campaña: " + idCamp);
-                        console.log(link);
                         var myLog = new logs();
-                        console.log("ready!");
-
                         myLog.loaded({
-                            token: "{!! session('_token') !!}",
+                            _token: "{!! session('_token') !!}",
                             client_mac: "{!! Input::get('client_mac') !!}"
                         });
 
-                        $("#navegar").click(function () {
+                        var btn = $("#navegar");
+                        btn.click(function () {
                             console.log('click en el boton');
-                            myLog.completed(_token, link, 'completed');
+                            var response =myLog.completed({
+                                _token: "{!! session('_token') !!}",
+                                client_mac: "{!! Input::get('client_mac') !!}"
+                            });
+                            myLog.redirectOut(btn.attr('susses_url'));
                         });
-
 //                        document.getElementById('captcha-value').value = '';
 //                        document.getElementById('error').style.display = 'none';
                     } else {

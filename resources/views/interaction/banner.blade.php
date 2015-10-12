@@ -12,8 +12,8 @@
     </div>
     <div class="banner-button">
         <div>
-            <button id="navegar" type="button" class="btn btn-primary btn-block" data="{{$data['link']}}"> Navegar en
-                internet
+            <button id="navegar" type="button" class="btn btn-primary btn-block" susses_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}" >
+                Navegar en internet
             </button>
         </div>
 
@@ -32,16 +32,15 @@
                 client_mac: "{!! Input::get('client_mac') !!}"
             });
 
-            $("#navegar").click(function () {
+            var btn = $("#navegar");
+            btn.click(function () {
                 console.log('click en el boton');
-                var response = myLog.completed({
+//                console.log();
+                var response =myLog.completed({
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
                 });
-                myLog.redirectOut('http://www.enera.mx');
-                if (response.ok == true) {
-
-                }
+                myLog.redirectOut(btn.attr('susses_url'));
             });
         });
     </script>
