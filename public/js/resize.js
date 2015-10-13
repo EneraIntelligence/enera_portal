@@ -17,7 +17,6 @@ function resizeInteraction()
 }
 
 
-//not used anymore
 function resizeBanner(idBanner)
 {
     var bannerImg = $( idBanner );

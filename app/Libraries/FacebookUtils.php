@@ -38,20 +38,21 @@ class FacebookUtils
 
     public function isUserLoggedIn()
     {
-        if (!Session::has('facebook_access_token')) {
+        if (!isset($_SESSION['facebook_access_token'])) {
             if (!isset($this->helper)) {
                 $this->helper = $this->fb->getRedirectLoginHelper();
             }
 
-            //dd($this->helper->getAccessToken());
-
             if ($this->accessToken = $this->helper->getAccessToken()) {
                 $_SESSION['facebook_access_token'] = (string)$this->accessToken;
+                $this->fb->setDefaultAccessToken($this->accessToken);
                 return true;
             } else {
                 return false;
             }
         } else {
+            $this->accessToken=$_SESSION['facebook_access_token'];
+            $this->fb->setDefaultAccessToken($this->accessToken);
             return true;
         }
     }
