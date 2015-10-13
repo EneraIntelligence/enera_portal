@@ -18,7 +18,7 @@ class MailingList extends Enera
 
     public function __construct(Campaign $campaignData)
     {
-        $this->view = "/interaction/mailingList";
+        $this->view = "interaction.mailingList";
         $this->campaign = $campaignData;
     }
 }

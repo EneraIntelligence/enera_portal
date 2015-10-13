@@ -19,7 +19,7 @@ class Captcha extends Enera
 
     public function __construct(Campaign $campaign)
     {
-        $this->view = "/interaction/captcha";
+        $this->view = "interaction.captcha";
         $this->campaign = $campaign;
     }
 

@@ -13,15 +13,17 @@
 
 Route::get('/', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
 
-Route::group(['as' => 'welcome::', 'prefix' => 'welcome'], function () {
-    Route::get('response', ['as' => 'response', 'uses' => 'WelcomeController@response']);
-});
+Route::group(['middleware' => 'FbLogin'], function () {
+    Route::group(['as' => 'welcome::', 'prefix' => 'welcome'], function () {
+        Route::get('response', ['as' => 'response', 'uses' => 'WelcomeController@response']);
+    });
 
-Route::group(['as' => 'campaign::', 'prefix' => 'campaign'], function () {
-    Route::get('/{id}', ['as' => 'show', 'uses' => 'CampaignsController@show']);
+    Route::group(['as' => 'campaign::', 'prefix' => 'campaign'], function () {
+        Route::get('/{id}', ['as' => 'show', 'uses' => 'CampaignsController@show']);
 
-    Route::group(['as' => 'action::','middleware' => 'ajax', 'prefix' => 'action'], function () {
-        Route::match(['get', 'post'],'saveMail', ['as' => 'saveMail', 'uses' => 'CampaignsController@saveMail']);
+        Route::group(['as' => 'action::', 'middleware' => 'ajax', 'prefix' => 'action'], function () {
+            Route::match(['get', 'post'], 'saveMail', ['as' => 'saveMail', 'uses' => 'CampaignsController@saveMail']);
+        });
     });
 });
 
@@ -40,12 +42,3 @@ Route::group(['as' => 'interaction::'], function () {
 });
 
 /* ---- routes testing ---- */
-
-Route::get('/fblogin', ['as' => 'fb_login', 'uses' => 'FacebookLoginController@index']);
-Route::get('/captcha', ['as' => 'step_2', 'uses' => 'CampaignsController@captcha']);
-Route::get('/fb_login_response', ['as' => 'fb_login_response', 'uses' => 'FacebookLoginController@login_response']);
-
-//Route::get('/banner/{id_campaign}', ['as' => 'step_3', 'uses' => 'InteractionsController@requested']);
-Route::get('/banner/{id_campaign}', ['as' => 'step_3', 'uses' => 'CampaignsController@prueba']);
-Route::get('/mailing/{id_campaign}', ['as' => 'mailing', 'uses' => 'CampaignsController@pruebaMailing']);
-

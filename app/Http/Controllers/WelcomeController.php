@@ -46,7 +46,7 @@ class WelcomeController extends Controller
             'base_grant_url' => 'required',
             'user_continue_url' => 'required',
             'node_mac' => 'required',
-//            'client_id' => 'required',
+//            'client_ip' => 'required',
             'client_mac' => 'required'
         ]);
         if ($validate->passes()) {
@@ -56,7 +56,7 @@ class WelcomeController extends Controller
                 session(['main_bg' => $branche->portal['background']]);
                 $url = route('welcome::response', [
                     'node_mac' => Input::get('node_mac'),
-                    'client_id' => Input::get('client_id'),
+                    'client_ip' => Input::get('client_ip'),
                     'client_mac' => Input::get('client_mac'),
                     'base_grant_url' => Input::get('base_grant_url'),
                     'user_continue_url' => Input::get('user_continue_url'),
@@ -119,7 +119,7 @@ class WelcomeController extends Controller
             'base_grant_url' => Input::get('base_grant_url'),
             'user_continue_url' => Input::get('user_continue_url'),
             'node_mac' => Input::get('node_mac'),
-            'client_id' => Input::get('client_id'),
+            'client_ip' => Input::get('client_ip'),
             'client_mac' => Input::get('client_mac')
         ]);
     }

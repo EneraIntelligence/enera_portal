@@ -3,6 +3,7 @@
 namespace Portal\Libraries;
 
 use Facebook;
+use Session;
 
 class FacebookUtils
 {
@@ -37,28 +38,22 @@ class FacebookUtils
 
     public function isUserLoggedIn()
     {
-        if (isset($this->accessToken))
+        if (!Session::has('facebook_access_token')) {
+            if (!isset($this->helper)) {
+                $this->helper = $this->fb->getRedirectLoginHelper();
+            }
+
+            //dd($this->helper->getAccessToken());
+
+            if ($this->accessToken = $this->helper->getAccessToken()) {
+                $_SESSION['facebook_access_token'] = (string)$this->accessToken;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
             return true;
-
-        if (!isset($this->helper)) {
-            $this->helper = $this->fb->getRedirectLoginHelper();
         }
-
-        try {
-            $this->accessToken = $this->helper->getAccessToken();
-            $this->fb->setDefaultAccessToken($this->accessToken);
-            return true;
-        } catch (Facebook\Exceptions\FacebookResponseException $e) {
-            // When Graph returns an error
-            echo 'Graph returned an error: ' . $e->getMessage();
-            return false;
-        } catch (Facebook\Exceptions\FacebookSDKException $e) {
-            // When validation fails or other local issues
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            return false;
-        }
-
-
     }
 
     public function getUserData()

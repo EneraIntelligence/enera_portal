@@ -24,7 +24,7 @@ class BannerLink extends Enera
      */
     public function __construct(Campaign $campaign)
     {
-        $this->view = "/interaction/bannerLink";
+        $this->view = "interaction.bannerLink";
         $this->campaign = $campaign;
         //var_dump($this->campaign);
     }

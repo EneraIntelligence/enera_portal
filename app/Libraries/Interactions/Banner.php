@@ -22,7 +22,7 @@ class Banner extends Enera
      */
     public function __construct(Campaign $campaign)
     {
-        $this->view = "/interaction/banner";
+        $this->view = "interaction.banner";
         $this->campaign = $campaign;
         //var_dump($this->campaign);
     }

@@ -11,9 +11,10 @@ namespace Portal\Libraries;
 
 class Enera
 {
-//    protected $_data = ['view'];
+
     protected $view;
-//    protected $campaign;
+    protected $data;
+    protected $campaign;
 
     public function __construct()
     {

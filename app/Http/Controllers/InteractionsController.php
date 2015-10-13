@@ -103,8 +103,3 @@ class InteractionsController extends Controller
         return response()->json($response);
     }
 }
-
-/*$response = [
-            'default' => false,
-            'step' => 'default log-loaded'
-        ];*/

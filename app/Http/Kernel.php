@@ -30,5 +30,6 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \Portal\Http\Middleware\RedirectIfAuthenticated::class,
         'ajax' => \Portal\Http\Middleware\AjaxMiddleware::class,
+        'FbLogin' => \Portal\Http\Middleware\FbLoginMiddleware::class,
     ];
 }
