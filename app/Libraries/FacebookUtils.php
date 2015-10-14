@@ -51,7 +51,7 @@ class FacebookUtils
                 return false;
             }
         } else {
-            $this->accessToken=$_SESSION['facebook_access_token'];
+            $this->accessToken = $_SESSION['facebook_access_token'];
             $this->fb->setDefaultAccessToken($this->accessToken);
             return true;
         }

@@ -37,10 +37,7 @@ class CampaignsController extends Controller
             'campaign_id' => $campaignSelected->_id
         ]));
 
-        return view($interaction->getView(), [
-            'id' => $campaignSelected->_id,
-            'data' => $interaction->getData()
-        ]);
+        return view($interaction->getView(), array_merge(['_id' => $campaignSelected->_id], $interaction->getData()));
 
     }
 
