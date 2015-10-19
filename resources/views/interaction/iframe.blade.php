@@ -1,13 +1,12 @@
 @extends('layouts.interaction')
 @section('head_scripts')
-    {!! HTML::style(asset('css/banner.css')) !!}
+    {!! HTML::style(asset('css/captcha.css')) !!}
 @endsection
+@section('title', 'iframe')
 
-@section('title', 'Banner')
 @section('content')
-
-    <div>
-        <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}"alt="Enera Portal">
+    <div style="width:100%; height:90%;">
+        <iframe src="https://www.blablacar.mx/registro-pasajero?comuto_cmkt=MX_ADWORDSBRAND&utm_source=ADWORDSBRAND&utm_campaign=MX_ADWORDSBRAND&gclid=Cj0KEQjwqZKxBRDBkNmLt9DejNgBEiQAq8XWPoTqwI7uazQKZH1vu1cFmL-RuiPf-c0qNjY8Nv2bpKQaAmKZ8P8HAQ" frameborder="0" style="width:100%; height:100%;"></iframe>
     </div>
     <div class="banner-button">
         <div>
@@ -16,7 +15,8 @@
             </button>
         </div>
     </div>
-@stop
+
+@endsection
 
 @section('footer_scripts')
 
@@ -43,4 +43,5 @@
         });
     </script>
 
-@stop
+
+@endsection

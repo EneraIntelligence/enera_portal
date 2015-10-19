@@ -81,7 +81,7 @@ class WelcomeController extends Controller
     }
 
     /**
-     * Optiene la respuesta desde Facebook
+     * Obtiene la respuesta desde Facebook
      */
     public function response()
     {
