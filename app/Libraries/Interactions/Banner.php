@@ -24,7 +24,7 @@ class Banner extends Enera
     {
         $this->view = "interaction.banner";
         $this->campaign = $campaign;
-        //var_dump($this->campaign);
+//        dd($this->campaign);
     }
 
     public function getLink()

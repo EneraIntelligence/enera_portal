@@ -6,7 +6,9 @@
 
 @section('content')
     <div style="width:100%; height:90%;">
-        <iframe src="{{ $iframe }}" frameborder="0" style="width:100%; height:100%;"></iframe>
+        <div id="mascara" style="position:absolute; width:100%; height:90%;">
+        </div>
+        <iframe id="frame" src="{{ $iframe }}" frameborder="0" style="width:100%; height:100%;"></iframe>
     </div>
     <div class="banner-button">
         <div>
@@ -23,22 +25,31 @@
     <script>
         $(document).ready(function () {
             var myLog = new logs();
-//            console.log("ready!");
+            console.log("ready!");
 
-            myLog.loaded({
-                _token: "{!! session('_token') !!}",
-                client_mac: "{!! Input::get('client_mac') !!}"
-            });
+
+            var iframe = $("#mascara");
+            iframe.click(function (){
+                console.log('click en blablacar');
+            })
+
+//            console.log("url = ".url);
+
+//            myLog.loaded({
+                {{--_token: "{!! session('_token') !!}",--}}
+                {{--client_mac: "{!! Input::get('client_mac') !!}"--}}
+//            });
 
             var btn = $("#navegar");
             btn.click(function () {
                 console.log('click en el boton');
 //                console.log();
+
                 var response =myLog.completed({
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
                 });
-                myLog.redirectOut(btn.attr('susses_url'));
+                //myLog.redirectOut(btn.attr('susses_url'));
             });
         });
     </script>
