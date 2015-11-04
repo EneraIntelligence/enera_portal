@@ -7,13 +7,13 @@
 @section('content')
 
     <div>
-        <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$data['imagen'] }}" alt="Enera Portal">
+        <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$imagen }}" alt="Enera Portal">
     </div>
 
     <div class="banner-button">
         <div>
-            <button id="navegar" type="button" class="btn btn-primary btn-block" susses_url="{{Input::get('base_grant_url').'?continue_url=http://'.$data['link'].'&duration=900' }}" > Navegar en
-                internet
+            <button id="navegar" type="button" class="btn btn-primary btn-block" susses_url="{{Input::get('base_grant_url').'?continue_url=http://'.$link.'&duration=900' }}" >
+                Navegar en internet
             </button>
         </div>
 

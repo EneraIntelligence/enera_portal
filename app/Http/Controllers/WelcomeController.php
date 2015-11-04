@@ -112,6 +112,7 @@ class WelcomeController extends Controller
             'user_name' => $facebook_data['first_name']
         ]);
 
+        //este job maneja los likes por separado
         $this->dispatch(new FbLikesJob($likes, $user_fb_id));
 
         return redirect()->route('campaign::show', [
