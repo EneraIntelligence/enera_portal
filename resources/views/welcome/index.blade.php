@@ -13,8 +13,8 @@
             <img src="{!! asset('img/'.$image) !!}">
         </div>
         <div class="content">
-            <span>
-                {{ $message }}
+            <span style="color: {{$message['color']}}">
+                {{ $message['text'] }}
             </span>
         </div>
         <div class="login_fb">
