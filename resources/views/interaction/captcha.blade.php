@@ -8,7 +8,7 @@
     <div id="captcha">
 
             <div>
-                <img id="captcha-img" src="{{asset('img/'. $data['cover_path'])}}" alt="Enera Portal">
+                <img id="captcha-img" src="{{asset('img/'. $cover_path)}}" alt="Enera Portal">
             </div>
             <form action="#">
                 <input id="captcha-value" type="text" name="Captcha"><br>
@@ -34,7 +34,7 @@
                 $.each(data, function (i, field) {
                     if (field.value == "" || field.value == null) {
                         document.getElementById('error').style.display = 'block';
-                    } else if (field.value == '{{$data['captcha']}}') {
+                    } else if (field.value == '{¡¡ $captcha ¡¡}') {
                         var myLog = new logs();
                         myLog.loaded({
                             _token: "{!! session('_token') !!}",

@@ -11,7 +11,7 @@
     <div>
         <!-- banner -->
         <img class="img-responsive center-block"
-             src="{!! $image !!} }}"
+             src="{{asset('img').'/'.$image }} "
              id="banner-mailing"
              alt="Enera Portal">
 

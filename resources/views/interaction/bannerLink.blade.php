@@ -7,7 +7,7 @@
 @section('content')
 
     <div>
-        <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$imagen }}" alt="Enera Portal">
+        <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$image }}" alt="Enera Portal">
     </div>
 
     <div class="banner-button">
