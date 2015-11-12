@@ -53,4 +53,12 @@ class CampaignsController extends Controller
 //        return 'email saved '.session('user_email').' on campaign with id: '.session('campaign_id');
     }
 
+    /**
+     * Guarda las respuesta de la encuenta
+     */
+    public function save_survey()
+    {
+        //
+    }
+
 }

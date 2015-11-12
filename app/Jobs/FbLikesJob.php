@@ -11,16 +11,19 @@ class FbLikesJob extends Job implements SelfHandling
 {
     protected $likes;
     protected $fb_id;
+    protected $mac;
 
     /**
      * Create a new job instance.
      * @param $likes
      * @param $fb_id
+     * @param $user_mac
      */
-    public function __construct($likes, $fb_id)
+    public function __construct($likes, $fb_id, $user_mac)
     {
         $this->likes = $likes;
         $this->fb_id = $fb_id;
+        $this->mac = $user_mac;
     }
 
     /**
@@ -32,6 +35,8 @@ class FbLikesJob extends Job implements SelfHandling
     {
         $user = User::where('facebook.id', $this->fb_id)->first();
         if ($user) {
+            $user->devices()->where();
+
             $user->facebook->likes = [];
             $user->facebook->save();
             foreach ($this->likes as $like) {

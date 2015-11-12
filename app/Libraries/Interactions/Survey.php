@@ -8,6 +8,7 @@
 
 namespace Portal\Libraries\Interactions;
 
+use Portal\Campaign;
 use Portal\Libraries\Enera;
 
 class Survey extends Enera
