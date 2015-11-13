@@ -12,7 +12,7 @@
     </header>
     <h5 style="text-align: center;">Para obtener acceso te invitamos a ver el siguiente video</h5>
     <div style="width: 100%;">
-        <video controls autoplay>
+        <video id="theVideo" controls autoplay>
             <source src="{!! $video !!}" type="video/mp4">
             {{--<source src="http://media.w3.org/2010/05/sintel/trailer.webm" type="video/webm">--}}
             {{--<source src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">--}}
@@ -28,4 +28,30 @@
         </div>
 
     </div>
+@stop
+@section('footer_scripts')
+    <script>
+        $(document).ready(function () {
+            document.getElementById('theVideo').addEventListener('ended', myHandler, false);
+            function myHandler(e) {
+//                console.log('Video Ended');
+            }
+
+            var myLog = new logs();
+            myLog.loaded({
+                _token: "{!! session('_token') !!}",
+                client_mac: "{!! Input::get('client_mac') !!}"
+            });
+
+            var btn = $("#navegar");
+            btn.click(function () {
+                var response = myLog.completed({
+                    _token: "{!! session('_token') !!}",
+                    client_mac: "{!! Input::get('client_mac') !!}"
+                });
+                myLog.redirectOut(btn.attr('susses_url'));
+            });
+        });
+    </script>
+
 @stop

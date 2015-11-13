@@ -4,11 +4,10 @@ namespace Portal;
 
 use Jenssegers\Mongodb\Model as Model;
 
-class UserFacebook extends Model
+class UserDevice extends Model
 {
-    protected $fillable = ['name', 'birthday', 'email', 'lo cation', 'gender', 'likes', 'id'];
+    protected $fillable = ['mac', 'os', 'manufacturer'];
     protected $collection = null;
-
     // relations
 
     // end relations

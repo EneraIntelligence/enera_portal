@@ -2,6 +2,7 @@
 
 namespace Portal\Http\Controllers;
 
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 
@@ -53,26 +54,49 @@ class WelcomeController extends Controller
             $branche = Branche::whereIn('aps', [Input::get('node_mac')])->first();
             // Si el AP fue dado de alta y asignado a una Branche
             if ($branche) {
-                session(['main_bg' => $branche->portal['background']]);
-                $url = route('welcome::response', [
-                    'node_mac' => Input::get('node_mac'),
-                    'client_ip' => Input::get('client_ip'),
-                    'client_mac' => Input::get('client_mac'),
-                    'base_grant_url' => Input::get('base_grant_url'),
-                    'user_continue_url' => Input::get('user_continue_url'),
-                ]);
+                $user = User::where('facebook.id', 'exists', true)
+                    ->where('devices.mac', Input::get('client_mac'))
+                    ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(7)->format('Y-m-d') . 'T00:00:00-0500')))
+                    ->get();
 
-                // Job: paso 1 welcome log
-                $this->dispatch(new WelcomeLogJob([
-                    'session' => session('_token'),
-                    'client_mac' => Input::get('client_mac'),
-                ]));
+                if ($user->count() < 1 || $user->count() > 1) {
+                    session(['main_bg' => $branche->portal['background']]);
+                    $url = route('welcome::response', [
+                        'node_mac' => Input::get('node_mac'),
+                        'client_ip' => Input::get('client_ip'),
+                        'client_mac' => Input::get('client_mac'),
+                        'base_grant_url' => Input::get('base_grant_url'),
+                        'user_continue_url' => Input::get('user_continue_url'),
+                    ]);
 
-                return view('welcome.index', [
-                    'image' => $branche->portal['image'],
-                    'message' => $branche->portal['message'],
-                    'login_response' => $this->fbUtils->makeLoginUrl($url),
-                ]);
+                    // Job: paso 1 welcome log
+                    $this->dispatch(new WelcomeLogJob([
+                        'session' => session('_token'),
+                        'client_mac' => Input::get('client_mac'),
+                    ]));
+
+                    return view('welcome.index', [
+                        'image' => $branche->portal['image'],
+                        'message' => $branche->portal['message'],
+                        'login_response' => $this->fbUtils->makeLoginUrl($url),
+                    ]);
+
+                } elseif ($user->count() == 1) {
+                    session([
+                        'user_email' => $user[0]->facebook->email,
+                        'user_name' => $user[0]->facebook->first_name,
+                        'user_ftime' => false
+                    ]);
+
+                    return redirect()->route('campaign::show', [
+                        'id' => $user[0]->_id,
+                        'node_mac' => Input::get('node_mac'),
+                        'client_ip' => Input::get('client_ip'),
+                        'client_mac' => Input::get('client_mac'),
+                        'base_grant_url' => Input::get('base_grant_url'),
+                        'user_continue_url' => Input::get('user_continue_url'),
+                    ]);
+                }
             }
         }
         return view('welcome.invalid', [
@@ -108,8 +132,9 @@ class WelcomeController extends Controller
         }
 
         session([
-            'user_email' => $facebook_data['email'],
-            'user_name' => $facebook_data['first_name']
+            'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
+            'user_name' => $facebook_data['first_name'],
+            'user_ftime' => true
         ]);
 
         //este job maneja los likes por separado

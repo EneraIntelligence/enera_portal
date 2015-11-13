@@ -18,5 +18,6 @@ elixir(function (mix) {
     mix.sass('captcha.scss', 'public/css/captcha.css');
     mix.sass('banner.scss', 'public/css/banner.css');
     mix.sass('video.scss', 'public/css/video.css');
+    mix.sass('survey.scss', 'public/css/survey.css');
     mix.sass('mailing_list.scss', 'public/css/mailing_list.css');
 });

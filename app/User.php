@@ -13,5 +13,10 @@ class User extends Model
     {
         return $this->embedsOne('Portal\UserFacebook');
     }
-    // end relations
+
+    public function devices()
+    {
+        return $this->embedsMany('Portal\UserDevice');
+    }
+// end relations
 }
