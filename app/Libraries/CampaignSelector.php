@@ -9,8 +9,11 @@
 namespace Portal\Libraries;
 
 use DateTime;
+use Input;
+use Portal\AccessPoint;
 use Portal\User;
 use Portal\Campaign;
+use Portal\CampaignLog;
 use MongoDate;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
@@ -35,6 +38,10 @@ class CampaignSelector
     private function selector()
     {
         // TODO aqui la consulta para obtener la(s) campaña(s) adecuada(s) al usuario
+        $unique = $this->unique();
+        $unique_per_day = $this->unique_user_day();
+        $branch = $this->aps();
+        $max = $this->max();
         $user = $this->user;
         $birthday = new DateTime($this->user->facebook->birthday['date']);
         $today = date('Y-m-d');
@@ -69,10 +76,83 @@ class CampaignSelector
                     ]
                 ]);
             }
-        })->where('status', 'active')
+        })
+            ->whereNotIn('_id', $unique)
+            ->whereNotIn('_id', $unique_per_day)
+            ->whereNotIn('_id', $max)
+            ->whereIn('_id', $branch)
+            ->where('status', 'active')
             ->orderBy('balance', 'desc')
             ->get();
 
+//            dd($campaign);
         return $campaign;
+
+
     }
+
+    public function unique(){
+
+         $unique_user =  Campaign::where('filters.unique_user', 'true')
+            ->where('status','active')->lists('_id');
+
+         $filter = CampaignLog::whereIn('campaign_id', $unique_user)
+            ->where('device.mac', Input::get('client_mac') )
+            ->whereNotNull('interaction.completed')
+            ->lists('campaign_id');
+
+        return $filter;
+    }
+
+//    Filtra las campañas donde el usuario ya participo y la campaña es de usuario unico
+    public function unique_user_day(){
+
+        $today = date('Y-m-d');
+        $unique_user =  Campaign::where('filters.unique_user', 'true')
+            ->where('status','active')->lists('_id');
+
+        $campaings_log = CampaignLog::whereIn('campaign_id', $unique_user)->where('device.mac', Input::get('client_mac'))
+            ->where('interaction.completed', new MongoDate(strtotime($today)))->lists('campaign_id');
+
+        return $campaings_log;
+    }
+
+    public function max(){
+
+        $today = date('Y-m-d');
+        $max_unique =  Campaign::where('filters.max_interactions', 'true')
+            ->where('status','active')->lists('_id');
+
+        //echo $max_unique. '<br>';
+        $filter = [];
+        foreach($max_unique as $max)
+        {
+            $count = CampaignLog::where('campaign_id', $max)
+                ->where('interaction.completed', new MongoDate(strtotime($today)))->count();
+
+            $campaign = Campaign::where('_id', $max)
+                ->where('filters.max_interactions_per_day', '<=', $count)->first();
+            array_push($filter, $campaign);
+        }
+
+        return $filter;
+
+    }
+
+//    Obtiene los branch_id asociados al AP actual
+    public function aps(){
+        $branches = AccessPoint::where('mac', Input::get('node_mac'))->lists('branch_id');
+
+        $filter = [];
+        foreach($branches as $branche)
+        {
+            $cam = Campaign::whereIn('branches' , $branches)->lists('_id');
+            foreach($cam as $c)
+                array_push($filter, $c);
+        }
+        return array_unique($filter);
+
+        }
+
+
 }
