@@ -34,7 +34,8 @@ class CampaignsController extends Controller
         $this->dispatch(new RequestedLogJob([
             'session' => session('_token'),
             'client_mac' => Input::get('client_mac'),
-            'campaign_id' => $campaignSelected->_id
+            'campaign_id' => $campaignSelected->_id,
+            'user_id' => $user_id
         ]));
 
         return view($interaction->getView(), array_merge(['_id' => $campaignSelected->_id], $interaction->getData()));

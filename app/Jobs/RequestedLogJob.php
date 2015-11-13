@@ -19,6 +19,7 @@ class RequestedLogJob extends Job implements SelfHandling
         $this->token = $data['session'];
         $this->client_mac = $data['client_mac'];
         $this->requested = new MongoDate();
+        $this->user_id = $data['user_id'];
     }
 
     /**
@@ -34,6 +35,7 @@ class RequestedLogJob extends Job implements SelfHandling
 
         if ($log) {
             $log->campaign_id = $this->campaign_id;
+            $log->user['id'] = $this->user_id;
             $log->save();
 
             if (!isset($log->interaction->requested)) {
