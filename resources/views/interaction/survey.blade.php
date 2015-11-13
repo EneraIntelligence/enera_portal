@@ -26,7 +26,7 @@
                     {{--answers--}}
                     <div>
                         @foreach($qv['answers'] as $ak => $av)
-                            <button class="btn-block btn btn-default answer" id="{{$ak}}">{{ $av }}</button>
+                            <button class="btn-block btn answer" id="{{$ak}}">{{ $av }}</button>
                         @endforeach
                     </div>
 
@@ -37,6 +37,8 @@
 
             <div class="question">
                 <div class="banner-button">
+
+                    <h3 class="text-center">¡Gracias por participar!</h3>
 
                     <div>
                         <button id="navegar" type="button" class="btn btn-primary btn-block"
@@ -67,19 +69,33 @@
             setupQuestionsClick();
             setupQuestionsPosition();
 
-            function goNextQuestion()
+            function goNextQuestion(question, answerId)
             {
                 currentQuestion++;
-                TweenLite.to(".questionContainer",.5,{x:"-="+(width+10)});
+                TweenLite.to(".questionContainer",.5,{x:"-="+(width+10), ease:Quad.easeIn});
+
+                question.find(".answer").each(function (ans_index) {
+                    if(ans_index!=answerId)
+                    {
+                        TweenLite.to($(this),.2, {alpha:0});
+                    }
+                });
             }
 
             function saveAnswer(qId, aId)
             {
+                //aquí almacenar las respuestas
                 console.log(qId+": "+aId);
-
             }
 
-            $( window ).resize(resizeSurvey);
+            $( window ).resize(resizeSurveyDelayed);
+
+            function resizeSurveyDelayed()
+            {
+                resizeSurvey();
+
+                setTimeout(resizeSurvey,10);
+            }
 
             function resizeSurvey()
             {
@@ -93,12 +109,15 @@
             {
                 $( ".question" ).each(function( index )
                 {
+                    var question = $(this);
                     $(this).find(".answer").each(function (ans_index) {
+
+                        var answer = $(this);
                         $(this).click(function () {
                             $(this).removeClass("btn-default");
                             $(this).addClass("btn-primary");
                             saveAnswer(index, ans_index);
-                            goNextQuestion();
+                            goNextQuestion(question, ans_index);
                         });
                     });
                 });
@@ -122,7 +141,7 @@
                     else
                     {
                         prevHeight = $(this).height()+10;
-                        width = $(this).width()*1.1;
+                        width = Math.floor($(this).width()*1.1);
                     }
 
                 });
