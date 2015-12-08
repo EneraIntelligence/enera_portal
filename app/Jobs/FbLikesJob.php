@@ -35,7 +35,7 @@ class FbLikesJob extends Job implements SelfHandling
     {
         $user = User::where('facebook.id', $this->fb_id)->first();
         if ($user) {
-            $user->devices()->where();
+//            $user->devices()->where();
 
             $user->facebook->likes = [];
             $user->facebook->save();

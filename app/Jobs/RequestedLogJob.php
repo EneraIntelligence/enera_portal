@@ -35,7 +35,9 @@ class RequestedLogJob extends Job implements SelfHandling
 
         if ($log) {
             $log->campaign_id = $this->campaign_id;
-            $log->user['id'] = $this->user_id;
+            $u = $log->user;
+            $u['id'] = $this->user_id;
+            $log->user = $u;
             $log->save();
 
             if (!isset($log->interaction->requested)) {

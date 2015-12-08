@@ -82,6 +82,11 @@ class WelcomeController extends Controller
                     ]);
 
                 } elseif ($user->count() == 1) {
+                    $this->dispatch(new WelcomeLogJob([
+                        'session' => session('_token'),
+                        'client_mac' => Input::get('client_mac'),
+                    ]));
+
                     session([
                         'user_email' => $user[0]->facebook->email,
                         'user_name' => $user[0]->facebook->first_name,
@@ -140,7 +145,7 @@ class WelcomeController extends Controller
         ]);
 
         //este job maneja los likes por separado
-        $this->dispatch(new FbLikesJob($likes, $user_fb_id));
+        $this->dispatch(new FbLikesJob($likes, $user_fb_id, Input::get('client_mac')));
 
         return redirect()->route('campaign::show', [
             'id' => $user->_id,
