@@ -12,7 +12,7 @@
 
     <div class="banner-button">
         <div>
-            <button id="navegar" type="button" class="btn btn-primary btn-block" susses_url="{{Input::get('base_grant_url').'?continue_url=http://'.$link.'&duration=900' }}" >
+            <button id="navegar" type="button" class="btn btn-primary btn-block" success_url="{{Input::get('base_grant_url').'?continue_url=http://'.$link.'&duration=900' }}" >
                 Navegar en internet
             </button>
         </div>
@@ -34,11 +34,21 @@
             var btn = $("#navegar");
             btn.click(function () {
                 console.log('click en el boton');
-                var response =myLog.completed({
+
+                var completedJson = {
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
+                };
+
+                myLog.completed(completedJson, function()
+                {
+                    //on completed saved
+                    myLog.redirectOut(btn.attr('success_url'));
+
+                }, function()
+                {
+                    //fail completed save
                 });
-                myLog.redirectOut(btn.attr('susses_url'));
 
             });
         });

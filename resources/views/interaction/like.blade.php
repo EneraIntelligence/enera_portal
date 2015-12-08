@@ -44,18 +44,10 @@
 @section('footer_scripts')
 
     <script>
-        $(document).ready(function () {
 
-        });
 
         var pageWasLikedBefore = false;
         var myLog = new logs();
-
-        myLog.loaded({
-            _token: "{!! session('_token') !!}",
-            client_mac: "{!! Input::get('client_mac') !!}"
-        });
-
 
         var btn = $("#navegar");
         btn.click(function () {
@@ -75,11 +67,6 @@
 
         //like button is pressed
         var page_like_callback = function(url, html_element) {
-            /*
-            console.log("page_like_callback");
-            console.log(url);
-            console.log(html_element);
-            */
 
             var completedJson = {
                 _token: "{!! session('_token') !!}",
@@ -117,11 +104,6 @@
         };
 
         var page_unlike_callback = function(url, html_element) {
-            /*
-            console.log("page_unlike_callback");
-            console.log(url);
-            console.log(html_element);
-            */
 
             pageWasLikedBefore = true;
 
@@ -149,6 +131,14 @@
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
+
+        $(document).ready(function () {
+            myLog.loaded({
+                _token: "{!! session('_token') !!}",
+                client_mac: "{!! Input::get('client_mac') !!}"
+            });
+        });
     </script>
 
 @stop

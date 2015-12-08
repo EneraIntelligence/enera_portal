@@ -62,6 +62,13 @@
 
         $(document).ready(function(){
 
+            var myLog = new logs();
+
+            myLog.loaded({
+                _token: "{!! session('_token') !!}",
+                client_mac: "{!! Input::get('client_mac') !!}"
+            });
+
             var prevHeight = 0;
             var width = 0;
             var currentQuestion = 0;
@@ -84,8 +91,27 @@
 
             function saveAnswer(qId, aId)
             {
-                //aquí almacenar las respuestas
-                console.log(qId+": "+aId);
+                var completedJson = {
+                    _token: "{!! session('_token') !!}",
+                    client_mac: "{!! Input::get('client_mac') !!}"
+                };
+
+                myLog.completed(completedJson, function()
+                {
+                    //on completed saved
+
+                    //aquí almacenar las respuestas
+                    console.log(qId+": "+aId);
+
+                    //despues de guardar respuestas redireccionar
+                    myLog.redirectOut(btn.attr('success_url'));
+
+                }, function()
+                {
+                    //fail completed save
+                });
+
+
             }
 
             $( window ).resize(resizeSurveyDelayed);

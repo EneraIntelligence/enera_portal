@@ -45,11 +45,21 @@
 
             var btn = $("#navegar");
             btn.click(function () {
-                var response = myLog.completed({
+
+                var completedJson = {
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
+                };
+                myLog.completed(completedJson, function()
+                {
+                    //success saving completed
+                    myLog.redirectOut(btn.attr('success_url'));
+
+                },function()
+                {
+                    //fail on save completed
                 });
-                myLog.redirectOut(btn.attr('susses_url'));
+
             });
         });
     </script>
