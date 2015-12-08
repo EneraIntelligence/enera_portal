@@ -9,39 +9,12 @@
 @section('content')
 
     <div id="fb-root"></div>
-    <script>
-
-        //fb initialization
-
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : 'GEu8L7YaTo68wbRJ54peqf0EdgMgf8f4',
-                xfbml      : true,
-                version    : 'v2.5'
-            });
-
-            FB.Event.subscribe('xfbml.render', finished_rendering);
-
-            FB.Event.subscribe('edge.create', page_like_callback);
-        };
-
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-
-
-    </script>
 
     <div>
         <!-- banner -->
         <img class="img-responsive center-block"
              src="{{asset('img').'/'.$image }} "
-             id="banner-mailing"
+             id="Like"
              alt="Enera Portal">
 
 
@@ -50,7 +23,7 @@
 
     <div class="center-block" style="width:73px;">
         <!-- like button -->
-        <div class="fb-like" data-href="http://ederdiaz.com" data-send="false" data-layout="button" data-width="200" data-show-faces="false"></div>
+        <div class="fb-like" data-href="{{$like_url}}" data-send="false" data-layout="button" data-width="200" data-show-faces="false"></div>
     </div>
 
 
@@ -75,6 +48,7 @@
 
         });
 
+        var pageWasLikedBefore = false;
         var myLog = new logs();
 
         myLog.loaded({
@@ -101,17 +75,80 @@
 
         //like button is pressed
         var page_like_callback = function(url, html_element) {
+            /*
             console.log("page_like_callback");
             console.log(url);
             console.log(html_element);
+            */
 
-            myLog.completed({
+            var completedJson = {
                 _token: "{!! session('_token') !!}",
                 client_mac: "{!! Input::get('client_mac') !!}"
+            };
+            myLog.completed(completedJson, function()
+            {
+                //on completed saved
+                var json = {
+                    _token: "{!! session('_token') !!}"
+                };
+
+                if(!pageWasLikedBefore)
+                {
+                    myLog.saveUserLike(json, function () {
+                        //on success like save
+                        myLog.redirectOut(btn.attr('success_url'));
+
+
+                    }, function () {
+                        //fail mail save
+                    });
+                }
+                else
+                {
+                    myLog.redirectOut(btn.attr('success_url'));
+                }
+
+            }, function()
+            {
+                //fail completed save
             });
-            myLog.redirectOut(btn.attr('success_url'));
+
 
         };
+
+        var page_unlike_callback = function(url, html_element) {
+            /*
+            console.log("page_unlike_callback");
+            console.log(url);
+            console.log(html_element);
+            */
+
+            pageWasLikedBefore = true;
+
+        };
+
+
+        //fb initialization
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : 'GEu8L7YaTo68wbRJ54peqf0EdgMgf8f4',
+                xfbml      : true,
+                version    : 'v2.5'
+            });
+
+            FB.Event.subscribe('xfbml.render', finished_rendering);
+
+            FB.Event.subscribe('edge.create', page_like_callback);
+            FB.Event.subscribe('edge.remove', page_unlike_callback);
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
 
 @stop

@@ -23,6 +23,7 @@ Route::group(['middleware' => 'FbLogin'], function () {
 
         Route::group(['as' => 'action::', 'middleware' => 'ajax', 'prefix' => 'action'], function () {
             Route::match(['get', 'post'], 'saveMail', ['as' => 'saveMail', 'uses' => 'CampaignsController@saveMail']);
+            Route::match(['get', 'post'], 'saveUserLike', ['as' => 'saveUserLike', 'uses' => 'CampaignsController@saveUserLike']);
         });
     });
 });

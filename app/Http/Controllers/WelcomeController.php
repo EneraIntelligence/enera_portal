@@ -85,6 +85,7 @@ class WelcomeController extends Controller
                     session([
                         'user_email' => $user[0]->facebook->email,
                         'user_name' => $user[0]->facebook->first_name,
+                        'user_fbid' => $user[0]->facebook->id,
                         'user_ftime' => false
                     ]);
 
@@ -134,11 +135,12 @@ class WelcomeController extends Controller
         session([
             'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
             'user_name' => $facebook_data['first_name'],
+            'user_fbid' => $user_fb_id,
             'user_ftime' => true
         ]);
 
         //este job maneja los likes por separado
-        $this->dispatch(new FbLikesJob($likes, $user_fb_id));
+        //$this->dispatch(new FbLikesJob($likes, $user_fb_id));
 
         return redirect()->route('campaign::show', [
             'id' => $user->_id,

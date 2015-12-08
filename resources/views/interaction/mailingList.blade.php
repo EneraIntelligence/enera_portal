@@ -48,17 +48,41 @@
                 client_mac: "{!! Input::get('client_mac') !!}"
             });
             $("#subscribe").click(function () {
-                myLog.completed({
+
+                var completedJson = {
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
+                };
+
+                myLog.completed(completedJson, function()
+                {
+                    //on completed saved
+                    var json = {
+                        _token: "{!! session('_token') !!}"
+                    };
+                    myLog.saveMail(json, function()
+                    {
+                        //on success mail save
+                        myLog.redirectOut(btn.attr('success_url'));
+
+
+                    },function()
+                    {
+                        //fail mail save
+                    });
+
+                }, function()
+                {
+                    //fail completed save
                 });
-                myLog.saveMail({
-                    _token: "{!! session('_token') !!}"
-                });
-                myLog.redirectOut(btn.attr('success_url'));
-                {{--window.location.href = "{!! route("campaign::action::save_mail") !!}";--}}
+
+
+
+
 
             });
+
+
             var btn = $("#navegar");
             btn.click(function () {
                 console.log('click en el boton');

@@ -54,6 +54,15 @@ class CampaignsController extends Controller
 //        return 'email saved '.session('user_email').' on campaign with id: '.session('campaign_id');
     }
 
+    public function saveUserLike()
+    {
+        //identifica campaña y hace push del email
+        Campaign::where('_id', session('campaign_id'))->push('user_likes', session('user_fbid'), true);
+        $response = ['ok' => true];
+        return $response;
+//        return 'email saved '.session('user_email').' on campaign with id: '.session('campaign_id');
+    }
+
     /**
      * Guarda las respuesta de la encuenta
      */
