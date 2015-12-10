@@ -94,53 +94,43 @@ class InteractionsController extends Controller
 
         if ($log && !isset($log->interaction->completed))
         {
+            //campaign found and completed
+
+            //Monetization
             $campaign = $log->campaign;
             $balanceBefore = floatval( $campaign->balance['current'] );
-            $interactionName = $campaign->interaction['name'];
-            $interaction = Interaction::where('name', $interactionName)->first();
 
-            if(!$interaction)
+            $interactionAmount = floatval( $campaign->interaction['price'] );
+            $interactionMultiplier = floatval(1);
+            $interactionTotal = floatval( $interactionAmount * $interactionMultiplier );
+
+            //decrement amount on current balance
+            Campaign::where('_id', $log->campaign_id)->decrement('balance.current', $interactionTotal);
+            $campaignDecremented = Campaign::where('_id', $log->campaign_id)->first();
+
+            $balanceAfter = floatval( $campaignDecremented->balance['current'] );
+
+            //save log
+            $log->interaction->completed = $this->fecha;
+
+            $log->cost = array();
+            $log->cost['balance_before'] = $balanceBefore;
+            $log->cost['balance_after'] = $balanceAfter;
+            $log->cost['base'] = $interactionAmount;
+            $log->cost['multiplier'] = $interactionMultiplier;
+            $log->cost['amount'] = $interactionTotal;
+
+            $log->cost->save();
+            $log->interaction->save();
+
+            if($balanceAfter-$interactionTotal<=0)
             {
-                $response = [
-                    'ok' => false,
-                    'step' => 'Update log-completed',
-                    'error' => 'The interaction with name '.$interactionName.' was not found!'
-                ];
+                //campaign out of funds
+                $this->endCampaign($campaignDecremented);
             }
-            else
-            {
-                //Monetization
-                $interactionAmount = floatval($interaction->amount);
-                $interactionMultiplier = floatval(1);
-                $interactionTotal = floatval( $interactionAmount * $interactionMultiplier );
 
+            $response = ['ok' => true];
 
-                Campaign::where('_id', $log->campaign_id)->decrement('balance.current', $interactionTotal);
-                $campaignDecremented = Campaign::where('_id', $log->campaign_id)->first();
-
-                $balanceAfter = floatval( $campaignDecremented->balance['current'] );
-
-
-                $log->interaction->completed = $this->fecha;
-
-                $log->cost = array();
-                $log->cost['balance_before'] = $balanceBefore;
-                $log->cost['balance_after'] = $balanceAfter;
-                $log->cost['base'] = $interactionAmount;
-                $log->cost['multiplier'] = $interactionMultiplier;
-                $log->cost['amount'] = $interactionTotal;
-
-                $log->cost->save();
-                $log->interaction->save();
-
-                if($balanceAfter-$interactionTotal<=0)
-                {
-                    //campaign out of funds
-                    $this->endCampaign($campaignDecremented);
-                }
-
-                $response = ['ok' => true];
-            }
 
         }
         else
