@@ -8,7 +8,11 @@ class UserDevice extends Model
 {
     protected $fillable = ['mac', 'os', 'manufacturer'];
     protected $collection = null;
-    // relations
 
+    // relations
+    public function data()
+    {
+        return $this->belongsTo('Portal\Device', 'mac', 'mac');
+    }
     // end relations
 }

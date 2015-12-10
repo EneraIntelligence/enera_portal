@@ -17,7 +17,8 @@ class UserOLD extends Model implements AuthenticatableContract, CanResetPassword
      *
      * @var string
      */
-    protected $table = 'users';
+    // protected $table = 'users';
+    protected $table = null;
 
     /**
      * The attributes that are mass assignable.

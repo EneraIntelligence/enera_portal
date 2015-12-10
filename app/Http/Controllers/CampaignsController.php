@@ -8,7 +8,9 @@ use Portal\Campaign;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 use Portal\Jobs\RequestedLogJob;
+use Portal\Jobs\SendFirstMailJob;
 use Portal\Libraries\CampaignSelector;
+use Portal\User;
 
 class CampaignsController extends Controller
 {
@@ -43,24 +45,30 @@ class CampaignsController extends Controller
     }
 
     /**
+     * Identifica campaña y hace push del email
      * @return array
      */
     public function saveMail()
     {
-        //identifica campaña y hace push del email
-        Campaign::where('_id', session('campaign_id'))->push('mailing_list', session('user_email'), true);
+        $camp = Campaign::find(session('campaign_id'));
+        $user = User::find(session('user_id'));
+
+        $camp->push('mailing_list', session('user_email'), true);
+
+        $this->dispatch(new SendFirstMailJob($camp, $user));
         $response = ['ok' => true];
         return $response;
-//        return 'email saved '.session('user_email').' on campaign with id: '.session('campaign_id');
     }
 
+    /**
+     * Identifica campaña y hace push del email
+     * @return array
+     */
     public function saveUserLike()
     {
-        //identifica campaña y hace push del email
         Campaign::where('_id', session('campaign_id'))->push('user_likes', session('user_fbid'), true);
         $response = ['ok' => true];
         return $response;
-//        return 'email saved '.session('user_email').' on campaign with id: '.session('campaign_id');
     }
 
     /**

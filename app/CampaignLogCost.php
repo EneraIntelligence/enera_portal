@@ -10,11 +10,6 @@ class CampaignLogCost extends Model
     protected $collection = null;
 
     // relations
-
-    public function campaign_log()
-    {
-        return $this->belongsTo('Portal\CampaignLog');
-    }
-
+    
     // end relations
 }

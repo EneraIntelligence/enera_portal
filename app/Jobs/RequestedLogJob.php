@@ -2,10 +2,12 @@
 
 namespace Portal\Jobs;
 
+use DateTime;
 use MongoDate;
 use Portal\CampaignLog;
 use Portal\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Portal\User;
 
 class RequestedLogJob extends Job implements SelfHandling
 {
@@ -35,8 +37,16 @@ class RequestedLogJob extends Job implements SelfHandling
 
         if ($log) {
             $log->campaign_id = $this->campaign_id;
-            $u = $log->user;
-            $u['id'] = $this->user_id;
+            $user = isset($log->user['id']) ? $this->user : User::find($this->user_id);
+            $u['id'] = $user->_id;
+            $u['gender'] = $user->facebook->gender;
+            /**/
+            $birthday = new DateTime($user->facebook->birthday['date']);
+            $today = date('Y-m-d');
+            $age = $birthday->diff(new DateTime($today));
+            /**/
+            $u['age'] = $age->y;
+            $u['session'] = session('_token');
             $log->user = $u;
             $log->save();
 

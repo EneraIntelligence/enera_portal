@@ -87,7 +87,7 @@ return [
     */
 
     'failed' => [
-        'database' => 'enera_db', 'table' => 'failed_jobs',
+        'database' => 'enera', 'table' => 'failed_jobs',
     ],
 
 ];

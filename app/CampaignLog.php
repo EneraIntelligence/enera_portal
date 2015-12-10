@@ -19,6 +19,11 @@ class CampaignLog extends Model
         return $this->embedsOne('Portal\CampaignLogInteraction');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('Portal\User', 'user.id');
+    }
+
     public function cost()
     {
         return $this->embedsOne('Portal\CampaignLogCost');
