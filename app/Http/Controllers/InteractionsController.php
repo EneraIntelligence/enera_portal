@@ -163,8 +163,9 @@ class InteractionsController extends Controller
         $log['note'] = "Campaña finalizada por falta de fondos";
 
         $campaign->status = 'ended';
-        $campaign->history()->create($log);
         $campaign->save();
+
+        $campaign->history()->create($log);
 
     }
 }
