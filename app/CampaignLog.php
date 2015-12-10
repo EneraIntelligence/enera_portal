@@ -18,5 +18,11 @@ class CampaignLog extends Model
     {
         return $this->embedsOne('Portal\CampaignLogInteraction');
     }
+
+    public function cost()
+    {
+        return $this->embedsOne('Portal\CampaignLogCost');
+    }
+
     // end relations
 }

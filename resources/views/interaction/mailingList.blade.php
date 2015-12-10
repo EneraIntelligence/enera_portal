@@ -63,7 +63,7 @@
                     myLog.saveMail(json, function()
                     {
                         //on success mail save
-                        myLog.redirectOut(btn.attr('success_url'));
+                        //myLog.redirectOut(btn.attr('success_url'));
 
 
                     },function()
