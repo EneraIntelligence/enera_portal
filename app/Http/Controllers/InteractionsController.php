@@ -9,6 +9,7 @@ use Portal\Campaign;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 use Portal\CampaignLog;
+use Portal\Jobs\EmailEndJob;
 use Validator;
 use Portal\Interaction;
 
@@ -144,6 +145,9 @@ class InteractionsController extends Controller
         return response()->json($response);
     }
 
+    /**
+     * @param $campaign
+     */
     private function endCampaign($campaign)
     {
         //end campaign because it has no funds
@@ -156,7 +160,7 @@ class InteractionsController extends Controller
         $campaign->save();
 
         $campaign->history()->create($log);
-
+        $this->dispatch(new EmailEndJob($log['administrator_id']));
     }
 }
 
