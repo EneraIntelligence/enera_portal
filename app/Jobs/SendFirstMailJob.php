@@ -15,8 +15,8 @@ class SendFirstMailJob extends Job implements SelfHandling
 
     /**
      * Create a new job instance.
-     * @param $campaign
-     * @param $user
+     * @param Campaign $campaign
+     * @param User $user
      */
     public function __construct(Campaign $campaign, User $user)
     {
@@ -26,16 +26,14 @@ class SendFirstMailJob extends Job implements SelfHandling
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle()
     {
-        Mail::send('mail.generic', [], function ($mail) use ($user) {
-            $m->from($mail["from_mail"], $mail["from"]);
-
-            //TODO tomar mails de campaña y mandar a todos
-            $m->to("ederchrono@gmail.com", "Eder")->subject($mail["subject"]);
+        $user = $this->user;
+        $camp = $this->campaign;
+        Mail::send('mail.generic', ['content' => $camp->content['mail_content']], function ($mail) use ($user, $camp) {
+            $mail->from($camp->content['from_mail'], $camp->content['from_name']);
+            $mail->to($user->facebook->email, $user->facebook->first_name)->subject();
         });
     }
 }
