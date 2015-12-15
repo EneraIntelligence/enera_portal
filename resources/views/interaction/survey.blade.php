@@ -10,7 +10,7 @@
     <div  style="overflow-x: hidden; height: 100%">
 
         <div>
-            <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$image }}"alt="Enera Portal">
+            <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$images['survey'] }}"alt="Enera Portal">
         </div>
 
         <div class="questionContainer" style="padding:5%;">

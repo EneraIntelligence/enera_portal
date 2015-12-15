@@ -28,7 +28,7 @@ function resizeBanner(idBanner)
 
     if(imgHeight==0)
     {
-        console.log("component not loaded, retry resizing: "+idBanner)
+        //console.log("component not loaded, retry resizing: "+idBanner)
         //image not loaded, retry resizing
         setTimeout(function()
         {
@@ -44,7 +44,7 @@ function resizeBanner(idBanner)
             bannerImg.height(windowHeight-bottomHeight);
         }
 
-        console.log("component resized: "+idBanner)
+        //console.log("component resized: "+idBanner)
     }
 
 }

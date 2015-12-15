@@ -10,10 +10,7 @@
 
     <div>
         <!-- banner -->
-        <img class="img-responsive center-block"
-             src="{{asset('img').'/'.$image }} "
-             id="banner-mailing"
-             alt="Enera Portal">
+        <img id="banner-mailing" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">
 
     </div>
 

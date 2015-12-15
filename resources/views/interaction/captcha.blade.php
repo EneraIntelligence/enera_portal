@@ -8,14 +8,15 @@
     <div id="captcha">
 
             <div>
-                <img id="captcha-img" src="{{asset('img/'. $cover_path)}}" alt="Enera Portal">
+                <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">
+
             </div>
             <form action="#">
                 <input id="captcha-value" type="text" name="Captcha"><br>
             </form>
             <div id="error">Respuesta invalida</div>
             <button id="navegar" class="btn btn-primary btn-block" success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
-                Navegar por intenet
+                Navegar por internet
             </button>
             <div>
                 <p> * Para navegar por internet ingresa la palabra en la imagen </p>
