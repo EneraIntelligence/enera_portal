@@ -10,24 +10,38 @@
     <header style="font-weight: bold; font-size: 25px; width: 100%; margin: 5px auto; padding: 0px; text-align: center;">
         Hola, {!! session('user_name') !!}
     </header>
-    <h5 style="text-align: center;">Para obtener acceso te invitamos a ver el siguiente video</h5>
-    <div style="width: 100%;">
-        <video id="theVideo" controls autoplay>
-            <source src="{!! $video !!}" type="video/mp4">
-            {{--<source src="http://media.w3.org/2010/05/sintel/trailer.webm" type="video/webm">--}}
-            {{--<source src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">--}}
-            Tu navegador no soporta reproduccion de video.
-        </video>
-    </div>
-    <div class="banner-button">
-        <div>
-            <button id="navegar" type="button" class="btn btn-primary btn-block"
-                    success_url="{!! Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' !!}">
-                Navegar en internet
-            </button>
+    @if($os != 'Iphone')
+        <h5 style="text-align: center;">Para obtener acceso te invitamos a ver el siguiente video</h5>
+        <div style="width: 100%;">
+            <video id="theVideo" controls autoplay>
+                <source src="{!! $video !!}" type="video/mp4">
+                {{--<source src="http://media.w3.org/2010/05/sintel/trailer.webm" type="video/webm">--}}
+                {{--<source src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">--}}
+                Tu navegador no soporta reproduccion de video.
+            </video>
         </div>
-
-    </div>
+        <div class="banner-button">
+            <div>
+                <button id="navegar" type="button" class="btn btn-primary btn-block"
+                        success_url="{!! Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' !!}">
+                    Navegar en internet
+                </button>
+                {{$os}}
+            </div>
+        </div>
+    @else
+        <div>
+            <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$image }}" alt="Enera Portal">
+        </div>
+        <div class="banner-button">
+            <div>
+                <button id="navegar" type="button" class="btn btn-primary btn-block"
+                        success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
+                    Navegar en internet
+                </button>
+            </div>
+        </div>
+    @endif
 @stop
 @section('footer_scripts')
     <script>
@@ -50,13 +64,11 @@
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
                 };
-                myLog.completed(completedJson, function()
-                {
+                myLog.completed(completedJson, function () {
                     //success saving completed
                     myLog.redirectOut(btn.attr('success_url'));
 
-                },function()
-                {
+                }, function () {
                     //fail on save completed
                 });
 

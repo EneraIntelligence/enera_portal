@@ -4,6 +4,7 @@ namespace Portal\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Input;
+use Jenssegers\Agent\Agent;
 use Portal\Campaign;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
@@ -40,7 +41,21 @@ class CampaignsController extends Controller
             'user_id' => $user_id
         ]));
 
-        return view($interaction->getView(), array_merge(['_id' => $campaignSelected->_id], $interaction->getData()));
+        $agent = new Agent();
+        if($agent->is('iPhone'))
+        {
+            $os = 'Iphone';
+        }elseif($agent->is('Android'))
+        {
+            $os = 'Android';
+        }elseif($agent->is('OS X'))
+        {
+            $os = 'mac';
+        }else{
+            $os = 'Dipositivo no detectado';
+        }
+//        dd($campaignSelected->_id);
+        return view($interaction->getView(), array_merge(['_id' => $campaignSelected->_id], $interaction->getData(), ['os' =>$os]));
 
     }
 
