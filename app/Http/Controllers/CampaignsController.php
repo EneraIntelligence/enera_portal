@@ -42,17 +42,20 @@ class CampaignsController extends Controller
         ]));
 
         $agent = new Agent();
-        $os = 'undetected';
-        if($agent->version('Android'))
-        {
-            $os = 'Android';
-        }elseif($agent->version('Android'))
+        if($agent->is('iPhone'))
         {
             $os = 'Iphone';
+        }elseif($agent->is('Android'))
+        {
+            $os = 'Android';
+        }elseif($agent->is('OS X'))
+        {
+            $os = 'mac';
+        }else{
+            $os = 'Dipositivo no detectado';
         }
-        dd($os);
-
-        return view($interaction->getView(), array_merge(['_id' => $campaignSelected->_id], $interaction->getData(), $os));
+//        dd($campaignSelected->_id);
+        return view($interaction->getView(), array_merge(['_id' => $campaignSelected->_id], $interaction->getData(), ['os' =>$os]));
 
     }
 
