@@ -26,6 +26,7 @@
                         success_url="{!! Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' !!}">
                     Navegar en internet
                 </button>
+                {{$os}}
             </div>
         </div>
     @else
