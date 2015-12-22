@@ -35,7 +35,6 @@ class CampaignsController extends Controller
             $campaignType = "Portal\\Libraries\\Interactions\\FacePas";
             $interaction = new $campaignType($campaignSelected);
 
-            //dd($campaignSelected);
             return view( $interaction->getView() );
         }
         else
