@@ -42,6 +42,7 @@ class CampaignSelector
         $unique_per_day = $this->unique_user_day();
         $branch = $this->aps();
         $max = $this->max();
+        $video = $this->video();
         $user = $this->user;
         $birthday = new DateTime($this->user->facebook->birthday['date']);
         $today = date('Y-m-d');
@@ -80,6 +81,7 @@ class CampaignSelector
             ->whereNotIn('_id', $unique)
             ->whereNotIn('_id', $unique_per_day)
             ->whereNotIn('_id', $max)
+            ->whereNotIn('_id', $video)
             ->whereIn('_id', $branch)
             ->where('status', 'active')
             ->orderBy('balance', 'desc')
@@ -154,5 +156,13 @@ class CampaignSelector
 
         }
 
-
+    public function video(){
+        if(session('device_os') == 'Iphone')
+        {
+            $videos = Campaign::where('interaction.name', "video")->lists('_id');
+        }else{
+            $videos = [];
+        }
+        return $videos;
+    }
 }

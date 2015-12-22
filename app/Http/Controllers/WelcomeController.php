@@ -7,6 +7,7 @@ use DB;
 use Illuminate\Http\Request;
 
 use Input;
+use Jenssegers\Agent\Agent;
 use MongoDate;
 use Portal\Branche;
 use Portal\Http\Requests;
@@ -87,11 +88,26 @@ class WelcomeController extends Controller
                         'client_mac' => Input::get('client_mac'),
                     ]));
 
+                    $agent = new Agent();
+                    if($agent->is('iPhone'))
+                    {
+                        $os = 'Iphone';
+                    }elseif($agent->is('Android'))
+                    {
+                        $os = 'Android';
+                    }elseif($agent->is('OS X'))
+                    {
+                        $os = 'OS X';
+                    }else{
+                        $os = 'Dipositivo no detectado';
+                    }
+
                     session([
                         'user_email' => $user[0]->facebook->email,
                         'user_name' => $user[0]->facebook->first_name,
                         'user_fbid' => $user[0]->facebook->id,
-                        'user_ftime' => false
+                        'user_ftime' => false,
+                        'device_os'  => $os,
                     ]);
 
                     return redirect()->route('campaign::show', [
@@ -137,11 +153,26 @@ class WelcomeController extends Controller
             $user = User::create(['facebook' => $facebook_data]);
         }
 
+        $agent = new Agent();
+        if($agent->is('iPhone'))
+        {
+            $os = 'Iphone';
+        }elseif($agent->is('Android'))
+        {
+            $os = 'Android';
+        }elseif($agent->is('OS X'))
+        {
+            $os = 'OS X';
+        }else{
+            $os = 'Dipositivo no detectado';
+        }
+
         session([
             'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
             'user_name' => $facebook_data['first_name'],
             'user_fbid' => $user_fb_id,
-            'user_ftime' => true
+            'user_ftime' => true,
+            'device_os'  => $os,
         ]);
 
         //este job maneja los likes por separado

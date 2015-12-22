@@ -10,7 +10,7 @@
     <header style="font-weight: bold; font-size: 25px; width: 100%; margin: 5px auto; padding: 0px; text-align: center;">
         Hola, {!! session('user_name') !!}
     </header>
-    @if($os != 'Iphone')
+    @if(session('device_os') != 'Iphone')
         <h5 style="text-align: center;">Para obtener acceso te invitamos a ver el siguiente video</h5>
         <div style="width: 100%;">
             <video id="theVideo" controls autoplay>
@@ -26,7 +26,6 @@
                         success_url="{!! Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' !!}">
                     Navegar en internet
                 </button>
-                {{$os}}
             </div>
         </div>
     @else
