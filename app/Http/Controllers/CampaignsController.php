@@ -25,23 +25,41 @@ class CampaignsController extends Controller
     {
         $campaigns = new CampaignSelector($user_id);
 
-        $campaignIndex = count($campaigns) > 1 ? rand(0, count($campaigns) - 1) : 0;
+        if(count($campaigns->campaign)==0)
+        {
+            //default campaign
+            $campaignSelected = new Campaign();
+            $campaigns->_id = "default_campaign";
+            $campaigns->content = array();
 
-        $campaignSelected = $campaigns->campaign[$campaignIndex];
+            $campaignType = "Portal\\Libraries\\Interactions\\FacePas";
+            $interaction = new $campaignType($campaignSelected);
 
-        $campaignType = "Portal\\Libraries\\Interactions\\" . studly_case($campaignSelected->interaction['name']);
-        $interaction = new $campaignType($campaignSelected);
+            //dd($campaignSelected);
+            return view( $interaction->getView() );
+        }
+        else
+        {
+            //choose random campaign
+            $campaignIndex = count($campaigns->campaign) > 1 ? rand(0, count($campaigns) - 1) : 0;
 
-        session(['campaign_id' => $campaignSelected->_id]);
+            $campaignSelected = $campaigns->campaign[$campaignIndex];
 
-        $this->dispatch(new RequestedLogJob([
-            'session' => session('_token'),
-            'client_mac' => Input::get('client_mac'),
-            'campaign_id' => $campaignSelected->_id,
-            'user_id' => $user_id
-        ]));
+            $campaignType = "Portal\\Libraries\\Interactions\\" . studly_case($campaignSelected->interaction['name']);
+            $interaction = new $campaignType($campaignSelected);
 
-        return view($interaction->getView(), array_merge(['_id' => $campaignSelected->_id], $interaction->getData()));
+            session(['campaign_id' => $campaignSelected->_id]);
+
+            $this->dispatch(new RequestedLogJob([
+                'session' => session('_token'),
+                'client_mac' => Input::get('client_mac'),
+                'campaign_id' => $campaignSelected->_id,
+                'user_id' => $user_id
+            ]));
+
+            return view($interaction->getView(), array_merge(['_id' => $campaignSelected->_id], $interaction->getData()));
+        }
+
 
     }
 
