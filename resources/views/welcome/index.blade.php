@@ -18,6 +18,8 @@
             </span>
         </div>
         <div class="login_fb">
+
+            <p>Para navegar:</p>
             <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">     {{-- --}}
                 <img id="fb-img" src="{!! asset('img/fb-login.png') !!}" alt="">
             </a>
@@ -289,7 +291,7 @@
 
         // code generated from http://heartcode.robertpataki.com/canvasloader/
         var cl = new CanvasLoader('canvasloader-container');
-        cl.setColor('#3e5a98');
+        cl.setColor('#FFFFFF');
         cl.setDiameter(66);
         cl.setDensity(140);
         cl.setRange(0.9);
