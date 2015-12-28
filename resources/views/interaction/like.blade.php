@@ -16,7 +16,7 @@
 
     </div>
 
-    <div class="center-block" style="width:73px;">
+    <div class="center-block" style="margin-top:10px; width:73px;">
         <!-- like button -->
         <div class="fb-like" data-href="{{$like_url}}" data-send="false" data-layout="button" data-width="200" data-show-faces="false"></div>
     </div>
@@ -26,7 +26,7 @@
 
         <!-- navigate button -->
         <div style="margin: 10px 0;">
-            <a id="navegar" href="#"
+            <a id="navegar" style="font-size:20px; color:white;" href="#"
                success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
                 <p class="text-center">Deseo navegar en internet sin suscribirme</p>
             </a>
