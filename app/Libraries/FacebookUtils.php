@@ -33,11 +33,31 @@ class FacebookUtils
 
         $permissions = ['email', 'user_likes', 'user_birthday', 'user_location'];
         $loginUrl = $this->helper->getLoginUrl($redirectUrl, $permissions);
+
+        //parche fb
+        foreach ($_SESSION as $k=>$v) {
+            if(strpos($k, "FBRLH_")!==FALSE) {
+                if(!setcookie($k, $v)) {
+                    //what??
+                } else {
+                    $_COOKIE[$k]=$v;
+                }
+            }
+        }
+        var_dump($_COOKIE);
+
         return htmlspecialchars($loginUrl);
     }
 
     public function isUserLoggedIn()
     {
+        //parche fb
+        foreach ($_COOKIE as $k=>$v) {
+            if(strpos($k, "FBRLH_")!==FALSE) {
+                $_SESSION[$k]=$v;
+            }
+        }
+
         if (!isset($_SESSION['facebook_access_token'])) {
             if (!isset($this->helper)) {
                 $this->helper = $this->fb->getRedirectLoginHelper();
