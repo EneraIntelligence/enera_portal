@@ -1,9 +1,9 @@
 @extends('layouts.interaction')
 @section('head_scripts')
     {!! HTML::style(asset('css/captcha.css')) !!}
-@endsection
+@stop
 @section('title', 'iframe')
-
+@stop
 @section('content')
     <div style="width:100%; height:90%;">
         <div id="mascara" style="position:absolute; width:100%; height:90%;">
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-@endsection
+@stop
 
 @section('footer_scripts')
 
@@ -56,4 +56,4 @@
     </script>
 
 
-@endsection
+@stop

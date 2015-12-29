@@ -1,10 +1,11 @@
 @extends('layouts.interaction')
 
 @section('title', 'Survey')
+@stop
 
 @section('head_scripts')
     {!! HTML::style(asset('css/survey.css')) !!}
-@endsection
+@stop
 
 @section('content')
     <div  style="overflow-x: hidden; height: 100%">

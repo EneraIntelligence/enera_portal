@@ -1,9 +1,9 @@
 @extends('layouts.interaction')
 @section('head_scripts')
     {!! HTML::style(asset('css/captcha.css')) !!}
-@endsection
+@stop
 @section('title', 'Captcha')
-
+@stop
 @section('content')
     <div id="captcha">
 
