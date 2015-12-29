@@ -23,7 +23,6 @@
 @stop
 
 @section('title', 'Like')
-@stop
 
 @section('content')
 
