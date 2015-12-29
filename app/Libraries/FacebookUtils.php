@@ -43,6 +43,12 @@ class FacebookUtils
                 $this->helper = $this->fb->getRedirectLoginHelper();
             }
 
+            foreach ($_COOKIE as $k=>$v) {
+                if(strpos($k, "FBRLH_")!==FALSE) {
+                    $_SESSION[$k]=$v;
+                }
+            }
+
             if ($this->accessToken = $this->helper->getAccessToken()) {
                 $_SESSION['facebook_access_token'] = (string)$this->accessToken;
                 $this->fb->setDefaultAccessToken($this->accessToken);
