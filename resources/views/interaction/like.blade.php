@@ -2,6 +2,24 @@
 
 @section('head_scripts')
     {!! HTML::style(asset('css/mailing_list.css')) !!}
+    <style>
+        .fb_iframe_widget iframe
+        {
+            transform: scale(2.5);
+            -ms-transform: scale(2.5);
+            -webkit-transform: scale(2.5);
+            -o-transform: scale(2.5);
+            -moz-transform: scale(2.5);
+            transform-origin: bottom left;
+            -ms-transform-origin: bottom left;
+            -webkit-transform-origin: bottom left;
+            -moz-transform-origin: bottom left;
+            -webkit-transform-origin: bottom left;
+
+            top: 40px;
+            left: -25px;
+        }
+    </style>
 @endsection
 
 @section('title', 'Like')
