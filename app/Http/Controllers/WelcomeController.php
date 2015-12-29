@@ -34,6 +34,9 @@ class WelcomeController extends Controller
      */
     public function index()
     {
+
+        dd(Input::all());
+
         /*
          * base_grant_url=https%3A%2F%2Fn126.network-auth.com%2Fsplash%2Fgrant&
          * user_continue_url=http%3A%2F%2Fenera.mx&
