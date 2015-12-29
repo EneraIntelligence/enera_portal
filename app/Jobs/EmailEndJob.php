@@ -5,7 +5,7 @@ namespace Portal\Jobs;
 use Mail;
 use Portal\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Publishers\Administrator;
+use Portal\Administrator;
 
 class EmailEndJob extends Job implements SelfHandling
 {
