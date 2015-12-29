@@ -9,6 +9,7 @@
     {!! HTML::style(asset('css/main.css')) !!}
     {!! HTML::style(asset('css/bootstrap.css')) !!}
     {!! HTML::script(asset('js/jquery.min.js')) !!}
+    {!! HTML::script(asset('js/bootstrap.min.js')) !!}
     {!! HTML::script(asset('js/main.js')) !!}
     @yield('head_scripts')
 </head>

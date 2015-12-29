@@ -2,7 +2,7 @@
 
 @section('head_scripts')
     {!! HTML::style(asset('css/mailing_list.css')) !!}
-@endsection
+@stop
 
 @section('title', 'Mailing List')
 

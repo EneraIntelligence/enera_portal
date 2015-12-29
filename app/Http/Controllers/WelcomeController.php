@@ -34,6 +34,7 @@ class WelcomeController extends Controller
      */
     public function index()
     {
+
         /*
          * base_grant_url=https%3A%2F%2Fn126.network-auth.com%2Fsplash%2Fgrant&
          * user_continue_url=http%3A%2F%2Fenera.mx&
@@ -131,6 +132,7 @@ class WelcomeController extends Controller
      */
     public function response()
     {
+
         if (!$this->fbUtils->isUserLoggedIn()) {
             echo "User is not logged in";
             return "";

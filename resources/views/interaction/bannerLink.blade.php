@@ -1,7 +1,7 @@
 @extends('layouts.interaction')
 @section('head_scripts')
     {!! HTML::style(asset('css/banner.css')) !!}
-@endsection
+@stop
 @section('title', 'Banner Link')
 
 @section('content')

@@ -2,18 +2,86 @@
 $black: #000;
 $red: red;
 
+html
+{
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
+  /*
   background-size: cover;
   background: no-repeat fixed center center;
+  */
+  background-repeat:no-repeat;
+  background-size:cover;
   width: 100%;
   min-width: 100%;
   min-height: 100%;
-  position: fixed;
+  height: 100%;
+  //position: fixed;
   top: 0;
   left: 0;
   overflow: hidden;
+}
+
+footer
+{
+  bottom: 0;
+  position: absolute;
+  width:95%;
+}
+
+.bottomContainer
+{
+  bottom: 0;
+  position: relative;
+}
+
+.bottomLeft
+{
+  position:absolute;
+  left:0;
+  bottom: 0;
+}
+
+.terms
+{
+  text-align: center;
+  color: white;
+  font-size: 17px;
+
+  text-shadow: 1px 1px 6px #000000;
+
+  a{
+    color: white;
+  }
+  a:active
+  {
+    color: white;
+  }
+  a:visited
+  {
+    color: white;
+  }
+}
+
+.bottomCenter
+{
+  position:absolute;
+  bottom: 0;
+  width: 100%;
+
+  margin-left:-20px;
+  margin-bottom: 15px;
+}
+
+.bottomRight
+{
+  position:absolute;
+  right:0;
+  bottom: 0;
 }
 
 #portal_content {

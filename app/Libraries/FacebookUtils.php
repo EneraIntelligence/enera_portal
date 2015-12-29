@@ -19,8 +19,8 @@ class FacebookUtils
                 session_start();
             }
             $this->fb = new Facebook\Facebook([
-                'app_id' => env('FB_APP_ID', '449828058525044'),
-                'app_secret' => env('FB_APP_SECRET', '1ba9bd3bbb6da18c3422861f2ccf7f80'),
+                'app_id' => env('FACEBOOK_CLIENT_ID'),
+                'app_secret' => env('FACEBOOK_CLIENT_SECRET'),
                 'default_graph_version' => 'v2.2',
             ]);
         }
@@ -33,11 +33,31 @@ class FacebookUtils
 
         $permissions = ['email', 'user_likes', 'user_birthday', 'user_location'];
         $loginUrl = $this->helper->getLoginUrl($redirectUrl, $permissions);
+
+        //parche fb
+        foreach ($_SESSION as $k=>$v) {
+            if(strpos($k, "FBRLH_")!==FALSE) {
+                if(!setcookie($k, $v)) {
+                    //what??
+                } else {
+                    $_COOKIE[$k]=$v;
+                }
+            }
+        }
+        //var_dump($_COOKIE);
+
         return htmlspecialchars($loginUrl);
     }
 
     public function isUserLoggedIn()
     {
+        //parche fb
+        foreach ($_COOKIE as $k=>$v) {
+            if(strpos($k, "FBRLH_")!==FALSE) {
+                $_SESSION[$k]=$v;
+            }
+        }
+
         if (!isset($_SESSION['facebook_access_token'])) {
             if (!isset($this->helper)) {
                 $this->helper = $this->fb->getRedirectLoginHelper();
