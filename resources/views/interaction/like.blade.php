@@ -20,7 +20,7 @@
             left: -25px;
         }
     </style>
-@endsection
+@stop
 
 @section('title', 'Like')
 
@@ -73,6 +73,8 @@
             myLog.redirectOut(btn.attr('success_url'));
         });
 
+        //vOXMHXqpTyb0T5wiX5NCBCg5KB3Mtgr5bca49PQH
+
         //when like button is loaded...
         var finished_rendering = function() {
             console.log("finished rendering fb plugins");
@@ -100,7 +102,7 @@
 
 
                     }, function () {
-                        //fail mail save
+
                     });
                 }
                 else
