@@ -12,7 +12,7 @@
 
     <div>
         <!-- banner -->
-        <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">
+        <img id="banner" style="border: solid 1px white;" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">
 
     </div>
 
