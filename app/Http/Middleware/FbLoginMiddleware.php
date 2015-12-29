@@ -24,8 +24,8 @@ class FbLoginMiddleware
     public function handle($request, Closure $next)
     {
         //if (!$this->fbutils->isUserLoggedIn()) {
-            return redirect()->route('welcome');
+            //return redirect()->route('welcome');
         //}
-        //return $next($request);
+        return $next($request);
     }
 }

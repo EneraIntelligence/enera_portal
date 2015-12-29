@@ -133,8 +133,6 @@ class WelcomeController extends Controller
     public function response()
     {
 
-        dd("estoy en response");
-
         if (!$this->fbUtils->isUserLoggedIn()) {
             echo "User is not logged in";
             return "";
