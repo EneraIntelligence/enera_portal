@@ -15,7 +15,8 @@
                 <input id="captcha-value" type="text" name="Captcha"><br>
             </form>
             <div id="error">Respuesta invalida</div>
-            <button id="navegar" class="btn btn-primary btn-block" success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
+            <button id="navegar" class="btn btn-primary btn-block"
+                    success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration='. session('session_time') }}">
                 Navegar por internet
             </button>
             <div>

@@ -1248,6 +1248,315 @@ namespace {
             return \Illuminate\Auth\AuthManager::getDrivers();
         }
         
+        /**
+         * Determine if the current user is authenticated.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function check(){
+            return \Illuminate\Auth\Guard::check();
+        }
+        
+        /**
+         * Determine if the current user is a guest.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function guest(){
+            return \Illuminate\Auth\Guard::guest();
+        }
+        
+        /**
+         * Get the currently authenticated user.
+         *
+         * @return \Portal\User|null 
+         * @static 
+         */
+        public static function user(){
+            return \Illuminate\Auth\Guard::user();
+        }
+        
+        /**
+         * Get the ID for the currently authenticated user.
+         *
+         * @return int|null 
+         * @static 
+         */
+        public static function id(){
+            return \Illuminate\Auth\Guard::id();
+        }
+        
+        /**
+         * Log a user into the application without sessions or cookies.
+         *
+         * @param array $credentials
+         * @return bool 
+         * @static 
+         */
+        public static function once($credentials = array()){
+            return \Illuminate\Auth\Guard::once($credentials);
+        }
+        
+        /**
+         * Validate a user's credentials.
+         *
+         * @param array $credentials
+         * @return bool 
+         * @static 
+         */
+        public static function validate($credentials = array()){
+            return \Illuminate\Auth\Guard::validate($credentials);
+        }
+        
+        /**
+         * Attempt to authenticate using HTTP Basic Auth.
+         *
+         * @param string $field
+         * @return \Symfony\Component\HttpFoundation\Response|null 
+         * @static 
+         */
+        public static function basic($field = 'email'){
+            return \Illuminate\Auth\Guard::basic($field);
+        }
+        
+        /**
+         * Perform a stateless HTTP Basic login attempt.
+         *
+         * @param string $field
+         * @return \Symfony\Component\HttpFoundation\Response|null 
+         * @static 
+         */
+        public static function onceBasic($field = 'email'){
+            return \Illuminate\Auth\Guard::onceBasic($field);
+        }
+        
+        /**
+         * Attempt to authenticate a user using the given credentials.
+         *
+         * @param array $credentials
+         * @param bool $remember
+         * @param bool $login
+         * @return bool 
+         * @static 
+         */
+        public static function attempt($credentials = array(), $remember = false, $login = true){
+            return \Illuminate\Auth\Guard::attempt($credentials, $remember, $login);
+        }
+        
+        /**
+         * Register an authentication attempt event listener.
+         *
+         * @param mixed $callback
+         * @return void 
+         * @static 
+         */
+        public static function attempting($callback){
+            \Illuminate\Auth\Guard::attempting($callback);
+        }
+        
+        /**
+         * Log a user into the application.
+         *
+         * @param \Illuminate\Contracts\Auth\Authenticatable $user
+         * @param bool $remember
+         * @return void 
+         * @static 
+         */
+        public static function login($user, $remember = false){
+            \Illuminate\Auth\Guard::login($user, $remember);
+        }
+        
+        /**
+         * Log the given user ID into the application.
+         *
+         * @param mixed $id
+         * @param bool $remember
+         * @return \Portal\User 
+         * @static 
+         */
+        public static function loginUsingId($id, $remember = false){
+            return \Illuminate\Auth\Guard::loginUsingId($id, $remember);
+        }
+        
+        /**
+         * Log the given user ID into the application without sessions or cookies.
+         *
+         * @param mixed $id
+         * @return bool 
+         * @static 
+         */
+        public static function onceUsingId($id){
+            return \Illuminate\Auth\Guard::onceUsingId($id);
+        }
+        
+        /**
+         * Log the user out of the application.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function logout(){
+            \Illuminate\Auth\Guard::logout();
+        }
+        
+        /**
+         * Get the cookie creator instance used by the guard.
+         *
+         * @return \Illuminate\Contracts\Cookie\QueueingFactory 
+         * @throws \RuntimeException
+         * @static 
+         */
+        public static function getCookieJar(){
+            return \Illuminate\Auth\Guard::getCookieJar();
+        }
+        
+        /**
+         * Set the cookie creator instance used by the guard.
+         *
+         * @param \Illuminate\Contracts\Cookie\QueueingFactory $cookie
+         * @return void 
+         * @static 
+         */
+        public static function setCookieJar($cookie){
+            \Illuminate\Auth\Guard::setCookieJar($cookie);
+        }
+        
+        /**
+         * Get the event dispatcher instance.
+         *
+         * @return \Illuminate\Contracts\Events\Dispatcher 
+         * @static 
+         */
+        public static function getDispatcher(){
+            return \Illuminate\Auth\Guard::getDispatcher();
+        }
+        
+        /**
+         * Set the event dispatcher instance.
+         *
+         * @param \Illuminate\Contracts\Events\Dispatcher $events
+         * @return void 
+         * @static 
+         */
+        public static function setDispatcher($events){
+            \Illuminate\Auth\Guard::setDispatcher($events);
+        }
+        
+        /**
+         * Get the session store used by the guard.
+         *
+         * @return \Illuminate\Session\Store 
+         * @static 
+         */
+        public static function getSession(){
+            return \Illuminate\Auth\Guard::getSession();
+        }
+        
+        /**
+         * Get the user provider used by the guard.
+         *
+         * @return \Illuminate\Contracts\Auth\UserProvider 
+         * @static 
+         */
+        public static function getProvider(){
+            return \Illuminate\Auth\Guard::getProvider();
+        }
+        
+        /**
+         * Set the user provider used by the guard.
+         *
+         * @param \Illuminate\Contracts\Auth\UserProvider $provider
+         * @return void 
+         * @static 
+         */
+        public static function setProvider($provider){
+            \Illuminate\Auth\Guard::setProvider($provider);
+        }
+        
+        /**
+         * Return the currently cached user.
+         *
+         * @return \Portal\User|null 
+         * @static 
+         */
+        public static function getUser(){
+            return \Illuminate\Auth\Guard::getUser();
+        }
+        
+        /**
+         * Set the current user.
+         *
+         * @param \Illuminate\Contracts\Auth\Authenticatable $user
+         * @return void 
+         * @static 
+         */
+        public static function setUser($user){
+            \Illuminate\Auth\Guard::setUser($user);
+        }
+        
+        /**
+         * Get the current request instance.
+         *
+         * @return \Symfony\Component\HttpFoundation\Request 
+         * @static 
+         */
+        public static function getRequest(){
+            return \Illuminate\Auth\Guard::getRequest();
+        }
+        
+        /**
+         * Set the current request instance.
+         *
+         * @param \Symfony\Component\HttpFoundation\Request $request
+         * @return $this 
+         * @static 
+         */
+        public static function setRequest($request){
+            return \Illuminate\Auth\Guard::setRequest($request);
+        }
+        
+        /**
+         * Get the last user we attempted to authenticate.
+         *
+         * @return \Portal\User 
+         * @static 
+         */
+        public static function getLastAttempted(){
+            return \Illuminate\Auth\Guard::getLastAttempted();
+        }
+        
+        /**
+         * Get a unique identifier for the auth session value.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getName(){
+            return \Illuminate\Auth\Guard::getName();
+        }
+        
+        /**
+         * Get the name of the cookie used to store the "recaller".
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getRecallerName(){
+            return \Illuminate\Auth\Guard::getRecallerName();
+        }
+        
+        /**
+         * Determine if the user was authenticated via "remember me" cookie.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function viaRemember(){
+            return \Illuminate\Auth\Guard::viaRemember();
+        }
+        
     }
 
 
@@ -7216,6 +7525,82 @@ namespace {
     }
 
 
+    class Password extends \Illuminate\Support\Facades\Password{
+        
+        /**
+         * Send a password reset link to a user.
+         *
+         * @param array $credentials
+         * @param \Closure|null $callback
+         * @return string 
+         * @static 
+         */
+        public static function sendResetLink($credentials, $callback = null){
+            return \Illuminate\Auth\Passwords\PasswordBroker::sendResetLink($credentials, $callback);
+        }
+        
+        /**
+         * Send the password reset link via e-mail.
+         *
+         * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+         * @param string $token
+         * @param \Closure|null $callback
+         * @return int 
+         * @static 
+         */
+        public static function emailResetLink($user, $token, $callback = null){
+            return \Illuminate\Auth\Passwords\PasswordBroker::emailResetLink($user, $token, $callback);
+        }
+        
+        /**
+         * Reset the password for the given token.
+         *
+         * @param array $credentials
+         * @param \Closure $callback
+         * @return mixed 
+         * @static 
+         */
+        public static function reset($credentials, $callback){
+            return \Illuminate\Auth\Passwords\PasswordBroker::reset($credentials, $callback);
+        }
+        
+        /**
+         * Set a custom password validator.
+         *
+         * @param \Closure $callback
+         * @return void 
+         * @static 
+         */
+        public static function validator($callback){
+            \Illuminate\Auth\Passwords\PasswordBroker::validator($callback);
+        }
+        
+        /**
+         * Determine if the passwords match for the request.
+         *
+         * @param array $credentials
+         * @return bool 
+         * @static 
+         */
+        public static function validateNewPassword($credentials){
+            return \Illuminate\Auth\Passwords\PasswordBroker::validateNewPassword($credentials);
+        }
+        
+        /**
+         * Get the user for the given credentials.
+         *
+         * @param array $credentials
+         * @return \Illuminate\Contracts\Auth\CanResetPassword 
+         * @throws \UnexpectedValueException
+         * @static 
+         */
+        public static function getUser($credentials){
+            return \Illuminate\Auth\Passwords\PasswordBroker::getUser($credentials);
+        }
+        
+    }
+
+
     class Queue extends \Illuminate\Support\Facades\Queue{
         
         /**
@@ -7357,10 +7742,11 @@ namespace {
          * @param mixed $data
          * @param string $queue
          * @return mixed 
+         * @throws \Throwable
          * @static 
          */
         public static function push($job, $data = '', $queue = null){
-            return \Illuminate\Queue\BeanstalkdQueue::push($job, $data, $queue);
+            return \Illuminate\Queue\SyncQueue::push($job, $data, $queue);
         }
         
         /**
@@ -7373,7 +7759,7 @@ namespace {
          * @static 
          */
         public static function pushRaw($payload, $queue = null, $options = array()){
-            return \Illuminate\Queue\BeanstalkdQueue::pushRaw($payload, $queue, $options);
+            return \Illuminate\Queue\SyncQueue::pushRaw($payload, $queue, $options);
         }
         
         /**
@@ -7387,7 +7773,7 @@ namespace {
          * @static 
          */
         public static function later($delay, $job, $data = '', $queue = null){
-            return \Illuminate\Queue\BeanstalkdQueue::later($delay, $job, $data, $queue);
+            return \Illuminate\Queue\SyncQueue::later($delay, $job, $data, $queue);
         }
         
         /**
@@ -7398,40 +7784,7 @@ namespace {
          * @static 
          */
         public static function pop($queue = null){
-            return \Illuminate\Queue\BeanstalkdQueue::pop($queue);
-        }
-        
-        /**
-         * Delete a message from the Beanstalk queue.
-         *
-         * @param string $queue
-         * @param string $id
-         * @return void 
-         * @static 
-         */
-        public static function deleteMessage($queue, $id){
-            \Illuminate\Queue\BeanstalkdQueue::deleteMessage($queue, $id);
-        }
-        
-        /**
-         * Get the queue or return the default.
-         *
-         * @param string|null $queue
-         * @return string 
-         * @static 
-         */
-        public static function getQueue($queue){
-            return \Illuminate\Queue\BeanstalkdQueue::getQueue($queue);
-        }
-        
-        /**
-         * Get the underlying Pheanstalk instance.
-         *
-         * @return \Pheanstalk\Pheanstalk 
-         * @static 
-         */
-        public static function getPheanstalk(){
-            return \Illuminate\Queue\BeanstalkdQueue::getPheanstalk();
+            return \Illuminate\Queue\SyncQueue::pop($queue);
         }
         
         /**
@@ -7445,7 +7798,7 @@ namespace {
          */
         public static function pushOn($queue, $job, $data = ''){
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\BeanstalkdQueue::pushOn($queue, $job, $data);
+            return \Illuminate\Queue\SyncQueue::pushOn($queue, $job, $data);
         }
         
         /**
@@ -7460,7 +7813,7 @@ namespace {
          */
         public static function laterOn($queue, $delay, $job, $data = ''){
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\BeanstalkdQueue::laterOn($queue, $delay, $job, $data);
+            return \Illuminate\Queue\SyncQueue::laterOn($queue, $delay, $job, $data);
         }
         
         /**
@@ -7472,7 +7825,7 @@ namespace {
          */
         public static function marshal(){
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\BeanstalkdQueue::marshal();
+            return \Illuminate\Queue\SyncQueue::marshal();
         }
         
         /**
@@ -7486,7 +7839,7 @@ namespace {
          */
         public static function bulk($jobs, $data = '', $queue = null){
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\BeanstalkdQueue::bulk($jobs, $data, $queue);
+            return \Illuminate\Queue\SyncQueue::bulk($jobs, $data, $queue);
         }
         
         /**
@@ -7498,7 +7851,7 @@ namespace {
          */
         public static function setContainer($container){
             //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\BeanstalkdQueue::setContainer($container);
+            \Illuminate\Queue\SyncQueue::setContainer($container);
         }
         
         /**
@@ -7510,7 +7863,164 @@ namespace {
          */
         public static function setEncrypter($crypt){
             //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\BeanstalkdQueue::setEncrypter($crypt);
+            \Illuminate\Queue\SyncQueue::setEncrypter($crypt);
+        }
+        
+    }
+
+
+    class Redirect extends \Illuminate\Support\Facades\Redirect{
+        
+        /**
+         * Create a new redirect response to the "home" route.
+         *
+         * @param int $status
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function home($status = 302){
+            return \Illuminate\Routing\Redirector::home($status);
+        }
+        
+        /**
+         * Create a new redirect response to the previous location.
+         *
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function back($status = 302, $headers = array()){
+            return \Illuminate\Routing\Redirector::back($status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response to the current URI.
+         *
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function refresh($status = 302, $headers = array()){
+            return \Illuminate\Routing\Redirector::refresh($status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response, while putting the current URL in the session.
+         *
+         * @param string $path
+         * @param int $status
+         * @param array $headers
+         * @param bool $secure
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function guest($path, $status = 302, $headers = array(), $secure = null){
+            return \Illuminate\Routing\Redirector::guest($path, $status, $headers, $secure);
+        }
+        
+        /**
+         * Create a new redirect response to the previously intended location.
+         *
+         * @param string $default
+         * @param int $status
+         * @param array $headers
+         * @param bool $secure
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function intended($default = '/', $status = 302, $headers = array(), $secure = null){
+            return \Illuminate\Routing\Redirector::intended($default, $status, $headers, $secure);
+        }
+        
+        /**
+         * Create a new redirect response to the given path.
+         *
+         * @param string $path
+         * @param int $status
+         * @param array $headers
+         * @param bool $secure
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function to($path, $status = 302, $headers = array(), $secure = null){
+            return \Illuminate\Routing\Redirector::to($path, $status, $headers, $secure);
+        }
+        
+        /**
+         * Create a new redirect response to an external URL (no validation).
+         *
+         * @param string $path
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function away($path, $status = 302, $headers = array()){
+            return \Illuminate\Routing\Redirector::away($path, $status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response to the given HTTPS path.
+         *
+         * @param string $path
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function secure($path, $status = 302, $headers = array()){
+            return \Illuminate\Routing\Redirector::secure($path, $status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response to a named route.
+         *
+         * @param string $route
+         * @param array $parameters
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function route($route, $parameters = array(), $status = 302, $headers = array()){
+            return \Illuminate\Routing\Redirector::route($route, $parameters, $status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response to a controller action.
+         *
+         * @param string $action
+         * @param array $parameters
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function action($action, $parameters = array(), $status = 302, $headers = array()){
+            return \Illuminate\Routing\Redirector::action($action, $parameters, $status, $headers);
+        }
+        
+        /**
+         * Get the URL generator instance.
+         *
+         * @return \Illuminate\Routing\UrlGenerator 
+         * @static 
+         */
+        public static function getUrlGenerator(){
+            return \Illuminate\Routing\Redirector::getUrlGenerator();
+        }
+        
+        /**
+         * Set the active session store.
+         *
+         * @param \Illuminate\Session\Store $session
+         * @return void 
+         * @static 
+         */
+        public static function setSession($session){
+            \Illuminate\Routing\Redirector::setSession($session);
         }
         
     }
@@ -9030,6 +9540,187 @@ namespace {
         public static function isXmlHttpRequest(){
             //Method inherited from \Symfony\Component\HttpFoundation\Request            
             return \Illuminate\Http\Request::isXmlHttpRequest();
+        }
+        
+    }
+
+
+    class Response extends \Illuminate\Support\Facades\Response{
+        
+        /**
+         * Return a new response from the application.
+         *
+         * @param string $content
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\Response 
+         * @static 
+         */
+        public static function make($content = '', $status = 200, $headers = array()){
+            return \Illuminate\Routing\ResponseFactory::make($content, $status, $headers);
+        }
+        
+        /**
+         * Return a new view response from the application.
+         *
+         * @param string $view
+         * @param array $data
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\Response 
+         * @static 
+         */
+        public static function view($view, $data = array(), $status = 200, $headers = array()){
+            return \Illuminate\Routing\ResponseFactory::view($view, $data, $status, $headers);
+        }
+        
+        /**
+         * Return a new JSON response from the application.
+         *
+         * @param string|array $data
+         * @param int $status
+         * @param array $headers
+         * @param int $options
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */
+        public static function json($data = array(), $status = 200, $headers = array(), $options = 0){
+            return \Illuminate\Routing\ResponseFactory::json($data, $status, $headers, $options);
+        }
+        
+        /**
+         * Return a new JSONP response from the application.
+         *
+         * @param string $callback
+         * @param string|array $data
+         * @param int $status
+         * @param array $headers
+         * @param int $options
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */
+        public static function jsonp($callback, $data = array(), $status = 200, $headers = array(), $options = 0){
+            return \Illuminate\Routing\ResponseFactory::jsonp($callback, $data, $status, $headers, $options);
+        }
+        
+        /**
+         * Return a new streamed response from the application.
+         *
+         * @param \Closure $callback
+         * @param int $status
+         * @param array $headers
+         * @return \Symfony\Component\HttpFoundation\StreamedResponse 
+         * @static 
+         */
+        public static function stream($callback, $status = 200, $headers = array()){
+            return \Illuminate\Routing\ResponseFactory::stream($callback, $status, $headers);
+        }
+        
+        /**
+         * Create a new file download response.
+         *
+         * @param \SplFileInfo|string $file
+         * @param string $name
+         * @param array $headers
+         * @param string|null $disposition
+         * @return \Symfony\Component\HttpFoundation\BinaryFileResponse 
+         * @static 
+         */
+        public static function download($file, $name = null, $headers = array(), $disposition = 'attachment'){
+            return \Illuminate\Routing\ResponseFactory::download($file, $name, $headers, $disposition);
+        }
+        
+        /**
+         * Create a new redirect response to the given path.
+         *
+         * @param string $path
+         * @param int $status
+         * @param array $headers
+         * @param bool|null $secure
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function redirectTo($path, $status = 302, $headers = array(), $secure = null){
+            return \Illuminate\Routing\ResponseFactory::redirectTo($path, $status, $headers, $secure);
+        }
+        
+        /**
+         * Create a new redirect response to a named route.
+         *
+         * @param string $route
+         * @param array $parameters
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function redirectToRoute($route, $parameters = array(), $status = 302, $headers = array()){
+            return \Illuminate\Routing\ResponseFactory::redirectToRoute($route, $parameters, $status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response to a controller action.
+         *
+         * @param string $action
+         * @param array $parameters
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function redirectToAction($action, $parameters = array(), $status = 302, $headers = array()){
+            return \Illuminate\Routing\ResponseFactory::redirectToAction($action, $parameters, $status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response, while putting the current URL in the session.
+         *
+         * @param string $path
+         * @param int $status
+         * @param array $headers
+         * @param bool|null $secure
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function redirectGuest($path, $status = 302, $headers = array(), $secure = null){
+            return \Illuminate\Routing\ResponseFactory::redirectGuest($path, $status, $headers, $secure);
+        }
+        
+        /**
+         * Create a new redirect response to the previously intended location.
+         *
+         * @param string $default
+         * @param int $status
+         * @param array $headers
+         * @param bool|null $secure
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */
+        public static function redirectToIntended($default = '/', $status = 302, $headers = array(), $secure = null){
+            return \Illuminate\Routing\ResponseFactory::redirectToIntended($default, $status, $headers, $secure);
+        }
+        
+        /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param callable $macro
+         * @return void 
+         * @static 
+         */
+        public static function macro($name, $macro){
+            \Illuminate\Routing\ResponseFactory::macro($name, $macro);
+        }
+        
+        /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */
+        public static function hasMacro($name){
+            return \Illuminate\Routing\ResponseFactory::hasMacro($name);
         }
         
     }
@@ -11320,6 +12011,509 @@ namespace {
 
 
     class Moloquent extends \Jenssegers\Mongodb\Model{
+        
+    }
+
+
+    class Form extends \Collective\Html\FormFacade{
+        
+        /**
+         * Open up a new HTML form.
+         *
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function open($options = array()){
+            return \Collective\Html\FormBuilder::open($options);
+        }
+        
+        /**
+         * Create a new model based form builder.
+         *
+         * @param mixed $model
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function model($model, $options = array()){
+            return \Collective\Html\FormBuilder::model($model, $options);
+        }
+        
+        /**
+         * Set the model instance on the form builder.
+         *
+         * @param mixed $model
+         * @return void 
+         * @static 
+         */
+        public static function setModel($model){
+            \Collective\Html\FormBuilder::setModel($model);
+        }
+        
+        /**
+         * Close the current form.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function close(){
+            return \Collective\Html\FormBuilder::close();
+        }
+        
+        /**
+         * Generate a hidden field with the current CSRF token.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function token(){
+            return \Collective\Html\FormBuilder::token();
+        }
+        
+        /**
+         * Create a form label element.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function label($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::label($name, $value, $options);
+        }
+        
+        /**
+         * Create a form input field.
+         *
+         * @param string $type
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function input($type, $name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::input($type, $name, $value, $options);
+        }
+        
+        /**
+         * Create a text input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function text($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::text($name, $value, $options);
+        }
+        
+        /**
+         * Create a password input field.
+         *
+         * @param string $name
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function password($name, $options = array()){
+            return \Collective\Html\FormBuilder::password($name, $options);
+        }
+        
+        /**
+         * Create a hidden input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function hidden($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::hidden($name, $value, $options);
+        }
+        
+        /**
+         * Create an e-mail input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function email($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::email($name, $value, $options);
+        }
+        
+        /**
+         * Create a tel input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function tel($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::tel($name, $value, $options);
+        }
+        
+        /**
+         * Create a number input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function number($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::number($name, $value, $options);
+        }
+        
+        /**
+         * Create a date input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function date($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::date($name, $value, $options);
+        }
+        
+        /**
+         * Create a datetime input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function datetime($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::datetime($name, $value, $options);
+        }
+        
+        /**
+         * Create a datetime-local input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function datetimeLocal($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::datetimeLocal($name, $value, $options);
+        }
+        
+        /**
+         * Create a time input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function time($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::time($name, $value, $options);
+        }
+        
+        /**
+         * Create a url input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function url($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::url($name, $value, $options);
+        }
+        
+        /**
+         * Create a file input field.
+         *
+         * @param string $name
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function file($name, $options = array()){
+            return \Collective\Html\FormBuilder::file($name, $options);
+        }
+        
+        /**
+         * Create a textarea input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function textarea($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::textarea($name, $value, $options);
+        }
+        
+        /**
+         * Create a select box field.
+         *
+         * @param string $name
+         * @param array $list
+         * @param string $selected
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function select($name, $list = array(), $selected = null, $options = array()){
+            return \Collective\Html\FormBuilder::select($name, $list, $selected, $options);
+        }
+        
+        /**
+         * Create a select range field.
+         *
+         * @param string $name
+         * @param string $begin
+         * @param string $end
+         * @param string $selected
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function selectRange($name, $begin, $end, $selected = null, $options = array()){
+            return \Collective\Html\FormBuilder::selectRange($name, $begin, $end, $selected, $options);
+        }
+        
+        /**
+         * Create a select year field.
+         *
+         * @param string $name
+         * @param string $begin
+         * @param string $end
+         * @param string $selected
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function selectYear(){
+            return \Collective\Html\FormBuilder::selectYear();
+        }
+        
+        /**
+         * Create a select month field.
+         *
+         * @param string $name
+         * @param string $selected
+         * @param array $options
+         * @param string $format
+         * @return string 
+         * @static 
+         */
+        public static function selectMonth($name, $selected = null, $options = array(), $format = '%B'){
+            return \Collective\Html\FormBuilder::selectMonth($name, $selected, $options, $format);
+        }
+        
+        /**
+         * Get the select option for the given value.
+         *
+         * @param string $display
+         * @param string $value
+         * @param string $selected
+         * @return string 
+         * @static 
+         */
+        public static function getSelectOption($display, $value, $selected){
+            return \Collective\Html\FormBuilder::getSelectOption($display, $value, $selected);
+        }
+        
+        /**
+         * Create a checkbox input field.
+         *
+         * @param string $name
+         * @param mixed $value
+         * @param bool $checked
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function checkbox($name, $value = 1, $checked = null, $options = array()){
+            return \Collective\Html\FormBuilder::checkbox($name, $value, $checked, $options);
+        }
+        
+        /**
+         * Create a radio button input field.
+         *
+         * @param string $name
+         * @param mixed $value
+         * @param bool $checked
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function radio($name, $value = null, $checked = null, $options = array()){
+            return \Collective\Html\FormBuilder::radio($name, $value, $checked, $options);
+        }
+        
+        /**
+         * Create a HTML reset input element.
+         *
+         * @param string $value
+         * @param array $attributes
+         * @return string 
+         * @static 
+         */
+        public static function reset($value, $attributes = array()){
+            return \Collective\Html\FormBuilder::reset($value, $attributes);
+        }
+        
+        /**
+         * Create a HTML image input element.
+         *
+         * @param string $url
+         * @param string $name
+         * @param array $attributes
+         * @return string 
+         * @static 
+         */
+        public static function image($url, $name = null, $attributes = array()){
+            return \Collective\Html\FormBuilder::image($url, $name, $attributes);
+        }
+        
+        /**
+         * Create a color input field.
+         *
+         * @param string $name
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function color($name, $value = null, $options = array()){
+            return \Collective\Html\FormBuilder::color($name, $value, $options);
+        }
+        
+        /**
+         * Create a submit button element.
+         *
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function submit($value = null, $options = array()){
+            return \Collective\Html\FormBuilder::submit($value, $options);
+        }
+        
+        /**
+         * Create a button element.
+         *
+         * @param string $value
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function button($value = null, $options = array()){
+            return \Collective\Html\FormBuilder::button($value, $options);
+        }
+        
+        /**
+         * Get the ID attribute for a field name.
+         *
+         * @param string $name
+         * @param array $attributes
+         * @return string 
+         * @static 
+         */
+        public static function getIdAttribute($name, $attributes){
+            return \Collective\Html\FormBuilder::getIdAttribute($name, $attributes);
+        }
+        
+        /**
+         * Get the value that should be assigned to the field.
+         *
+         * @param string $name
+         * @param string $value
+         * @return mixed 
+         * @static 
+         */
+        public static function getValueAttribute($name, $value = null){
+            return \Collective\Html\FormBuilder::getValueAttribute($name, $value);
+        }
+        
+        /**
+         * Get a value from the session's old input.
+         *
+         * @param string $name
+         * @return mixed 
+         * @static 
+         */
+        public static function old($name){
+            return \Collective\Html\FormBuilder::old($name);
+        }
+        
+        /**
+         * Determine if the old input is empty.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function oldInputIsEmpty(){
+            return \Collective\Html\FormBuilder::oldInputIsEmpty();
+        }
+        
+        /**
+         * Get the session store implementation.
+         *
+         * @return \Illuminate\Session\SessionInterface $session
+         * @static 
+         */
+        public static function getSessionStore(){
+            return \Collective\Html\FormBuilder::getSessionStore();
+        }
+        
+        /**
+         * Set the session store implementation.
+         *
+         * @param \Illuminate\Session\SessionInterface $session
+         * @return $this 
+         * @static 
+         */
+        public static function setSessionStore($session){
+            return \Collective\Html\FormBuilder::setSessionStore($session);
+        }
+        
+        /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param callable $macro
+         * @return void 
+         * @static 
+         */
+        public static function macro($name, $macro){
+            \Collective\Html\FormBuilder::macro($name, $macro);
+        }
+        
+        /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */
+        public static function hasMacro($name){
+            return \Collective\Html\FormBuilder::hasMacro($name);
+        }
         
     }
 

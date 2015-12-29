@@ -42,7 +42,7 @@
 
                     <div>
                         <button id="navegar" type="button" class="btn btn-primary btn-block"
-                                susses_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
+                                success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration='. session('session_time') }}">
                             Navegar en internet
                         </button>
                     </div>

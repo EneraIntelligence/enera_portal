@@ -45,8 +45,8 @@
         <!-- navigate button -->
         <div style="margin: 10px 0;">
             <a id="navegar" style="font-size:20px; color:white;" href="#"
-               success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
-                <p class="text-center">Deseo navegar en internet sin suscribirme</p>
+               success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration='. session('session_time') }}">
+                <p class="text-center">Deseo navegar en internet</p>
             </a>
         </div>
     </div>

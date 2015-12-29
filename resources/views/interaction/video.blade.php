@@ -23,8 +23,8 @@
         <div class="banner-button">
             <div>
                 <button id="navegar" type="button" class="btn btn-primary btn-block"
-                        success_url="{!! Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' !!}">
-                    Navegar en internet
+                        success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration='. session('session_time') }}">
+                Navegar en internet
                 </button>
             </div>
         </div>
@@ -35,8 +35,8 @@
         <div class="banner-button">
             <div>
                 <button id="navegar" type="button" class="btn btn-primary btn-block"
-                        success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
-                    Navegar en internet
+                        success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration='. session('session_time') }}">
+                Navegar en internet
                 </button>
             </div>
         </div>

@@ -62,7 +62,11 @@ class WelcomeController extends Controller
                     ->get();
 
                 if ($user->count() < 1 || $user->count() > 1) {
-                    session(['main_bg' => $branche->portal['background']]);
+                    session([
+                        'main_bg' => $branche->portal['background'],
+                        'session_time' => ($branche->portal['session_time']*60)
+                    ]);
+
                     $url = route('welcome::response', [
                         'node_mac' => Input::get('node_mac'),
                         'client_ip' => Input::get('client_ip'),

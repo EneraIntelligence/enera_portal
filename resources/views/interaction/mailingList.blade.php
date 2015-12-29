@@ -17,14 +17,14 @@
     <div class="banner-button">
         <!-- subscribe button -->
         <button id="subscribe" type="button" class="btn btn-primary btn-block"
-                success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
-            SUSCRIBIRME
+                success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration='. session('session_time') }}">
+        SUSCRIBIRME
         </button>
 
         <!-- navigate button -->
         <div style="margin: 10px 0;">
             <a id="navegar" href="#"
-               success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration=900' }}">
+               success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration='. session('session_time') }}">
                 <p class="text-center">Deseo navegar en internet sin suscribirme</p>
             </a>
         </div>
