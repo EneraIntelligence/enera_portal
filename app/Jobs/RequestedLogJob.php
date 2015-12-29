@@ -37,7 +37,7 @@ class RequestedLogJob extends Job implements SelfHandling
 
         if ($log) {
             $log->campaign_id = $this->campaign_id;
-            $user = isset($log->user['id']) ? $log->user : User::find($this->user_id);
+            $user = /*isset($log->user['id']) ? $log->user : */ User::find($this->user_id);
             $u['id'] = $user->_id;
             $u['gender'] = $user->facebook->gender;
             /**/
