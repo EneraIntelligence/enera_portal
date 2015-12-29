@@ -19,8 +19,8 @@ class FacebookUtils
                 session_start();
             }
             $this->fb = new Facebook\Facebook([
-                'app_id' => env('FB_APP_ID', '282363058604879'),
-                'app_secret' => env('FB_APP_SECRET', 'b61e5fe63f4c5e0544ad94684a9c3ec9'),
+                'app_id' => env('FACEBOOK_CLIENT_ID'),
+                'app_secret' => env('FACEBOOK_CLIENT_SECRET'),
                 'default_graph_version' => 'v2.2',
             ]);
         }
