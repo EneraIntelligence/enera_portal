@@ -1,7 +1,6 @@
 @extends('layouts.interaction')
 
 @section('title', 'Survey')
-@stop
 
 @section('head_scripts')
     {!! HTML::style(asset('css/survey.css')) !!}

@@ -3,7 +3,7 @@
     {!! HTML::style(asset('css/banner.css')) !!}
 @stop
 @section('title', 'Banner Link')
-@stop
+
 @section('content')
 
     <div>

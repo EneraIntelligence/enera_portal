@@ -4,7 +4,6 @@
 @stop
 
 @section('title', 'Banner')
-@stop
 
 @section('content')
 

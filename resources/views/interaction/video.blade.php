@@ -1,7 +1,6 @@
 @extends('layouts.interaction')
 
 @section('title', 'Video')
-@stop
 
 @section('head_scripts')
     {!! HTML::style('css/video.css') !!}

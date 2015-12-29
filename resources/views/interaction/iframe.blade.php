@@ -3,7 +3,7 @@
     {!! HTML::style(asset('css/captcha.css')) !!}
 @stop
 @section('title', 'iframe')
-@stop
+
 @section('content')
     <div style="width:100%; height:90%;">
         <div id="mascara" style="position:absolute; width:100%; height:90%;">

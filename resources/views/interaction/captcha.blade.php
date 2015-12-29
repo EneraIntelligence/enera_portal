@@ -3,7 +3,7 @@
     {!! HTML::style(asset('css/captcha.css')) !!}
 @stop
 @section('title', 'Captcha')
-@stop
+
 @section('content')
     <div id="captcha">
 

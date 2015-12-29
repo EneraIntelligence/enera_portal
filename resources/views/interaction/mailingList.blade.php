@@ -5,7 +5,6 @@
 @stop
 
 @section('title', 'Mailing List')
-@stop
 
 @section('content')
 
