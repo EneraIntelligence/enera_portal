@@ -150,6 +150,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider::class,
+        Jenssegers\Mongodb\Session\SessionServiceProvider::class,
 
     ],
 

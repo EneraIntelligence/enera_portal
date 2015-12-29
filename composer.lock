@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3979994b28444e96c783a82558f3e06c",
-    "content-hash": "cb073d9fb78db354537c4cc8d421d1bd",
+    "hash": "ec2d659aba2fd9c41952d7a73ce65085",
+    "content-hash": "6ba9dfffded0a7a4d654985145431460",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -853,6 +853,51 @@
             "time": "2015-12-20 11:15:10"
         },
         {
+            "name": "jenssegers/mongodb-session",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jenssegers/laravel-mongodb-session.git",
+                "reference": "45d9ec0032971221070a2021c17f4f5403f5f466"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jenssegers/laravel-mongodb-session/zipball/45d9ec0032971221070a2021c17f4f5403f5f466",
+                "reference": "45d9ec0032971221070a2021c17f4f5403f5f466",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/session": "4.*|5.*",
+                "jenssegers/mongodb": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Jenssegers\\Mongodb\\Session": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Segers",
+                    "homepage": "http://jenssegers.be"
+                }
+            ],
+            "description": "A MongoDB session driver for Laravel 4",
+            "keywords": [
+                "driver",
+                "laravel",
+                "mongo",
+                "mongodb",
+                "session"
+            ],
+            "time": "2015-01-30 14:14:09"
+        },
+        {
             "name": "jeremeamia/SuperClosure",
             "version": "2.2.0",
             "source": {
@@ -1174,16 +1219,16 @@
         },
         {
             "name": "mobiledetect/mobiledetectlib",
-            "version": "2.8.17",
+            "version": "2.8.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/serbanghita/Mobile-Detect.git",
-                "reference": "b87da5f63a76e9615a0c74fcf168657b1ea7e41d"
+                "reference": "99e1c21c32104af2d035ff5d2fd8aff8cb29e27c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/b87da5f63a76e9615a0c74fcf168657b1ea7e41d",
-                "reference": "b87da5f63a76e9615a0c74fcf168657b1ea7e41d",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/99e1c21c32104af2d035ff5d2fd8aff8cb29e27c",
+                "reference": "99e1c21c32104af2d035ff5d2fd8aff8cb29e27c",
                 "shasum": ""
             },
             "require": {
@@ -1224,7 +1269,7 @@
                 "mobile detector",
                 "php mobile detect"
             ],
-            "time": "2015-09-17 14:45:21"
+            "time": "2015-12-24 16:37:50"
         },
         {
             "name": "monolog/monolog",
