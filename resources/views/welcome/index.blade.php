@@ -19,7 +19,7 @@
         </div>
         <div class="login_fb">
 
-            <p>Para navegar:</p>
+            <p style="color:{{$message['color']}}">Para navegar:</p>
             <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">     {{-- --}}
                 <img id="fb-img" src="{!! asset('img/fb-login.png') !!}" alt="">
             </a>
@@ -35,7 +35,7 @@
 
             <img src="{!! asset('img/logo_enera.png') !!}" alt="" class="bottomLeft" style="width:80px;">
             <div class="terms bottomCenter">
-                <a href="#" data-toggle="modal" data-target="#myModal">Términos y condiciones</a>
+                <a style="color:{{$message['color']}}" href="#" data-toggle="modal" data-target="#myModal">Términos y condiciones</a>
             </div>
             <img src="{!! asset('img/logo_maxcom.png') !!}" alt="" class="bottomRight" style="width:120px;">
 
@@ -291,7 +291,7 @@
 
         // code generated from http://heartcode.robertpataki.com/canvasloader/
         var cl = new CanvasLoader('canvasloader-container');
-        cl.setColor('#FFFFFF');
+        cl.setColor('{{$spinner_color}}');
         cl.setDiameter(66);
         cl.setDensity(140);
         cl.setRange(0.9);

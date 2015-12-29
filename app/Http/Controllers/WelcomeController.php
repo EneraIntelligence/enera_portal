@@ -80,6 +80,7 @@ class WelcomeController extends Controller
                     return view('welcome.index', [
                         'image' => $branche->portal['image'],
                         'message' => $branche->portal['message'],
+                        'spinner_color' => $branche->portal['spinner_color'],
                         'login_response' => $this->fbUtils->makeLoginUrl($url),
                     ]);
 
