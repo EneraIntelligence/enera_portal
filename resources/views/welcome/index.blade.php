@@ -21,13 +21,15 @@
 
 
 
-            <label for="accept-terms" id="terms-label" style="font-size:20px;">
+            <label for="accept-terms" id="terms-label" style="font-size:20px; color:{{$message['color']}};">
                 <input type="checkbox" id="accept-terms" name="accept-terms" required>
                 Acepto los términos y condiciones
             </label>
             <div class="clear-fix"></div>
             <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">     {{-- --}}
                 <img id="fb-img" src="{!! asset('img/fb-login.png') !!}" alt="">
+
+                <p id="fb-inst" style="color:{{$message['color']}}">para navegar</p>
             </a>
 
             <div style=" width: 70px; height: 70px; margin: -55px auto 0px auto;"
@@ -352,11 +354,13 @@
             if(val)
             {
                 TweenLite.to("#fb-img",.3, {scaleX:1, scaleY:1, alpha:1, ease:Back.easeOut});
+                TweenLite.to("#fb-inst",.3, {scaleX:1, scaleY:1, alpha:1, ease:Back.easeOut});
                 TweenLite.to("#terms-label",.3, {scaleX:.8, scaleY:.8, ease:Power2.easeOut});
             }
             else
             {
                 TweenLite.to("#fb-img",.3, {scaleX:.7, scaleY:.7, alpha:.4, ease: Power2.easeOut});
+                TweenLite.to("#fb-inst",.3, {scaleX:.7, scaleY:.7, alpha:.4, ease: Power2.easeOut});
                 TweenLite.to("#terms-label",.5, {scaleX:1, scaleY:1, ease:Back.easeIn});
             }
         }
