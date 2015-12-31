@@ -320,6 +320,13 @@
                         alpha: 0,
                         ease: Back.easeIn
                     });
+            TweenLite.to('#fb-inst', .4,
+                    {
+                        scaleX: 0,
+                        scaleY: 0,
+                        alpha: 0,
+                        ease: Back.easeIn
+                    });
 
             //animate in canvas loader
             TweenLite.from('#canvasloader-container', .4,
