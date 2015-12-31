@@ -19,13 +19,21 @@
         </div>
         <div class="login_fb">
 
-            <p style="color:{{$message['color']}}">Para navegar:</p>
+
+
+            <label for="accept-terms" id="terms-label" style="font-size:20px;">
+                <input type="checkbox" id="accept-terms" name="accept-terms" required>
+                Acepto los términos y condiciones
+            </label>
+            <div class="clear-fix"></div>
             <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">     {{-- --}}
                 <img id="fb-img" src="{!! asset('img/fb-login.png') !!}" alt="">
             </a>
 
             <div style=" width: 70px; height: 70px; margin: -55px auto 0px auto;"
-                 id="canvasloader-container" class="wrapper"></div>
+                 id="canvasloader-container" class="wrapper">
+
+            </div>
 
         </div>
     </div>
@@ -321,6 +329,38 @@
                         ease: Power2.easeOut
                     });
         }
+
+        $("#accept-terms").change(function()
+        {
+            var n = $( "#accept-terms:checked" ).length;
+            if(n>0)
+            {
+                enableFBButton(true);
+            }
+            else
+            {
+                enableFBButton(false);
+            }
+        });
+
+        enableFBButton(false);
+
+        function enableFBButton(val)
+        {
+            //console.log("test: "+val);
+//            $("#fb-btn")
+            if(val)
+            {
+                TweenLite.to("#fb-img",.3, {scaleX:1, scaleY:1, alpha:1, ease:Back.easeOut});
+                TweenLite.to("#terms-label",.3, {scaleX:.8, scaleY:.8, ease:Power2.easeOut});
+            }
+            else
+            {
+                TweenLite.to("#fb-img",.3, {scaleX:.7, scaleY:.7, alpha:.4, ease: Power2.easeOut});
+                TweenLite.to("#terms-label",.5, {scaleX:1, scaleY:1, ease:Back.easeIn});
+            }
+        }
+
 
     </script>
 @stop
