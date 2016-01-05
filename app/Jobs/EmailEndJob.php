@@ -4,11 +4,16 @@ namespace Portal\Jobs;
 
 use Mail;
 use Portal\Jobs\Job;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Portal\Administrator;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmailEndJob extends Job implements SelfHandling
+class EmailEndJob extends Job implements SelfHandling, ShouldQueue
 {
+    use InteractsWithQueue, SerializesModels;
+
     protected $_id;
 
     /**

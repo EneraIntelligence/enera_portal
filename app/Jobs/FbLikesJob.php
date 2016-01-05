@@ -3,12 +3,17 @@
 namespace Portal\Jobs;
 
 use DB;
-use Portal\Jobs\Job;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Portal\User;
+use Portal\Jobs\Job;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class FbLikesJob extends Job implements SelfHandling
+class FbLikesJob extends Job implements SelfHandling, ShouldQueue
 {
+    use InteractsWithQueue, SerializesModels;
+
     protected $likes;
     protected $fb_id;
     protected $mac;

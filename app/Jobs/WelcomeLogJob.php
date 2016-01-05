@@ -2,14 +2,19 @@
 
 namespace Portal\Jobs;
 
-use MongoDate;
 use MongoId;
-use Portal\CampaignLog;
+use MongoDate;
 use Portal\Jobs\Job;
+use Portal\CampaignLog;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class WelcomeLogJob extends Job implements SelfHandling
+class WelcomeLogJob extends Job implements SelfHandling, ShouldQueue
 {
+    use InteractsWithQueue, SerializesModels;
+
     protected $token;
     protected $client_mac;
 
