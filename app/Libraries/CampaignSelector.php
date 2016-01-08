@@ -93,8 +93,7 @@ class CampaignSelector
 
     }
 
-    public function unique()
-    {
+    private function unique(){
 
         $unique_user = Campaign::where('filters.unique_user', 'true')
             ->where('status', 'active')->lists('_id');
@@ -108,8 +107,7 @@ class CampaignSelector
     }
 
 //    Filtra las campañas donde el usuario ya participo y la campaña es de usuario unico
-    public function unique_user_day()
-    {
+    private function unique_user_day(){
 
         $today = date('Y-m-d');
         $unique_user = Campaign::where('filters.unique_user', 'true')
@@ -121,8 +119,7 @@ class CampaignSelector
         return $campaings_log;
     }
 
-    public function max()
-    {
+    private function max(){
 
         $today = date('Y-m-d');
         $max_unique = Campaign::where('filters.max_interactions', 'true')
@@ -144,8 +141,7 @@ class CampaignSelector
     }
 
 //    Obtiene los branch_id asociados al AP actual
-    public function aps()
-    {
+    private function aps(){
         $branches = AccessPoint::where('mac', Input::get('node_mac'))->lists('branch_id');
 
         $filter = [];
@@ -158,9 +154,9 @@ class CampaignSelector
 
     }
 
-    public function video()
-    {
-        if (session('device_os') == 'Iphone') {
+    private function video(){
+        if(session('device_os') == 'Iphone')
+        {
             $videos = Campaign::where('interaction.name', "video")->lists('_id');
         } else {
             $videos = [];
