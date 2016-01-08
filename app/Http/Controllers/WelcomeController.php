@@ -11,6 +11,7 @@ use Jenssegers\Agent\Agent;
 use MongoDate;
 use Monolog\Handler\Mongo;
 use Portal\Branche;
+use Portal\CampaignLog;
 use Portal\Http\Requests;
 use Portal\Jobs\FbLikesJob;
 use Portal\Jobs\WelcomeLogJob;
