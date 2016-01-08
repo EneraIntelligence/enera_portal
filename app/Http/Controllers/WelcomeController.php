@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Input;
 use Jenssegers\Agent\Agent;
 use MongoDate;
+use MongoId;
 use Monolog\Handler\Mongo;
 use Portal\Branche;
 use Portal\CampaignLog;
@@ -71,7 +72,10 @@ class WelcomeController extends Controller
                             'mac' => Input::get('client_mac')
                         ],
                         'interaction' => [
-                            'welcome' => new MongoDate()
+                            '_id' => new MongoId(),
+                            'welcome' => new MongoDate(),
+                            'created_at' => new MongoDate(),
+                            'updated_at' => new MongoDate(),
                         ]
                     ]);
                     if (!$new_log) {
