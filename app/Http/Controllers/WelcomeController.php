@@ -58,8 +58,8 @@ class WelcomeController extends Controller
             // Si el AP fue dado de alta y asignado a una Branche
             if ($branche) {
                 // welcome
-                $log = CampaignLog::where('user.session', $this->token)
-                    ->where('device.mac', $this->client_mac)->first();
+                $log = CampaignLog::where('user.session', session('_token'))
+                    ->where('device.mac', Input::get('client_mac'))->first();
 
                 // Paso 1: Welcome log
                 if (!$log) {
