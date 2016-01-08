@@ -17,6 +17,7 @@ class WelcomeLogJob extends Job implements SelfHandling, ShouldQueue
 
     protected $token;
     protected $client_mac;
+    protected $welcome;
 
     /**
      * Create a new job instance.
