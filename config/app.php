@@ -151,6 +151,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider::class,
         Jenssegers\Mongodb\Session\SessionServiceProvider::class,
+        Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
 
     ],
 
@@ -204,6 +205,7 @@ return [
         'Moloquent' => Jenssegers\Mongodb\Model::class,
         'Form'      => Collective\Html\FormFacade::class,
         'HTML'      => Collective\Html\HtmlFacade::class,
+        'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
 
 
     ],

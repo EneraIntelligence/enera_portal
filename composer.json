@@ -16,7 +16,8 @@
         "guzzlehttp/guzzle": "~4.0",
         "flynsarmy/db-blade-compiler": "2.*",
         "jenssegers/agent": "^2.3",
-        "jenssegers/mongodb-session": "^1.1"
+        "jenssegers/mongodb-session": "^1.1",
+        "bugsnag/bugsnag-laravel": "1.*"
     },
     "repositories": [
         {
