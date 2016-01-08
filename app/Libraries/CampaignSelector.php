@@ -90,7 +90,6 @@ class CampaignSelector
 //            dd($campaign);
         return $campaign;
 
-
     }
 
     public function unique(){
