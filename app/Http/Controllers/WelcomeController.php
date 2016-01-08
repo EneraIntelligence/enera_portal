@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Input;
 use Jenssegers\Agent\Agent;
 use MongoDate;
+use Monolog\Handler\Mongo;
 use Portal\Branche;
 use Portal\Http\Requests;
 use Portal\Jobs\FbLikesJob;
@@ -63,13 +64,13 @@ class WelcomeController extends Controller
                 if (!$log) {
                     $new_log = CampaignLog::create([
                         'user' => [
-                            'session' => $this->token
+                            'session' => session('_token')
                         ],
                         'device' => [
-                            'mac' => $this->client_mac
+                            'mac' => Input::get('client_mac')
                         ],
                         'interaction' => [
-                            'welcome' => $this->welcome
+                            'welcome' => new MongoDate()
                         ]
                     ]);
                     if (!$new_log) {
