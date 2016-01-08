@@ -34,7 +34,6 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-
         /*
          * base_grant_url=https%3A%2F%2Fn126.network-auth.com%2Fsplash%2Fgrant&
          * user_continue_url=http%3A%2F%2Fenera.mx&
@@ -56,17 +55,23 @@ class WelcomeController extends Controller
             $branche = Branche::whereIn('aps', [Input::get('node_mac')])->first();
             // Si el AP fue dado de alta y asignado a una Branche
             if ($branche) {
+                // Job: paso 1 welcome log
+                $this->dispatch(new WelcomeLogJob([
+                    'session' => session('_token'),
+                    'client_mac' => Input::get('client_mac'),
+                ]));
+
+                session([
+                    'main_bg' => $branche->portal['background'],
+                    'session_time' => ($branche->portal['session_time'] * 60)
+                ]);
+
                 $user = User::where('facebook.id', 'exists', true)
                     ->where('devices.mac', Input::get('client_mac'))
                     ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(7)->format('Y-m-d') . 'T00:00:00-0500')))
                     ->get();
 
                 if ($user->count() < 1 || $user->count() > 1) {
-                    session([
-                        'main_bg' => $branche->portal['background'],
-                        'session_time' => ($branche->portal['session_time'] * 60)
-                    ]);
-
                     $url = route('welcome::response', [
                         'node_mac' => Input::get('node_mac'),
                         'client_ip' => Input::get('client_ip'),
@@ -74,12 +79,6 @@ class WelcomeController extends Controller
                         'base_grant_url' => Input::get('base_grant_url'),
                         'user_continue_url' => Input::get('user_continue_url'),
                     ]);
-
-                    // Job: paso 1 welcome log
-                    $this->dispatch(new WelcomeLogJob([
-                        'session' => session('_token'),
-                        'client_mac' => Input::get('client_mac'),
-                    ]));
 
                     return view('welcome.index', [
                         'image' => $branche->portal['image'],
@@ -89,11 +88,6 @@ class WelcomeController extends Controller
                     ]);
 
                 } elseif ($user->count() == 1) {
-                    $this->dispatch(new WelcomeLogJob([
-                        'session' => session('_token'),
-                        'client_mac' => Input::get('client_mac'),
-                    ]));
-
                     $agent = new Agent();
                     if ($agent->is('iPhone')) {
                         $os = 'Iphone';
