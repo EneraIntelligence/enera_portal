@@ -55,7 +55,28 @@ class WelcomeController extends Controller
             $branche = Branche::whereIn('aps', [Input::get('node_mac')])->first();
             // Si el AP fue dado de alta y asignado a una Branche
             if ($branche) {
-                // Job: paso 1 welcome log
+                // welcome
+                $log = CampaignLog::where('user.session', $this->token)
+                    ->where('device.mac', $this->client_mac)->first();
+
+                // Paso 1: Welcome log
+                if (!$log) {
+                    $new_log = CampaignLog::create([
+                        'user' => [
+                            'session' => $this->token
+                        ],
+                        'device' => [
+                            'mac' => $this->client_mac
+                        ],
+                        'interaction' => [
+                            'welcome' => $this->welcome
+                        ]
+                    ]);
+                    if (!$new_log) {
+                        Bugsnag::notifyError("CreateDocument", "El documento CampaignLog no se pudo crear client_mac: " . $this->client_mac);
+                    }
+                }
+
                 $this->dispatch(new WelcomeLogJob([
                     'session' => session('_token'),
                     'client_mac' => Input::get('client_mac'),
