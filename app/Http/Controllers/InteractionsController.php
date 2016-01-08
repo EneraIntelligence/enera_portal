@@ -42,8 +42,15 @@ class InteractionsController extends Controller
             $log = CampaignLog::where('user.session', $this->token)
                 ->where('device.mac', Input::get('client_mac'))->first();
             if ($log && !isset($log->interaction->joined)) {
-                $log->interaction->joined = new MongoDate();
-                $log->interaction->save();
+                if (!isset($log->interaction->welcome)) {
+                    $log->interaction()->create([
+                        'welcome' => $this->welcome,
+                        'joined' => new MongoDate(),
+                    ]);
+                } else {
+                    $log->interaction->joined = new MongoDate();
+                    $log->interaction->save();
+                }
                 $response = ['ok' => true];
             } else {
                 $response = [
@@ -79,7 +86,7 @@ class InteractionsController extends Controller
             $log->interaction->loaded = $this->fecha;
             $log->interaction->save();
             $response = ['ok' => true];
-        }else {
+        } else {
             $response = [
                 'ok' => false,
                 'step' => 'Update log-loaded'
@@ -93,23 +100,22 @@ class InteractionsController extends Controller
         $log = CampaignLog::where('user.session', $this->token)
             ->where('device.mac', Input::get('client_mac'))->first();
 
-        if ($log && !isset($log->interaction->completed))
-        {
+        if ($log && !isset($log->interaction->completed)) {
             //campaign found and completed
 
             //Monetization
             $campaign = $log->campaign;
-            $balanceBefore = floatval( $campaign->balance['current'] );
+            $balanceBefore = floatval($campaign->balance['current']);
 
-            $interactionAmount = floatval( $campaign->interaction['price'] );
+            $interactionAmount = floatval($campaign->interaction['price']);
             $interactionMultiplier = floatval(1);
-            $interactionTotal = floatval( $interactionAmount * $interactionMultiplier );
+            $interactionTotal = floatval($interactionAmount * $interactionMultiplier);
 
             //decrement amount on current balance
             Campaign::where('_id', $log->campaign_id)->decrement('balance.current', $interactionTotal);
             $campaignDecremented = Campaign::where('_id', $log->campaign_id)->first();
 
-            $balanceAfter = floatval( $campaignDecremented->balance['current'] );
+            $balanceAfter = floatval($campaignDecremented->balance['current']);
 
             //save log
             $log->interaction->completed = $this->fecha;
@@ -124,8 +130,7 @@ class InteractionsController extends Controller
             $log->cost->save();
             $log->interaction->save();
 
-            if($balanceAfter-$interactionTotal<=0)
-            {
+            if ($balanceAfter - $interactionTotal <= 0) {
                 //campaign out of funds
                 $this->endCampaign($campaignDecremented);
             }
@@ -133,9 +138,7 @@ class InteractionsController extends Controller
             $response = ['ok' => true];
 
 
-        }
-        else
-        {
+        } else {
             $response = [
                 'ok' => false,
                 'step' => 'Update log-completed',

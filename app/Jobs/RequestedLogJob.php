@@ -21,6 +21,7 @@ class RequestedLogJob extends Job implements SelfHandling, ShouldQueue
     protected $client_mac;
     protected $requested;
     protected $user_id;
+
     /**
      * Create a new job instance.
      * @param $data
@@ -57,7 +58,7 @@ class RequestedLogJob extends Job implements SelfHandling, ShouldQueue
             $age = $birthday->diff(new DateTime($today));
             /**/
             $u['age'] = $age->y;
-            $u['session'] = session('_token');
+            $u['session'] = $this->token;
             $log->user = $u;
             $log->save();
 

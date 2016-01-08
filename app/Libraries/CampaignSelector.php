@@ -8,6 +8,7 @@
 
 namespace Portal\Libraries;
 
+use Carbon\Carbon;
 use DateTime;
 use Input;
 use Portal\AccessPoint;
@@ -44,7 +45,7 @@ class CampaignSelector
         $max = $this->max();
         $video = $this->video();
         $user = $this->user;
-        $birthday = new DateTime($this->user->facebook->birthday['date']);
+        $birthday = new DateTime(isset($this->user->facebook->birthday['date']) ? $this->user->facebook->birthday['date'] : Carbon::today()->subYears(18)->toDateTimeString());
         $today = date('Y-m-d');
         $age = $birthday->diff(new DateTime($today));
         $campaign = Campaign::whereRaw([
@@ -94,11 +95,11 @@ class CampaignSelector
 
     private function unique(){
 
-         $unique_user =  Campaign::where('filters.unique_user', 'true')
-            ->where('status','active')->lists('_id');
+        $unique_user = Campaign::where('filters.unique_user', 'true')
+            ->where('status', 'active')->lists('_id');
 
-         $filter = CampaignLog::whereIn('campaign_id', $unique_user)
-            ->where('device.mac', Input::get('client_mac') )
+        $filter = CampaignLog::whereIn('campaign_id', $unique_user)
+            ->where('device.mac', Input::get('client_mac'))
             ->whereNotNull('interaction.completed')
             ->lists('campaign_id');
 
@@ -109,8 +110,8 @@ class CampaignSelector
     private function unique_user_day(){
 
         $today = date('Y-m-d');
-        $unique_user =  Campaign::where('filters.unique_user', 'true')
-            ->where('status','active')->lists('_id');
+        $unique_user = Campaign::where('filters.unique_user', 'true')
+            ->where('status', 'active')->lists('_id');
 
         $campaings_log = CampaignLog::whereIn('campaign_id', $unique_user)->where('device.mac', Input::get('client_mac'))
             ->where('interaction.completed', new MongoDate(strtotime($today)))->lists('campaign_id');
@@ -121,13 +122,12 @@ class CampaignSelector
     private function max(){
 
         $today = date('Y-m-d');
-        $max_unique =  Campaign::where('filters.max_interactions', 'true')
-            ->where('status','active')->lists('_id');
+        $max_unique = Campaign::where('filters.max_interactions', 'true')
+            ->where('status', 'active')->lists('_id');
 
         //echo $max_unique. '<br>';
         $filter = [];
-        foreach($max_unique as $max)
-        {
+        foreach ($max_unique as $max) {
             $count = CampaignLog::where('campaign_id', $max)
                 ->where('interaction.completed', new MongoDate(strtotime($today)))->count();
 
@@ -145,21 +145,20 @@ class CampaignSelector
         $branches = AccessPoint::where('mac', Input::get('node_mac'))->lists('branch_id');
 
         $filter = [];
-        foreach($branches as $branche)
-        {
-            $cam = Campaign::whereIn('branches' , $branches)->lists('_id');
-            foreach($cam as $c)
+        foreach ($branches as $branche) {
+            $cam = Campaign::whereIn('branches', $branches)->lists('_id');
+            foreach ($cam as $c)
                 array_push($filter, $c);
         }
         return array_unique($filter);
 
-        }
+    }
 
     private function video(){
         if(session('device_os') == 'Iphone')
         {
             $videos = Campaign::where('interaction.name', "video")->lists('_id');
-        }else{
+        } else {
             $videos = [];
         }
         return $videos;
