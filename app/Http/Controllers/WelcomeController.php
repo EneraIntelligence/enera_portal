@@ -64,7 +64,7 @@ class WelcomeController extends Controller
                 if ($user->count() < 1 || $user->count() > 1) {
                     session([
                         'main_bg' => $branche->portal['background'],
-                        'session_time' => ($branche->portal['session_time']*60)
+                        'session_time' => ($branche->portal['session_time'] * 60)
                     ]);
 
                     $url = route('welcome::response', [
@@ -95,16 +95,13 @@ class WelcomeController extends Controller
                     ]));
 
                     $agent = new Agent();
-                    if($agent->is('iPhone'))
-                    {
+                    if ($agent->is('iPhone')) {
                         $os = 'Iphone';
-                    }elseif($agent->is('Android'))
-                    {
+                    } elseif ($agent->is('Android')) {
                         $os = 'Android';
-                    }elseif($agent->is('OS X'))
-                    {
+                    } elseif ($agent->is('OS X')) {
                         $os = 'OS X';
-                    }else{
+                    } else {
                         $os = 'Dipositivo no detectado';
                     }
 
@@ -113,7 +110,7 @@ class WelcomeController extends Controller
                         'user_name' => $user[0]->facebook->first_name,
                         'user_fbid' => $user[0]->facebook->id,
                         'user_ftime' => false,
-                        'device_os'  => $os,
+                        'device_os' => $os,
                     ]);
 
                     return redirect()->route('campaign::show', [
@@ -161,16 +158,13 @@ class WelcomeController extends Controller
         }
 
         $agent = new Agent();
-        if($agent->is('iPhone'))
-        {
+        if ($agent->is('iPhone')) {
             $os = 'Iphone';
-        }elseif($agent->is('Android'))
-        {
+        } elseif ($agent->is('Android')) {
             $os = 'Android';
-        }elseif($agent->is('OS X'))
-        {
+        } elseif ($agent->is('OS X')) {
             $os = 'OS X';
-        }else{
+        } else {
             $os = 'Dipositivo no detectado';
         }
 
@@ -179,11 +173,14 @@ class WelcomeController extends Controller
             'user_name' => $facebook_data['first_name'],
             'user_fbid' => $user_fb_id,
             'user_ftime' => true,
-            'device_os'  => $os,
+            'device_os' => $os,
         ]);
 
         //este job maneja los likes por separado
-        $this->dispatch(new FbLikesJob($likes, $user_fb_id, Input::get('client_mac')));
+        $chuck = array_chunk($likes, 100);
+        foreach ($chuck as $shard) {
+            $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')));
+        }
 
         return redirect()->route('campaign::show', [
             'id' => $user->_id,
