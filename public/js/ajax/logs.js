@@ -14,7 +14,7 @@ logs = function () {
     };
 
     this.loaded = function loaded(data) {
-        console.log(data);
+        //console.log(data);
         ajax(data, 'loaded');
     };
 
@@ -37,7 +37,7 @@ logs = function () {
             data: json_data
         }).done(function (data) {
             console.log("success");
-            console.log(data);
+            //console.log(data);
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
             console.log(textStatus);

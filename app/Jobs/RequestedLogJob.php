@@ -16,6 +16,11 @@ class RequestedLogJob extends Job implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
+    protected $campaign_id;
+    protected $token;
+    protected $client_mac;
+    protected $requested;
+    protected $user_id;
     /**
      * Create a new job instance.
      * @param $data
