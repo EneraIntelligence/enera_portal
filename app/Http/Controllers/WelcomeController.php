@@ -70,13 +70,10 @@ class WelcomeController extends Controller
                         ],
                         'device' => [
                             'mac' => Input::get('client_mac')
-                        ],
-                        'interaction' => [
-                            '_id' => new MongoId(),
-                            'welcome' => new MongoDate(),
-                            'created_at' => new MongoDate(),
-                            'updated_at' => new MongoDate(),
                         ]
+                    ]);
+                    $new_log->interaction()->create([
+                        'welcome' => new MongoDate(),
                     ]);
                     if (!$new_log) {
                         Bugsnag::notifyError("CreateDocument", "El documento CampaignLog no se pudo crear client_mac: " . $this->client_mac);
