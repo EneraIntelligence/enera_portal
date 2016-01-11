@@ -8,8 +8,10 @@
     <div id="captcha">
 
             <div>
-                <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">
-
+                {{--<img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">--}}
+                <img  id="banner" class="img-responsive center-block"
+                      src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}"
+                      alt="Banner"/>
             </div>
             <form action="#">
                 <input id="captcha-value" type="text" name="Captcha"><br>

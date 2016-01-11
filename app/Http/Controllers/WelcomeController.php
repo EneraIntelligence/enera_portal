@@ -142,6 +142,9 @@ class WelcomeController extends Controller
                 }
             }
         }
+
+        Bugsnag::notifyError("ErrorType", "Something bad happened here too");
+
         return view('welcome.invalid', [
             'main_bg' => 'bg_welcome.jpg'
         ]);
@@ -154,8 +157,14 @@ class WelcomeController extends Controller
     {
 
         if (!$this->fbUtils->isUserLoggedIn()) {
-            echo "User is not logged in";
-            return "";
+            //echo "User is not logged in";
+            return redirect()->route('welcome', [
+                'base_grant_url' => Input::get('base_grant_url'),
+                'user_continue_url' => Input::get('user_continue_url'),
+                'node_mac' => Input::get('node_mac'),
+                'client_ip' => Input::get('client_ip'),
+                'client_mac' => Input::get('client_mac')
+            ]);
         }
 
         $facebook_data = $this->fbUtils->getUserData();
