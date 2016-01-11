@@ -143,7 +143,7 @@ class WelcomeController extends Controller
             }
         }
 
-        Bugsnag::notifyError("ErrorType", "Something bad happened here too");
+        //Bugsnag::notifyError("Error red invalida", "Falta algún parametro en la url o el node_mac es incorrecto");
 
         return view('welcome.invalid', [
             'main_bg' => 'bg_welcome.jpg'

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6db45aaebcea25b50b5f7095d5be65c3",
+    "hash": "3d44e51234e3c4c6101f0bb4433e2eb6",
     "content-hash": "0c548fa6f9a9c033e6f550ab523d138c",
     "packages": [
         {
@@ -120,16 +120,16 @@
         },
         {
             "name": "bugsnag/bugsnag-laravel",
-            "version": "v1.6.2",
+            "version": "v1.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bugsnag/bugsnag-laravel.git",
-                "reference": "a1123dfa036a3ae69814d2d53cea22a74b8d7831"
+                "reference": "13bc98495ae9c1baea8a78619556beff9452222b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bugsnag/bugsnag-laravel/zipball/a1123dfa036a3ae69814d2d53cea22a74b8d7831",
-                "reference": "a1123dfa036a3ae69814d2d53cea22a74b8d7831",
+                "url": "https://api.github.com/repos/bugsnag/bugsnag-laravel/zipball/13bc98495ae9c1baea8a78619556beff9452222b",
+                "reference": "13bc98495ae9c1baea8a78619556beff9452222b",
                 "shasum": ""
             },
             "require": {
@@ -163,7 +163,7 @@
                 "logging",
                 "tracking"
             ],
-            "time": "2015-12-08 19:11:24"
+            "time": "2016-01-08 20:01:35"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -1587,16 +1587,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "1.1.4",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "d762ee5b099a29044603cd4649851e81aa66cb47"
+                "reference": "dd8998b7c846f6909f4e7a5f67fabebfc412a4f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/d762ee5b099a29044603cd4649851e81aa66cb47",
-                "reference": "d762ee5b099a29044603cd4649851e81aa66cb47",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/dd8998b7c846f6909f4e7a5f67fabebfc412a4f7",
+                "reference": "dd8998b7c846f6909f4e7a5f67fabebfc412a4f7",
                 "shasum": ""
             },
             "require": {
@@ -1631,7 +1631,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2015-12-10 14:48:13"
+            "time": "2016-01-06 13:31:20"
         },
         {
             "name": "pda/pheanstalk",
