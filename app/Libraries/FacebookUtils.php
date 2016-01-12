@@ -64,7 +64,7 @@ class FacebookUtils
             }
 
             if ($this->accessToken = $this->helper->getAccessToken()) {
-                session('facebook_access_token',(string)$this->accessToken);
+                Session::push('facebook_access_token',(string)$this->accessToken);
                 $this->fb->setDefaultAccessToken($this->accessToken);
                 return true;
             } else {
