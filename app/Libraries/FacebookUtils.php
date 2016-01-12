@@ -29,6 +29,8 @@ class FacebookUtils
 
     public function makeLoginUrl($redirectUrl)
     {
+        Session::forget('facebook_access_token');
+
         $this->helper = $this->fb->getRedirectLoginHelper();
 
         $permissions = ['email', 'user_likes', 'user_birthday', 'user_location'];
