@@ -37,11 +37,7 @@ class FacebookUtils
         //parche fb
         foreach ($_SESSION as $k=>$v) {
             if(strpos($k, "FBRLH_")!==FALSE) {
-                if(!setcookie($k, $v)) {
-                    //what??
-                } else {
-                    $_COOKIE[$k]=$v;
-                }
+                session($k,$v);
             }
         }
         //var_dump($_COOKIE);
@@ -52,7 +48,7 @@ class FacebookUtils
     public function isUserLoggedIn()
     {
         //parche fb
-        foreach ($_COOKIE as $k=>$v) {
+        foreach (session::all() as $k=>$v) {
             if(strpos($k, "FBRLH_")!==FALSE) {
                 $_SESSION[$k]=$v;
             }
