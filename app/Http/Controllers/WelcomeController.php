@@ -69,7 +69,8 @@ class WelcomeController extends Controller
                             'session' => session('_token')
                         ],
                         'device' => [
-                            'mac' => Input::get('client_mac')
+                            'mac' => Input::get('client_mac'),
+                            'node_mac' => Input::get('node_mac'),
                         ]
                     ]);
                     $new_log->interaction()->create([
@@ -83,6 +84,7 @@ class WelcomeController extends Controller
                 $this->dispatch(new WelcomeLogJob([
                     'session' => session('_token'),
                     'client_mac' => Input::get('client_mac'),
+                    'node_mac' => Input::get('node_mac'),
                 ]));
 
                 session([
