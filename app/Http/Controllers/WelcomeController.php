@@ -58,6 +58,7 @@ class WelcomeController extends Controller
             $branche = Branche::whereIn('aps', [Input::get('node_mac')])->first();
             // Si el AP fue dado de alta y asignado a una Branche
             if ($branche) {
+                $agent = new Agent();
                 // welcome
                 $log = CampaignLog::where('user.session', session('_token'))
                     ->where('device.mac', Input::get('client_mac'))->first();
@@ -71,6 +72,7 @@ class WelcomeController extends Controller
                         'device' => [
                             'mac' => Input::get('client_mac'),
                             'node_mac' => Input::get('node_mac'),
+                            'os' => $agent->platform(),
                         ]
                     ]);
                     $new_log->interaction()->create([
@@ -80,13 +82,12 @@ class WelcomeController extends Controller
                         Bugsnag::notifyError("CreateDocument", "El documento CampaignLog no se pudo crear client_mac: " . $this->client_mac);
                     }
                 }
-
                 $this->dispatch(new WelcomeLogJob([
                     'session' => session('_token'),
                     'client_mac' => Input::get('client_mac'),
                     'node_mac' => Input::get('node_mac'),
                 ]));
-                $agent = new Agent();
+
 //                    if ($agent->is('iPhone')) {
 //                        $os = 'Iphone';
 //                    } elseif ($agent->is('Android')) {
