@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.1.28 (LTS) on 2016-01-08.
+ * Generated for Laravel 5.1.28 (LTS) on 2016-01-11.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -2113,26 +2113,26 @@ namespace {
          * Begin executing a new tags operation if the store supports it.
          *
          * @param string $name
-         * @return \Illuminate\Cache\TaggedCache 
+         * @return \Illuminate\Cache\TaggedCache
          * @deprecated since version 5.1. Use tags instead.
-         * @static 
+         * @static
          */
         public static function section($name){
             return \Illuminate\Cache\Repository::section($name);
         }
-        
+
         /**
          * Begin executing a new tags operation if the store supports it.
          *
          * @param array|mixed $names
-         * @return \Illuminate\Cache\TaggedCache 
+         * @return \Illuminate\Cache\TaggedCache
          * @throws \BadMethodCallException
-         * @static 
+         * @static
          */
         public static function tags($names){
             return \Illuminate\Cache\Repository::tags($names);
         }
-        
+
         /**
          * Get the default cache time.
          *
@@ -3516,7 +3516,7 @@ namespace {
          *
          * @param int $count
          * @param callable $callback
-         * @return bool 
+         * @return bool
          * @static 
          */
         public static function chunk($count, $callback){
@@ -7767,7 +7767,7 @@ namespace {
          * @param string $queue
          * @return mixed 
          * @throws \Throwable
-         * @static 
+         * @static
          */
         public static function push($job, $data = '', $queue = null){
             return \Illuminate\Queue\SyncQueue::push($job, $data, $queue);
@@ -12823,148 +12823,148 @@ namespace {
 
 
     class Bugsnag extends \Bugsnag\BugsnagLaravel\BugsnagFacade{
-        
+
         /**
          * Set your release stage, eg "production" or "development"
          *
          * @param String $releaseStage the app's current release stage
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setReleaseStage($releaseStage){
             return \Bugsnag_Client::setReleaseStage($releaseStage);
         }
-        
+
         /**
          * Set your app's semantic version, eg "1.2.3"
          *
          * @param String $appVersion the app's version
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setAppVersion($appVersion){
             return \Bugsnag_Client::setAppVersion($appVersion);
         }
-        
+
         /**
          * Set the host name
          *
          * @param String $hostname the host name
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setHostname($hostname){
             return \Bugsnag_Client::setHostname($hostname);
         }
-        
+
         /**
          * Set which release stages should be allowed to notify Bugsnag
          * eg array("production", "development")
          *
          * @param Array $notifyReleaseStages array of release stages to notify for
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setNotifyReleaseStages($notifyReleaseStages){
             return \Bugsnag_Client::setNotifyReleaseStages($notifyReleaseStages);
         }
-        
+
         /**
          * Set which Bugsnag endpoint to send errors to.
          *
          * @param String $endpoint endpoint URL
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setEndpoint($endpoint){
             return \Bugsnag_Client::setEndpoint($endpoint);
         }
-        
+
         /**
          * Enable debug mode to help diagnose problems.
          *
          * @param Boolean $debug whether to enable debug mode
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setDebug($debug){
             return \Bugsnag_Client::setDebug($debug);
         }
-        
+
         /**
          * Set whether or not to use SSL when notifying bugsnag
          *
          * @param Boolean $useSSL whether to use SSL
          * @deprecated you can now pass full URLs to setEndpoint
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setUseSSL($useSSL){
             return \Bugsnag_Client::setUseSSL($useSSL);
         }
-        
+
         /**
          * Set the desired timeout for cURL connection when notifying bugsnag
          *
          * @param Integer $timeout the desired timeout in seconds
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setTimeout($timeout){
             return \Bugsnag_Client::setTimeout($timeout);
         }
-        
+
         /**
          * Set the absolute path to the root of your application.
-         * 
+         *
          * We use this to help with error grouping and to highlight "in project"
          * stacktrace lines.
          *
          * @param String $projectRoot the root path for your application
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setProjectRoot($projectRoot){
             return \Bugsnag_Client::setProjectRoot($projectRoot);
         }
-        
+
         /**
          * Set the path that should be stripped from the beginning of
          * any stacktrace file line. This helps to normalise filenames
          * for grouping and reduces the noise in stack traces.
          *
          * @param String $stripPath the path to strip from filenames
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setStripPath($stripPath){
             return \Bugsnag_Client::setStripPath($stripPath);
         }
-        
+
         /**
          * Set the a regular expression for matching filenames in stacktrace lines
          * that are part of your application.
          *
          * @param String $projectRootRegex regex matching paths belong to your project
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setProjectRootRegex($projectRootRegex){
             return \Bugsnag_Client::setProjectRootRegex($projectRootRegex);
         }
-        
+
         /**
          * Set the strings to filter out from metaData arrays before sending then
          * to Bugsnag. Eg. array("password", "credit_card")
          *
          * @param Array $filters an array of metaData filters
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setFilters($filters){
             return \Bugsnag_Client::setFilters($filters);
         }
-        
+
         /**
          * Set information about the current user of your app, including
          * id, name and email.
@@ -12974,49 +12974,49 @@ namespace {
          *            'name' => 'Bob Hoskins',
          *            'email' => 'bob@hoskins.com'
          *        )
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setUser($user){
             return \Bugsnag_Client::setUser($user);
         }
-        
+
         /**
-         * 
+         *
          *
          * @deprecated deprecated since version 2.1
          * @param $userId
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setUserId($userId){
             return \Bugsnag_Client::setUserId($userId);
         }
-        
+
         /**
          * Set a context representing the current type of request, or location in code.
          *
          * @param String $context the current context
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setContext($context){
             return \Bugsnag_Client::setContext($context);
         }
-        
+
         /**
          * Set the type of application executing the code. This is usually used to
          * represent if you are running plain PHP code "php", via a framework,
          * eg "laravel", or executing through delayed worker code, eg "resque".
          *
          * @param String $type the current type
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setType($type){
             return \Bugsnag_Client::setType($type);
         }
-        
+
         /**
          * Set custom metadata to send to Bugsnag with every error. You can use
          * this to add custom tabs of data to each error on your Bugsnag dashboard
@@ -13028,13 +13028,13 @@ namespace {
          *                "email" => "james@example.com"
          *            )
          *        )
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setMetaData($metaData){
             return \Bugsnag_Client::setMetaData($metaData);
         }
-        
+
         /**
          * Set proxy configuration
          *
@@ -13045,13 +13045,13 @@ namespace {
          *            'user'     => "username"
          *            'password' => "password123"
          *            )
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setProxySettings($proxySettings){
             return \Bugsnag_Client::setProxySettings($proxySettings);
         }
-        
+
         /**
          * Set custom curl options
          *
@@ -13059,19 +13059,19 @@ namespace {
          *        array(
          *            CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4
          *            )
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setCurlOptions($curlOptions){
             return \Bugsnag_Client::setCurlOptions($curlOptions);
         }
-        
+
         /**
          * Set a custom function to call before notifying Bugsnag of an error.
-         * 
+         *
          * You can use this to call your own error handling functions, or to add
          * custom tabs of data to each error on your Bugsnag dashboard.
-         * 
+         *
          * // Adding meta-data example
          * function before_bugsnag_notify($error) {
          *     $error->addMetaData(array(
@@ -13083,121 +13083,121 @@ namespace {
          * $bugsnag->setBeforeNotifyFunction("before_bugsnag_notify");
          *
          * @param callable $beforeNotifyFunction
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setBeforeNotifyFunction($beforeNotifyFunction){
             return \Bugsnag_Client::setBeforeNotifyFunction($beforeNotifyFunction);
         }
-        
+
         /**
          * Set Bugsnag's error reporting level.
-         * 
+         *
          * If this is not set, we'll use your current PHP error_reporting value
          * from your ini file or error_reporting(...) calls.
          *
          * @param Integer $errorReportingLevel the error reporting level integer
          *                exactly as you would pass to PHP's error_reporting
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setErrorReportingLevel($errorReportingLevel){
             return \Bugsnag_Client::setErrorReportingLevel($errorReportingLevel);
         }
-        
+
         /**
          * Sets whether Bugsnag should be automatically notified of unhandled
          * exceptions and errors.
          *
          * @param Boolean $autoNotify whether to auto notify or not
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setAutoNotify($autoNotify){
             return \Bugsnag_Client::setAutoNotify($autoNotify);
         }
-        
+
         /**
          * Sets whether errors should be batched together and send at the end of
          * each request.
          *
          * @param Boolean $batchSending whether to batch together errors
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setBatchSending($batchSending){
             return \Bugsnag_Client::setBatchSending($batchSending);
         }
-        
+
         /**
          * Sets the notifier to report as to Bugsnag. This should only be
          * set by other notifier libraries.
          *
          * @param Array $notifier an array of name, version, url.
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setNotifier($notifier){
             return \Bugsnag_Client::setNotifier($notifier);
         }
-        
+
         /**
          * Sets whether Bugsnag should send $_ENV with each error.
          *
          * @param Boolean $sendEnvironment whether to send the environment
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setSendEnvironment($sendEnvironment){
             return \Bugsnag_Client::setSendEnvironment($sendEnvironment);
         }
-        
+
         /**
          * Sets whether Bugsnag should send $_COOKIE with each error.
          *
          * @param Boolean $sendCookies whether to send the environment
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setSendCookies($sendCookies){
             return \Bugsnag_Client::setSendCookies($sendCookies);
         }
-        
+
         /**
          * Sets whether Bugsnag should send $_SESSION with each error.
          *
          * @param Boolean $sendSession whether to send the environment
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setSendSession($sendSession){
             return \Bugsnag_Client::setSendSession($sendSession);
         }
-        
+
         /**
          * Should we send a small snippet of the code that crashed to help you
          * diagnose even faster from within your dashboard.
          *
          * @param Boolean $sendCode whether to send code to Bugsnag
-         * @return $this 
-         * @static 
+         * @return $this
+         * @static
          */
         public static function setSendCode($sendCode){
             return \Bugsnag_Client::setSendCode($sendCode);
         }
-        
+
         /**
          * Notify Bugsnag of a non-fatal/handled throwable
          *
          * @param \Throwable $throwable the throwable to notify Bugsnag about
          * @param Array $metaData optional metaData to send with this error
          * @param String $severity optional severity of this error (fatal/error/warning/info)
-         * @static 
+         * @static
          */
         public static function notifyException($throwable, $metaData = null, $severity = null){
             return \Bugsnag_Client::notifyException($throwable, $metaData, $severity);
         }
-        
+
         /**
          * Notify Bugsnag of a non-fatal/handled error
          *
@@ -13205,50 +13205,50 @@ namespace {
          * @param String $message the error message
          * @param Array $metaData optional metaData to send with this error
          * @param String $severity optional severity of this error (fatal/error/warning/info)
-         * @static 
+         * @static
          */
         public static function notifyError($name, $message, $metaData = null, $severity = null){
             return \Bugsnag_Client::notifyError($name, $message, $metaData, $severity);
         }
-        
+
         /**
-         * 
          *
-         * @static 
+         *
+         * @static
          */
         public static function exceptionHandler($throwable){
             return \Bugsnag_Client::exceptionHandler($throwable);
         }
-        
+
         /**
-         * 
          *
-         * @static 
+         *
+         * @static
          */
         public static function errorHandler($errno, $errstr, $errfile = '', $errline = 0){
             return \Bugsnag_Client::errorHandler($errno, $errstr, $errfile, $errline);
         }
-        
+
         /**
-         * 
          *
-         * @static 
+         *
+         * @static
          */
         public static function shutdownHandler(){
             return \Bugsnag_Client::shutdownHandler();
         }
-        
+
         /**
          * Batches up errors into notifications for later sending
          *
          * @param \Bugsnag_Error $error the error to batch up
          * @param array $metaData optional meta data to send with the error
-         * @static 
+         * @static
          */
         public static function notify($error, $metaData = array()){
             return \Bugsnag_Client::notify($error, $metaData);
         }
-        
+
     }
 
 

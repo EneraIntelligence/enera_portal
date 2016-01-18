@@ -29,6 +29,8 @@ class FacebookUtils
 
     public function makeLoginUrl($redirectUrl)
     {
+        Session::forget('facebook_access_token');
+
         $this->helper = $this->fb->getRedirectLoginHelper();
 
         $permissions = ['email', 'user_likes', 'user_birthday', 'user_location'];
@@ -58,20 +60,20 @@ class FacebookUtils
             }
         }
 
-        if (!isset($_SESSION['facebook_access_token'])) {
+        if ( !Session::has('facebook_access_token') ) {
             if (!isset($this->helper)) {
                 $this->helper = $this->fb->getRedirectLoginHelper();
             }
 
-            if ($this->accessToken = $this->helper->getAccessToken()) {
-                $_SESSION['facebook_access_token'] = (string)$this->accessToken;
+            if ($this->accessToken = (string)$this->helper->getAccessToken()) {
+                Session::put('facebook_access_token',$this->accessToken);
                 $this->fb->setDefaultAccessToken($this->accessToken);
                 return true;
             } else {
                 return false;
             }
         } else {
-            $this->accessToken = $_SESSION['facebook_access_token'];
+            $this->accessToken = Session::get('facebook_access_token');
             $this->fb->setDefaultAccessToken($this->accessToken);
             return true;
         }

@@ -69,14 +69,12 @@ class WelcomeController extends Controller
                             'session' => session('_token')
                         ],
                         'device' => [
-                            'mac' => Input::get('client_mac')
-                        ],
-                        'interaction' => [
-                            '_id' => new MongoId(),
-                            'welcome' => new MongoDate(),
-                            'created_at' => new MongoDate(),
-                            'updated_at' => new MongoDate(),
+                            'mac' => Input::get('client_mac'),
+                            'node_mac' => Input::get('node_mac'),
                         ]
+                    ]);
+                    $new_log->interaction()->create([
+                        'welcome' => new MongoDate(),
                     ]);
                     if (!$new_log) {
                         Bugsnag::notifyError("CreateDocument", "El documento CampaignLog no se pudo crear client_mac: " . $this->client_mac);
@@ -86,6 +84,7 @@ class WelcomeController extends Controller
                 $this->dispatch(new WelcomeLogJob([
                     'session' => session('_token'),
                     'client_mac' => Input::get('client_mac'),
+                    'node_mac' => Input::get('node_mac'),
                 ]));
 
                 session([
@@ -145,6 +144,9 @@ class WelcomeController extends Controller
                 }
             }
         }
+
+        //Bugsnag::notifyError("Error red invalida", "Falta algún parametro en la url o el node_mac es incorrecto");
+
         return view('welcome.invalid', [
             'main_bg' => 'bg_welcome.jpg'
         ]);
@@ -157,8 +159,14 @@ class WelcomeController extends Controller
     {
 
         if (!$this->fbUtils->isUserLoggedIn()) {
-            echo "User is not logged in";
-            return "";
+            //echo "User is not logged in";
+            return redirect()->route('welcome', [
+                'base_grant_url' => Input::get('base_grant_url'),
+                'user_continue_url' => Input::get('user_continue_url'),
+                'node_mac' => Input::get('node_mac'),
+                'client_ip' => Input::get('client_ip'),
+                'client_mac' => Input::get('client_mac')
+            ]);
         }
 
         $facebook_data = $this->fbUtils->getUserData();

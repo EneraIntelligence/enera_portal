@@ -27,9 +27,9 @@
             </label>
             <div class="clear-fix"></div>
             <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">     {{-- --}}
+                <p id="fb-inst" style="color:{{$message['color']}}">para navegar</p>
                 <img id="fb-img" src="{!! asset('img/fb-login.png') !!}" alt="">
 
-                <p id="fb-inst" style="color:{{$message['color']}}">para navegar</p>
             </a>
 
             <div style=" width: 70px; height: 70px; margin: -55px auto 0px auto;"
@@ -360,14 +360,16 @@
 //            $("#fb-btn")
             if(val)
             {
+                $("#fb-btn").css("pointer-events","auto");
                 TweenLite.to("#fb-img",.3, {scaleX:1, scaleY:1, alpha:1, ease:Back.easeOut});
-                TweenLite.to("#fb-inst",.3, {scaleX:1, scaleY:1, alpha:1, ease:Back.easeOut});
+                TweenLite.to("#fb-inst",.3, {y:10, scaleX:1, scaleY:1, alpha:1, ease:Back.easeOut});
                 TweenLite.to("#terms-label",.3, {scaleX:.8, scaleY:.8, ease:Power2.easeOut});
             }
             else
             {
+                $("#fb-btn").css("pointer-events","none");
                 TweenLite.to("#fb-img",.3, {scaleX:.7, scaleY:.7, alpha:.4, ease: Power2.easeOut});
-                TweenLite.to("#fb-inst",.3, {scaleX:.7, scaleY:.7, alpha:.4, ease: Power2.easeOut});
+                TweenLite.to("#fb-inst",.3, {y:20,scaleX:.7, scaleY:.7, alpha:.4, ease: Power2.easeOut});
                 TweenLite.to("#terms-label",.5, {scaleX:1, scaleY:1, ease:Back.easeIn});
             }
         }

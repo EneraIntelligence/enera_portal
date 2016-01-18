@@ -100,7 +100,7 @@ class InteractionsController extends Controller
         $log = CampaignLog::where('user.session', $this->token)
             ->where('device.mac', Input::get('client_mac'))->first();
 
-        if ($log && !isset($log->interaction->completed)) {
+        if ($log && !isset($log->interaction->completed) && isset($log->campaign_id)) {
             //campaign found and completed
 
             //Monetization

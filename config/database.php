@@ -48,7 +48,7 @@ return [
 
         'enera_db' => [
             'driver'   => 'mongodb',
-            'host'     => ['query0.enera-intelligence.mx'],
+            'host'     => env('DB_HOST','query0.enera-intelligence.mx'),
             'port'     => env('DB_PORT', 27017),
             'database' => env('DB_DATABASE', 'enera'),
             'username' => env('DB_USERNAME', ''),
