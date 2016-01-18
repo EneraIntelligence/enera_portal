@@ -25,13 +25,12 @@
 @section('title', 'Like')
 
 @section('content')
-    <?php dd(Session::get('device_os')) ?>
     <div id="fb-root"></div>
 
     <div>
         <!-- banner -->
         {{--<img id="banner" style="border: solid 1px white;" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">--}}
-
+K
         <img  id="banner" style="border: solid 1px white;" class="img-responsive center-block"
               src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}"
               alt="Banner"/>
