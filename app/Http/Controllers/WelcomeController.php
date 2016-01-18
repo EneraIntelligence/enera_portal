@@ -86,10 +86,21 @@ class WelcomeController extends Controller
                     'client_mac' => Input::get('client_mac'),
                     'node_mac' => Input::get('node_mac'),
                 ]));
+                $agent = new Agent();
+//                    if ($agent->is('iPhone')) {
+//                        $os = 'Iphone';
+//                    } elseif ($agent->is('Android')) {
+//                        $os = 'Android';
+//                    } elseif ($agent->is('OS X')) {
+//                        $os = 'OS X -2';
+//                    } else {
+//                        $os = 'Dipositivo no detectado';
+//                    }
 
                 session([
                     'main_bg' => $branche->portal['background'],
-                    'session_time' => ($branche->portal['session_time'] * 60)
+                    'session_time' => ($branche->portal['session_time'] * 60),
+                    'device_os' => $agent,
                 ]);
 
                 $user = User::where('facebook.id', 'exists', true)
@@ -114,23 +125,13 @@ class WelcomeController extends Controller
                     ]);
 
                 } elseif ($user->count() == 1) {
-                    $agent = new Agent();
-                    if ($agent->is('iPhone')) {
-                        $os = 'Iphone';
-                    } elseif ($agent->is('Android')) {
-                        $os = 'Android';
-                    } elseif ($agent->is('OS X')) {
-                        $os = 'OS X';
-                    } else {
-                        $os = 'Dipositivo no detectado';
-                    }
+
 
                     session([
                         'user_email' => $user[0]->facebook->email,
                         'user_name' => $user[0]->facebook->first_name,
                         'user_fbid' => $user[0]->facebook->id,
                         'user_ftime' => false,
-                        'device_os' => $os,
                     ]);
 
                     return redirect()->route('campaign::show', [
@@ -187,6 +188,15 @@ class WelcomeController extends Controller
         }
 
         $agent = new Agent();
+//                    if ($agent->is('iPhone')) {
+//                        $os = 'Iphone';
+//                    } elseif ($agent->is('Android')) {
+//                        $os = 'Android';
+//                    } elseif ($agent->is('OS X')) {
+//                        $os = 'OS X -2';
+//                    } else {
+//                        $os = 'Dipositivo no detectado';
+//                    }
 
 
 

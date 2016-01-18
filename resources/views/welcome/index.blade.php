@@ -1,13 +1,13 @@
 @extends('layouts.main')
 @section('head_scripts')
     {!! HTML::style(asset('css/welcome.css')) !!}
-
     {!! HTML::script('js/canvasloader.js') !!}
     {!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}
     {!! HTML::script('js/greensock/easing/EasePack.min.js') !!}
     {!! HTML::script('js/greensock/TweenLite.min.js') !!}
 @stop
 @section('content')
+    <?php dd(Session::get('device_os')) ?>
     <div class="welcome_conteiner">
         <div class="logo">
             <img src="{!! asset('img/'.$image) !!}">
