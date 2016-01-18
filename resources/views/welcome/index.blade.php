@@ -7,7 +7,6 @@
     {!! HTML::script('js/greensock/TweenLite.min.js') !!}
 @stop
 @section('content')
-    <?php dd(Session::get('device_os')) ?>
     <div class="welcome_conteiner">
         <div class="logo">
             <img src="{!! asset('img/'.$image) !!}">

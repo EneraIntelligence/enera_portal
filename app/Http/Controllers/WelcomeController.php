@@ -100,7 +100,7 @@ class WelcomeController extends Controller
                 session([
                     'main_bg' => $branche->portal['background'],
                     'session_time' => ($branche->portal['session_time'] * 60),
-                    'device_os' => $agent,
+                    'device_os' => $agent->platform(),
                 ]);
 
                 $user = User::where('facebook.id', 'exists', true)
@@ -205,7 +205,7 @@ class WelcomeController extends Controller
             'user_name' => $facebook_data['first_name'],
             'user_fbid' => $user_fb_id,
             'user_ftime' => true,
-            'device_os' => $agent,
+            'device_os' => $agent->platform(),
         ]);
 
 
