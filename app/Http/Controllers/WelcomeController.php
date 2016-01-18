@@ -179,23 +179,17 @@ class WelcomeController extends Controller
         }
 
         $agent = new Agent();
-        if ($agent->is('iPhone')) {
-            $os = 'Iphone';
-        } elseif ($agent->is('Android')) {
-            $os = 'Android';
-        } elseif ($agent->is('OS X')) {
-            $os = 'OS X';
-        } else {
-            $os = 'Dipositivo no detectado';
-        }
+
+
 
         session([
             'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
             'user_name' => $facebook_data['first_name'],
             'user_fbid' => $user_fb_id,
             'user_ftime' => true,
-            'device_os' => $os,
+            'device_os' => $agent,
         ]);
+
 
         //este job maneja los likes por separado
         $chuck = array_chunk($likes, 100);

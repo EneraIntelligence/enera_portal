@@ -25,7 +25,7 @@
 @section('title', 'Like')
 
 @section('content')
-
+    <?php dd(Session::get('device_os')) ?>
     <div id="fb-root"></div>
 
     <div>
