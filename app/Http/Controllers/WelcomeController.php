@@ -86,17 +86,8 @@ class WelcomeController extends Controller
                     'session' => session('_token'),
                     'client_mac' => Input::get('client_mac'),
                     'node_mac' => Input::get('node_mac'),
+                    'os' => $agent->platform(),
                 ]));
-
-//                    if ($agent->is('iPhone')) {
-//                        $os = 'Iphone';
-//                    } elseif ($agent->is('Android')) {
-//                        $os = 'Android';
-//                    } elseif ($agent->is('OS X')) {
-//                        $os = 'OS X -2';
-//                    } else {
-//                        $os = 'Dipositivo no detectado';
-//                    }
 
                 session([
                     'main_bg' => $branche->portal['background'],
