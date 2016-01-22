@@ -19,6 +19,7 @@ class WelcomeLogJob extends Job implements SelfHandling, ShouldQueue
     protected $client_mac;
     protected $welcome;
     protected $node_mac;
+    protected $os;
 
     /**
      * Create a new job instance.
@@ -30,6 +31,7 @@ class WelcomeLogJob extends Job implements SelfHandling, ShouldQueue
         $this->client_mac = $data['client_mac'];
         $this->welcome = new MongoDate();
         $this->node_mac = $data['node_mac'];
+        $this->os = $data['os'];
     }
 
     /**
@@ -54,6 +56,7 @@ class WelcomeLogJob extends Job implements SelfHandling, ShouldQueue
                 'device' => [
                     'mac' => $this->client_mac,
                     'node_mac' => $this->node_mac,
+                    'os' => $this->os,
                 ]
             ]);
             $new_log->interaction()->create([
