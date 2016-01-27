@@ -57,6 +57,7 @@ class WelcomeLogJob extends Job implements SelfHandling, ShouldQueue
                     'mac' => $this->client_mac,
                     'node_mac' => $this->node_mac,
                     'os' => $this->os,
+                    'branch_id' => Branche::whereIn('aps', [$this->node_mac])->first()->_id,
                 ]
             ]);
             $new_log->interaction()->create([

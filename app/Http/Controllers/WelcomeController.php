@@ -73,6 +73,7 @@ class WelcomeController extends Controller
                             'mac' => Input::get('client_mac'),
                             'node_mac' => Input::get('node_mac'),
                             'os' => $agent->platform(),
+                            'branch_id' => Branche::whereIn('aps', [Input::get('node_mac')])->first()->_id,
                         ]
                     ]);
                     $new_log->interaction()->create([
@@ -189,7 +190,6 @@ class WelcomeController extends Controller
 //                    } else {
 //                        $os = 'Dipositivo no detectado';
 //                    }
-
 
 
         session([
