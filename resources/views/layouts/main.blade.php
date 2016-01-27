@@ -13,10 +13,13 @@
     {!! HTML::script(asset('js/main.js')) !!}
     @yield('head_scripts')
 </head>
-<body style="background-image: url('{!! url('img') !!}/{!! session('main_bg') !!}')">
+<body style="overflow-y:auto; background-attachment: fixed; background-image: url('{!! url('img') !!}/{!! session('main_bg') !!}')">
 <div id="portal_content">
     @yield('content')
 </div>
+
+@yield('footer')
+
 <div id="modal1" class="modalmask">
     <div class="modalbox" style="background: none;">
         <img src="{{asset('img/landscape.png')}}" alt="" style="width: 100%; top: 100px; margin: auto;">

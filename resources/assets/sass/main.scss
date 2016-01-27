@@ -28,15 +28,16 @@ body {
 
 footer
 {
+  min-height:100px;
   bottom: 0;
-  position: absolute;
+  position: relative;
   width:98%;
 }
 
 .bottomContainer
 {
   bottom: 0;
-  position: relative;
+  position: static;
 }
 
 .bottomLeft

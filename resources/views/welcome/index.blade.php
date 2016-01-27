@@ -20,13 +20,13 @@
 
 
 
-            <label for="accept-terms" id="terms-label" style="font-size:20px; color:{{$message['color']}};">
+            <label for="accept-terms" id="terms-label" style="cursor:pointer; font-size:20px; color:{{$message['color']}};">
                 <input type="checkbox" id="accept-terms" name="accept-terms" required>
                 Acepto los términos y condiciones
             </label>
             <div class="clear-fix"></div>
+            <p id="fb-inst" style="color:{{$message['color']}}">para navegar</p>
             <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">     {{-- --}}
-                <p id="fb-inst" style="color:{{$message['color']}}">para navegar</p>
                 <img id="fb-img" src="{!! asset('img/fb-login.png') !!}" alt="">
 
             </a>
@@ -39,17 +39,7 @@
         </div>
     </div>
 
-    <footer>
-        <div class="bottomContainer">
 
-            <img src="{!! asset('img/logo_enera.png') !!}" alt="" class="bottomLeft" style="width:80px;">
-            <div class="terms bottomCenter">
-                <a style="color:{{$message['color']}}" href="#" data-toggle="modal" data-target="#myModal">Términos y condiciones</a>
-            </div>
-            <img src="{!! asset('img/logo_maxcom.png') !!}" alt="" class="bottomRight" style="width:120px;">
-
-        </div>
-    </footer>
 
 
     <!-- Modal -->
@@ -282,6 +272,21 @@
 
 
 @stop
+
+@section('footer')
+    <footer id="footer">
+        <div class="bottomContainer">
+
+            <img src="{!! asset('img/logo_enera.png') !!}" alt="" class="bottomLeft" style="width:80px;">
+            <div class="terms bottomCenter">
+                <a style="color:{{$message['color']}}" href="#" data-toggle="modal" data-target="#myModal">Términos y condiciones</a>
+            </div>
+            <img src="{!! asset('img/logo_maxcom.png') !!}" alt="" class="bottomRight" style="width:120px;">
+
+        </div>
+    </footer>
+@stop
+
 @section('footer_scripts')
     {!! HTML::script('js/ajax/logs.js') !!}
     <script>
@@ -296,7 +301,26 @@
                 });
             });
 
+            resizeWelcome();
+            $( window ).resize(function() {
+                resizeWelcome();
+            });
+
         });
+
+        function resizeWelcome()
+        {
+            //console.log( $(window).height() );
+            var wHeight = $(window).height();
+            if(wHeight<660)
+            {
+                $("#footer").css('position','relative');
+            }
+            else
+            {
+                $("#footer").css('position','absolute');
+            }
+        }
 
         // code generated from http://heartcode.robertpataki.com/canvasloader/
         var cl = new CanvasLoader('canvasloader-container');
