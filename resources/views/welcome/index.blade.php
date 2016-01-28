@@ -26,7 +26,7 @@
             </label>
             <div class="clear-fix"></div>
             <p id="fb-inst" style="color:{{$message['color']}}">para navegar</p>
-            <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">     {{-- --}}
+            <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}" target="_blank">     {{-- --}}
                 <img id="fb-img" src="{!! asset('img/fb-login.png') !!}" alt="">
 
             </a>
