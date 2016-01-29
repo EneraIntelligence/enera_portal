@@ -57,6 +57,11 @@ logs = function () {
         ajaxWithCallback(json_data, saveLikeURL, success_callback, fail_callback);
     };
 
+    this.saveUserSurvey = function saveUserSurvey(json_data, success_callback, fail_callback){
+        var saveSurveyURL = '/interaction/logs/saveUserSurvey';
+        ajaxWithCallback(json_data, saveSurveyURL, success_callback, fail_callback);
+    };
+
     function ajaxWithCallback(json_data, url, success_callback, fail_callback){
         $.ajax({
             url: url,
