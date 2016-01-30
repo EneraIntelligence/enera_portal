@@ -149,6 +149,21 @@ class InteractionsController extends Controller
     }
 
     /**
+     * Guarda las respuesta de la encuesta
+     */
+    public function saveUserSurvey()
+    {
+        $answers = Input::get("answers");
+
+        $log = CampaignLog::where('user.session', $this->token)
+            ->where('device.mac', Input::get('client_mac'))->push('survey', $answers,true);
+
+        $response = ['ok' => true];
+        return $response;
+
+    }
+
+    /**
      * @param $campaign
      */
     private function endCampaign($campaign)

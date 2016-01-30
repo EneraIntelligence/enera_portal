@@ -48,7 +48,10 @@ class CampaignSelector
         $birthday = new DateTime(isset($this->user->facebook->birthday['date']) ? $this->user->facebook->birthday['date'] : Carbon::today()->subYears(18)->toDateTimeString());
         $today = date('Y-m-d');
         $age = $birthday->diff(new DateTime($today));
+
+
         $campaign = Campaign::whereRaw([
+
             'filters.age.0' => [
                 '$lte' => $age->y
             ],
@@ -64,6 +67,8 @@ class CampaignSelector
             'filters.week_days' => [
                 '$in' => [intval(date('w'))]
             ],
+
+
             'filters.day_hours' => [
                 '$in' => [intval(date('H'))]
             ],
@@ -85,10 +90,10 @@ class CampaignSelector
             ->whereNotIn('_id', $video)
             ->whereIn('_id', $branch)
             ->where('status', 'active')
-            ->orderBy('balance', 'desc')
+            ->orderBy('balance.current', 'desc')
             ->get();
 
-//            dd($campaign);
+        //dd($campaign);
         return $campaign;
 
     }
@@ -150,6 +155,7 @@ class CampaignSelector
             foreach ($cam as $c)
                 array_push($filter, $c);
         }
+
         return array_unique($filter);
 
     }

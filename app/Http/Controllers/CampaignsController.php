@@ -96,12 +96,6 @@ class CampaignsController extends Controller
         return $response;
     }
 
-    /**
-     * Guarda las respuesta de la encuenta
-     */
-    public function save_survey()
-    {
-        //
-    }
+
 
 }
