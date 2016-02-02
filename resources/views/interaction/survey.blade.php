@@ -75,25 +75,17 @@
             var prevHeight = 0;
             var width = 0;
             var currentQuestion = 0;
+            var userAnswers={};
+            var inTransition=false;
 
             setupQuestionsClick();
             setupQuestionsPosition();
 
-            function goNextQuestion(question, answerId)
-            {
-                currentQuestion++;
-                TweenLite.to(".questionContainer",.5,{x:"-="+(width+10), ease:Quad.easeIn});
+            var btn = $("#navegar");
+            btn.click(function () {
+                //console.log('click en el boton');
 
-                question.find(".answer").each(function (ans_index) {
-                    if(ans_index!=answerId)
-                    {
-                        TweenLite.to($(this),.2, {alpha:0});
-                    }
-                });
-            }
 
-            function saveAnswer(qId, aId)
-            {
                 var completedJson = {
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
@@ -102,18 +94,54 @@
                 myLog.completed(completedJson, function()
                 {
                     //on completed saved
+                    var json = {
+                        _token: "{!! session('_token') !!}",
+                        client_mac: "{!! Input::get('client_mac') !!}",
+                        answers:userAnswers
+                    };
 
-                    //aquí almacenar las respuestas
-                    console.log(qId+": "+aId);
 
-                    //despues de guardar respuestas redireccionar
-                    myLog.redirectOut(btn.attr('success_url'));
+                    myLog.saveUserSurvey(json, function () {
+                        //on success like save
+                        myLog.redirectOut(btn.attr('success_url'));
+
+
+                    }, function () {
+                        myLog.redirectOut(btn.attr('success_url'));
+
+                    });
+
 
                 }, function()
                 {
-                    //fail completed save
+                    myLog.redirectOut(btn.attr('success_url'));
                 });
 
+            });
+
+            function goNextQuestion(question, answerId)
+            {
+
+
+                currentQuestion++;
+                TweenLite.to(".questionContainer",.5,{x:"-="+(width+10),
+                    ease:Quad.easeIn, onComplete:function()
+                {
+                    inTransition = false;
+                }});
+
+                question.find(".answer").each(function (ans_index) {
+                    if(ans_index!=answerId)
+                    {
+                        TweenLite.to($(this),.2, {alpha:0 });
+                    }
+                });
+            }
+
+            function saveAnswer(qId, aId)
+            {
+
+                userAnswers['q'+qId]="a"+aId;
 
             }
 
@@ -143,10 +171,20 @@
 
                         var answer = $(this);
                         $(this).click(function () {
-                            $(this).removeClass("btn-default");
-                            $(this).addClass("btn-primary");
-                            saveAnswer(index, ans_index);
-                            goNextQuestion(question, ans_index);
+
+                            if(inTransition)
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                inTransition=true;
+
+                                $(this).removeClass("btn-default");
+                                $(this).addClass("btn-primary");
+                                saveAnswer(index, ans_index);
+                                goNextQuestion(question, ans_index);
+                            }
                         });
                     });
                 });

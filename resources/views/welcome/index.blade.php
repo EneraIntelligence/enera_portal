@@ -26,7 +26,7 @@
             </label>
             <div class="clear-fix"></div>
             <p id="fb-inst" style="color:{{$message['color']}}">para navegar</p>
-            <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}" target="_blank">     {{-- --}}
+            <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">
                 <img id="fb-img" src="{!! asset('img/fb-login.png') !!}" alt="">
 
             </a>
@@ -277,11 +277,11 @@
     <footer id="footer">
         <div class="bottomContainer">
 
-            <img src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/logo_pie_enera.png" alt="" class="bottomLeft" style="width:80px;">
+            <img src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/logo_pie_enera_alto.png" alt="" class="bottomLeft" style="width:80px;">
             <div class="terms bottomCenter">
                 <a style="color:{{$message['color']}}" href="#" data-toggle="modal" data-target="#myModal">Términos y condiciones</a>
             </div>
-            <img src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/logo_pie_sendero.png" alt="" class="bottomRight" style="width:120px;">
+            {{--<img src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/logo_pie_sendero.png" alt="" class="bottomRight" style="width:120px;">--}}
 
         </div>
     </footer>
