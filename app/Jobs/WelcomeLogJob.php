@@ -2,8 +2,10 @@
 
 namespace Portal\Jobs;
 
+use Bugsnag;
 use MongoId;
 use MongoDate;
+use Portal\Branche;
 use Portal\Jobs\Job;
 use Portal\CampaignLog;
 use Illuminate\Queue\SerializesModels;
