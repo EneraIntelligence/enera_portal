@@ -25,6 +25,13 @@ logs = function () {
         ajaxWithCallback(data,url,success_callback,fail_callback);
     };
 
+    this.accessed = function Accessed(data, success_callback, fail_callback){
+        console.log('Accessed to our internet connection');
+
+        var url= '/interaction/logs/accessed';
+        ajaxWithCallback(data,url,success_callback,fail_callback);
+    };
+
     this.redirectOut = function redirectOut(url) {
         window.location.href = url;
     };

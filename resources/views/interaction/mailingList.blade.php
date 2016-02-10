@@ -85,13 +85,22 @@
 
             var btn = $("#navegar");
             btn.click(function () {
-                console.log('click en el boton');
-//                console.log();
-                var response = myLog.completed({
+                console.log('click en el boton de solo navegar');
+
+                var accessedJson = {
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
+                };
+                myLog.accessed(accessedJson, function()
+                {
+                    //on accessed saved
+                    myLog.redirectOut(btn.attr('success_url'));
+
+                }, function()
+                {
+                    //fail accessed save
                 });
-                myLog.redirectOut(btn.attr('success_url'));
+
             });
         });
     </script>

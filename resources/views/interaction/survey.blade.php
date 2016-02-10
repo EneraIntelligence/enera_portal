@@ -103,18 +103,19 @@
 
                     myLog.saveUserSurvey(json, function () {
                         //on success like save
+                        console.log("all saved!");
                         myLog.redirectOut(btn.attr('success_url'));
 
 
                     }, function () {
-                        myLog.redirectOut(btn.attr('success_url'));
+                        //myLog.redirectOut(btn.attr('success_url'));
 
                     });
 
 
                 }, function()
                 {
-                    myLog.redirectOut(btn.attr('success_url'));
+                    //myLog.redirectOut(btn.attr('success_url'));
                 });
 
             });

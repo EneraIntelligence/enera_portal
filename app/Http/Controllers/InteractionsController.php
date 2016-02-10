@@ -137,12 +137,38 @@ class InteractionsController extends Controller
 
             $response = ['ok' => true];
 
+            $this->accessed();
+
 
         } else {
             $response = [
                 'ok' => false,
                 'step' => 'Update log-completed',
                 'error' => 'The log was not found or it was already completed'
+            ];
+        }
+        return response()->json($response);
+    }
+
+    public function accessed()
+    {
+        $log = CampaignLog::where('user.session', $this->token)
+            ->where('device.mac', Input::get('client_mac'))->first();
+
+        if ($log && !isset($log->interaction->accessed) ) {
+
+            //save log
+            $log->interaction->accessed = $this->fecha;
+
+            $log->interaction->save();
+
+            $response = ['ok' => true];
+
+        } else {
+            $response = [
+                'ok' => false,
+                'step' => 'Update log-accessed',
+                'error' => 'The log was not found or it was already marked as accessed'
             ];
         }
         return response()->json($response);
