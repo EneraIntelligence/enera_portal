@@ -191,7 +191,6 @@ class WelcomeController extends Controller
 //                        $os = 'Dipositivo no detectado';
 //                    }
 
-
         session([
             'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
             'user_name' => $facebook_data['first_name'],
@@ -199,7 +198,6 @@ class WelcomeController extends Controller
             'user_ftime' => true,
             'device_os' => $agent->platform(),
         ]);
-
 
         //este job maneja los likes por separado
         $chuck = array_chunk($likes, 100);

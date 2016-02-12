@@ -5,6 +5,7 @@ namespace Portal\Http\Controllers;
 use Illuminate\Http\Request;
 use Input;
 use Jenssegers\Agent\Agent;
+use Portal\Branche;
 use Portal\Campaign;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
@@ -42,8 +43,10 @@ class CampaignsController extends Controller
                     'campaign_id' => $campaignSelected->_id,
                     'user_id' => $user_id
                 ]));
-
-                return view($interaction->getView());
+            /**    saco el link de la branch buscando la branch con la mac del ap  **/
+                $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
+                $link = isset($branch->portal['default_url'])?$branch->portal['default_url']:'http://www.enera.mx';
+                return view($interaction->getView(),['link'=>$link]);
             } else {
                 //choose random campaign
                 $campaignIndex = count($campaigns->campaign) > 1 ? rand(0, count($campaigns) - 1) : 0;
