@@ -37,16 +37,23 @@ class CampaignsController extends Controller
                 $campaignType = "Portal\\Libraries\\Interactions\\FacePas";
                 $interaction = new $campaignType($campaignSelected);
 
-                $this->dispatch(new RequestedLogJob([
+                /*$this->dispatch(new RequestedLogJob([
                     'session' => session('_token'),
                     'client_mac' => Input::get('client_mac'),
                     'campaign_id' => $campaignSelected->_id,
                     'user_id' => $user_id
-                ]));
-            /**    saco el link de la branch buscando la branch con la mac del ap  **/
+                ]));*/
+                $this->requested([
+                    'session' => session('_token'),
+                    'client_mac' => Input::get('client_mac'),
+                    'campaign_id' => $campaignSelected->_id,
+                    'user_id' => $user_id
+                ]);
+
+                /**    saco el link de la branch buscando la branch con la mac del ap  **/
                 $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
-                $link = isset($branch->portal['default_url'])?$branch->portal['default_url']:'http://www.enera.mx';
-                return view($interaction->getView(),['link'=>$link]);
+                $link = isset($branch->portal['default_url']) ? $branch->portal['default_url'] : 'http://www.enera.mx';
+                return view($interaction->getView(), ['link' => $link]);
             } else {
                 //choose random campaign
                 $campaignIndex = count($campaigns->campaign) > 1 ? rand(0, count($campaigns) - 1) : 0;
@@ -58,17 +65,51 @@ class CampaignsController extends Controller
 
                 session(['campaign_id' => $campaignSelected->_id]);
 
-                $this->dispatch(new RequestedLogJob([
+                /*$this->dispatch(new RequestedLogJob([
                     'session' => session('_token'),
                     'client_mac' => Input::get('client_mac'),
                     'campaign_id' => $campaignSelected->_id,
                     'user_id' => $user_id
-                ]));
+                ]));*/
+                $this->requested([
+                    'session' => session('_token'),
+                    'client_mac' => Input::get('client_mac'),
+                    'campaign_id' => $campaignSelected->_id,
+                    'user_id' => $user_id
+                ]);
 
                 return view($interaction->getView(), array_merge(['_id' => $campaignSelected->_id], $interaction->getData()));
             }
         } else {
             return redirect()->route('welcome');
+        }
+    }
+
+    private function requested($data)
+    {
+        // Paso 3: Registered log
+        $log = CampaignLog::where('user.session', $data['session'])
+            ->where('device.mac', $data['client_mac'])->first();
+
+        if ($log) {
+            $log->campaign_id = $data['campaign_id'];
+            $user = User::find($data['user_id']);
+            $u['id'] = $user->_id;
+            $u['gender'] = $user->facebook->gender;
+            /**/
+            $birthday = new DateTime($user->facebook->birthday['date']);
+            $today = date('Y-m-d');
+            $age = $birthday->diff(new DateTime($today));
+            /**/
+            $u['age'] = $age->y;
+            $u['session'] = $data['session'];
+            $log->user = $u;
+            $log->save();
+
+            if (!isset($log->interaction->requested)) {
+                $log->interaction->requested = new MongoDate();
+                $log->interaction->save();
+            }
         }
     }
 
