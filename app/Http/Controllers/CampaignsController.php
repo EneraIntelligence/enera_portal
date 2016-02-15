@@ -7,6 +7,7 @@ use Input;
 use Jenssegers\Agent\Agent;
 use Portal\Branche;
 use Portal\Campaign;
+use Portal\CampaignLog;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 use Portal\Jobs\RequestedLogJob;
