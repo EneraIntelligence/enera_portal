@@ -52,8 +52,10 @@ class FbLikesJob extends Job implements SelfHandling, ShouldQueue
                 ]);
             }
 
-            $user->facebook->likes = [];
-            $user->facebook->save();
+            if ($user->facebook->likes->count() == 0) {
+                $user->facebook->likes = [];
+                $user->facebook->save();
+            }
 
             foreach ($this->likes as $like) {
                 DB::collection('facebook_pages')->where('id', $like['id'])
