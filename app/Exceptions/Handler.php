@@ -5,8 +5,8 @@ namespace Portal\Exceptions;
 use Exception;
 use Mail;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-//use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Bugsnag\BugsnagLaravel\BugsnagExceptionHandler as ExceptionHandler;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+//use Bugsnag\BugsnagLaravel\BugsnagExceptionHandler as ExceptionHandler;
 use Facebook\Exceptions\FacebookSDKException;
 use Input;
 
