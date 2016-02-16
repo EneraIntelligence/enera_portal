@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
             'ex' => $e,
             'request' => $request
         ], function ($mail) {
-            $mail->from('issuestracker@enera.mx', 'Enera IssuesTracker');
+            $mail->from('servers@enera.mx', 'Enera Servers');
             $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker');
         });
         //redirect to welcome when we have a facebook error
