@@ -32,6 +32,12 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
+        Mail::send('mail.issuestracker', [
+            'ex' => $e,
+        ], function ($mail) {
+            $mail->from('servers@enera.mx', 'Enera Servers');
+            $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker');
+        });
         return parent::report($e);
     }
 
@@ -46,13 +52,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        Mail::send('mail.issuestracker', [
-            'ex' => $e,
-            'request' => $request
-        ], function ($mail) {
-            $mail->from('servers@enera.mx', 'Enera Servers');
-            $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker');
-        });
         //redirect to welcome when we have a facebook error
         if ($e instanceof FacebookSDKException) {
             return redirect()->route('welcome', [

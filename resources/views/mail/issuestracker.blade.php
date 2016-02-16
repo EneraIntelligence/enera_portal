@@ -1,9 +1,5 @@
 <table>
     <tr>
-        <td><b>URL:</b></td>
-        <td>{{ $request->getBaseUrl() }}</td>
-    </tr>
-    <tr>
         <td><b>Code:</b></td>
         <td>{{ $ex->getCode() }}</td>
     </tr>
