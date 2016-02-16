@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
+Route::match(['post', 'get'], '/', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
 
 Route::group(['middleware' => 'FbLogin'], function () {
     Route::group(['as' => 'welcome::', 'prefix' => 'welcome'], function () {
