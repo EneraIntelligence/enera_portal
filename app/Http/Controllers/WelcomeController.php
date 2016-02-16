@@ -177,7 +177,10 @@ class WelcomeController extends Controller
             }
             $user->facebook->save();
         } else {
-            $user = User::create(['facebook' => $facebook_data]);
+            $user = User::create([
+                'facebook' => $facebook_data,
+                'devices' => []
+            ]);
         }
 
         $agent = new Agent();
