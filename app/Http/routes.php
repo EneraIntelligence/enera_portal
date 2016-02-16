@@ -47,6 +47,3 @@ Route::group(['as' => 'interaction::'], function () {
 });
 
 /* ---- routes testing ---- */
-Route::get('/test',function(){
-    echo $var_test[0];
-});
