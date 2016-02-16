@@ -64,7 +64,6 @@ class Handler extends ExceptionHandler
             ]);
         }
 
-        echo 'HolaMundo!';
         return parent::render($request, $e);
     }
 }
