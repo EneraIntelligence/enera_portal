@@ -37,7 +37,7 @@ class EmailEndJob extends Job implements SelfHandling, ShouldQueue
         $user = Administrator::find($this->_id);
         Mail::send('mail.notifications', ['user' => $user], function ($m) use ($user) {
             $m->from('soporte@enera.mx', 'Enera Intelligence');
-            $m->to($user->email, $user->name['first'] . ' ' . $user->name['last'])->subject('Finalización  de Campaña por terminación de fondos');
+            $m->to($user->email, $user->name['first'] . ' ' . $user->name['last'])->subject('Finalización de Campaña por terminación de fondos');
         });
     }
 }
