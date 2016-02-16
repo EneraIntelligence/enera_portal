@@ -1,5 +1,9 @@
 <table>
     <tr>
+        <td><b>Path:</b></td>
+        <td>{{ $request->path() }}</td>
+    </tr>
+    <tr>
         <td><b>Code:</b></td>
         <td>{{ $ex->getCode() }}</td>
     </tr>
