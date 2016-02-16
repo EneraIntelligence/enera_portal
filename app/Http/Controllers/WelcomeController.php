@@ -97,8 +97,10 @@ class WelcomeController extends Controller
                 ]);
 
                 $user = User::where('facebook.id', 'exists', true)
-                    ->where('devices.mac', Input::get('client_mac'))
-                    ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(7)->format('Y-m-d') . 'T00:00:00-0500')))
+                    ->where(function ($q) {
+                        $q->where('devices.mac', Input::get('client_mac'))
+                            ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(15)->format('Y-m-d') . 'T00:00:00-0600')));
+                    })
                     ->get();
 
                 if ($user->count() < 1 || $user->count() > 1) {
@@ -118,8 +120,6 @@ class WelcomeController extends Controller
                     ]);
 
                 } elseif ($user->count() == 1) {
-
-
                     session([
                         'user_email' => $user[0]->facebook->email,
                         'user_name' => $user[0]->facebook->first_name,
@@ -181,15 +181,6 @@ class WelcomeController extends Controller
         }
 
         $agent = new Agent();
-//                    if ($agent->is('iPhone')) {
-//                        $os = 'Iphone';
-//                    } elseif ($agent->is('Android')) {
-//                        $os = 'Android';
-//                    } elseif ($agent->is('OS X')) {
-//                        $os = 'OS X -2';
-//                    } else {
-//                        $os = 'Dipositivo no detectado';
-//                    }
 
         session([
             'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
