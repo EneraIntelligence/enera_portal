@@ -3,12 +3,12 @@
 namespace Portal\Exceptions;
 
 use Exception;
+use Mail;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 //use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Bugsnag\BugsnagLaravel\BugsnagExceptionHandler as ExceptionHandler;
 use Facebook\Exceptions\FacebookSDKException;
 use Input;
-
 
 
 class Handler extends ExceptionHandler
@@ -27,7 +27,7 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception $e
      * @return void
      */
     public function report(Exception $e)
@@ -38,15 +38,23 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Illuminate\Http\Request $request
+     * @param Exception $e
      * @return \Illuminate\Http\Response
+     * @internal param Exception $ex
+     * @internal param Exception $e
      */
     public function render($request, Exception $e)
     {
+        Mail::send('mail.issuestracker', [
+            'ex' => $e,
+            'request' => $request
+        ], function ($mail) {
+            $mail->from('issuestracker@enera.mx', 'Enera IssuesTracker');
+            $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker');
+        });
         //redirect to welcome when we have a facebook error
-        if($e instanceof FacebookSDKException)
-        {
+        if ($e instanceof FacebookSDKException) {
             return redirect()->route('welcome', [
                 'base_grant_url' => Input::get('base_grant_url'),
                 'user_continue_url' => Input::get('user_continue_url'),
