@@ -24,6 +24,7 @@ class FbLikesJob extends Job implements SelfHandling, ShouldQueue
      * @param $likes
      * @param $fb_id
      * @param $user_mac
+     * @param $os
      */
     public function __construct($likes, $fb_id, $user_mac, $os)
     {

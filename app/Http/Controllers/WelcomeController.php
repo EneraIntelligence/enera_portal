@@ -207,7 +207,7 @@ class WelcomeController extends Controller
         //este job maneja los likes por separado
         $chuck = array_chunk($likes, 100);
         foreach ($chuck as $shard) {
-            $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $agent->platform());
+            $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $agent->platform() ? $agent->platform() : 'unknown');
         }
 
         return redirect()->route('campaign::show', [
