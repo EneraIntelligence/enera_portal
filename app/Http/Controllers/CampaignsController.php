@@ -58,7 +58,7 @@ class CampaignsController extends Controller
                     return view($interaction->getView(), ['link' => $link]);
                 } else {    /**    saco el link de la branch buscando la branch con la mac del ap  **/
                     $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
-                    $link = isset($branch->portal['default_url']) ? $branch->portal['default_url'] : 'http://www.enera.mx';
+                    $link = isset($branch->portal['default_url']) ? $branch->portal['default_url'] : 'http://www.google.com';
                     return view($interaction->getView(), ['link' => $link]);
                 }
 
