@@ -1,5 +1,9 @@
 <table>
     <tr>
+        <td><b>Time:</b></td>
+        <td>{{ $time }}</td>
+    </tr>
+    <tr>
         <td><b>Host:</b></td>
         <td>{{ gethostname() }}</td>
     </tr>

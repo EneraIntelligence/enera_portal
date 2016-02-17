@@ -2,6 +2,7 @@
 
 namespace Portal\Exceptions;
 
+use Carbon\Carbon;
 use Exception;
 use Mail;
 use Session;
@@ -51,6 +52,7 @@ class Handler extends ExceptionHandler
             'ex' => $e,
             'request' => $request,
             'session_vars' => Session::all(),
+            'time' => Carbon::now()->format('Y-m-d H:i:s'),
         ], function ($mail) use ($e) {
             $mail->from('servers@enera.mx', 'Enera Servers');
             $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker - ' . $e->getMessage());

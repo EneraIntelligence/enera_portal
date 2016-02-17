@@ -180,7 +180,7 @@ class WelcomeController extends Controller
             $user->facebook->save();
 
             $device = $user->devices()->where('devices.mac', Input::get('client_mac'))->first();
-            if($device){
+            if ($device) {
                 $device->mac = Input::get('client_mac');
                 $device->save();
             }
@@ -207,7 +207,7 @@ class WelcomeController extends Controller
         //este job maneja los likes por separado
         $chuck = array_chunk($likes, 100);
         foreach ($chuck as $shard) {
-            $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')));
+            $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $agent->platform());
         }
 
         return redirect()->route('campaign::show', [

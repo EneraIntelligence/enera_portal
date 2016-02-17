@@ -17,6 +17,7 @@ class FbLikesJob extends Job implements SelfHandling, ShouldQueue
     protected $likes;
     protected $fb_id;
     protected $mac;
+    protected $os;
 
     /**
      * Create a new job instance.
@@ -24,11 +25,12 @@ class FbLikesJob extends Job implements SelfHandling, ShouldQueue
      * @param $fb_id
      * @param $user_mac
      */
-    public function __construct($likes, $fb_id, $user_mac)
+    public function __construct($likes, $fb_id, $user_mac, $os)
     {
         $this->likes = $likes;
         $this->fb_id = $fb_id;
         $this->mac = $user_mac;
+        $this->os = $os;
     }
 
     /**
@@ -47,7 +49,7 @@ class FbLikesJob extends Job implements SelfHandling, ShouldQueue
             } else {
                 $user->devices()->create([
                     'mac' => $this->mac,
-                    'os' => '',
+                    'os' => $this->os,
                     'manufacturer' => ''
                 ]);
             }
