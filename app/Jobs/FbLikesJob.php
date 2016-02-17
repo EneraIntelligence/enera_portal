@@ -26,7 +26,7 @@ class FbLikesJob extends Job implements SelfHandling, ShouldQueue
      * @param $user_mac
      * @param $os
      */
-    public function __construct($likes, $fb_id, $user_mac, $os)
+    public function __construct($likes, $fb_id, $user_mac, $os = 'default')
     {
         $this->likes = $likes;
         $this->fb_id = $fb_id;
@@ -46,6 +46,7 @@ class FbLikesJob extends Job implements SelfHandling, ShouldQueue
             $user_device = $user->devices()->where('devices.mac', $this->mac)->first();
             if ($user_device) {
                 $user_device->mac = $this->mac;
+                $user_device->os = $this->os;
                 $user_device->save();
             } else {
                 $user->devices()->create([
