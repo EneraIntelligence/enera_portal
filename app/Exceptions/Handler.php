@@ -4,6 +4,7 @@ namespace Portal\Exceptions;
 
 use Exception;
 use Mail;
+use Session;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 //use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Bugsnag\BugsnagLaravel\BugsnagExceptionHandler as ExceptionHandler;
@@ -49,9 +50,10 @@ class Handler extends ExceptionHandler
         Mail::send('mail.issuestracker', [
             'ex' => $e,
             'request' => $request,
+            'session_vars' => Session::all(),
         ], function ($mail) use ($e) {
             $mail->from('servers@enera.mx', 'Enera Servers');
-            $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker - '.$e->getMessage());
+            $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker - ' . $e->getMessage());
         });
         //redirect to welcome when we have a facebook error
         if ($e instanceof FacebookSDKException) {
