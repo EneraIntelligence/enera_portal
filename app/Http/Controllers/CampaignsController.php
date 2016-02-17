@@ -53,8 +53,8 @@ class CampaignsController extends Controller
                     'user_id' => $user_id
                 ]);
 
-                if( Input::has('continue_url') && Input::get('continue_url')!='' ){
-                    $link=Input::get('continue_url');
+                if( Input::has('user_continue_url') && Input::get('user_continue_url')!='' ){
+                    $link=Input::get('user_continue_url');
                     return view($interaction->getView(), ['link' => $link]);
                 } else {    /**    saco el link de la branch buscando la branch con la mac del ap  **/
                     $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
