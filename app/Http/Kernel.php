@@ -13,8 +13,8 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \GeneaLabs\LaravelAppleseed\Http\Middleware\FaviconInterceptor::class,
         \Portal\Http\Middleware\EncryptCookies::class,
+        \GeneaLabs\LaravelAppleseed\Http\Middleware\FaviconInterceptor::class,
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
