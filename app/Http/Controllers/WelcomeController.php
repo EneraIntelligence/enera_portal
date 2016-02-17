@@ -170,20 +170,31 @@ class WelcomeController extends Controller
         $user_fb_id = $facebook_data['id'];
         $facebook_data['likes'] = [];
 
+        $agent = new Agent();
+
         $user = User::where('facebook.id', $user_fb_id)->first();
         if ($user) {
             foreach ($facebook_data as $k => $v) {
                 $user->facebook->{$k} = $v;
             }
             $user->facebook->save();
+
+            $device = $user->devices()->where('mac', Input::get('client_mac'))->first();
+            if($device){
+                $device->mac = Input::get('client_mac');
+                $device->save();
+            }
         } else {
             $user = User::create([
                 'facebook' => $facebook_data,
                 'devices' => []
             ]);
-        }
 
-        $agent = new Agent();
+            $user->devices()->create([
+                'mac' => Input::get('client_mac'),
+                'os' => $agent->platform(),
+            ]);
+        }
 
         session([
             'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
