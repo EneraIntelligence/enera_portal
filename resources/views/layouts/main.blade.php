@@ -11,6 +11,10 @@
     {!! HTML::script(asset('js/jquery.min.js')) !!}
     {!! HTML::script(asset('js/bootstrap.min.js')) !!}
     {!! HTML::script(asset('js/main.js')) !!}
+
+    <link rel="icon" sizes="128x128" href="{!! asset('img/enera_logo_app.png') !!}">
+    <link rel="apple-touch-icon" sizes="128x128" href="{!! asset('img/enera_logo_app.png') !!}">
+    <link rel="apple-touch-icon-precomposed" sizes="128x128" href="{!! asset('img/enera_logo_app.png') !!}">
     @yield('head_scripts')
 </head>
 <body style="overflow-y:auto; background-attachment: fixed; background-image: url('https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/{!! session('main_bg') !!}' )">
