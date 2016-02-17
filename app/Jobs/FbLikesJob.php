@@ -40,7 +40,7 @@ class FbLikesJob extends Job implements SelfHandling, ShouldQueue
     {
         $user = User::where('facebook.id', $this->fb_id)->first();
         if ($user) {
-            $user_device = $user->devices()->where('mac', $this->mac)->first();
+            $user_device = $user->devices()->where('devices.mac', $this->mac)->first();
             if ($user_device) {
                 $user_device->mac = $this->mac;
                 $user_device->save();
