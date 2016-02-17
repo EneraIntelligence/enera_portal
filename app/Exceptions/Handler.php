@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        Mail::send('mail.issuestracker', [
+        /*Mail::send('mail.issuestracker', [
             'ex' => $e,
             'request' => $request,
             'session_vars' => Session::all(),
@@ -56,7 +56,7 @@ class Handler extends ExceptionHandler
         ], function ($mail) use ($e) {
             $mail->from('servers@enera.mx', 'Enera Servers');
             $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker - ' . $e->getMessage());
-        });
+        });*/
         //redirect to welcome when we have a facebook error
         if ($e instanceof FacebookSDKException) {
             return redirect()->route('welcome', [
@@ -67,7 +67,30 @@ class Handler extends ExceptionHandler
                 'client_mac' => Input::get('client_mac')
             ]);
         }
-
+        $debug = env('APP_DEBUG');
+        if ($debug == 0) {
+            if ($this->isHttpException($e)) {
+                return $this->renderHttpException($e);
+            } else if ($e instanceof NotFoundHttpException) {
+                return response()->view('error.404', [], 40);
+            } else {
+                Mail::send('mail.issuestracker', [
+                    'ex' => $e,
+                    'request' => $request,
+                    'session_vars' => Session::all(),
+                    'time' => Carbon::now()->format('Y-m-d H:i:s'),
+                ], function ($mail) use ($e) {
+                    $mail->from('servers@enera.mx', 'Enera Servers');
+                    $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker - ' . $e->getMessage());
+                });
+                return response()->view('error.503', [], 40);
+            }
+        } elseif ($debug == 1) {
+            if ($e instanceof ModelNotFoundException) {
+                $e = new NotFoundHttpException($e->getMessage(), $e);
+            }
+            return parent::render($request, $e);
+        }
         return parent::render($request, $e);
     }
 }

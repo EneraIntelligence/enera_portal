@@ -28,7 +28,6 @@
             <p id="fb-inst" style="color:{{$message['color']}}">para navegar</p>
             <a id="fb-btn" onclick="showLoader()" href="{!! $login_response !!}">
                 <img id="fb-img" src="{!! asset('img/fb-login.png') !!}" alt="">
-
             </a>
 
             <div style=" width: 70px; height: 70px; margin: -55px auto 0px auto;"
