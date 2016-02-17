@@ -203,11 +203,12 @@ class WelcomeController extends Controller
             'user_ftime' => true,
             'device_os' => $agent->platform(),
         ]);
+        $device_os = $agent->platform() ? $agent->platform() : 'unknown';
 
         //este job maneja los likes por separado
         $chuck = array_chunk($likes, 100);
         foreach ($chuck as $shard) {
-            $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $agent->platform() ? $agent->platform() : 'unknown');
+            $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $device_os);
         }
 
         return redirect()->route('campaign::show', [
