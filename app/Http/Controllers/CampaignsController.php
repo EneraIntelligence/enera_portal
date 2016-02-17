@@ -53,10 +53,15 @@ class CampaignsController extends Controller
                     'user_id' => $user_id
                 ]);
 
-                /**    saco el link de la branch buscando la branch con la mac del ap  **/
-                $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
-                $link = isset($branch->portal['default_url']) ? $branch->portal['default_url'] : 'http://www.enera.mx';
-                return view($interaction->getView(), ['link' => $link]);
+                if( Input::has('continue_url') && Input::get('continue_url')!='' ){
+                    $link=Input::get('continue_url');
+                    return view($interaction->getView(), ['link' => $link]);
+                } else {    /**    saco el link de la branch buscando la branch con la mac del ap  **/
+                    $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
+                    $link = isset($branch->portal['default_url']) ? $branch->portal['default_url'] : 'http://www.enera.mx';
+                    return view($interaction->getView(), ['link' => $link]);
+                }
+
             } else {
                 //choose random campaign
                 $campaignIndex = count($campaigns->campaign) > 1 ? rand(0, count($campaigns) - 1) : 0;
