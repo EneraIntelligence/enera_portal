@@ -180,7 +180,7 @@ class WelcomeController extends Controller
             $user->facebook->save();
 
             $device = $user->devices()->where('devices.mac', Input::get('client_mac'))->first();
-            if($device){
+            if(!$device){
                 $device->mac = Input::get('client_mac');
                 $device->save();
             }
