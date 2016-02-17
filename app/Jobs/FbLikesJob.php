@@ -52,7 +52,7 @@ class FbLikesJob extends Job implements SelfHandling, ShouldQueue
                 ]);
             }
 
-            if ($user->facebook->likes->count() == 0) {
+            if (count($user->facebook->likes) == 0) {
                 $user->facebook->likes = [];
                 $user->facebook->save();
             }
