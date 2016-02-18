@@ -11,7 +11,7 @@ namespace Portal\Libraries;
 
 use Exception;
 use File;
-use Portal\Http\Requests\Request;
+use \Illuminate\Http\Request;
 use Portal\Issue;
 use Session;
 
