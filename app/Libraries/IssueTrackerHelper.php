@@ -26,9 +26,13 @@ class IssueTrackerHelper
     public static function create(Request $request, Exception $e, $plataform)
     {
         /* Genera URL actual */
-        $url = '?';
-        foreach ($_GET as $k => $v) {
-            $url .= $k . '=' . $v . '&';
+        if (count($_GET) > 0) {
+            $url = '?';
+            foreach ($_GET as $k => $v) {
+                $url .= $k . '=' . $v . '&';
+            }
+        } else {
+            $url = '';
         }
 
         /* Extrae el contexto del archivo */
@@ -36,7 +40,7 @@ class IssueTrackerHelper
         $file = file($e->getFile());
         $i = $e->getLine() > 10 ? $e->getLine() - 10 : 0;
         for ($i; $i <= $e->getLine() + 10; $i++) {
-            $context .= isset($file[$i]) ? $file[$i] . '<br>' : '';
+            $context .= isset($file[$i]) ? $file[$i] : '';
         }
 
         /* Creacion de Issue */
@@ -48,7 +52,7 @@ class IssueTrackerHelper
             'file' => [
                 'line' => $e->getLine(),
                 'path' => $e->getFile(),
-                'context' => $context,
+                'context' => '"' . $context . '"',
             ],
             'exception' => [
                 'code' => $e->getCode(),
