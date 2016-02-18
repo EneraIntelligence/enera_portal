@@ -48,7 +48,7 @@ class IssueTrackerHelper
             'file' => [
                 'line' => $e->getLine(),
                 'path' => $e->getFile(),
-                'context' => '"'.$context.'"',
+                'context' => $context,
             ],
             'exception' => [
                 'code' => $e->getCode(),
