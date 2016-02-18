@@ -52,11 +52,11 @@ class IssueTrackerHelper
             'file' => [
                 'line' => $e->getLine(),
                 'path' => $e->getFile(),
-                'context' => '"' . $context . '"',
+                'context' => $context,
             ],
             'exception' => [
                 'code' => $e->getCode(),
-                'trace' => $e->getTrace(),
+                'trace' => $e->getTraceAsString(),
             ],
             'session_vars' => Session::all(),
             'responsible_id' => 0,
