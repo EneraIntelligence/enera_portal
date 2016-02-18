@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        /*Mail::send('mail.issuestracker', [
+        Mail::send('mail.issuestracker', [
             'ex' => $e,
             'request' => $request,
             'session_vars' => Session::all(),
@@ -56,7 +56,7 @@ class Handler extends ExceptionHandler
         ], function ($mail) use ($e) {
             $mail->from('servers@enera.mx', 'Enera Servers');
             $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker - ' . $e->getMessage());
-        });*/
+        });
         //redirect to welcome when we have a facebook error
         if ($e instanceof FacebookSDKException) {
             return redirect()->route('welcome', [
