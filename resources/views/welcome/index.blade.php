@@ -45,9 +45,9 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="text-align: center">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Términos y condiciones</h4>
+                    <h4 style="text-align: center" class="modal-title" id="myModalLabel">Términos y condiciones</h4>
                 </div>
                 <div class="modal-body text-justify" style="max-height: 400px; overflow-y:auto;">
                     <!-- comienza términos y condiciones-->
