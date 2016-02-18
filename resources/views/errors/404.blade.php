@@ -44,7 +44,7 @@
             <div>
                 <img style="width:450px" src="{!! asset('img/enera_logo.png') !!}" alt="">
             </div>
-            Be right back.
+            El documento no fue encontrado
         </div>
     </div>
 </div>
