@@ -278,7 +278,7 @@
 
             <img src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/logo_pie_enera_alto.png" alt="" class="bottomLeft" style="width:80px;">
             <div class="terms bottomCenter">
-                <a style="color:{{$message['color']}}" href="#" data-toggle="modal" data-target="#myModal">Términos y condiciones</a>
+                <a style="color:{!! $message['color'] !!}" href="#" data-toggle="modal" data-target="#myModal">Términos y condiciones</a>
             </div>
             {{--<img src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/logo_pie_sendero.png" alt="" class="bottomRight" style="width:120px;">--}}
 
