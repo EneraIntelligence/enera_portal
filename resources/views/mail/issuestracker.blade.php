@@ -38,7 +38,7 @@
     <tr>
         <td><b>Session vars:</b></td>
         <td>
-            {{ json_encode($session_vars) }}
+            {!! json_encode($session_vars) !!}
         </td>
     </tr>
 </table>

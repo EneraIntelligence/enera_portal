@@ -5,6 +5,7 @@ namespace Portal\Exceptions;
 use Carbon\Carbon;
 use Exception;
 use Mail;
+use Portal\Libraries\IssueTrackerHelper;
 use Session;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 //use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -48,7 +49,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        Mail::send('mail.issuestracker', [
+        /*Mail::send('mail.issuestracker', [
             'ex' => $e,
             'request' => $request,
             'session_vars' => Session::all(),
@@ -56,9 +57,11 @@ class Handler extends ExceptionHandler
         ], function ($mail) use ($e) {
             $mail->from('servers@enera.mx', 'Enera Servers');
             $mail->to('issuestracker@enera.mx', 'Enera IssuesTracker')->subject('IssuesTracker - ' . $e->getMessage());
-        });
+        });*/
+
         //redirect to welcome when we have a facebook error
         if ($e instanceof FacebookSDKException) {
+            IssueTrackerHelper::create($request, $e, 'Portal');
             return redirect()->route('welcome', [
                 'base_grant_url' => Input::get('base_grant_url'),
                 'user_continue_url' => Input::get('user_continue_url'),
@@ -74,18 +77,21 @@ class Handler extends ExceptionHandler
             } else if ($e instanceof NotFoundHttpException) {
                 return response()->view('error.404', [], 404);
             } else if ($e instanceof FatalErrorException) {
+                IssueTrackerHelper::create($request, $e, 'Portal');
                 return response()->view('errors.503', [], 503);
             } else if ($e instanceof Exception) {
+                IssueTrackerHelper::create($request, $e, 'Portal');
                 return response()->view('errors.500', [], 500);
             } else {
-                return response()->view('errors.503', [], 503);
+                IssueTrackerHelper::create($request, $e, 'Portal');
+                return response()->view('errors.500', [], 500);
             }
         } elseif ($debug == 1) {
             if ($e instanceof ModelNotFoundException) {
                 $e = new NotFoundHttpException($e->getMessage(), $e);
             }
+            IssueTrackerHelper::create($request, $e, 'Portal');
             return parent::render($request, $e);
         }
-        return parent::render($request, $e);
     }
 }
