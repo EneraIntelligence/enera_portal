@@ -99,7 +99,7 @@ class WelcomeController extends Controller
                 $user = User::where('facebook.id', 'exists', true)
                     ->where(function ($q) {
                         $q->where('devices.mac', Input::get('client_mac'))
-                            ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(15)->format('Y-m-d') . 'T00:00:00-0600')));
+                            ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
                     })
                     ->get();
 
