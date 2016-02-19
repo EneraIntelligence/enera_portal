@@ -7,15 +7,18 @@
     Invalid Network
 
     <pre>
-        res: {{$_GET["res"]}}
-        uamip: {{$_GET["uamip"]}}
-        uamport: {{$_GET["uamport"]}}
-        mac: {{$_GET["mac"]}}
-        called: {{$_GET["called"]}}
-        ssid: {{$_GET["ssid"]}}
-        nasid: {{$_GET["nasid"]}}
-        userurl: {{$_GET["userurl"]}}
-        challenge: {{$_GET["challenge"]}}
+        @if(isset($_GET["res"]))
+            res: {{$_GET["res"]}}
+            uamip: {{$_GET["uamip"]}}
+            uamport: {{$_GET["uamport"]}}
+            mac: {{$_GET["mac"]}}
+            called: {{$_GET["called"]}}
+            ssid: {{$_GET["ssid"]}}
+            nasid: {{$_GET["nasid"]}}
+            userurl: {{$_GET["userurl"]}}
+            challenge: {{$_GET["challenge"]}}
+        @endif
+
     </pre>
 
 @stop
