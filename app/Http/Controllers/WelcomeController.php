@@ -228,7 +228,7 @@ class WelcomeController extends Controller
                     if ($password == 'test' && $_GET['username'] == 'test') {
                         unset($response['BLOCKED_MSG']);
                         $response['CODE'] = "ACCEPT";
-                        $response['SECONDS'] = 3600;
+                        $response['SECONDS'] = 900;
                         $response['DOWNLOAD'] = 2000;
                         $response['UPLOAD'] = 800;
                     } else {
