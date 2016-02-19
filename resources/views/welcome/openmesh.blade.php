@@ -16,6 +16,6 @@
 
     <br>
 
-    res: {{$redirect_url}}
+    res: {{$res}}
 
 @stop
