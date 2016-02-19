@@ -15,7 +15,7 @@
     @yield('head_scripts')
 
 </head>
-<body style="background-image: url('{!! url('img') !!}/{!! session('main_bg') !!}')">
+<body style="background-image: url('https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/{!! session('main_bg') !!}' )"">
 <div id="portal_content">
     <div class="col-md-4"></div>
     <div id="center-column" class="col-md-4">
