@@ -162,7 +162,7 @@ class WelcomeController extends Controller
             $uamport = Input::get('uamport');
             $challenge = Input::get('challenge');
 
-            $encoded_password = encode_password("", $challenge, $uam_secret);
+            $encoded_password = $this->encode_password("", $challenge, $uam_secret);
 
             $redirect_url = "http://$uamip:$uamport/logon?" .
                 "username=" . urlencode($username) .
@@ -186,7 +186,7 @@ class WelcomeController extends Controller
     /*
      * encodes the challenge with the secret for open-mesh login
      */
-    function encode_password($plain, $challenge, $secret) {
+    private function encode_password($plain, $challenge, $secret) {
         if ((strlen($challenge) % 2) != 0 ||
             strlen($challenge) == 0)
             return FALSE;
