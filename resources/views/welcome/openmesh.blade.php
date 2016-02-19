@@ -6,8 +6,16 @@
 @section('content')
     Open-mesh Network
 
+    <br>
+
     <a href="{{$redirect_url}}">Login</a>
 
-    {{$redirect_url}}
+    <br>
+
+    redirect_url: {{$redirect_url}}
+
+    <br>
+
+    res: {{$redirect_url}}
 
 @stop

@@ -171,6 +171,7 @@ class WelcomeController extends Controller
             //$redirect_url .= "&redir=" . urlencode( Input::get('userurl') );
 
             return view('welcome.openmesh', [
+                'res' => Input::get('res'),
                 'redirect_url' => $redirect_url
             ]);
         }
