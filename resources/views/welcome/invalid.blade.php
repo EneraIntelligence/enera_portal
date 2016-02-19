@@ -8,7 +8,12 @@
 
     <pre>
         @if(isset($_GET["res"]))
+
             res: {{$_GET["res"]}}
+        @endif
+
+        @if(isset($_GET["uamip"]))
+
             uamip: {{$_GET["uamip"]}}
             uamport: {{$_GET["uamport"]}}
             mac: {{$_GET["mac"]}}
@@ -16,6 +21,7 @@
             ssid: {{$_GET["ssid"]}}
             userurl: {{$_GET["userurl"]}}
             challenge: {{$_GET["challenge"]}}
+
         @endif
 
     </pre>

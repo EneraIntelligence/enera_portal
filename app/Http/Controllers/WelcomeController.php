@@ -139,11 +139,81 @@ class WelcomeController extends Controller
             }
         }
 
+
+
+        $openMeshValidator = Validator::make(Input::all(), [
+            'res' => 'required',
+            'uamip' => 'required',
+            'uamport' => 'required',
+            'mac' => 'required',
+            'called' => 'required',
+            'ssid' => 'required',
+            'userurl' => 'required',
+            'challenge' => 'required',
+        ]);
+
+        if ($openMeshValidator->passes())
+        {
+            //connected via openmesh
+            $uam_secret = "3n3r41nt3ll1g3nc3";
+
+            $username="";
+            $uamip = Input::get('uamip');
+            $uamport = Input::get('uamport');
+            $challenge = Input::get('challenge');
+
+            $encoded_password = encode_password("", $challenge, $uam_secret);
+
+            $redirect_url = "http://$uamip:$uamport/logon?" .
+                "username=" . urlencode($username) .
+                "&password=" . urlencode($encoded_password);
+
+            //$redirect_url .= "&redir=" . urlencode( Input::get('userurl') );
+
+            return view('welcome.openmesh', [
+                'redirect_url' => $redirect_url
+            ]);
+        }
+
         //Bugsnag::notifyError("Error red invalida", "Falta algún parametro en la url o el node_mac es incorrecto");
+
 
         return view('welcome.invalid', [
             'main_bg' => 'bg_welcome.jpg'
         ]);
+    }
+
+    /*
+     * encodes the challenge with the secret for open-mesh login
+     */
+    function encode_password($plain, $challenge, $secret) {
+        if ((strlen($challenge) % 2) != 0 ||
+            strlen($challenge) == 0)
+            return FALSE;
+
+        $hexchall = hex2bin($challenge);
+        if ($hexchall === FALSE)
+            return FALSE;
+
+        if (strlen($secret) > 0) {
+            $crypt_secret = md5($hexchall . $secret, TRUE);
+            $len_secret = 16;
+        } else {
+            $crypt_secret = $hexchall;
+            $len_secret = strlen($hexchall);
+        }
+
+        /* simulate C style \0 terminated string */
+        $plain .= "\x00";
+        $crypted = '';
+        for ($i = 0; $i < strlen($plain); $i++)
+            $crypted .= $plain[$i] ^ $crypt_secret[$i % $len_secret];
+
+        $extra_bytes = 0;//rand(0, 16);
+        for ($i = 0; $i < $extra_bytes; $i++)
+            $crypted .= chr(rand(0, 255));
+
+        return bin2hex($crypted);
     }
 
     /**
