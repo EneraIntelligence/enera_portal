@@ -188,6 +188,11 @@ class WelcomeController extends Controller
         ]);
     }
 
+    public function openMeshAuth()
+    {
+        echo ":)";
+    }
+
     /*
      * encodes the challenge with the secret for open-mesh login
      */
