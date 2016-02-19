@@ -38,20 +38,15 @@ class WelcomeController extends Controller
     public function index()
     {
         /*
-         * base_grant_url=https%3A%2F%2Fn126.network-auth.com%2Fsplash%2Fgrant&
-         * user_continue_url=http%3A%2F%2Fenera.mx&
-         * node_id=15269408&
-         * node_mac=00:18:0a:e8:fe:20&
-         * gateway_id=15269408&
-         * client_ip=10.77.147.207&
-         * client_mac=24:a0:74:ed:e6:16
-         */
-        // valida que los paramatros esten presentes
+        $apBrand = $this->detectApBrand(Input::all());
+        $params = $this->getParams(Input::all(),$apBrand);
+        */
+
+        // valida que los parámetros estén presentes
         $validate = Validator::make(Input::all(), [
             'base_grant_url' => 'required',
             'user_continue_url' => 'required',
             'node_mac' => 'required',
-//            'client_ip' => 'required',
             'client_mac' => 'required'
         ]);
         if ($validate->passes()) {
@@ -138,7 +133,6 @@ class WelcomeController extends Controller
                 }
             }
         }
-
 
 
         $openMeshValidator = Validator::make(Input::all(), [
@@ -246,6 +240,96 @@ class WelcomeController extends Controller
         //echo ":)";
     }
 
+
+
+    /**
+     * Obtiene la respuesta desde Facebook
+     */
+    public function response()
+    {
+
+        if (!$this->fbUtils->isUserLoggedIn()) {
+            //echo "User is not logged in";
+            return redirect()->route('welcome', [
+                'base_grant_url' => Input::get('base_grant_url'),
+                'user_continue_url' => Input::get('user_continue_url'),
+                'node_mac' => Input::get('node_mac'),
+                'client_ip' => Input::get('client_ip'),
+                'client_mac' => Input::get('client_mac')
+            ]);
+        }
+
+        $facebook_data = $this->fbUtils->getUserData();
+        $likes = $this->fbUtils->getUserLikes();
+
+        //upsert user data
+        $user_fb_id = $facebook_data['id'];
+        $facebook_data['likes'] = [];
+
+        $agent = new Agent();
+
+        $user = User::where('facebook.id', $user_fb_id)->first();
+        if ($user) {
+            foreach ($facebook_data as $k => $v) {
+                $user->facebook->{$k} = $v;
+            }
+            $user->facebook->save();
+
+            $device = $user->devices()->where('devices.mac', Input::get('client_mac'))->first();
+            if ($device) {
+                $device->mac = Input::get('client_mac');
+                $device->save();
+            }
+        } else {
+            $user = User::create([
+                'facebook' => $facebook_data,
+                'devices' => []
+            ]);
+
+            $user->devices()->create([
+                'mac' => Input::get('client_mac'),
+                'os' => $agent->platform(),
+            ]);
+        }
+
+        session([
+            'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
+            'user_name' => $facebook_data['first_name'],
+            'user_fbid' => $user_fb_id,
+            'user_ftime' => true,
+            'device_os' => $agent->platform(),
+        ]);
+        $device_os = $agent->platform() ? $agent->platform() : 'unknown';
+
+        //este job maneja los likes por separado
+        $chuck = array_chunk($likes, 100);
+        foreach ($chuck as $shard) {
+            $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $device_os);
+        }
+
+        return redirect()->route('campaign::show', [
+            'id' => $user->_id,
+            'base_grant_url' => Input::get('base_grant_url'),
+            'user_continue_url' => Input::get('user_continue_url'),
+            'node_mac' => Input::get('node_mac'),
+            'client_ip' => Input::get('client_ip'),
+            'client_mac' => Input::get('client_mac')
+        ]);
+    }
+
+
+    /**
+     * Muestra la pantalla de red invalida
+     */
+    public function invalid()
+    {
+        //
+    }
+
+
+    /*
+     * FUNCIONES AUXILIARES OPEN-MESH
+     */
     /**
      * print_dictionary - Print dictionary as encoded key-value pairs
      * @dict: Dictionary to print
@@ -353,87 +437,4 @@ class WelcomeController extends Controller
         return bin2hex($crypted);
     }
 
-    /**
-     * Obtiene la respuesta desde Facebook
-     */
-    public function response()
-    {
-
-        if (!$this->fbUtils->isUserLoggedIn()) {
-            //echo "User is not logged in";
-            return redirect()->route('welcome', [
-                'base_grant_url' => Input::get('base_grant_url'),
-                'user_continue_url' => Input::get('user_continue_url'),
-                'node_mac' => Input::get('node_mac'),
-                'client_ip' => Input::get('client_ip'),
-                'client_mac' => Input::get('client_mac')
-            ]);
-        }
-
-        $facebook_data = $this->fbUtils->getUserData();
-        $likes = $this->fbUtils->getUserLikes();
-
-        //upsert user data
-        $user_fb_id = $facebook_data['id'];
-        $facebook_data['likes'] = [];
-
-        $agent = new Agent();
-
-        $user = User::where('facebook.id', $user_fb_id)->first();
-        if ($user) {
-            foreach ($facebook_data as $k => $v) {
-                $user->facebook->{$k} = $v;
-            }
-            $user->facebook->save();
-
-            $device = $user->devices()->where('devices.mac', Input::get('client_mac'))->first();
-            if ($device) {
-                $device->mac = Input::get('client_mac');
-                $device->save();
-            }
-        } else {
-            $user = User::create([
-                'facebook' => $facebook_data,
-                'devices' => []
-            ]);
-
-            $user->devices()->create([
-                'mac' => Input::get('client_mac'),
-                'os' => $agent->platform(),
-            ]);
-        }
-
-        session([
-            'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
-            'user_name' => $facebook_data['first_name'],
-            'user_fbid' => $user_fb_id,
-            'user_ftime' => true,
-            'device_os' => $agent->platform(),
-        ]);
-        $device_os = $agent->platform() ? $agent->platform() : 'unknown';
-
-        //este job maneja los likes por separado
-        $chuck = array_chunk($likes, 100);
-        foreach ($chuck as $shard) {
-            $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $device_os);
-        }
-
-        return redirect()->route('campaign::show', [
-            'id' => $user->_id,
-            'base_grant_url' => Input::get('base_grant_url'),
-            'user_continue_url' => Input::get('user_continue_url'),
-            'node_mac' => Input::get('node_mac'),
-            'client_ip' => Input::get('client_ip'),
-            'client_mac' => Input::get('client_mac')
-        ]);
-    }
-
-
-    /**
-     * Muestra la pantalla de red invalida
-     */
-    public function invalid()
-    {
-        //
-    }
 }
