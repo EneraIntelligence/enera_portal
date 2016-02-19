@@ -32,12 +32,12 @@ class CampaignsController extends Controller
             $campaigns = new CampaignSelector($user_id);
             /**    valida que el user_continue_url tenga algo   **/
             if (Input::has('user_continue_url') | Input::get('user_continue_url') != '') {
-                $link = Input::get('user_continue_url');
+                $link['link'] = Input::get('user_continue_url');
 //                return view($interaction->getView(), ['link' => $link]);
             } else {
                 /**    saco el link de la branch buscando la branch con la mac del ap  **/
                 $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
-                $link = isset($branch->portal['default_url']) ? $branch->portal['default_url'] : 'http://www.google.com';
+                $link['link'] = isset($branch->portal['default_url']) ? $branch->portal['default_url'] : 'http://www.google.com';
 //                return view($interaction->getView(), ['link' => $link]);
             }
 
@@ -62,7 +62,7 @@ class CampaignsController extends Controller
                     'campaign_id' => $campaignSelected->_id,
                     'user_id' => $user_id
                 ]);
-                return view($interaction->getView(), ['link' => $link]);
+                return view($interaction->getView(), $link);
             } else {
                 //choose random campaign
                 $campaignIndex = count($campaigns->campaign) > 1 ? rand(0, count($campaigns) - 1) : 0;
