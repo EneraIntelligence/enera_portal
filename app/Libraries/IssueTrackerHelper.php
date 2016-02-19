@@ -61,7 +61,7 @@ class IssueTrackerHelper
             'session_vars' => Session::all(),
             'responsible_id' => 0,
             'priority' => 'error',
-            'status' => 'active',
+            'status' => 'pending',
             'history' => [],
         ]);
     }
