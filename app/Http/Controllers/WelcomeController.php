@@ -171,10 +171,19 @@ class WelcomeController extends Controller
 
             //$redirect_url .= "&redir=" . urlencode( Input::get('userurl') );
 
-            return view('welcome.openmesh', [
-                'res' => Input::get('res'),
-                'redirect_url' => $redirect_url
-            ]);
+            if(Input::get('res')=="notyet")
+            {
+                header('Location: ' . $redirect_url);
+            }
+            else
+            {
+
+                return view('welcome.openmesh', [
+                    'res' => Input::get('res'),
+                    'redirect_url' => $redirect_url
+                ]);
+            }
+
         }
 
         //Bugsnag::notifyError("Error red invalida", "Falta algún parametro en la url o el node_mac es incorrecto");
