@@ -157,12 +157,13 @@ class WelcomeController extends Controller
             //connected via openmesh
             $uam_secret = "3n3r41nt3ll1g3nc3";
 
-            $username="";
+            $username="test";
+            $password = "test";
             $uamip = Input::get('uamip');
             $uamport = Input::get('uamport');
             $challenge = Input::get('challenge');
 
-            $encoded_password = $this->encode_password("", $challenge, $uam_secret);
+            $encoded_password = $this->encode_password($password, $challenge, $uam_secret);
 
             $redirect_url = "http://$uamip:$uamport/logon?" .
                 "username=" . urlencode($username) .
