@@ -171,18 +171,12 @@ class WelcomeController extends Controller
 
             //$redirect_url .= "&redir=" . urlencode( Input::get('userurl') );
 
-            if(Input::get('res')=="notyet")
-            {
-                header('Location: ' . $redirect_url);
-            }
-            else
-            {
 
-                return view('welcome.openmesh', [
-                    'res' => Input::get('res'),
-                    'redirect_url' => $redirect_url
-                ]);
-            }
+            return view('welcome.openmesh', [
+                'res' => Input::get('res'),
+                'redirect_url' => $redirect_url
+            ]);
+
 
         }
 
