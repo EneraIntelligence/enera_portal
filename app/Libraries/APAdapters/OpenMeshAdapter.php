@@ -35,8 +35,10 @@ class OpenMeshAdapter implements IAdapter
             $uamport = $input['uamport'];
             $challenge = $input['challenge'];
             $user_url = $input['userurl'];
-            $node_mac = $input['called'];
-            $client_mac = $input['mac'];
+
+            $node_mac = $this->formatMac($input['called']);
+            $client_mac =  $this->formatMac($input['mac']);
+
 
             $encoded_password = $this->encode_password($password, $challenge, $uam_secret);
 
@@ -61,10 +63,11 @@ class OpenMeshAdapter implements IAdapter
         return [];
     }
 
-    /*
-     * FUNCIONES AUXILIARES OPEN-MESH
-     */
-
+    private function formatMac($mac)
+    {
+        $res = strtolower ($mac);
+        return str_replace("-", ":", $res);
+    }
 
     /**
      * decode_password - decode encoded password to ascii string
