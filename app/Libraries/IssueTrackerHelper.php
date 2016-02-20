@@ -57,6 +57,7 @@ class IssueTrackerHelper
                 'context' => $context,
             ],
             'exception' => [
+                'msg' => $e->getMessage(),
                 'code' => $e->getCode(),
                 'trace' => $e->getTraceAsString(),
             ],
