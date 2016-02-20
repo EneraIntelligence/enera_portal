@@ -65,7 +65,7 @@ class OpenMeshAdapter implements IAdapter
 
     private function formatMac($mac)
     {
-        $res = strtolower ($mac);
+        $res = strtolower($mac);
         return str_replace("-", ":", $res);
     }
 
