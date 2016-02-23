@@ -58,11 +58,12 @@ class WelcomeController extends Controller
             'client_mac' => 'required'
         ]);
 
-
+/*
         return view('welcome.openmesh', [
             'redirect_url' => $input['base_grant_url'],
             'res'=>Input::get('res')
         ]);
+*/
 
         if ($validate->passes()) {
 
