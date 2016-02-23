@@ -223,6 +223,11 @@ class WelcomeController extends Controller
         if(array_key_exists('duration',$_GET))
             $duration = $_GET['duration'];
 
+        if( isset( $_SESSION['session_time'] ))
+        {
+            $duration = $_SESSION['session_time'];
+        }
+
         /* decode request */
         if (array_key_exists('type', $_GET)) {
             $type = $_GET['type'];
