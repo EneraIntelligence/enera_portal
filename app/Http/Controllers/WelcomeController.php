@@ -56,6 +56,8 @@ class WelcomeController extends Controller
         ]);
         if ($validate->passes()) {
 
+            dd($input);
+
             $node_mac = $input['node_mac'];
             $client_mac = $input['client_mac'];
             $base_grant_url = $input['base_grant_url'];
