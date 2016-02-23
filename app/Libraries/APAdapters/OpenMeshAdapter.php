@@ -27,11 +27,10 @@ class OpenMeshAdapter implements IAdapter
         if ($openMeshValidator->passes())
         {
 
+            /*
             if ($input['res'] === "success") {
 
-                dd($_SESSION);
-                /*
-                $redir = $_SESSION["userurl"];
+                $redir = "http://enera.mx";
                 if(isset($redir)) {
                     echo "<head>";
                     echo '<meta http-equiv="refresh" content="3;URL=\'' . $redir . '\'">';
@@ -39,8 +38,11 @@ class OpenMeshAdapter implements IAdapter
                 }
                 else {
                     echo "<h2>Log-in successful!</h2>";
-                }*/
+                }
+
+                return [];
             }
+            */
 
             //connected via openmesh
             $uam_secret = "3n3r41nt3ll1g3nc3";
@@ -61,6 +63,11 @@ class OpenMeshAdapter implements IAdapter
             $redirect_url = "http://$uamip:$uamport/logon?" .
                 "username=" . urlencode($username) .
                 "&password=" . urlencode($encoded_password);
+
+            if(!isset($user_url) || $user_url=="")
+            {
+                $user_url = "http://enera.mx/";
+            }
 
             $redirect_url .= "&redir=" . urlencode( $user_url );
 
