@@ -58,12 +58,12 @@ class WelcomeController extends Controller
             'client_mac' => 'required'
         ]);
 
-/*
-        return view('welcome.openmesh', [
-            'redirect_url' => $input['base_grant_url'],
-            'res'=>Input::get('res')
-        ]);
-*/
+        /*
+                return view('welcome.openmesh', [
+                    'redirect_url' => $input['base_grant_url'],
+                    'res'=>Input::get('res')
+                ]);
+        */
 
         if ($validate->passes()) {
 
@@ -73,13 +73,13 @@ class WelcomeController extends Controller
             $user_continue_url = $input['user_continue_url'];
 
 
-            $branche = Branche::whereIn('aps', [ $node_mac ])->first();
+            $branche = Branche::whereIn('aps', [$node_mac])->first();
             // Si el AP fue dado de alta y asignado a una Branche
             if ($branche) {
                 $agent = new Agent();
                 // welcome
                 $log = CampaignLog::where('user.session', session('_token'))
-                    ->where('device.mac', $client_mac )->first();
+                    ->where('device.mac', $client_mac)->first();
 
                 // Paso 1: Welcome log
                 if (!$log) {
@@ -91,15 +91,12 @@ class WelcomeController extends Controller
                             'mac' => $client_mac,
                             'node_mac' => $node_mac,
                             'os' => $agent->platform(),
-                            'branch_id' => Branche::whereIn('aps', [ $node_mac ])->first()->_id,
+                            'branch_id' => Branche::whereIn('aps', [$node_mac])->first()->_id,
                         ]
                     ]);
                     $new_log->interaction()->create([
                         'welcome' => new MongoDate(),
                     ]);
-                    if (!$new_log) {
-                        Bugsnag::notifyError("CreateDocument", "El documento CampaignLog no se pudo crear client_mac: " . $this->client_mac);
-                    }
                 }
 
                 $this->dispatch(new WelcomeLogJob([
@@ -110,10 +107,10 @@ class WelcomeController extends Controller
                 ]));
 
                 $url_vars = [
-                    "duration"=>$branche->portal['session_time']*60,
-                    "continue_url"=>$user_continue_url
-                    ];
-                $base_grant_url = $inputAdapter->addVars( $base_grant_url,$url_vars );
+                    "duration" => $branche->portal['session_time'] * 60,
+                    "continue_url" => $user_continue_url
+                ];
+                $base_grant_url = $inputAdapter->addVars($base_grant_url, $url_vars);
 
                 session([
                     'main_bg' => $branche->portal['background'],
@@ -122,7 +119,7 @@ class WelcomeController extends Controller
                 ]);
 
                 $user = User::where('facebook.id', 'exists', true)
-                    ->where(function ($q) use ($client_mac){
+                    ->where(function ($q) use ($client_mac) {
                         $q->where('devices.mac', $client_mac)
                             ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
                     })
@@ -142,6 +139,7 @@ class WelcomeController extends Controller
                         'message' => $branche->portal['message'],
                         'spinner_color' => $branche->portal['spinner_color'],
                         'login_response' => $this->fbUtils->makeLoginUrl($url),
+                        'client_mac' => $client_mac,
                     ]);
 
                 } elseif ($user->count() == 1) {
@@ -176,12 +174,9 @@ class WelcomeController extends Controller
     public function detectAPAdapter($input)
     {
 
-        if(isset($input['res']))
-        {
+        if (isset($input['res'])) {
             return new OpenMeshAdapter();
-        }
-        else if(isset($input['base_grant_url']))
-        {
+        } else if (isset($input['base_grant_url'])) {
             return new MerakiAdapter();
         }
 
@@ -220,11 +215,10 @@ class WelcomeController extends Controller
             $mac = $_GET['mac'];
 
         $duration = 900;
-        if(array_key_exists('duration',$_GET))
+        if (array_key_exists('duration', $_GET))
             $duration = $_GET['duration'];
 
-        if( isset( $_SESSION['session_time'] ))
-        {
+        if (isset($_SESSION['session_time'])) {
             $duration = $_SESSION['session_time'];
         }
 
@@ -254,8 +248,6 @@ class WelcomeController extends Controller
         $this->print_dictionary($response);
 
     }
-
-
 
     /**
      * Obtiene la respuesta desde Facebook
@@ -332,15 +324,45 @@ class WelcomeController extends Controller
         ]);
     }
 
-
-    /**
-     * Muestra la pantalla de red invalida
-     */
-    public function invalid()
+    public function welcome_loaded()
     {
-        //
-    }
+        if (Input::has('client_mac')) {
+            $client_mac = Input::get('client_mac');
+            $log = CampaignLog::where('user.session', session('_token'))
+                ->where('device.mac', $client_mac)->first();
 
+            if ($log && isset($log->interaction->welcome) && !isset($log->interaction->welcome_loaded)) {
+                $log->interaction->welcome_loaded = new MongoDate();
+                $log->interaction->save();
+
+                $response = [
+                    'ok' => true,
+                    'msg' => '',
+                ];
+            } elseif ($log && !isset($log->interaction->welcome)) {
+                $response = [
+                    'ok' => false,
+                    'msg' => 'El campo "interaction.welcome" no existe',
+                ];
+            } elseif ($log && isset($log->interaction->welcome_loaded)) {
+                $response = [
+                    'ok' => false,
+                    'msg' => 'El campo "interaction.welcome_loaded" ya fue creado',
+                ];
+            } else {
+                $response = [
+                    'ok' => false,
+                    'msg' => 'No existe un log para esta sesion.',
+                ];
+            }
+        } else {
+            $response = [
+                'ok' => false,
+                'msg' => 'Falta al MAC Address del cliente/dispositivo',
+            ];
+        }
+        return response()->json($response);
+    }
 
     /*
      * FUNCIONES AUXILIARES OPEN-MESH
@@ -355,6 +377,7 @@ class WelcomeController extends Controller
             echo '"', rawurlencode($key), '" "', rawurlencode($value), "\"\n";
         }
     }
+
     /**
      * calculate_new_ra - calculate new request authenticator based on old ra, code
      *  and secret
