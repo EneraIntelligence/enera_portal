@@ -44,7 +44,7 @@ class WelcomeController extends Controller
     public function index()
     {
 
-        //dd(Input::all());
+        dd(Input::all());
 
         $inputAdapter = $this->detectAPAdapter(Input::all());
 
