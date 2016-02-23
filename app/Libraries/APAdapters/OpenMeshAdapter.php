@@ -26,6 +26,22 @@ class OpenMeshAdapter implements IAdapter
 
         if ($openMeshValidator->passes())
         {
+
+            if ($input['res'] === "success") {
+
+                dd($_SESSION);
+                /*
+                $redir = $_SESSION["userurl"];
+                if(isset($redir)) {
+                    echo "<head>";
+                    echo '<meta http-equiv="refresh" content="3;URL=\'' . $redir . '\'">';
+                    echo "</head>";
+                }
+                else {
+                    echo "<h2>Log-in successful!</h2>";
+                }*/
+            }
+
             //connected via openmesh
             $uam_secret = "3n3r41nt3ll1g3nc3";
 
