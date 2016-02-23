@@ -56,12 +56,11 @@ class WelcomeController extends Controller
         ]);
         if ($validate->passes()) {
 
-            dd($input);
-
             $node_mac = $input['node_mac'];
             $client_mac = $input['client_mac'];
             $base_grant_url = $input['base_grant_url'];
             $user_continue_url = $input['user_continue_url'];
+
 
             $branche = Branche::whereIn('aps', [ $node_mac ])->first();
             // Si el AP fue dado de alta y asignado a una Branche
@@ -106,8 +105,8 @@ class WelcomeController extends Controller
                 ]);
 
                 $user = User::where('facebook.id', 'exists', true)
-                    ->where(function ($q) {
-                        $q->where('devices.mac', Input::get('client_mac'))
+                    ->where(function ($q) use ($client_mac){
+                        $q->where('devices.mac', $client_mac)
                             ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
                     })
                     ->get();
