@@ -65,9 +65,6 @@ class WelcomeLogJob extends Job implements SelfHandling, ShouldQueue
             $new_log->interaction()->create([
                 'welcome' => $this->welcome
             ]);
-            if (!$new_log) {
-                Bugsnag::notifyError("CreateDocument", "El documento CampaignLog no se pudo crear client_mac: " . $this->client_mac);
-            }
         }
     }
 }

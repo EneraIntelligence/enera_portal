@@ -74,9 +74,6 @@ class WelcomeController extends Controller
                     $new_log->interaction()->create([
                         'welcome' => new MongoDate(),
                     ]);
-                    if (!$new_log) {
-                        Bugsnag::notifyError("CreateDocument", "El documento CampaignLog no se pudo crear client_mac: " . $this->client_mac);
-                    }
                 }
                 $this->dispatch(new WelcomeLogJob([
                     'session' => session('_token'),
