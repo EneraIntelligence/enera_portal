@@ -109,6 +109,12 @@ class WelcomeController extends Controller
                     'os' => $agent->platform(),
                 ]));
 
+                $url_vars = [
+                    "duration"=>$branche->portal['session_time']*60,
+                    "continue_url"=>$user_continue_url
+                    ];
+                $base_grant_url = $inputAdapter->addVars( $base_grant_url,$url_vars );
+
                 session([
                     'main_bg' => $branche->portal['background'],
                     'session_time' => ($branche->portal['session_time'] * 60),
@@ -213,6 +219,10 @@ class WelcomeController extends Controller
         if (array_key_exists('mac', $_GET))
             $mac = $_GET['mac'];
 
+        $duration = 900;
+        if(array_key_exists('duration',$_GET))
+            $duration = $_GET['duration'];
+
         /* decode request */
         if (array_key_exists('type', $_GET)) {
             $type = $_GET['type'];
@@ -223,7 +233,7 @@ class WelcomeController extends Controller
                     if ($password == 'test' && $_GET['username'] == 'test') {
                         unset($response['BLOCKED_MSG']);
                         $response['CODE'] = "ACCEPT";
-                        $response['SECONDS'] = 900;
+                        $response['SECONDS'] = $duration;
                         $response['DOWNLOAD'] = 2000;
                         $response['UPLOAD'] = 800;
                     } else {

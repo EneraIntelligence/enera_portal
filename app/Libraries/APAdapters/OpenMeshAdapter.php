@@ -62,7 +62,7 @@ class OpenMeshAdapter implements IAdapter
                 "username=" . urlencode($username) .
                 "&password=" . urlencode($encoded_password);
 
-            //$redirect_url .= "&redir=" . urlencode( $user_url );
+            $redirect_url .= "&redir=" . urlencode( $user_url );
 
 
             $resp = [
@@ -77,6 +77,27 @@ class OpenMeshAdapter implements IAdapter
 
         //validation failed goto invalid portal
         return [];
+    }
+
+    public function addVars($url, $vars)
+    {
+        $first = true;
+
+        if (strpos($url, '?') !== FALSE)
+            $first=false;
+
+        foreach ($vars as $key => $value) {
+            if($first)
+            {
+                $first=false;
+                $url = $url.urlencode( '?'.$key.'='.$value );
+            }
+            else
+            {
+                $url = $url.urlencode( '&'.$key.'='.$value );
+            }
+        }
+        return $url;
     }
 
     private function formatMac($mac)

@@ -13,4 +13,25 @@ class MerakiAdapter implements IAdapter
         return $input;
     }
 
+    public function addVars($url, $vars)
+    {
+        $first = true;
+
+        if (strpos($url, '?') !== FALSE)
+            $first=false;
+
+        foreach ($vars as $key => $value) {
+            if($first)
+            {
+                $first=false;
+                $url = $url.urlencode( '?'.$key.'='.$value );
+            }
+            else
+            {
+                $url = $url.urlencode( '&'.$key.'='.$value );
+            }
+        }
+        return $url;
+    }
+
 }
