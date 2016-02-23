@@ -58,7 +58,7 @@ class IssueTrackerHelper
             ],
             'file' => [
                 'line' => $e->getLine(),
-                'path' => $e->getFile(),
+                'path' => str_replace(base_path(), '', $e->getFile()),
                 'context' => $context,
             ],
             'exception' => [
