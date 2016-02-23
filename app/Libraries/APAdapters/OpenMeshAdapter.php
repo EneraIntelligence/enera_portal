@@ -62,7 +62,7 @@ class OpenMeshAdapter implements IAdapter
                 "username=" . urlencode($username) .
                 "&password=" . urlencode($encoded_password);
 
-            //$redirect_url .= "&redir=" . urlencode( Input::get('userurl') );
+            $redirect_url .= "&redir=" . urlencode( $user_url );
 
 
             $resp = [
