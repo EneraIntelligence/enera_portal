@@ -24,11 +24,11 @@ class MerakiAdapter implements IAdapter
             if($first)
             {
                 $first=false;
-                $url = $url.urlencode( '?'.$key.'='.$value );
+                $url = '?'.$url.urlencode( $key ) .'='. urlencode($value);
             }
             else
             {
-                $url = $url.urlencode( '&'.$key.'='.$value );
+                $url = '&'.$url.urlencode( $key ) .'='. urlencode($value);
             }
         }
         return $url;

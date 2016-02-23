@@ -27,7 +27,7 @@ class OpenMeshAdapter implements IAdapter
         if ($openMeshValidator->passes())
         {
 
-            /*
+
             if ($input['res'] === "success") {
 
                 $redir = "http://enera.mx";
@@ -42,7 +42,7 @@ class OpenMeshAdapter implements IAdapter
 
                 return [];
             }
-            */
+
 
             //connected via openmesh
             $uam_secret = "3n3r41nt3ll1g3nc3";
@@ -97,11 +97,11 @@ class OpenMeshAdapter implements IAdapter
             if($first)
             {
                 $first=false;
-                $url = $url.urlencode( '?'.$key.'='.$value );
+                $url = '?'.$url.urlencode( $key ) .'='. urlencode($value);
             }
             else
             {
-                $url = $url.urlencode( '&'.$key.'='.$value );
+                $url = '&'.$url.urlencode( $key ) .'='. urlencode($value);
             }
         }
         return $url;
