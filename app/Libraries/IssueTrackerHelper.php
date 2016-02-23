@@ -25,6 +25,7 @@ class IssueTrackerHelper
      */
     public static function create(Request $request, Exception $e, $plataform)
     {
+
         /* Genera URL actual */
         if (count($_GET) > 0) {
             $url = '?';
@@ -48,9 +49,13 @@ class IssueTrackerHelper
         Issue::create([
             // 'msg' => $e->getMessage() != '' ? $e->getMessage() : 'IssueTracket Error',
             'msg' => $instance[count($instance) - 1] . ' ' . $request->method() . ' /' . $request->path(),
-            'platform' => $plataform,
-            'environment' => env('APP_ENV', 'local'),
-            'url' => $request->url() . $url,
+            'request' => [
+                'url' => $request->url() . $url,
+                'host' => $_SERVER['SERVER_NAME'],
+                'platform' => $plataform,
+                'environment' => env('APP_ENV', 'local'),
+                'session_vars' => Session::all(),
+            ],
             'file' => [
                 'line' => $e->getLine(),
                 'path' => $e->getFile(),
@@ -61,7 +66,6 @@ class IssueTrackerHelper
                 'code' => $e->getCode(),
                 'trace' => $e->getTraceAsString(),
             ],
-            'session_vars' => Session::all(),
             'responsible_id' => 0,
             'priority' => 'error',
             'status' => 'pending',

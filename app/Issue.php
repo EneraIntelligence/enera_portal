@@ -6,8 +6,7 @@ use Jenssegers\Mongodb\Model as Model;
 
 class Issue extends Model
 {
-    protected $fillable = ['msg', 'platform', 'environment', 'url', 'file', 'exception', 'responsible_id',
-        'priority', 'status', 'history', 'session_vars'];
+    protected $fillable = ['msg', 'request', 'file', 'exception', 'responsible_id', 'priority', 'status', 'history'];
 
     // relations
     public function reponsible()
