@@ -51,7 +51,7 @@ class IssueTrackerHelper
             'msg' => $instance[count($instance) - 1] . ' ' . $request->method() . ' /' . $request->path(),
             'request' => [
                 'url' => $request->url() . $url,
-                'host' => $_SERVER['SERVER_NAME'],
+                'host' => gethostname(),
                 'platform' => $plataform,
                 'environment' => env('APP_ENV', 'local'),
                 'session_vars' => Session::all(),
