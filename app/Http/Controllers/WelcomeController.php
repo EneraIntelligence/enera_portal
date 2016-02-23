@@ -205,6 +205,8 @@ class WelcomeController extends Controller
         if (array_key_exists('mac', $_GET))
             $mac = $_GET['mac'];
 
+        dd($password);
+
         /* decode request */
         if (array_key_exists('type', $_GET)) {
             $type = $_GET['type'];
