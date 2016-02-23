@@ -21,6 +21,7 @@ use Portal\Http\Controllers\Controller;
 use Portal\Libraries\FacebookUtils;
 use Portal\User;
 use Validator;
+use Session;
 
 //adapters
 use Portal\Libraries\APAdapters\OpenMeshAdapter;
@@ -218,8 +219,9 @@ class WelcomeController extends Controller
         if (array_key_exists('duration', $_GET))
             $duration = $_GET['duration'];
 
-        if (isset($_SESSION['session_time'])) {
-            $duration = $_SESSION['session_time'];
+        if( Session::has('session_time') )
+        {
+            $duration = session('session_time');
         }
 
         /* decode request */
