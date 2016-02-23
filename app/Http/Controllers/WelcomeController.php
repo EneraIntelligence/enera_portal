@@ -57,6 +57,12 @@ class WelcomeController extends Controller
             'node_mac' => 'required',
             'client_mac' => 'required'
         ]);
+
+
+        return view('welcome.openmesh', [
+            'redirect_url' => $input['base_grant_url']
+        ]);
+
         if ($validate->passes()) {
 
             $node_mac = $input['node_mac'];
