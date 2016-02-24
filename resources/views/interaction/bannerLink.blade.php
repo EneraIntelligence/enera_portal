@@ -15,7 +15,7 @@
     <div class="banner-button">
         <div>
             <button id="navegar" type="button" class="btn btn-primary btn-block"
-                    success_url="{{Input::get('base_grant_url').'?continue_url='.$link.'&duration='. session('session_time') }}">
+                    success_url="{{Input::get('base_grant_url').'?continue_url='.$banner_link.'&duration='. session('session_time') }}">
                 Navegar en internet
             </button>
         </div>
