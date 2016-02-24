@@ -27,19 +27,19 @@ class CampaignsController extends Controller
      */
     public function show($user_id)
     {
-        $link='';
+        $link = '';
         $user = User::find($user_id);
         if ($user) {
             $campaigns = new CampaignSelector($user_id);
             /**    valida que el user_continue_url tenga algo   **/
             if (Input::has('user_continue_url') | Input::get('user_continue_url') != '') {
 //                echo 'entro a diferente';
-                if(Input::get('user_continue_url') == "''"){
+                if (Input::get('user_continue_url') == "''") {
                     $link['link'] = 'http://www.google.com';
-                }else{
+                } else {
                     $link['link'] = Input::get('user_continue_url');
                 }
-            } else if(Input::get('user_continue_url') == '' ) {
+            } else if (Input::get('user_continue_url') == '') {
                 /**    saco el link de la branch buscando la branch con la mac del ap  **/
 //                echo 'entro a vacio';
                 $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
@@ -77,7 +77,10 @@ class CampaignsController extends Controller
                 $campaignType = "Portal\\Libraries\\Interactions\\" . studly_case($campaignSelected->interaction['name']);
                 $interaction = new $campaignType($campaignSelected);
 
-                session(['campaign_id' => $campaignSelected->_id]);
+                session([
+                    'campaign_id' => $campaignSelected->_id,
+                    'user_id' => $user->_id,
+                ]);
 
                 /*$this->dispatch(new RequestedLogJob([
                     'session' => session('_token'),

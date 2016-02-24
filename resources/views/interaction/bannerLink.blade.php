@@ -7,9 +7,9 @@
 @section('content')
     <div>
         {{--<img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">--}}
-        <img  id="banner" class="img-responsive center-block"
-              src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}"
-              alt="Banner"/>
+        <img id="banner" class="img-responsive center-block"
+             src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}"
+             alt="Banner"/>
     </div>
 
     <div class="banner-button">
@@ -42,13 +42,11 @@
                     client_mac: "{!! Input::get('client_mac') !!}"
                 };
 
-                myLog.completed(completedJson, function()
-                {
+                myLog.completed(completedJson, function () {
                     //on completed saved
                     myLog.redirectOut(btn.attr('success_url'));
 
-                }, function()
-                {
+                }, function () {
                     //fail completed save
                 });
 
