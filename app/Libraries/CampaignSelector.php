@@ -83,6 +83,8 @@ class CampaignSelector
                         '$ne' => 'mailing_list'
                     ]
                 ]);
+            } else {
+                $q->whereNotIn('mailing_list', [$user->facebook->email]);
             }
         })
             ->whereNotIn('_id', $unique)
