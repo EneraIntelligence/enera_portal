@@ -31,6 +31,6 @@ class BannerLink extends Enera
 
     public function getLink()
     {
-        return $this->campaign->content['link'];
+        return $this->campaign->content['banner_link'];
     }
 }
