@@ -37,8 +37,8 @@ class SendFirstMailJob extends Job implements SelfHandling, ShouldQueue
         $user = $this->user;
         $camp = $this->campaign;
         Mail::send('mail.generic', ['content' => $camp->content['mail']['content']], function ($mail) use ($user, $camp) {
-            $mail->from($camp->content['from_mail'], $camp->content['from_name']);
-            $mail->to($user->facebook->email, $user->facebook->first_name)->subject();
+            $mail->from($camp->content['mail']['from_mail'], $camp->content['mail']['from_name']);
+            $mail->to($user->facebook->email, $user->facebook->first_name)->subject($camp->content['mail']['subject']);
         });
     }
 }
