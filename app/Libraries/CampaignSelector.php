@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use DateTime;
 use Input;
 use Portal\AccessPoint;
+use Portal\Branche;
 use Portal\User;
 use Portal\Campaign;
 use Portal\CampaignLog;
@@ -41,7 +42,7 @@ class CampaignSelector
         // TODO aqui la consulta para obtener la(s) campaña(s) adecuada(s) al usuario
         $unique = $this->unique();
         $unique_per_day = $this->unique_user_day();
-        $branch = $this->aps();
+        $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
         $max = $this->max();
         $video = $this->video();
         $user = $this->user;
@@ -88,7 +89,13 @@ class CampaignSelector
             ->whereNotIn('_id', $unique_per_day)
             ->whereNotIn('_id', $max)
             ->whereNotIn('_id', $video)
-            ->whereIn('_id', $branch)
+            ->where(function ($q) use ($branch) {
+                if ($branch->filters['external_ads']) {
+                    $q->whereIn('branches', [$branch->_id])->orWhere('branches', 'all');
+                } else {
+                    $q->whereIn('branches', [$branch->_id]);
+                }
+            })
             ->where('status', 'active')
             ->orderBy('balance.current', 'desc')
             ->get();
@@ -98,8 +105,8 @@ class CampaignSelector
 
     }
 
-    private function unique(){
-
+    private function unique()
+    {
         $unique_user = Campaign::where('filters.unique_user', 'true')
             ->where('status', 'active')->lists('_id');
 
@@ -112,7 +119,8 @@ class CampaignSelector
     }
 
 //    Filtra las campañas donde el usuario ya participo y la campaña es de usuario unico
-    private function unique_user_day(){
+    private function unique_user_day()
+    {
 
         $today = date('Y-m-d');
         $unique_user = Campaign::where('filters.unique_user', 'true')
@@ -124,10 +132,11 @@ class CampaignSelector
         return $campaings_log;
     }
 
-    private function max(){
+    private function max()
+    {
 
         $today = date('Y-m-d');
-        $max_unique = Campaign::where('filters.max_interactions', 'true')
+        $max_unique = Campaign::where('filters.max_interactions', true)
             ->where('status', 'active')->lists('_id');
 
         //echo $max_unique. '<br>';
@@ -146,7 +155,8 @@ class CampaignSelector
     }
 
 //    Obtiene los branch_id asociados al AP actual
-    private function aps(){
+    private function aps()
+    {
         $branches = AccessPoint::where('mac', Input::get('node_mac'))->lists('branch_id');
 
         $filter = [];
@@ -160,9 +170,9 @@ class CampaignSelector
 
     }
 
-    private function video(){
-        if(session('device_os') == 'Iphone')
-        {
+    private function video()
+    {
+        if (session('device_os') == 'Iphone') {
             $videos = Campaign::where('interaction.name', "video")->lists('_id');
         } else {
             $videos = [];
