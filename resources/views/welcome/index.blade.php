@@ -300,7 +300,7 @@
             };
 
             $.ajax({
-                url: "{!! route("interaction::welcome_loaded") !!}",
+                url: "{!! route("interaction::logs::welcome_loaded") !!}",
                 type: 'POST',
                 dataType: 'JSON',
                 data: loadedJson
