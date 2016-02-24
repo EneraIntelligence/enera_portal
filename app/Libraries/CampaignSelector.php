@@ -91,7 +91,7 @@ class CampaignSelector
             ->whereNotIn('_id', $video)
             ->where(function ($q) use ($branch) {
                 if ($branch->filters['external_ads']) {
-                    $q->whereIn('branches', [$branch->_id])->orWhere('branches', 'all');
+                    $q->whereIn('branches', [$branch->_id, 'all']);
                 } else {
                     $q->whereIn('branches', [$branch->_id]);
                 }
@@ -136,7 +136,7 @@ class CampaignSelector
     {
 
         $today = date('Y-m-d');
-        $max_unique = Campaign::where('filters.max_interactions', true)
+        $max_unique = Campaign::where('filters.max_interactions', 'true')
             ->where('status', 'active')->lists('_id');
 
         //echo $max_unique. '<br>';
