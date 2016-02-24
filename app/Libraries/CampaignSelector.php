@@ -91,7 +91,7 @@ class CampaignSelector
             ->whereNotIn('_id', $video)
             ->where(function ($q) use ($branch) {
                 if ($branch->filters['external_ads']) {
-                    $q->whereIn('branches', [$branch->_id])->orWhere('branches', 'all');
+                    $q->whereIn('branches', [$branch->_id, 'all']);
                 } else {
                     $q->whereIn('branches', [$branch->_id]);
                 }
