@@ -292,6 +292,27 @@
         $(document).ready(function () {
             var myLog = new logs();
 
+            //welcome loaded
+            var loadedJson = {
+                _token: "{!! session('_token') !!}",
+                client_mac: "{!! $client_mac !!}"
+            };
+
+            $.ajax({
+                url: "{!! route("interaction::logs::welcome_loaded") !!}",
+                type: 'POST',
+                dataType: 'JSON',
+                data: loadedJson
+            }).done(function (data) {
+                console.log("success");
+                console.log(data);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            });
+
+
             $("#fb-btn").click(function () {
                 console.log('click en el boton');
                 myLog.joined({

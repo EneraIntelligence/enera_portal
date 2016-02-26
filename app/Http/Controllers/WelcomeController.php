@@ -314,6 +314,46 @@ class WelcomeController extends Controller
         ]);
     }
 
+    public function welcome_loaded()
+    {
+        if (Input::has('client_mac')) {
+            $client_mac = Input::get('client_mac');
+            $log = CampaignLog::where('user.session', session('_token'))
+                ->where('device.mac', $client_mac)->first();
+
+            if ($log && isset($log->interaction->welcome) && !isset($log->interaction->welcome_loaded)) {
+                $log->interaction->welcome_loaded = new MongoDate();
+                $log->interaction->save();
+
+                $response = [
+                    'ok' => true,
+                    'msg' => '',
+                ];
+            } elseif ($log && !isset($log->interaction->welcome)) {
+                $response = [
+                    'ok' => false,
+                    'msg' => 'El campo "interaction.welcome" no existe',
+                ];
+            } elseif ($log && isset($log->interaction->welcome_loaded)) {
+                $response = [
+                    'ok' => false,
+                    'msg' => 'El campo "interaction.welcome_loaded" ya fue creado',
+                ];
+            } else {
+                $response = [
+                    'ok' => false,
+                    'msg' => 'No existe un log para esta sesion.',
+                ];
+            }
+        } else {
+            $response = [
+                'ok' => false,
+                'msg' => 'Falta al MAC Address del cliente/dispositivo',
+            ];
+        }
+        return response()->json($response);
+    }
+
 
     /**
      * Muestra la pantalla de red invalida
