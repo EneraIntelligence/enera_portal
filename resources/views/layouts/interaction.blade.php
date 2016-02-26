@@ -37,6 +37,7 @@
 </div>
 {!! HTML::script('js/ajax/logs.js') !!}
 {!! HTML::script('js/resize.js') !!}
+{!! HTML::script('js/resize-mailing.js') !!}
 @yield('footer_scripts')
 </body>
 </html>
