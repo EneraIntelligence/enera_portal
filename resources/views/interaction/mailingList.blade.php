@@ -32,7 +32,7 @@
         <div id="subscribe" class="col-md-12  col-xs-12 e-content" style="cursor: pointer; margin: 0 0 15px 0"
              success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration='. session('session_time') }}">
             <div class="col-md-9 col-xs-9 button-text">
-                <p style="margin: 0; font-size: 135%;">ME INTERESA</p>
+                <p style="margin: 0; font-size: 145%;">ME INTERESA</p>
             </div>
             <div class="col-md-3  col-xs-3 button-icon">
                 <div class="borderLeft">
