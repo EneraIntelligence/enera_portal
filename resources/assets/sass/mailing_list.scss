@@ -6,17 +6,24 @@
   left: 3%;
 }
 
-#subscribe
-{
-  height:70px;
-  font-size: 30px;
-  margin-bottom: 10px;
+.e-content {
+  background-color: #009bee;
+  border-radius: 5px;
+  padding: 8px 0;
 }
 
-#navegar
-{
-  p
-  {
-    font-size: 17px;
-  }
+.button-text {
+  vertical-align: middle;
+  text-align: center;
+  color: white;
+  position: relative;
+  transform: translateY(50%);
+}
+
+.button-icon {
+  vertical-align: middle;
+  text-align: center;
+  color: white;
+  position: relative;
+  border-left: solid #3bb1f1 1px;
 }
