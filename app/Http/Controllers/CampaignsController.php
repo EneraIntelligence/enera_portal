@@ -16,6 +16,7 @@ use Portal\Jobs\RequestedLogJob;
 use Portal\Jobs\SendFirstMailJob;
 use Portal\Libraries\CampaignSelector;
 use Portal\User;
+use Session;
 
 class CampaignsController extends Controller
 {
@@ -136,20 +137,24 @@ class CampaignsController extends Controller
      */
     public function saveMail()
     {
-        $camp = Campaign::find(session('campaign_id'));
-        $user = User::find(session('user_id'));
+        if(Session::has('campaign_id') && Session::has('user_id'))
+        {
 
-        if($camp==null || $user==null)
+
+            $camp = Campaign::find(session('campaign_id'));
+            $user = User::find(session('user_id'));
+
+            $camp->push('mailing_list', session('user_email'), true);
+
+            $this->dispatch(new SendFirstMailJob($camp, $user));
+            $response = ['ok' => true];
+            return $response;
+        }
+        else
         {
             $response = ['ok' => false];
             return $response;
         }
-
-        $camp->push('mailing_list', session('user_email'), true);
-
-        $this->dispatch(new SendFirstMailJob($camp, $user));
-        $response = ['ok' => true];
-        return $response;
     }
 
     /**
