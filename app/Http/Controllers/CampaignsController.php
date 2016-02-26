@@ -139,6 +139,12 @@ class CampaignsController extends Controller
         $camp = Campaign::find(session('campaign_id'));
         $user = User::find(session('user_id'));
 
+        if($camp==null || $user==null)
+        {
+            $response = ['ok' => false];
+            return $response;
+        }
+
         $camp->push('mailing_list', session('user_email'), true);
 
         $this->dispatch(new SendFirstMailJob($camp, $user));
