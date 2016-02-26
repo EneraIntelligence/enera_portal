@@ -5,27 +5,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style>
-        .e-content {
-            background-color: #009bee;
-            border-radius: 5px;
-            padding: 8px 0;
-        }
 
-        .button-text {
-            vertical-align: middle;
-            text-align: center;
-            color: white;
-            position: relative;
-            transform: translateY(50%);
-        }
-
-        .button-icon {
-            vertical-align: middle;
-            text-align: center;
-            color: white;
-            position: relative;
-            border-left: solid #3bb1f1 1px;
-        }
     </style>
 @stop
 
