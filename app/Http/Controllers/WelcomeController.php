@@ -104,7 +104,7 @@ class WelcomeController extends Controller
                         'user_continue_url' => Input::get('user_continue_url'),
                     ]);
 
-                    $client_mac = Input::get('node_mac');
+                    $client_mac = Input::get('client_mac');
 
                     return view('welcome.index', [
                         'image' => $branche->portal['image'],
