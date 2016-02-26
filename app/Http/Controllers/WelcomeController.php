@@ -104,11 +104,14 @@ class WelcomeController extends Controller
                         'user_continue_url' => Input::get('user_continue_url'),
                     ]);
 
+                    $client_mac = Input::get('node_mac');
+
                     return view('welcome.index', [
                         'image' => $branche->portal['image'],
                         'message' => $branche->portal['message'],
                         'spinner_color' => $branche->portal['spinner_color'],
                         'login_response' => $this->fbUtils->makeLoginUrl($url),
+                        'client_mac' => $client_mac,
                     ]);
 
                 } elseif ($user->count() == 1) {
