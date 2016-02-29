@@ -137,24 +137,34 @@ class CampaignsController extends Controller
      */
     public function saveMail()
     {
-        if(Session::has('campaign_id') && Session::has('user_id'))
-        {
-
+        if (Session::has('campaign_id') && Session::has('user_id')) {
 
             $camp = Campaign::find(session('campaign_id'));
             $user = User::find(session('user_id'));
 
-            $camp->push('mailing_list', session('user_email'), true);
+            if ($user && $camp) {
+                $camp->push('mailing_list', session('user_email'), true);
 
-            $this->dispatch(new SendFirstMailJob($camp, $user));
-            $response = ['ok' => true];
-            return $response;
-        }
-        else
-        {
+                /*$this->dispatch(new SendFirstMailJob($camp, $user));*/
+                //
+                Mail::send('mail.generic', ['content' => $camp->content['mail']['content']], function ($mail) use ($user, $camp) {
+                    $mail->from($camp->content['mail']['from_mail'], $camp->content['mail']['from_name']);
+                    $mail->to($user->facebook->email, $user->facebook->first_name)->subject($camp->content['mail']['subject']);
+                });
+                //
+                $response = ['ok' => true];
+            } else {
+                $response = [
+                    'ok' => false,
+                    'msg' => 'usuario y/o campaña no encontrados'
+                ];
+            }
+
+        } else {
             $response = ['ok' => false];
-            return $response;
         }
+
+        return $response;
     }
 
     /**
