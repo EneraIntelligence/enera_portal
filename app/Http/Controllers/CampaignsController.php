@@ -154,10 +154,7 @@ class CampaignsController extends Controller
                 //
                 $response = ['ok' => true];
             } else {
-                $response = [
-                    'ok' => false,
-                    'msg' => 'usuario y/o campaña no encontrados'
-                ];
+                $response = ['ok' => false];
             }
 
         } else {
