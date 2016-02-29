@@ -20,6 +20,12 @@ use Portal\Http\Controllers\Controller;
 use Portal\Libraries\FacebookUtils;
 use Portal\User;
 use Validator;
+use Session;
+
+//adapters
+use Portal\Libraries\APAdapters\OpenMeshAdapter;
+use Portal\Libraries\APAdapters\MerakiAdapter;
+use Portal\Libraries\APAdapters\DefaultAdapter;
 
 class WelcomeController extends Controller
 {
@@ -37,26 +43,35 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        /*
-        $apBrand = $this->detectApBrand(Input::all());
-        $params = $this->getParams(Input::all(),$apBrand);
-        */
+
+        //dd(Input::all());
+
+        $inputAdapter = $this->detectAPAdapter(Input::all());
+
+        $input = $inputAdapter->processInput(Input::all());
 
         // valida que los parámetros estén presentes
-        $validate = Validator::make(Input::all(), [
+        $validate = Validator::make($input, [
             'base_grant_url' => 'required',
             'user_continue_url' => 'required',
             'node_mac' => 'required',
             'client_mac' => 'required'
         ]);
         if ($validate->passes()) {
-            $branche = Branche::whereIn('aps', [Input::get('node_mac')])->first();
+
+            $node_mac = $input['node_mac'];
+            $client_mac = $input['client_mac'];
+            $base_grant_url = $input['base_grant_url'];
+            $user_continue_url = $input['user_continue_url'];
+
+
+            $branche = Branche::whereIn('aps', [$node_mac])->first();
             // Si el AP fue dado de alta y asignado a una Branche
             if ($branche) {
                 $agent = new Agent();
                 // welcome
                 $log = CampaignLog::where('user.session', session('_token'))
-                    ->where('device.mac', Input::get('client_mac'))->first();
+                    ->where('device.mac', $client_mac)->first();
 
                 // Paso 1: Welcome log
                 if (!$log) {
@@ -65,10 +80,10 @@ class WelcomeController extends Controller
                             'session' => session('_token')
                         ],
                         'device' => [
-                            'mac' => Input::get('client_mac'),
-                            'node_mac' => Input::get('node_mac'),
+                            'mac' => $client_mac,
+                            'node_mac' => $node_mac,
                             'os' => $agent->platform(),
-                            'branch_id' => Branche::whereIn('aps', [Input::get('node_mac')])->first()->_id,
+                            'branch_id' => Branche::whereIn('aps', [$node_mac])->first()->_id,
                         ]
                     ]);
                     $new_log->interaction()->create([
@@ -77,10 +92,16 @@ class WelcomeController extends Controller
                 }
                 $this->dispatch(new WelcomeLogJob([
                     'session' => session('_token'),
-                    'client_mac' => Input::get('client_mac'),
-                    'node_mac' => Input::get('node_mac'),
+                    'client_mac' => $client_mac,
+                    'node_mac' => $node_mac,
                     'os' => $agent->platform(),
                 ]));
+
+                $url_vars = [
+                    "duration" => $branche->portal['session_time'] * 60,
+                    "continue_url" => $user_continue_url
+                ];
+                $base_grant_url = $inputAdapter->addVars($base_grant_url, $url_vars);
 
                 session([
                     'main_bg' => $branche->portal['background'],
@@ -89,22 +110,20 @@ class WelcomeController extends Controller
                 ]);
 
                 $user = User::where('facebook.id', 'exists', true)
-                    ->where(function ($q) {
-                        $q->where('devices.mac', Input::get('client_mac'))
+                    ->where(function ($q) use ($client_mac) {
+                        $q->where('devices.mac', $client_mac)
                             ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
                     })
                     ->get();
 
                 if ($user->count() < 1 || $user->count() > 1) {
                     $url = route('welcome::response', [
-                        'node_mac' => Input::get('node_mac'),
-                        'client_ip' => Input::get('client_ip'),
-                        'client_mac' => Input::get('client_mac'),
-                        'base_grant_url' => Input::get('base_grant_url'),
-                        'user_continue_url' => Input::get('user_continue_url'),
+                        'node_mac' => $node_mac,
+                        //'client_ip' => Input::get('client_ip'),
+                        'client_mac' => $client_mac,
+                        'base_grant_url' => $base_grant_url,
+                        'user_continue_url' => $user_continue_url
                     ]);
-
-                    $client_mac = Input::get('client_mac');
 
                     return view('welcome.index', [
                         'image' => $branche->portal['image'],
@@ -124,55 +143,16 @@ class WelcomeController extends Controller
 
                     return redirect()->route('campaign::show', [
                         'id' => $user[0]->_id,
-                        'node_mac' => Input::get('node_mac'),
-                        'client_ip' => Input::get('client_ip'),
-                        'client_mac' => Input::get('client_mac'),
-                        'base_grant_url' => Input::get('base_grant_url'),
-                        'user_continue_url' => Input::get('user_continue_url'),
+                        'node_mac' => $node_mac,
+                        //'client_ip' => Input::get('client_ip'),
+                        'client_mac' => $client_mac,
+                        'base_grant_url' => $base_grant_url,
+                        'user_continue_url' => $user_continue_url
                     ]);
                 }
             }
         }
 
-
-        $openMeshValidator = Validator::make(Input::all(), [
-            'res' => 'required',
-            'uamip' => 'required',
-            'uamport' => 'required',
-            'mac' => 'required',
-            'called' => 'required',
-            'ssid' => 'required',
-            'userurl' => 'required',
-            'challenge' => 'required',
-        ]);
-
-        if ($openMeshValidator->passes())
-        {
-            //connected via openmesh
-            $uam_secret = "3n3r41nt3ll1g3nc3";
-
-            $username="test";
-            $password = "test";
-            $uamip = Input::get('uamip');
-            $uamport = Input::get('uamport');
-            $challenge = Input::get('challenge');
-
-            $encoded_password = $this->encode_password($password, $challenge, $uam_secret);
-
-            $redirect_url = "http://$uamip:$uamport/logon?" .
-                "username=" . urlencode($username) .
-                "&password=" . urlencode($encoded_password);
-
-            //$redirect_url .= "&redir=" . urlencode( Input::get('userurl') );
-
-
-            return view('welcome.openmesh', [
-                'res' => Input::get('res'),
-                'redirect_url' => $redirect_url
-            ]);
-
-
-        }
 
         //Bugsnag::notifyError("Error red invalida", "Falta algún parametro en la url o el node_mac es incorrecto");
 
@@ -180,6 +160,19 @@ class WelcomeController extends Controller
         return view('welcome.invalid', [
             'main_bg' => 'bg_welcome.jpg'
         ]);
+    }
+
+    public function detectAPAdapter($input)
+    {
+
+        if (isset($input['res'])) {
+            return new OpenMeshAdapter();
+        } else if (isset($input['base_grant_url'])) {
+            return new MerakiAdapter();
+        }
+
+        return new DefaultAdapter();
+
     }
 
     public function openMeshAuth()
@@ -212,6 +205,15 @@ class WelcomeController extends Controller
         if (array_key_exists('mac', $_GET))
             $mac = $_GET['mac'];
 
+        $duration = 900;
+        if (array_key_exists('duration', $_GET))
+            $duration = $_GET['duration'];
+
+        if( Session::has('session_time') )
+        {
+            $duration = session('session_time');
+        }
+
         /* decode request */
         if (array_key_exists('type', $_GET)) {
             $type = $_GET['type'];
@@ -222,7 +224,7 @@ class WelcomeController extends Controller
                     if ($password == 'test' && $_GET['username'] == 'test') {
                         unset($response['BLOCKED_MSG']);
                         $response['CODE'] = "ACCEPT";
-                        $response['SECONDS'] = 900;
+                        $response['SECONDS'] = $duration;
                         $response['DOWNLOAD'] = 2000;
                         $response['UPLOAD'] = 800;
                     } else {
@@ -237,10 +239,7 @@ class WelcomeController extends Controller
         $this->calculate_new_ra($response, $secret);
         $this->print_dictionary($response);
 
-        //echo ":)";
     }
-
-
 
     /**
      * Obtiene la respuesta desde Facebook
@@ -442,39 +441,6 @@ class WelcomeController extends Controller
         }
 
         return $password;
-    }
-
-    /*
-     * encodes the challenge with the secret for open-mesh login
-     */
-    private function encode_password($plain, $challenge, $secret) {
-        if ((strlen($challenge) % 2) != 0 ||
-            strlen($challenge) == 0)
-            return FALSE;
-
-        $hexchall = hex2bin($challenge);
-        if ($hexchall === FALSE)
-            return FALSE;
-
-        if (strlen($secret) > 0) {
-            $crypt_secret = md5($hexchall . $secret, TRUE);
-            $len_secret = 16;
-        } else {
-            $crypt_secret = $hexchall;
-            $len_secret = strlen($hexchall);
-        }
-
-        /* simulate C style \0 terminated string */
-        $plain .= "\x00";
-        $crypted = '';
-        for ($i = 0; $i < strlen($plain); $i++)
-            $crypted .= $plain[$i] ^ $crypt_secret[$i % $len_secret];
-
-        $extra_bytes = 0;//rand(0, 16);
-        for ($i = 0; $i < $extra_bytes; $i++)
-            $crypted .= chr(rand(0, 255));
-
-        return bin2hex($crypted);
     }
 
 }

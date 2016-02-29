@@ -35,7 +35,6 @@ Route::group(['as' => 'interaction::'], function () {
     /* Logs */
     Route::group(['as' => 'logs::', 'middleware' => 'ajax', 'prefix' => 'interaction'], function () {
         Route::group(['prefix' => 'logs'], function () {
-            // Route::match(['get', 'post'], 'welcome', ['as' => 'welcome', 'uses' => 'InteractionsController@welcome']);
             Route::match(['get', 'post'], 'welcome_loaded', ['as' => 'welcome_loaded', 'uses' => 'WelcomeController@welcome_loaded']);
             Route::match(['get', 'post'], 'joined', ['as' => 'joined', 'uses' => 'InteractionsController@joined']);
             // Route::match(['get', 'post'], 'requested', ['as' => 'requested', 'uses' => 'InteractionsController@requested']);

@@ -30,7 +30,7 @@
         {{--</button>--}}
 
         <div id="subscribe" class="col-md-12  col-xs-12 e-content" style="cursor: pointer; margin: 0 0 15px 0"
-             success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration='. session('session_time') }}">
+             success_url="{{Input::get('base_grant_url') }}">
             <div class="col-md-9 col-xs-9 button-text">
                 <p style="margin: 0; font-size: 145%;">ME INTERESA</p>
             </div>
@@ -46,8 +46,8 @@
         <!-- navigate button -->
         <div style="margin: 10px 0;">
             <a id="navegar" href="#"
-               success_url="{{Input::get('base_grant_url').'?continue_url='.Input::get('user_continue_url').'&duration='. session('session_time') }}">
-                <p class="text-center" style="color:white; text-shadow: 2px 2px 6px #000000;">Deseo navegar en internet sin suscribirme </p>
+               success_url="{{Input::get('base_grant_url') }}">
+                <p class="text-center" style="color:white; text-shadow: 2px 2px 6px #000000;">Deseo navegar en internet sin suscribirme</p>
             </a>
         </div>
     </div>
