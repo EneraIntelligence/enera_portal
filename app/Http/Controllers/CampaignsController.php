@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Input;
 use Jenssegers\Agent\Agent;
+use Mail;
 use MongoDate;
 use Portal\Branche;
 use Portal\Campaign;
