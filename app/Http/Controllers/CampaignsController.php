@@ -45,7 +45,7 @@ class CampaignsController extends Controller
                 } else {
                     $link['link'] = Input::get('user_continue_url');
                 }
-            } else if (Input::get('user_continue_url') == '') {
+            } else {
                 /**    saco el link de la branch buscando la branch con la mac del ap  **/
 //                echo 'entro a vacio';
                 $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
