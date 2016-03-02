@@ -112,7 +112,7 @@ class CampaignSelector
             ->where('status', 'active')->lists('_id');
 
         $filter = CampaignLog::whereIn('campaign_id', $unique_user)
-            ->where('user.id', $this->user)
+            ->where('user.id', $this->user->id)
             ->where('interaction.completed', 'exists', true)
             ->lists('campaign_id');
 
