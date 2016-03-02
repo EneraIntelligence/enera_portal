@@ -19,6 +19,7 @@ use Portal\Jobs\WelcomeLogJob;
 use Portal\Http\Controllers\Controller;
 use Portal\Libraries\FacebookUtils;
 use Portal\User;
+use Session;
 use Validator;
 
 class WelcomeController extends Controller
@@ -30,6 +31,16 @@ class WelcomeController extends Controller
         $this->fbUtils = new FacebookUtils();
     }
 
+    private function checkSession()
+    {
+        $logs = CampaignLog::where('user.session', session('_token'))
+            ->where('interaccion.requested', 'exists', true)->count();
+        if($logs > 0){
+            Session::flush();
+            Session::regenerate();
+        }
+    }
+
     /**
      * Muestra la pantalla de bievenida a la red
      *
@@ -37,6 +48,9 @@ class WelcomeController extends Controller
      */
     public function index()
     {
+        // clear session
+        $this->checkSession();
+
         /*
         $apBrand = $this->detectApBrand(Input::all());
         $params = $this->getParams(Input::all(),$apBrand);
@@ -146,12 +160,11 @@ class WelcomeController extends Controller
             'challenge' => 'required',
         ]);
 
-        if ($openMeshValidator->passes())
-        {
+        if ($openMeshValidator->passes()) {
             //connected via openmesh
             $uam_secret = "3n3r41nt3ll1g3nc3";
 
-            $username="test";
+            $username = "test";
             $password = "test";
             $uamip = Input::get('uamip');
             $uamport = Input::get('uamport');
@@ -239,7 +252,6 @@ class WelcomeController extends Controller
 
         //echo ":)";
     }
-
 
 
     /**
@@ -380,6 +392,7 @@ class WelcomeController extends Controller
             echo '"', rawurlencode($key), '" "', rawurlencode($value), "\"\n";
         }
     }
+
     /**
      * calculate_new_ra - calculate new request authenticator based on old ra, code
      *  and secret
@@ -447,9 +460,11 @@ class WelcomeController extends Controller
     /*
      * encodes the challenge with the secret for open-mesh login
      */
-    private function encode_password($plain, $challenge, $secret) {
+    private function encode_password($plain, $challenge, $secret)
+    {
         if ((strlen($challenge) % 2) != 0 ||
-            strlen($challenge) == 0)
+            strlen($challenge) == 0
+        )
             return FALSE;
 
         $hexchall = hex2bin($challenge);

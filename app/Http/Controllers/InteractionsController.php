@@ -10,6 +10,7 @@ use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 use Portal\CampaignLog;
 use Portal\Jobs\EmailEndJob;
+use Session;
 use Validator;
 use Portal\Interaction;
 
@@ -139,6 +140,8 @@ class InteractionsController extends Controller
 
             $this->accessed();
 
+            Session::flush();
+            Session::regenerate();
 
         } else {
             $response = [
