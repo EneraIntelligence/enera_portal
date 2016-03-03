@@ -15,7 +15,7 @@
             <img id="banner" class="img-responsive center-block"
                  src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['survey'] !!}"
                  alt="Banner"/>
-            <h4 style="color:white; font-family: 'Open Sans', sans-serif;">Para Obtener acceso a internet, contesta la siguiente encuesta...</h4>
+            <h4 class="text-center" style="color:white; font-family: 'Open Sans', sans-serif;">Para Obtener acceso a internet, contesta la siguiente encuesta...</h4>
         </div>
 
         <div class="questionContainer" style="padding:5%;">
