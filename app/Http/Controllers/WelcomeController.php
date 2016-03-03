@@ -68,6 +68,9 @@ class WelcomeController extends Controller
             $branche = Branche::whereIn('aps', [$node_mac])->first();
             // Si el AP fue dado de alta y asignado a una Branche
             if ($branche) {
+
+                $user_continue_url = $inputAdapter->validateUserContinueURL($user_continue_url,$branche->portal['default_link']);
+
                 $agent = new Agent();
                 // welcome
                 $log = CampaignLog::where('user.session', session('_token'))

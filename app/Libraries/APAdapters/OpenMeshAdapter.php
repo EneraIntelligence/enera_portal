@@ -188,4 +188,8 @@ class OpenMeshAdapter implements IAdapter
         return bin2hex($crypted);
     }
 
+    public function validateUserContinueURL($url, $defaultURL)
+    {
+        return url;
+    }
 }

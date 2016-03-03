@@ -34,4 +34,9 @@ class DefaultAdapter implements IAdapter
         }
         return $url;
     }
+
+    public function validateUserContinueURL($url, $defaultURL)
+    {
+        return "";
+    }
 }
