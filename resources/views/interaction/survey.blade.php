@@ -16,6 +16,10 @@
                  alt="Banner"/>
         </div>
 
+        <h1>
+            {{Input::get('base_grant_url') }}
+        </h1>
+
         <div class="questionContainer" style="padding:5%;">
             @foreach($survey as $qk => $qv)
 
