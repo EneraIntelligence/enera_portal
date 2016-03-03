@@ -50,6 +50,8 @@ class WelcomeController extends Controller
 
         $input = $inputAdapter->processInput(Input::all());
 
+        dd(Input::all());
+
         // valida que los parámetros estén presentes
         $validate = Validator::make($input, [
             'base_grant_url' => 'required',
