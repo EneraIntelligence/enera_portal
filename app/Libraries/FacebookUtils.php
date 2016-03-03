@@ -3,6 +3,7 @@
 namespace Portal\Libraries;
 
 use Facebook;
+use Mockery\CountValidator\Exception;
 use Session;
 
 class FacebookUtils
@@ -15,9 +16,10 @@ class FacebookUtils
     public function __construct()
     {
         if (!$this->fb) {
+            /*
             if (!isset($_SESSION)) {
                 session_start();
-            }
+            }*/
             $this->fb = new Facebook\Facebook([
                 'app_id' => env('FACEBOOK_CLIENT_ID'),
                 'app_secret' => env('FACEBOOK_CLIENT_SECRET'),
