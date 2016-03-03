@@ -10,6 +10,7 @@ use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 use Portal\CampaignLog;
 use Portal\Jobs\EmailEndJob;
+use Session;
 use Validator;
 use Portal\Interaction;
 
@@ -130,7 +131,7 @@ class InteractionsController extends Controller
             $log->cost->save();
             $log->interaction->save();
 
-            if ($balanceAfter - $interactionTotal <= 0) {
+            if ( $balanceAfter < $interactionTotal ) {
                 //campaign out of funds
                 $this->endCampaign($campaignDecremented);
             }
@@ -139,6 +140,8 @@ class InteractionsController extends Controller
 
             $this->accessed();
 
+            Session::flush();
+            Session::regenerate();
 
         } else {
             $response = [

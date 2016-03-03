@@ -36,6 +36,16 @@ class WelcomeController extends Controller
         $this->fbUtils = new FacebookUtils();
     }
 
+    private function checkSession()
+    {
+        $logs = CampaignLog::where('user.session', session('_token'))
+            ->where('interaccion.requested', 'exists', true)->count();
+        if($logs > 0){
+            Session::flush();
+            Session::regenerate();
+        }
+    }
+
     /**
      * Muestra la pantalla de bievenida a la red
      *
@@ -44,11 +54,12 @@ class WelcomeController extends Controller
     public function index()
     {
 
-        //dd(Input::all());
+        // clear session
+        $this->checkSession();
 
         $inputAdapter = $this->detectAPAdapter(Input::all());
-
         $input = $inputAdapter->processInput(Input::all());
+
 
         // valida que los parámetros estén presentes
         $validate = Validator::make($input, [
@@ -382,6 +393,7 @@ class WelcomeController extends Controller
             echo '"', rawurlencode($key), '" "', rawurlencode($value), "\"\n";
         }
     }
+
     /**
      * calculate_new_ra - calculate new request authenticator based on old ra, code
      *  and secret

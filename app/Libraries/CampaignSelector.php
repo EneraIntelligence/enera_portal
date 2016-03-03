@@ -108,12 +108,12 @@ class CampaignSelector
 
     private function unique()
     {
-        $unique_user = Campaign::where('filters.unique_user', 'true')
+        $unique_user = Campaign::where('filters.unique_user', true)
             ->where('status', 'active')->lists('_id');
 
         $filter = CampaignLog::whereIn('campaign_id', $unique_user)
-            ->where('device.mac', Input::get('client_mac'))
-            ->whereNotNull('interaction.completed')
+            ->where('user.id', $this->user->id)
+            ->where('interaction.completed', 'exists', true)
             ->lists('campaign_id');
 
         return $filter;
@@ -124,7 +124,7 @@ class CampaignSelector
     {
 
         $today = date('Y-m-d');
-        $unique_user = Campaign::where('filters.unique_user', 'true')
+        $unique_user = Campaign::where('filters.unique_user', true)
             ->where('status', 'active')->lists('_id');
 
         $campaings_log = CampaignLog::whereIn('campaign_id', $unique_user)->where('device.mac', Input::get('client_mac'))

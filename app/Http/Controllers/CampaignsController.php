@@ -31,7 +31,11 @@ class CampaignsController extends Controller
     {
         $link = '';
         $user = User::find($user_id);
-        if ($user) {
+        $log = CampaignLog::where('user.session', session('_token'))
+            ->where('interaction.welcome', 'exists', true)
+            ->where('interaction.accessed', 'exists', false)->count();
+
+        if ($user && $log == 1) {
             $campaigns = new CampaignSelector($user_id);
             /**    valida que el user_continue_url tenga algo   **/
             if (Input::has('user_continue_url') | Input::get('user_continue_url') != '') {
@@ -41,7 +45,7 @@ class CampaignsController extends Controller
                 } else {
                     $link['link'] = Input::get('user_continue_url');
                 }
-            } else if (Input::get('user_continue_url') == '') {
+            } else {
                 /**    saco el link de la branch buscando la branch con la mac del ap  **/
 //                echo 'entro a vacio';
                 $branch = Branche::whereIn('aps', [Input::get('node_mac')])->first();
@@ -84,12 +88,6 @@ class CampaignsController extends Controller
                     'user_id' => $user->_id,
                 ]);
 
-                /*$this->dispatch(new RequestedLogJob([
-                    'session' => session('_token'),
-                    'client_mac' => Input::get('client_mac'),
-                    'campaign_id' => $campaignSelected->_id,
-                    'user_id' => $user_id
-                ]));*/
                 $this->requested([
                     'session' => session('_token'),
                     'client_mac' => Input::get('client_mac'),
@@ -100,7 +98,7 @@ class CampaignsController extends Controller
                 return view($interaction->getView(), $link, array_merge(['_id' => $campaignSelected->_id], $interaction->getData()));
             }
         } else {
-            return redirect()->route('welcome');
+            return redirect()->route('welcome', Input::all());
         }
     }
 
