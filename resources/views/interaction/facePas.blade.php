@@ -14,7 +14,7 @@
         myLog.accessed(accessedJson, function () {
             //on accessed saved
             //myLog.redirectOut(btn.attr('success_url'));
-            window.location.href = "{{Input::get('base_grant_url').'?continue_url='.$link.'&duration='.session('session_time')}}"
+            window.location.href = "{{Input::get('base_grant_url')}}"
         }, function () {
             //fail accessed save
         });
