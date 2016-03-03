@@ -4,6 +4,7 @@
 
 @section('head_scripts')
     {!! HTML::style(asset('css/survey.css')) !!}
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 @stop
 
 @section('content')
@@ -22,14 +23,14 @@
                 <div class="question">
 
                     {{--question--}}
-                    <h4 id="{!! $qk !!}" style="padding: 5px 0px;">
+                    <h3 id="{!! $qk !!}" class="text-center questionText" >
                         {{ $qv['question'] }}
-                    </h4>
+                    </h3>
 
                     {{--answers--}}
                     <div>
                         @foreach($qv['answers'] as $ak => $av)
-                            <button class="btn-block btn answer" id="{{$ak}}">{{ $av }}</button>
+                            <button class="btn-block btn answer dl-horizontal" id="{{$ak}}">{{ $av }}</button>
                         @endforeach
                     </div>
 
@@ -41,7 +42,7 @@
             <div class="question">
                 <div class="banner-button">
 
-                    <h3 class="text-center">¡Gracias por participar!</h3>
+                    <h3 class="text-center questionText">¡Gracias por participar!</h3>
 
                     <div>
                         <button id="navegar" type="button" class="btn btn-primary btn-block"
@@ -161,8 +162,8 @@
                             else {
                                 inTransition = true;
 
-                                $(this).removeClass("btn-default");
-                                $(this).addClass("btn-primary");
+                                //$(this).removeClass("btn-default");
+                                //$(this).addClass("btn-primary");
                                 saveAnswer(index, ans_index);
                                 goNextQuestion(question, ans_index);
                             }
