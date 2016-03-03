@@ -276,7 +276,7 @@
     <footer id="footer">
         <div class="bottomContainer">
 
-            <img src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/logo_pie_enera_alto.png" alt="" class="bottomLeft" style="width:80px;">
+            <img src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/logo_pie_enera_alto.png" alt="" class="bottomLeft" style="padding-left:5px; padding-bottom:5px; width:80px;">
             <div class="terms bottomCenter">
                 <a style="color:{!! $message['color'] !!}" href="#" data-toggle="modal" data-target="#myModal">Términos y condiciones</a>
             </div>
