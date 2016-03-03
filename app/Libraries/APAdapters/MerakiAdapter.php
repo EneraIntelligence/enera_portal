@@ -10,7 +10,7 @@ class MerakiAdapter implements IAdapter
     public function processInput($input)
     {
         //return data as is
-        if(strpos($input['user_continue_url'],'network-auth.com')===false)
+        if(strpos($input['user_continue_url'],'network-auth.com')!==false)
         {
             $input['user_continue_url']="";
         }
