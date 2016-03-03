@@ -190,6 +190,6 @@ class OpenMeshAdapter implements IAdapter
 
     public function validateUserContinueURL($url, $defaultURL)
     {
-        return url;
+        return $url;
     }
 }
