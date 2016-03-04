@@ -94,14 +94,17 @@ class OpenMeshAdapter implements IAdapter
             $first=false;
 
         foreach ($vars as $key => $value) {
-            if($first)
+            if($value!="")
             {
-                $first=false;
-                $url = $url.'?'.urlencode( $key ) .'='. urlencode($value);
-            }
-            else
-            {
-                $url = $url.'&'.urlencode( $key ) .'='. urlencode($value);
+                if($first)
+                {
+                    $first=false;
+                    $url = $url.'?'.urlencode( $key ) .'='. urlencode($value);
+                }
+                else
+                {
+                    $url = $url.'&'.urlencode( $key ) .'='. urlencode($value);
+                }
             }
         }
         return $url;
