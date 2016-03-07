@@ -1,6 +1,6 @@
 <?php
 
-namespace Publishers;
+namespace Portal;
 
 use Jenssegers\Mongodb\Model;
 
