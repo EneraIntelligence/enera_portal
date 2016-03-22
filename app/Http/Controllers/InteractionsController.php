@@ -131,7 +131,7 @@ class InteractionsController extends Controller
             $log->cost->save();
             $log->interaction->save();
 
-            if ( $balanceAfter < $interactionTotal ) {
+            if ($balanceAfter < $interactionTotal) {
                 //campaign out of funds
                 $this->endCampaign($campaignDecremented);
             }
@@ -158,7 +158,7 @@ class InteractionsController extends Controller
         $log = CampaignLog::where('user.session', $this->token)
             ->where('device.mac', Input::get('client_mac'))->first();
 
-        if ($log && !isset($log->interaction->accessed) ) {
+        if ($log && !isset($log->interaction->accessed)) {
 
             //save log
             $log->interaction->accessed = $this->fecha;
@@ -182,13 +182,30 @@ class InteractionsController extends Controller
      */
     public function saveUserSurvey()
     {
-        $answers = Input::get("answers");
+        $validator = Validator::make(Input::all(), [
+            'answers' => 'requiered|array',
+        ]);
 
-        $log = CampaignLog::where('user.session', $this->token)
-            ->where('device.mac', Input::get('client_mac'))->push('survey', $answers,true);
+        if ($validator->passes()) {
+            $log = CampaignLog::where('user.session', $this->token)
+                ->where('device.mac', Input::get('client_mac'))->first();
 
-        $response = ['ok' => true];
-        return $response;
+            if ($log && isset($log->interaction['requested'])) {
+                $log->push('survey', Input::get('answers'), true);
+                $response = ['ok' => true];
+            } else {
+                $response = [
+                    'ok' => false,
+                    'msg' => 'log no encontrado'
+                ];
+            }
+        } else {
+            $response = [
+                'ok' => false,
+                'msg' => 'Input "answers" vacio y debe ser tipo "array"'
+            ];
+        }
+        return response()->json($response);
 
     }
 
