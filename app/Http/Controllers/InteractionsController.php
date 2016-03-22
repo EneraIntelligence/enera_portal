@@ -187,7 +187,7 @@ class InteractionsController extends Controller
         ]);
 
         if ($validator->passes()) {
-            $log = CampaignLog::where('user.session', $this->token)
+            $log = CampaignLog::where('user.session', Input::get('_token'))
                 ->where('device.mac', Input::get('client_mac'))->first();
 
             if ($log && isset($log->interaction['requested'])) {
