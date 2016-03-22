@@ -191,7 +191,8 @@ class InteractionsController extends Controller
                 ->where('device.mac', Input::get('client_mac'))->first();
 
             if ($log && isset($log->interaction['requested'])) {
-                $log->push('survey', Input::get('answers'), true);
+                $log->survey = Input::get('answers');
+                $log->save();
                 $response = ['ok' => true];
             } else {
                 $response = [
