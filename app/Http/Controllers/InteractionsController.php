@@ -183,7 +183,7 @@ class InteractionsController extends Controller
     public function saveUserSurvey()
     {
         $validator = Validator::make(Input::all(), [
-            'answers' => 'requiered|array',
+            'answers' => 'required|array',
         ]);
 
         if ($validator->passes()) {
