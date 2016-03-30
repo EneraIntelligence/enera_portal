@@ -67,8 +67,6 @@ K
 
         var btn = $("#navegar");
         btn.click(function () {
-            console.log('click en el boton');
-
 
             var accessedJson = {
                 _token: "{!! session('_token') !!}",
@@ -91,41 +89,44 @@ K
             console.log("finished rendering fb plugins");
         };
 
+
+        var clicked=false;
         //like button is pressed
         var page_like_callback = function(url, html_element) {
 
-            var completedJson = {
-                _token: "{!! session('_token') !!}",
-                client_mac: "{!! Input::get('client_mac') !!}"
-            };
-            myLog.completed(completedJson, function()
-            {
-                //on completed saved
-                var json = {
-                    _token: "{!! session('_token') !!}"
+            if(!clicked) {
+                clicked = true;
+                var completedJson = {
+                    _token: "{!! session('_token') !!}",
+                    client_mac: "{!! Input::get('client_mac') !!}"
                 };
+                myLog.completed(completedJson, function () {
+                    //on completed saved
+                    var json = {
+                        _token: "{!! session('_token') !!}"
+                    };
 
-                if(!pageWasLikedBefore)
-                {
-                    myLog.saveUserLike(json, function () {
-                        //on success like save
+                    if (!pageWasLikedBefore) {
+                        myLog.saveUserLike(json, function () {
+                            //on success like save
+                            myLog.redirectOut(btn.attr('success_url'));
+
+
+                        }, function () {
+                            myLog.redirectOut(btn.attr('success_url'));
+
+                        });
+                    }
+                    else {
                         myLog.redirectOut(btn.attr('success_url'));
+                    }
 
-
-                    }, function () {
-
-                    });
-                }
-                else
-                {
+                }, function () {
+                    //fail completed save
                     myLog.redirectOut(btn.attr('success_url'));
-                }
 
-            }, function()
-            {
-                //fail completed save
-            });
-
+                });
+            }
 
         };
 

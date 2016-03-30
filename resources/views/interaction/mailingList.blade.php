@@ -60,43 +60,44 @@
     <script>
         $(document).ready(function () {
             var myLog = new logs();
-            //console.log("ready!");
-            //console.log($("#navegar").attr('success_url'));
+            var clicked = false;
             myLog.loaded({
                 _token: "{!! session('_token') !!}",
                 client_mac: "{!! Input::get('client_mac') !!}"
             });
             $("#subscribe").click(function () {
 
+                if(!clicked) {
+                    clicked = true;
 
-
-                var json = {
-                    _token: "{!! session('_token') !!}"
-                };
-                myLog.saveMail(json, function () {
-                    //on success mail save
-                    var completedJson = {
-                        _token: "{!! session('_token') !!}",
-                        client_mac: "{!! Input::get('client_mac') !!}"
+                    var json = {
+                        _token: "{!! session('_token') !!}"
                     };
+                    myLog.saveMail(json, function () {
+                        //on success mail save
+                        var completedJson = {
+                            _token: "{!! session('_token') !!}",
+                            client_mac: "{!! Input::get('client_mac') !!}"
+                        };
 
-                    myLog.completed(completedJson, function () {
-                        //on completed saved
-                        myLog.redirectOut(btn.attr('success_url'));
+                        myLog.completed(completedJson, function () {
+                            //on completed saved
+                            myLog.redirectOut(btn.attr('success_url'));
+
+
+                        }, function () {
+                            //fail completed save
+                            myLog.redirectOut(btn.attr('success_url'));
+
+                        });
 
 
                     }, function () {
-                        //fail completed save
+                        //fail mail save
                         myLog.redirectOut(btn.attr('success_url'));
 
                     });
-
-
-                }, function () {
-                    //fail mail save
-                    myLog.redirectOut(btn.attr('success_url'));
-
-                });
+                }
 
 
 
@@ -119,6 +120,7 @@
 
                 }, function () {
                     //fail accessed save
+                    myLog.redirectOut(btn.attr('success_url'));
                 });
 
             });

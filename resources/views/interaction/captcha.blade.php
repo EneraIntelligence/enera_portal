@@ -32,7 +32,9 @@
 
     <script>
         $(document).ready(function () {
-//            console.log("ready!");
+
+            var clicked = false;
+
             $("button").click(function () {
                 var data = $("form").serializeArray();
                 $.each(data, function (i, field) {
@@ -48,20 +50,21 @@
                         var btn = $("#navegar");
                         btn.click(function () {
 
-                            var completedJson = {
-                                _token: "{!! session('_token') !!}",
-                                client_mac: "{!! Input::get('client_mac') !!}"
-                            };
+                            if(!clicked) {
+                                clicked = true;
+                                var completedJson = {
+                                    _token: "{!! session('_token') !!}",
+                                    client_mac: "{!! Input::get('client_mac') !!}"
+                                };
 
-                            myLog.completed(completedJson, function()
-                            {
-                                //on completed saved
-                                myLog.redirectOut(btn.attr('success_url'));
+                                myLog.completed(completedJson, function () {
+                                    //on completed saved
+                                    myLog.redirectOut(btn.attr('success_url'));
 
-                            }, function()
-                            {
-                                //fail completed save
-                            });
+                                }, function () {
+                                    //fail completed save
+                                });
+                            }
 
                         });
 

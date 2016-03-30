@@ -46,6 +46,9 @@
 @section('footer_scripts')
     <script>
         $(document).ready(function () {
+
+            var clicked=false;
+
             document.getElementById('theVideo').addEventListener('ended', myHandler, false);
             function myHandler(e) {
 //                console.log('Video Ended');
@@ -59,19 +62,22 @@
 
             var btn = $("#navegar");
             btn.click(function () {
+                if(!clicked) {
+                    clicked = true;
 
-                var completedJson = {
-                    _token: "{!! session('_token') !!}",
-                    client_mac: "{!! Input::get('client_mac') !!}"
-                };
-                myLog.completed(completedJson, function () {
-                    //success saving completed
-                    myLog.redirectOut(btn.attr('success_url'));
+                    var completedJson = {
+                        _token: "{!! session('_token') !!}",
+                        client_mac: "{!! Input::get('client_mac') !!}"
+                    };
+                    myLog.completed(completedJson, function () {
+                        //success saving completed
+                        myLog.redirectOut(btn.attr('success_url'));
 
-                }, function () {
-                    //fail on save completed
-                });
-
+                    }, function () {
+                        //fail on save completed
+                        myLog.redirectOut(btn.attr('success_url'));
+                    });
+                }
             });
         });
     </script>

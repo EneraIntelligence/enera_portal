@@ -68,6 +68,7 @@
         $(document).ready(function () {
 
             var myLog = new logs();
+            var clicked=false;
 
             myLog.loaded({
                 _token: "{!! session('_token') !!}",
@@ -85,29 +86,31 @@
 
             var btn = $("#navegar");
             btn.click(function () {
-                console.log('click en el boton');
-                var completedJson = {
-                    _token: "{!! session('_token') !!}",
-                    client_mac: "{!! Input::get('client_mac') !!}"
-                };
-                myLog.completed(completedJson, function () {
-                    //on completed saved
-                    var json = {
-                        _token: "{!! session('_token') !!}",
-                        client_mac: "{!! Input::get('client_mac') !!}",
-                        answers: userAnswers
-                    };
-                    myLog.saveUserSurvey(json, function () {
-                        //on success like save
-                        console.log("all saved!");
-                        myLog.redirectOut(btn.attr('success_url'));
-                    }, function () {
-                        //myLog.redirectOut(btn.attr('success_url'));
-                    });
-                }, function () {
-                    //myLog.redirectOut(btn.attr('success_url'));
-                });
 
+                if(!clicked) {
+                    clicked = true;
+                    var completedJson = {
+                        _token: "{!! session('_token') !!}",
+                        client_mac: "{!! Input::get('client_mac') !!}"
+                    };
+                    myLog.completed(completedJson, function () {
+                        //on completed saved
+                        var json = {
+                            _token: "{!! session('_token') !!}",
+                            client_mac: "{!! Input::get('client_mac') !!}",
+                            answers: userAnswers
+                        };
+                        myLog.saveUserSurvey(json, function () {
+                            //on success like save
+                            console.log("all saved!");
+                            myLog.redirectOut(btn.attr('success_url'));
+                        }, function () {
+                            myLog.redirectOut(btn.attr('success_url'));
+                        });
+                    }, function () {
+                        myLog.redirectOut(btn.attr('success_url'));
+                    });
+                }
             });
 
             function goNextQuestion(question, answerId) {
