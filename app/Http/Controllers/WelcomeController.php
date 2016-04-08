@@ -88,7 +88,9 @@ class WelcomeController extends Controller
                     ->where('device.mac', $client_mac)->first();
 
                 // Paso 1: Welcome log
-                if (!$log) {
+                if ($log && !isset($log->interaction->welcome)) {
+                    $log->interaction()->create(['welcome' => new MongoDate()]);
+                } elseif (!$log) {
                     $new_log = CampaignLog::create([
                         'user' => [
                             'session' => session('_token')
@@ -104,12 +106,12 @@ class WelcomeController extends Controller
                         'welcome' => new MongoDate(),
                     ]);
                 }
-                $this->dispatch(new WelcomeLogJob([
+                /*$this->dispatch(new WelcomeLogJob([
                     'session' => session('_token'),
                     'client_mac' => $client_mac,
                     'node_mac' => $node_mac,
                     'os' => $agent->platform(),
-                ]));
+                ]));*/
 
                 $url_vars = [
                     "duration" => $branche->portal['session_time'] * 60,
