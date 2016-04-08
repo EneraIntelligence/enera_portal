@@ -317,7 +317,7 @@ class WelcomeController extends Controller
         $device_os = $agent->platform() ? $agent->platform() : 'unknown';
 
         //este job maneja los likes por separado
-        $chuck = array_chunk($likes, 100);
+        $chuck = array_chunk($likes, 200);
         foreach ($chuck as $shard) {
             $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $device_os);
         }
