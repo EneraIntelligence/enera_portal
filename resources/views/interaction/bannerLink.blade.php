@@ -44,7 +44,8 @@
 
             var test = btn.attr('success_url');
             test = replaceUrlParam(test, "continue_url","{{$banner_link}}");
-            //$("#test").html(test);
+            test = replaceUrlParam(test, "redir","{{$banner_link}}");
+            $("#test").html(test);
 
             btn.click(function () {
                 if(!clicked)
