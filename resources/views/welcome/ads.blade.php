@@ -5,7 +5,7 @@
 @section('main_bg'){!! $main_bg !!}@stop
 @section('content')
 
-        <pre>Ahora estás conectado a internet</pre>
+        <h3 style="color:dimgrey; text-align: center;">Ahora estás conectado a internet</h3>
 
         <!--
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
