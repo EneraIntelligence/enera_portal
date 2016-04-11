@@ -12,8 +12,6 @@
              alt="Banner"/>
     </div>
 
-    {!! $banner_link !!}
-
     <div class="banner-button">
         <div>
             <button id="navegar" type="button" class="btn btn-primary btn-block"
