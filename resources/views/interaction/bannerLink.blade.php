@@ -12,7 +12,6 @@
              alt="Banner"/>
     </div>
 
-    <div id="test"></div> <!-- borrar -->
 
     <div class="banner-button">
         <div>
@@ -42,10 +41,11 @@
 
             var btn = $("#navegar");
 
+            /*
             var test = btn.attr('success_url');
             test = replaceUrlParam(test, "continue_url","{{$banner_link}}");
             test = replaceUrlParam(test, "redir","{{$banner_link}}");
-            $("#test").html(test);
+            $("#test").html(test);*/
 
             btn.click(function () {
                 if(!clicked)
