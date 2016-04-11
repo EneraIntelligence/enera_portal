@@ -12,6 +12,7 @@
 */
 
 Route::match(['post', 'get'], '/', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
+Route::match(['post', 'get'], '/ads', ['as' => 'ads', 'uses' => 'WelcomeController@ads']);
 
 Route::match(['post', 'get'], '/auth', ['as' => 'openMeshAuth', 'uses' => 'WelcomeController@openMeshAuth']);
 

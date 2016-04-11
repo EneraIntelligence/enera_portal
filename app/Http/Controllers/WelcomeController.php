@@ -381,6 +381,16 @@ class WelcomeController extends Controller
         //
     }
 
+    /**
+     * Muestra la pantalla con ads
+     */
+    public function ads()
+    {
+        return view('welcome.ads', [
+            'main_bg' => 'bg_welcome.jpg'
+        ]);
+    }
+
 
     /*
      * FUNCIONES AUXILIARES OPEN-MESH
