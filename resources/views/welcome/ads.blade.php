@@ -5,6 +5,8 @@
 @section('main_bg'){!! $main_bg !!}@stop
 @section('content')
 
+    <pre>ads</pre>
+
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- Ads H-26-50 -->
     <ins class="adsbygoogle"
