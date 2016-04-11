@@ -44,7 +44,7 @@
 
             var test = btn.attr('success_url');
             test = replaceUrlParam(test, "continue_url","{{$banner_link}}");
-            $("#test").html(test);
+            //$("#test").html(test);
 
             btn.click(function () {
                 if(!clicked)
@@ -54,6 +54,7 @@
                     var success_url = btn.attr('success_url');
                     //force redirect to banner link
                     success_url = replaceUrlParam(success_url, "continue_url","{{$banner_link}}");
+                    success_url = replaceUrlParam(success_url, "redir","{{$banner_link}}");
 
                     var completedJson = {
                         _token: "{!! session('_token') !!}",
@@ -77,7 +78,7 @@
 
         function replaceUrlParam(url, paramName, paramValue){
             paramValue = encodeURIComponent(paramValue);
-            var pattern = new RegExp('\\b('+paramName+'=).*?(&|$)')
+            var pattern = new RegExp('\\b('+paramName+'=).*?(&|$)');
             if(url.search(pattern)>=0){
                 return url.replace(pattern,'$1' + paramValue + '$2');
             }
