@@ -5,6 +5,7 @@
 @section('main_bg'){!! $main_bg !!}@stop
 @section('content')
 
+        <pre>Ahora estás conectado a internet</pre>
 
         <!--
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
