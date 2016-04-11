@@ -12,9 +12,7 @@
              alt="Banner"/>
     </div>
 
-    <div id="test">
-
-    </div>
+    <div id="test"></div> <!-- borrar -->
 
     <div class="banner-button">
         <div>
@@ -78,6 +76,7 @@
         });
 
         function replaceUrlParam(url, paramName, paramValue){
+            paramValue = encodeURIComponent(paramValue);
             var pattern = new RegExp('\\b('+paramName+'=).*?(&|$)')
             if(url.search(pattern)>=0){
                 return url.replace(pattern,'$1' + paramValue + '$2');
