@@ -51,5 +51,5 @@ Route::group(['as' => 'interaction::'], function () {
 
 /* ---- routes testing ---- */
 Route::get('testing', function () {
-    dd();
+    dd($var);
 });
