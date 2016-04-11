@@ -26,6 +26,10 @@
     <script>
         $(document).ready(function () {
 
+            var test = btn.attr('success_url');
+            test = replaceUrlParam(test, "continue_url","{{$banner_link}}");
+            alert(test);
+
             var clicked = false;
 
             var myLog = new logs();
