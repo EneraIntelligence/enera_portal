@@ -12,8 +12,7 @@
              alt="Banner"/>
     </div>
 
-    error!
-    {!! Input::get('base_grant_url') !!}
+    {!! $banner_link !!}
 
     <div class="banner-button">
         <div>
