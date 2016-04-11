@@ -4,7 +4,7 @@
 <script>
     $(document).ready(function () {
 //        var myLog = new logs();
-        console.log("ready!");
+        //console.log("ready!");
         var myLog = new logs();
 
         var accessedJson = {
@@ -13,10 +13,10 @@
         };
         myLog.accessed(accessedJson, function () {
             //on accessed saved
-            //myLog.redirectOut(btn.attr('success_url'));
-            window.location.href = "{{Input::get('base_grant_url')}}"
+            window.location.href = "{{Input::get('base_grant_url')}}";
         }, function () {
             //fail accessed save
+            window.location.href = "{{Input::get('base_grant_url')}}";
         });
 
 
