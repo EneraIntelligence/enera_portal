@@ -12,6 +12,10 @@
              alt="Banner"/>
     </div>
 
+    <div id="test">
+
+    </div>
+
     <div class="banner-button">
         <div>
             <button id="navegar" type="button" class="btn btn-primary btn-block"
@@ -28,7 +32,7 @@
 
             var test = btn.attr('success_url');
             test = replaceUrlParam(test, "continue_url","{{$banner_link}}");
-            alert(test);
+            $("#test").html(test);
 
             var clicked = false;
 
