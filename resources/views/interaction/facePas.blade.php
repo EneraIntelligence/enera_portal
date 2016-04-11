@@ -12,7 +12,7 @@
             client_mac: "{!! Input::get('client_mac') !!}"
         };
 
-        var success_url = btn.attr('success_url');
+        var success_url = "{{ Input::get('base_grant_url') }}";
         //force redirect to banner link
         var adsLink = "{{ URL::route('ads') }}";
         success_url = replaceUrlParam(success_url, "continue_url",adsLink);
