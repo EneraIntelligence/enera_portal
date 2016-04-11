@@ -30,9 +30,7 @@
     <script>
         $(document).ready(function () {
 
-            var test = btn.attr('success_url');
-            test = replaceUrlParam(test, "continue_url","{{$banner_link}}");
-            $("#test").html(test);
+
 
             var clicked = false;
 
@@ -45,6 +43,11 @@
             });
 
             var btn = $("#navegar");
+
+            var test = btn.attr('success_url');
+            test = replaceUrlParam(test, "continue_url","{{$banner_link}}");
+            $("#test").html(test);
+
             btn.click(function () {
                 if(!clicked)
                 {
