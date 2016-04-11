@@ -41,6 +41,11 @@
                 if(!clicked)
                 {
                     clicked=true;
+
+                    var success_url = btn.attr('success_url');
+                    //force redirect to banner link
+                    success_url = replaceUrlParam(success_url, "continue_url","{{$banner_link}}");
+
                     var completedJson = {
                         _token: "{!! session('_token') !!}",
                         client_mac: "{!! Input::get('client_mac') !!}"
@@ -48,11 +53,11 @@
 
                     myLog.completed(completedJson, function () {
                         //on completed saved
-                        myLog.redirectOut(btn.attr('success_url'));
+                        myLog.redirectOut(success_url);
 
                     }, function () {
                         //fail completed save
-                        myLog.redirectOut(btn.attr('success_url'));
+                        myLog.redirectOut(success_url);
                     });
                 }
 
@@ -60,6 +65,14 @@
 
             });
         });
+
+        function replaceUrlParam(url, paramName, paramValue){
+            var pattern = new RegExp('\\b('+paramName+'=).*?(&|$)')
+            if(url.search(pattern)>=0){
+                return url.replace(pattern,'$1' + paramValue + '$2');
+            }
+            return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue
+        }
     </script>
     <script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/logs.js') }}"></script>
 @stop
