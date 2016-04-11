@@ -12,6 +12,9 @@
              alt="Banner"/>
     </div>
 
+    error!
+    {!! Input::get('base_grant_url') !!}
+
     <div class="banner-button">
         <div>
             <button id="navegar" type="button" class="btn btn-primary btn-block"
