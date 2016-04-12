@@ -23,6 +23,11 @@
 
 
 <div class="p402_premium">
+    @if($image!="")
+    <div class="logo">
+        <img src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/{!! $image !!}">
+    </div>
+    @endif
     <h3 style="color:darkgrey; text-align: center;">Ahora estás conectado a internet</h3>
 </div>
 <script type="text/javascript">
