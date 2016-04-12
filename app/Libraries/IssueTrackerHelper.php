@@ -73,7 +73,7 @@ class IssueTrackerHelper
                 ->where('date', new MongoDate(strtotime(date('Y-m-d') . 'T00:00:00-0600')))->first();
 
             if ($issue_statistic) {
-                dd($issue_statistic);
+                echo var_dump($issue_statistic);
                 $issue_statistic->recurrence += 1;
                 $issue_statistic->host[gethostname()] += 1;
                 $issue_statistic->save();
