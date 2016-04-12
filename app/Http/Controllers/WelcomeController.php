@@ -40,7 +40,8 @@ class WelcomeController extends Controller
     {
         $logs = CampaignLog::where('user.session', session('_token'))
             ->where('interaccion.requested', 'exists', true)->count();
-        if($logs > 0){
+        if ($logs > 0)
+        {
             Session::flush();
             Session::regenerate();
         }
@@ -68,7 +69,8 @@ class WelcomeController extends Controller
             'node_mac' => 'required',
             'client_mac' => 'required'
         ]);
-        if ($validate->passes()) {
+        if ($validate->passes())
+        {
 
             $node_mac = $input['node_mac'];
             $client_mac = $input['client_mac'];
@@ -78,9 +80,10 @@ class WelcomeController extends Controller
 
             $branche = Branche::whereIn('aps', [$node_mac])->first();
             // Si el AP fue dado de alta y asignado a una Branche
-            if ($branche) {
+            if ($branche)
+            {
 
-                $user_continue_url = $inputAdapter->validateUserContinueURL($user_continue_url,$branche->portal['default_link']);
+                $user_continue_url = $inputAdapter->validateUserContinueURL($user_continue_url, $branche->portal['default_link']);
 
                 $agent = new Agent();
                 // welcome
@@ -88,9 +91,11 @@ class WelcomeController extends Controller
                     ->where('device.mac', $client_mac)->first();
 
                 // Paso 1: Welcome log
-                if ($log && !isset($log->interaction->welcome)) {
+                if ($log && !isset($log->interaction->welcome))
+                {
                     $log->interaction()->create(['welcome' => new MongoDate()]);
-                } elseif (!$log) {
+                } elseif (!$log)
+                {
                     $new_log = CampaignLog::create([
                         'user' => [
                             'session' => session('_token')
@@ -122,18 +127,21 @@ class WelcomeController extends Controller
                 session([
                     'image' => $branche->portal['image'],
                     'main_bg' => $branche->portal['background'],
+                    'message' => $branche->portal['message'],
                     'session_time' => ($branche->portal['session_time'] * 60),
                     'device_os' => $agent->platform(),
                 ]);
 
                 $user = User::where('facebook.id', 'exists', true)
-                    ->where(function ($q) use ($client_mac) {
+                    ->where(function ($q) use ($client_mac)
+                    {
                         $q->where('devices.mac', $client_mac)
                             ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
                     })
                     ->get();
 
-                if ($user->count() < 1 || $user->count() > 1) {
+                if ($user->count() < 1 || $user->count() > 1)
+                {
                     $url = route('welcome::response', [
                         'node_mac' => $node_mac,
                         //'client_ip' => Input::get('client_ip'),
@@ -150,7 +158,8 @@ class WelcomeController extends Controller
                         'client_mac' => $client_mac,
                     ]);
 
-                } elseif ($user->count() == 1) {
+                } elseif ($user->count() == 1)
+                {
                     session([
                         'user_email' => $user[0]->facebook->email,
                         'user_name' => $user[0]->facebook->first_name,
@@ -182,9 +191,11 @@ class WelcomeController extends Controller
     public function detectAPAdapter($input)
     {
 
-        if (isset($input['res'])) {
+        if (isset($input['res']))
+        {
             return new OpenMeshAdapter();
-        } else if (isset($input['base_grant_url'])) {
+        } else if (isset($input['base_grant_url']))
+        {
             return new MerakiAdapter();
         }
 
@@ -208,7 +219,8 @@ class WelcomeController extends Controller
         );
 
         /* copy request authenticator */
-        if (array_key_exists('ra', $_GET) && strlen($_GET['ra']) == 32 && ($ra = hex2bin($_GET['ra'])) !== FALSE && strlen($ra) == 16) {
+        if (array_key_exists('ra', $_GET) && strlen($_GET['ra']) == 32 && ($ra = hex2bin($_GET['ra'])) !== FALSE && strlen($ra) == 16)
+        {
             $response['RA'] = $_GET['ra'];
         }
 
@@ -226,25 +238,29 @@ class WelcomeController extends Controller
         if (array_key_exists('duration', $_GET))
             $duration = $_GET['duration'];
 
-        if( Session::has('session_time') )
+        if (Session::has('session_time'))
         {
             $duration = session('session_time');
         }
 
         /* decode request */
-        if (array_key_exists('type', $_GET)) {
+        if (array_key_exists('type', $_GET))
+        {
             $type = $_GET['type'];
-            switch ($type) {
+            switch ($type)
+            {
                 case 'login':
                     if ($password === FALSE)
                         break;
-                    if ($password == 'test' && $_GET['username'] == 'test') {
+                    if ($password == 'test' && $_GET['username'] == 'test')
+                    {
                         unset($response['BLOCKED_MSG']);
                         $response['CODE'] = "ACCEPT";
                         $response['SECONDS'] = $duration;
                         $response['DOWNLOAD'] = 2000;
                         $response['UPLOAD'] = 800;
-                    } else {
+                    } else
+                    {
                         $response['BLOCKED_MSG'] = "Invalid username or password";
                     }
                     break;
@@ -264,7 +280,8 @@ class WelcomeController extends Controller
     public function response()
     {
 
-        if (!$this->fbUtils->isUserLoggedIn()) {
+        if (!$this->fbUtils->isUserLoggedIn())
+        {
             //echo "User is not logged in";
             return redirect()->route('welcome', [
                 'base_grant_url' => Input::get('base_grant_url'),
@@ -285,18 +302,22 @@ class WelcomeController extends Controller
         $agent = new Agent();
 
         $user = User::where('facebook.id', $user_fb_id)->first();
-        if ($user) {
-            foreach ($facebook_data as $k => $v) {
+        if ($user)
+        {
+            foreach ($facebook_data as $k => $v)
+            {
                 $user->facebook->{$k} = $v;
             }
             $user->facebook->save();
 
             $device = $user->devices()->where('devices.mac', Input::get('client_mac'))->first();
-            if ($device) {
+            if ($device)
+            {
                 $device->mac = Input::get('client_mac');
                 $device->save();
             }
-        } else {
+        } else
+        {
             $user = User::create([
                 'facebook' => $facebook_data,
                 'devices' => []
@@ -319,7 +340,8 @@ class WelcomeController extends Controller
 
         //este job maneja los likes por separado
         $chuck = array_chunk($likes, 200);
-        foreach ($chuck as $shard) {
+        foreach ($chuck as $shard)
+        {
             $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $device_os);
         }
 
@@ -335,12 +357,14 @@ class WelcomeController extends Controller
 
     public function welcome_loaded()
     {
-        if (Input::has('client_mac')) {
+        if (Input::has('client_mac'))
+        {
             $client_mac = Input::get('client_mac');
             $log = CampaignLog::where('user.session', session('_token'))
                 ->where('device.mac', $client_mac)->first();
 
-            if ($log && isset($log->interaction->welcome) && !isset($log->interaction->welcome_loaded)) {
+            if ($log && isset($log->interaction->welcome) && !isset($log->interaction->welcome_loaded))
+            {
                 $log->interaction->welcome_loaded = new MongoDate();
                 $log->interaction->save();
 
@@ -348,23 +372,27 @@ class WelcomeController extends Controller
                     'ok' => true,
                     'msg' => '',
                 ];
-            } elseif ($log && !isset($log->interaction->welcome)) {
+            } elseif ($log && !isset($log->interaction->welcome))
+            {
                 $response = [
                     'ok' => false,
                     'msg' => 'El campo "interaction.welcome" no existe',
                 ];
-            } elseif ($log && isset($log->interaction->welcome_loaded)) {
+            } elseif ($log && isset($log->interaction->welcome_loaded))
+            {
                 $response = [
                     'ok' => false,
                     'msg' => 'El campo "interaction.welcome_loaded" ya fue creado',
                 ];
-            } else {
+            } else
+            {
                 $response = [
                     'ok' => false,
                     'msg' => 'No existe un log para esta sesion.',
                 ];
             }
-        } else {
+        } else
+        {
             $response = [
                 'ok' => false,
                 'msg' => 'Falta al MAC Address del cliente/dispositivo',
@@ -387,21 +415,25 @@ class WelcomeController extends Controller
      */
     public function ads()
     {
-        $image="";
-        $main_bg="";
-
-        if( Session::has('image') )
+        $image = "";
+        $main_bg = "";
+        $color = "darkgrey";
+        if (Session::has('image'))
         {
             $image = session('image');
         }
-
-        if( Session::has('main_bg') )
+        if (Session::has('main_bg'))
         {
             $main_bg = session('main_bg');
+        }
+        if (Session::has('message'))
+        {
+            $color = session('message')['color'];
         }
 
         return view('welcome.ads', [
             'main_bg' => $main_bg,
+            'color' => $color,
             'image' => $image
         ]);
     }
@@ -416,7 +448,8 @@ class WelcomeController extends Controller
      */
     private function print_dictionary($dict)
     {
-        foreach ($dict as $key => $value) {
+        foreach ($dict as $key => $value)
+        {
             echo '"', rawurlencode($key), '" "', rawurlencode($value), "\"\n";
         }
     }
@@ -465,20 +498,23 @@ class WelcomeController extends Controller
         $bincoded = hex2bin($encoded);
         $password = "";
         $last_result = $ra;
-        for ($i = 0; $i < strlen($bincoded); $i += 16) {
+        for ($i = 0; $i < strlen($bincoded); $i += 16)
+        {
             $key = hash('md5', $secret . $last_result, TRUE);
             for ($j = 0; $j < 16; $j++)
                 $password .= $key[$j] ^ $bincoded[$i + $j];
             $last_result = substr($bincoded, $i, 16);
         }
         $j = 0;
-        for ($i = strlen($password); $i > 0; $i--) {
+        for ($i = strlen($password); $i > 0; $i--)
+        {
             if ($password[$i - 1] != "\x00")
                 break;
             else
                 $j++;
         }
-        if ($j > 0) {
+        if ($j > 0)
+        {
             $password = substr($password, 0, strlen($password) - $j);
         }
 
