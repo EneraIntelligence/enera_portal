@@ -24,7 +24,7 @@
 
 <div class="p402_premium">
     @if($image!="")
-    <div class="logo">
+    <div style="width: 100%;  margin: 30px auto 10px;  padding: 0px;  text-align: center;">
         <img src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/{!! $image !!}">
     </div>
     @endif
