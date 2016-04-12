@@ -120,6 +120,7 @@ class WelcomeController extends Controller
                 $base_grant_url = $inputAdapter->addVars($base_grant_url, $url_vars);
 
                 session([
+                    'image' => $branche->portal['image'],
                     'main_bg' => $branche->portal['background'],
                     'session_time' => ($branche->portal['session_time'] * 60),
                     'device_os' => $agent->platform(),
@@ -386,8 +387,22 @@ class WelcomeController extends Controller
      */
     public function ads()
     {
+        $image="";
+        $main_bg="";
+
+        if( Session::has('image') )
+        {
+            $image = session('image');
+        }
+
+        if( Session::has('main_bg') )
+        {
+            $main_bg = session('main_bg');
+        }
+
         return view('welcome.ads', [
-            'main_bg' => 'bg_welcome.jpg'
+            'main_bg' => $main_bg,
+            'image' => $image
         ]);
     }
 
