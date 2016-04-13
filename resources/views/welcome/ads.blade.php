@@ -4,7 +4,7 @@
 @stop
 @section('main_bg'){!! $main_bg !!}@stop
 @section('content')
-    <div style="width:800px; margin:0 auto;">
+    <div style="width:800px; margin:0 auto; color: {{$color}};">
         <!-- encuesta inicio-->
         <script type="text/javascript">
             (function ()
