@@ -12,7 +12,6 @@ namespace Portal\Libraries;
 use Exception;
 use File;
 use \Illuminate\Http\Request;
-use MongoDate;
 use Portal\Issue;
 use Session;
 
@@ -72,7 +71,9 @@ class IssueTrackerHelper
 
             $issue_statistic = $issue->statistic()
                 ->where('date', new MongoDate(strtotime(date('Y-m-d') . 'T00:00:00-0600')))->first();
+
             if ($issue_statistic) {
+                echo $issue_statistic;
                 $issue_statistic->recurrence += 1;
                 $issue_statistic->host[gethostname()] += 1;
                 $issue_statistic->save();
