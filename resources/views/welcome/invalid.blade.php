@@ -1,10 +1,54 @@
-@extends('layouts.main')
-@section('head_scripts')
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enera Intelligence - Portal</title>
 
-@stop
-@section('main_bg'){!! $main_bg !!}@stop
-@section('content')
-    Invalid Network
+    <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
+    <style>
+        html, body {
+            height: 100%;
+        }
 
-@stop
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            color: #B0BEC5;
+            display: table;
+            font-weight: 100;
+            font-family: 'Lato';
+        }
+
+        .container {
+            text-align: center;
+            /*display: table-cell;*/
+            vertical-align: middle;
+        }
+
+        .content {
+            text-align: center;
+            display: inline-block;
+        }
+
+        .title {
+            font-size: 72px;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="title">
+            <div style="height: 400px;">
+                <img style="width:450px" src="{!! asset('img/enera_logo.png') !!}" alt="">
+            </div>
+            <div>
+                Accesa por una red wifi Enera
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
