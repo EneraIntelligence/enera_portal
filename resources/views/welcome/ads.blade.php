@@ -4,7 +4,7 @@
 @stop
 @section('main_bg'){!! $main_bg !!}@stop
 @section('content')
-    <div style="width:800px; margin:0 auto; color: {{$color}};">
+    <div style="width:800px; margin:0 auto; color: {{$color}}; text-align:justify;">
         <!-- encuesta inicio-->
         <script type="text/javascript">
             (function ()
@@ -77,6 +77,10 @@
             asignarle el periodo en el que estará activa esa campaña. Nuestra plataforma de Publishers permite crear
             campañas de forma fácil y sencilla.  Si deseas conocer más sobre Enera visita www.enera.mx o envíanos un
             correo a contacto@enera.mx.</p>
+        
+        <div style="margin:0 auto;width: 300px;background-color: white;">
+            <img width="300" src="img/enera_logo.png" alt="">
+        </div>
 
     </div>
 
