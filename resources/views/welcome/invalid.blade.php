@@ -45,7 +45,7 @@
                 <img style="width:450px" src="{!! asset('img/enera_logo.png') !!}" alt="">
             </div>
             <div>
-                Accesa por una red wifi Enera
+                Conectate a través de una red Enera
             </div>
         </div>
     </div>
