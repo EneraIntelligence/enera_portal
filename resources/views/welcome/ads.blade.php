@@ -78,7 +78,7 @@
             campañas de forma fácil y sencilla.  Si deseas conocer más sobre Enera visita www.enera.mx o envíanos un
             correo a contacto@enera.mx.</p>
         
-        <div style="margin:0 auto;width: 300px;background-color: white;">
+        <div style="margin:20px auto;width: 300px;background-color: white;">
             <img width="300" src="img/enera_logo.png" alt="">
         </div>
 
