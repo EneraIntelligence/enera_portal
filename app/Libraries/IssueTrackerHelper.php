@@ -12,6 +12,7 @@ namespace Portal\Libraries;
 use Exception;
 use File;
 use \Illuminate\Http\Request;
+use MongoDate;
 use Portal\Issue;
 use Session;
 
