@@ -4,7 +4,35 @@
 @stop
 @section('main_bg'){!! $main_bg !!}@stop
 @section('content')
-    <div style="width:800px; margin:0 auto; color: {{$color}}; text-align:justify;">
+    <div style="width:90%; max-width:800px; margin:0 auto; color: {{$color}}; text-align:justify;">
+
+        <h1 style="color: {{$color}}; text-align: center;">Bienvenido a Enera WiFi.</h1>
+        <h3 style=" color: {{$color}}; text-align: center;">Ve el siguiente anuncio para navegar gratuitamente.</h3>
+
+        <!-- ads inicio -->
+        <!-- truco para centrar contenido -->
+        <table style="width: 100%;">
+            <tr>
+                <td style="text-align: center; vertical-align: middle;">
+
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!— Rectangle Banner —>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:300px;height:250px"
+                         data-ad-client="ca-pub-7906422245182015"
+                         data-ad-slot="9115810884"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+
+                </td>
+            </tr>
+        </table>
+
+        <!-- ads fin -->
+
+
+
         <!-- encuesta inicio-->
         <script type="text/javascript">
             (function ()
@@ -21,8 +49,7 @@
             })();
         </script>
 
-        <h1 style="color: {{$color}}; text-align: center;">Bienvenido a Enera WiFi.</h1>
-        <h3 style=" color: {{$color}}; text-align: center;">Ve el siguiente anuncio para navegar gratuitamente.</h3>
+
 
 
         <div class="p402_premium">
@@ -43,20 +70,9 @@
         </script>
         <!-- encuesta fin -->
 
+        <div class="spacing" style="height:250px;">
 
-        <!-- ads inicio -->
-
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!— Rectangle Banner —>
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:300px;height:250px"
-             data-ad-client="ca-pub-7906422245182015"
-             data-ad-slot="9115810884"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-
-        <!-- ads fin -->
+        </div>
 
         <p>Enera es la red más grande de Internet Gratuito en Latinoamerica. Hemos desarrollado innovadores mecanismos
             para ofrecer el Wi-Fi gratuito en distintos puntos públicos como: Centros Comerciales, Parques, Transporte
@@ -76,7 +92,7 @@
             asignarle el periodo en el que estará activa esa campaña. Nuestra plataforma de Publishers permite crear
             campañas de forma fácil y sencilla.  Si deseas conocer más sobre Enera visita www.enera.mx o envíanos un
             correo a contacto@enera.mx.</p>
-        
+
         <div style="margin:50px auto;width: 353px;">
             <img width="353" src="img/btn_enera.png" alt="">
         </div>
