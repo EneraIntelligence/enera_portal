@@ -20,9 +20,9 @@ class Issue extends Model
         return $this->embedsMany('Portal\IssueRecurrence');
     }
 
-    public function statistic()
+    /*public function statistic()
     {
         return $this->embedsMany('Portal\IssueStatistic');
-    }
+    }*/
     // end relations
 }

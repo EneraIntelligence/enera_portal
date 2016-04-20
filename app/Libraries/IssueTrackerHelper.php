@@ -71,25 +71,19 @@ class IssueTrackerHelper
                 ]
             ]);
 
-            $issue_statistic = $issue->statistic()
-                ->where('date', new MongoDate(strtotime(date('Y-m-d') . 'T00:00:00-0600')))->first();
-            //->where('statistic.host', 'exists', 'BERYLLIUM-0')->first();
+            $issue_statistic_recurrence = isset($issue->statistic[date('Y-m-d')]) ?
+                $issue->statistic[date('Y-m-d')]['recurrence'] + 1 : 0;
+            $issue_statistic_host[gethostname()] = isset($issue->statistic[date('Y-m-d')]) ?
+                $issue->statistic[date('Y-m-d')]['host'][gethostname()] + 1 : 0;
 
-            dd($issue_statistic);
+            $issue->statistic[date('Y-m-d')] = [
+                'recurrence' => intval($issue_statistic_recurrence),
+                'host' => [
+                    gethostname() => intval($issue_statistic_host)
+                ]
+            ];
+            $issue->save();
 
-            if ($issue_statistic) {
-                $issue_statistic->recurrence += 1;
-                $issue_statistic->host[gethostname()] += 1;
-                $issue_statistic->save();
-            } else {
-                $issue->statistic()->create([
-                    'date' => new MongoDate(strtotime(date('Y-m-d') . 'T00:00:00-0600')),
-                    'recurrence' => 1,
-                    'host' => [
-                        gethostname() => 1
-                    ]
-                ]);
-            }
         } else {
             /* Creacion de Issue */
             $issue = Issue::create([
@@ -130,13 +124,13 @@ class IssueTrackerHelper
                 ]
             ]);
 
-            $issue->statistic()->create([
+            /*$issue->statistic()->create([
                 'date' => new MongoDate(strtotime(date('Y-m-d') . 'T00:00:00-0600')),
                 'recurrence' => 1,
                 'host' => [
                     gethostname() => 1
                 ]
-            ]);
+            ]);*/
         }
     }
 }
