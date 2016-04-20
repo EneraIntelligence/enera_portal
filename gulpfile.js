@@ -20,4 +20,20 @@ elixir(function (mix) {
     mix.sass('video.scss', 'public/css/video.css');
     mix.sass('survey.scss', 'public/css/survey.css');
     mix.sass('mailing_list.scss', 'public/css/mailing_list.css');
+    mix.sass('ads.scss', 'public/css/ads.css');
+
+    //materialize import to public
+    mix.copy(
+        'node_modules/materialize-css/dist/css/materialize.min.css',
+        'public/css/materialize.css'
+    );
+    mix.copy(
+        'node_modules/materialize-css/dist/js/materialize.min.js',
+        'public/js/materialize.js'
+    );
+
+    mix.copy(
+        'node_modules/materialize-css/dist/fonts',
+        'public/fonts'
+    );
 });

@@ -1,38 +1,113 @@
-.welcome_conteiner {
-  width: 90%;
-  margin: auto;
-  padding: 0px;
+
+.welcome.card.small
+{
+  margin: 0 -5% 0;
+  height:auto;
+  max-width: 400px;
+  z-index: 2;
 }
 
-.logo {
+.terms.card.small
+{
+  margin-top: 0;
+  max-width: 350px;
+  z-index: auto;
+  padding: 10px;
+  height: auto;
+}
+
+.login.card.small
+{
+  margin-top: 0;
+  max-width: 350px;
+  z-index: auto;
+  padding: 20px;
+  height: auto;
+  display: none;
+}
+
+.btn-logo
+{
+  height: 36px;
+  float: left;
+  margin-left: -5%;
+  margin-right: 5%;
+}
+
+.footer-logo
+{
+  margin-top: 3px;
+  margin-left: -30px;
+  opacity: .8;
+  filter: alpha(opacity=80);
+}
+
+.justify
+{
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.login-btn
+{
+  //max-width: 295px;
+  padding: 0 20px;
+}
+
+.progress
+{
+  opacity: 0;
+  filter: alpha(opacity=80);
+  margin: -2px auto;
+  background-color: #3949ab;
+
+  position: absolute;
   width: 100%;
-  margin: 30px auto 10px;
-  padding: 0px;
-  text-align: center;
+  left: 0;
+  bottom: 0;
 }
 
-.logo img {
-  max-height: 300px;
+.progress .indeterminate
+{
+  background-color: #e8eaf6;
 }
 
-.content {
-  width: 100%;
-  margin: 20px auto;
-  padding: 0px;
-  text-align: center;
+footer.page-footer
+{
+  padding-top: 0;
 }
 
-.content span {
-  font-weight: bold;
-  font-size: xx-large;
+@media screen and (min-width: 400px) {
+  .welcome.card.small
+  {
+    margin: 20px auto 0;
+  }
+  .terms.card.small
+  {
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+  .login.card.small
+  {
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+
 }
 
-.login_fb{
-  margin: auto;
-  padding: 50px 0px 0px 0px;
-  text-align: center;
+/**
+sticky footer
+**/
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
 
-  text-shadow: 2px 2px 6px #000000;
-  color:whitesmoke;
-  font-size: 25px;
+main {
+  flex: 1 0 auto;
 }
