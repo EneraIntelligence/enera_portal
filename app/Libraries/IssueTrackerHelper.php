@@ -56,6 +56,19 @@ class IssueTrackerHelper
             ->where('issue.platform', $plataform)->first();
 
         if ($issue) {
+            $issue_statistic_recurrence = isset($issue->statistic[date('Y-m-d')]) ?
+                $issue->statistic[date('Y-m-d')]['recurrence'] + 1 : 1;
+            $issue_statistic_host[gethostname()] = isset($issue->statistic[date('Y-m-d')]) ?
+                $issue->statistic[date('Y-m-d')]['host'][gethostname()] + 1 : 1;
+
+            $issue->statistic[date('Y-m-d')] = [
+                'recurrence' => intval($issue_statistic_recurrence),
+                'host' => [
+                    gethostname() => intval($issue_statistic_host)
+                ]
+            ];
+            $issue->save();
+
             $issue->recurrence()->create([
                 'request' => [
                     'url' => $request->url() . $url,
@@ -70,19 +83,6 @@ class IssueTrackerHelper
                     'trace' => $e->getTraceAsString(),
                 ]
             ]);
-
-            $issue_statistic_recurrence = isset($issue->statistic[date('Y-m-d')]) ?
-                $issue->statistic[date('Y-m-d')]['recurrence'] + 1 : 0;
-            $issue_statistic_host[gethostname()] = isset($issue->statistic[date('Y-m-d')]) ?
-                $issue->statistic[date('Y-m-d')]['host'][gethostname()] + 1 : 0;
-
-            $issue->statistic[date('Y-m-d')] = [
-                'recurrence' => intval($issue_statistic_recurrence),
-                'host' => [
-                    gethostname() => intval($issue_statistic_host)
-                ]
-            ];
-            $issue->save();
 
         } else {
             /* Creacion de Issue */
@@ -101,7 +101,14 @@ class IssueTrackerHelper
                     'code' => $e->getCode(),
                     'trace' => $e->getTraceAsString(),
                 ],
-                'statistic' => [],
+                'statistic' => [
+                    date('Y-m-d') => [
+                        'recurrence' => intval('1'),
+                        'host' => [
+                            gethostname() => intval('1')
+                        ]
+                    ]
+                ],
                 'recurrence' => [],
                 'responsible_id' => $responsible,
                 'priority' => 'error',
