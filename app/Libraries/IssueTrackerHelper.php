@@ -52,7 +52,8 @@ class IssueTrackerHelper
 
         $issue = Issue::where('issue.title', $issue_title)
             ->where('issue.file.path', $issue_file_path)
-            ->where('issue.file.line', $issue_file_line)->first();
+            ->where('issue.file.line', $issue_file_line)
+            ->where('issue.platform', $plataform)->first();
 
         if ($issue) {
             $issue->recurrence()->create([
@@ -97,6 +98,7 @@ class IssueTrackerHelper
                         'path' => $issue_file_path,
                         'context' => $context,
                     ],
+                    'platform' => $plataform,
                 ],
                 'exception' => [
                     'msg' => $e->getMessage(),
