@@ -56,20 +56,13 @@ class IssueTrackerHelper
             ->where('issue.platform', $plataform)->first();
 
         if ($issue) {
-            var_dump($issue->statistic);
-            dd($issue->statistic);
-
             $issue_statistic_recurrence = isset($issue->statistic[date('Y-m-d')]) ?
                 $issue->statistic[date('Y-m-d')]['recurrence'] + 1 : 1;
             $issue_statistic_host[gethostname()] = isset($issue->statistic[date('Y-m-d')]) ?
                 $issue->statistic[date('Y-m-d')]['host'][gethostname()] + 1 : 1;
 
-            $issue->statistic[date('Y-m-d')] = [
-                'recurrence' => intval($issue_statistic_recurrence),
-                'host' => [
-                    gethostname() => intval($issue_statistic_host)
-                ]
-            ];
+            $issue->statistic[date('Y-m-d')]['recurrence'] = intval($issue_statistic_recurrence);
+            $issue->statistic[date('Y-m-d')]['host'][gethostname()] = intval($issue_statistic_host);
             $issue->save();
 
             $issue->recurrence()->create([
