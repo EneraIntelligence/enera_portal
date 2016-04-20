@@ -74,6 +74,8 @@ class IssueTrackerHelper
             $issue_statistic = $issue->statistic()
                 ->where('date', new MongoDate(strtotime(date('Y-m-d') . 'T00:00:00-0600')))->first();
 
+            dd($issue_statistic);
+
             if ($issue_statistic) {
                 echo $issue_statistic;
                 $issue_statistic->recurrence += 1;
