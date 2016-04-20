@@ -56,6 +56,8 @@ class IssueTrackerHelper
             ->where('issue.platform', $plataform)->first();
 
         if ($issue) {
+            dd($issue->statistic);
+
             $issue_statistic_recurrence = isset($issue->statistic[date('Y-m-d')]) ?
                 $issue->statistic[date('Y-m-d')]['recurrence'] + 1 : 1;
             $issue_statistic_host[gethostname()] = isset($issue->statistic[date('Y-m-d')]) ?
