@@ -66,6 +66,7 @@ class IssueTrackerHelper
                 } else {
                     $statistic['host'][gethostname()] = 1;
                 }
+                $issue->statistic[date('Y-m-d')] = $statistic;
             } else {
                 array_push($issue->statistic, date('Y-m-d'));
                 $issue->statistic[date('Y-m-d')] = [
