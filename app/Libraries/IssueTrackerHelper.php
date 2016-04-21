@@ -58,6 +58,7 @@ class IssueTrackerHelper
         if ($issue) {
 
             if (isset($issue->statistic[date('Y-m-d')])) {
+                dd($issue->statistic[date('Y-m-d')]);
                 $issue->statistic[date('Y-m-d')]['recurrence']++;
                 if (isset($issue->statistic[date('Y-m-d')]['host'][gethostname()])) {
                     $issue->statistic[date('Y-m-d')]['host'][gethostname()]++;
