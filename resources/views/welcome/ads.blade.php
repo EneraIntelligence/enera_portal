@@ -66,7 +66,7 @@
             campañas de forma fácil y sencilla.  Si deseas conocer más sobre Enera visita www.enera.mx o envíanos un
             correo a contacto@enera.mx.</p>
 
-        <img style="display:block; margin:0 auto;" src="img/btn_enera.png" alt="">
+        <img style="max-width:100%; display:block; margin:0 auto;" src="img/btn_enera.png" alt="">
 
     </div>
 

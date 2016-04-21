@@ -22,6 +22,8 @@ elixir(function (mix) {
     mix.sass('mailing_list.scss', 'public/css/mailing_list.css');
     mix.sass('ads.scss', 'public/css/ads.css');
     mix.sass('demo.scss', 'public/css/demo.css');
+    mix.sass('interaction-common.scss', 'public/css/interaction-common.css');
+    mix.sass('like.scss', 'public/css/like.css');
 
     //materialize import to public
     mix.copy(

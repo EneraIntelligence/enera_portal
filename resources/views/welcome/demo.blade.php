@@ -14,6 +14,8 @@
 </style>
 @stop
 
+@section('title', 'Enera Portal - Demo')
+
 @section('header')
     <nav>
         <div class="nav-wrapper indigo z-depth-2">
