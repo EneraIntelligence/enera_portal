@@ -3,6 +3,7 @@
 namespace Portal\Jobs;
 
 use Mail;
+use Portal\Campaign;
 use Portal\Jobs\Job;
 use Portal\Administrator;
 use Illuminate\Queue\SerializesModels;
@@ -15,15 +16,18 @@ class EmailEndJob extends Job implements SelfHandling, ShouldQueue
     use InteractsWithQueue, SerializesModels;
 
     protected $_id;
+    protected $cam;
 
     /**
      * Create a new job instance.
      *
      * @param $_id
+     * @param $cam
      */
-    public function __construct($_id)
+    public function __construct($_id, $cam)
     {
         $this->_id = $_id;
+        $this->cam = $cam;
     }
 
     /**
@@ -35,9 +39,10 @@ class EmailEndJob extends Job implements SelfHandling, ShouldQueue
     {
 
         $user = Administrator::find($this->_id);
-        Mail::send('mail.notifications', ['user' => $user], function ($m) use ($user) {
+        $campaign = Campaign::find($this->cam);
+        Mail::send('mail.notifications', ['user' => $user, 'cam' => $campaign], function ($m) use ($user) {
             $m->from('soporte@enera.mx', 'Enera Intelligence');
-            $m->to($user->email, $user->name['first'] . ' ' . $user->name['last'])->subject('Finalización de Campaña por terminación de fondos');
+            $m->to('darkdreke@gmail.com', $user->name['first'] . ' ' . $user->name['last'])->subject('Finalización de Campaña por terminación de fondos');
         });
     }
 }
