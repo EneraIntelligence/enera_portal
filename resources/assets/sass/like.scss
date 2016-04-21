@@ -1,13 +1,35 @@
 .banner
 {
   padding: 0;
-  margin: 0 -5%;
+  margin: 10px -5% 0;
+  max-width: 600px;
+  position: relative;
+}
+
+.actions-card
+{
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.like-container
+{
+  border-radius: 2px;
+  padding-right: 6px;
+  width: 115px;
+  height: 47px;
+  overflow: hidden;
+}
+
+.nav-btn
+{
+  margin-top: 30px;
 }
 
 @media screen and (min-width: 400px) {
   .banner
   {
-    margin: 0 auto;
+    margin: 10px auto 0;
   }
 }
 

@@ -1,29 +1,35 @@
-.banner-button{
-  margin: 0;
-  position: absolute;
-  bottom: 10px;
-  width: 94%;
-  left: 3%;
-}
-
-.e-content {
-  background-color: #009bee;
-  border-radius: 5px;
-  padding: 8px 0;
-}
-
-.button-text {
-  vertical-align: middle;
-  text-align: center;
-  color: white;
+.banner
+{
+  padding: 0;
+  margin: 10px -5% 0;
+  max-width: 600px;
   position: relative;
-  transform: translateY(50%);
 }
 
-.button-icon {
-  vertical-align: middle;
-  text-align: center;
-  color: white;
-  position: relative;
-  border-left: solid #3bb1f1 1px;
+.actions-card
+{
+  max-width: 400px;
+  margin: 0 auto;
 }
+
+.like-container
+{
+  border-radius: 2px;
+  padding-right: 6px;
+  width: 115px;
+  height: 47px;
+  overflow: hidden;
+}
+
+.nav-btn
+{
+  margin-top: 30px;
+}
+
+@media screen and (min-width: 400px) {
+  .banner
+  {
+    margin: 10px auto 0;
+  }
+}
+
