@@ -3,7 +3,7 @@
 
 {!! HTML::style('http://fonts.googleapis.com/icon?family=Material+Icons') !!}
 {!! HTML::style(asset('css/interaction-common.css')) !!}
-{!! HTML::style(asset('css/like.css')) !!}
+{!! HTML::style(asset('css/mailing_list.css')) !!}
 
         <!-- branch colors -->
 <style>
@@ -64,7 +64,7 @@
     </div>
     <!-- Banner card -->
 
-    <!-- botón de like -->
+    <!-- botones -->
     <div class="card-panel center-align actions-card">
 
         <a class="btn waves-effect waves-light subscribe-btn indigo z-depth-2" href="#!"
@@ -85,7 +85,7 @@
         </a>
 
     </div>
-    <!-- botón de like -->
+    <!-- botones -->
 
 
 @stop
