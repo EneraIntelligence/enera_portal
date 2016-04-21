@@ -16,7 +16,7 @@
 
 @section('header')
     <nav>
-        <div class="nav-wrapper indigo">
+        <div class="nav-wrapper indigo z-depth-2">
             <a href="#!" class="brand-logo">Enera Demo</a>
         </div>
     </nav>
@@ -27,13 +27,14 @@
             <!-- Main card -->
     <div class="container">
 
-        <div class="card-panel center">
+        <div class="card-panel center welcome">
             <h4>Bienvenido a Enera WiFi.</h4>
             <p>Selecciona un demo</p>
         </div>
+    </div>
 
         <div class="row">
-            <div class="col s12 m6">
+            <div class="col s12 m6 l4">
                 <a href="{{url("demo/like")}}">
 
                     <div class="card-panel center">
@@ -59,7 +60,7 @@
 
             </div>
 
-            <div class="col s12 m6">
+            <div class="col s12 m6 l4">
                 <a href="{{url("demo/banner_link")}}">
 
                     <div class="card-panel center">
@@ -97,7 +98,7 @@
 
             </div>
 
-            <div class="col s12 m6">
+            <div class="col s12 m6 l4">
                 <a href="{{url("demo/mailing_list")}}">
 
                     <div class="card-panel center">
@@ -140,7 +141,7 @@
 
             </div>
 
-            <div class="col s12 m6">
+            <div class="col s12 m6 l4">
                 <a href="{{url("demo/captcha")}}">
 
                     <div class="card-panel center">
@@ -191,7 +192,7 @@
 
             </div>
 
-            <div class="col s12 m6">
+            <div class="col s12 m6 l4">
                 <a href="{{url("demo/encuesta")}}">
 
                     <div class="card-panel center">
@@ -243,7 +244,7 @@
 
             </div>
 
-            <div class="col s12 m6">
+            <div class="col s12 m6 l4">
                 <a href="{{url("demo/video")}}">
 
                     <div class="card-panel center">
@@ -266,7 +267,6 @@
             </div>
         </div>
 
-    </div>
     <!-- Main card -->
 
 
