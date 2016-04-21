@@ -225,7 +225,7 @@ class InteractionsController extends Controller
         $campaign->save();
 
         $campaign->history()->create($log);
-        $this->dispatch(new EmailEndJob($log['administrator_id']));
+        $this->dispatch(new EmailEndJob($log['administrator_id'], $campaign->id));
     }
 }
 
