@@ -58,13 +58,13 @@ class IssueTrackerHelper
         if ($issue) {
 
             if (isset($issue->statistic[date('Y-m-d')])) {
-                dd($issue->statistic[date('Y-m-d')]);
-                $issue->statistic[date('Y-m-d')]['recurrence']++;
-                if (isset($issue->statistic[date('Y-m-d')]['host'][gethostname()])) {
-                    $issue->statistic[date('Y-m-d')]['host'][gethostname()]++;
+                /*dd($issue->statistic[date('Y-m-d')]);*/
+                $statistic = $issue->statistic[date('Y-m-d')];
+                $statistic['recurrence']++;
+                if (isset($statistic['host'][gethostname()])) {
+                    $statistic['host'][gethostname()]++;
                 } else {
-                    array_push($issue->statistic[date('Y-m-d')]['host'], gethostname());
-                    $issue->statistic[date('Y-m-d')]['host'][gethostname()] = 1;
+                    $statistic['host'][gethostname()] = 1;
                 }
             } else {
                 array_push($issue->statistic, date('Y-m-d'));
