@@ -14,6 +14,14 @@
 Route::match(['post', 'get'], '/', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
 Route::match(['post', 'get'], '/ads', ['as' => 'ads', 'uses' => 'WelcomeController@ads']);
 
+Route::match(['post', 'get'], '/demo', ['as' => 'demo', 'uses' => 'DemoController@index']);
+Route::match(['post', 'get'], '/demo/like', ['as' => 'like', 'uses' => 'DemoController@like']);
+Route::match(['post', 'get'], '/demo/banner_link', ['as' => 'banner_link', 'uses' => 'DemoController@banner_link']);
+Route::match(['post', 'get'], '/demo/mailing_list', ['as' => 'mailing_list', 'uses' => 'DemoController@mailing_list']);
+Route::match(['post', 'get'], '/demo/captcha', ['as' => 'captcha', 'uses' => 'DemoController@captcha']);
+Route::match(['post', 'get'], '/demo/encuesta', ['as' => 'encuesta', 'uses' => 'DemoController@encuesta']);
+Route::match(['post', 'get'], '/demo/video', ['as' => 'video', 'uses' => 'DemoController@video']);
+
 Route::match(['post', 'get'], '/auth', ['as' => 'openMeshAuth', 'uses' => 'WelcomeController@openMeshAuth']);
 
 Route::group(['middleware' => 'FbLogin'], function () {
