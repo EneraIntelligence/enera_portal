@@ -1,0 +1,33 @@
+/**
+    Nav bar
+**/
+.avatar {
+  position: absolute;
+  left: 2%;
+  top:50%;
+  margin-top: -25px;
+}
+
+.instructions {
+  line-height: 20px;
+  margin: 0 auto;
+}
+
+
+/**
+sticky footer
+**/
+footer.page-footer
+{
+  padding-top: 0;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}

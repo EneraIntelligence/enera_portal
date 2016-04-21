@@ -13,6 +13,8 @@
     </style>
 @stop
 
+@section('title', 'Bienvenido')
+
 @section('header')
 
 @stop

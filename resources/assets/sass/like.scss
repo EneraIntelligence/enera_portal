@@ -1,0 +1,13 @@
+.banner
+{
+  padding: 0;
+  margin: 0 -5%;
+}
+
+@media screen and (min-width: 400px) {
+  .banner
+  {
+    margin: 0 auto;
+  }
+}
+
