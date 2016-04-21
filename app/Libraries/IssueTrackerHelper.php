@@ -56,13 +56,24 @@ class IssueTrackerHelper
             ->where('issue.platform', $plataform)->first();
 
         if ($issue) {
-            $issue_statistic_recurrence = isset($issue->statistic[date('Y-m-d')]) ?
-                $issue->statistic[date('Y-m-d')]['recurrence'] + 1 : 1;
-            $issue_statistic_host[gethostname()] = isset($issue->statistic[date('Y-m-d')]) ?
-                $issue->statistic[date('Y-m-d')]['host'][gethostname()] + 1 : 1;
 
-            $issue->statistic[date('Y-m-d')]['recurrence'] = intval($issue_statistic_recurrence);
-            $issue->statistic[date('Y-m-d')]['host'][gethostname()] = intval($issue_statistic_host);
+            if (isset($issue->statistic[date('Y-m-d')])) {
+                $issue->statistic[date('Y-m-d')]['recurrence']++;
+                if (isset($issue->statistic[date('Y-m-d')]['host'][gethostname()])) {
+                    $issue->statistic[date('Y-m-d')]['host'][gethostname()]++;
+                } else {
+                    array_push($issue->statistic[date('Y-m-d')]['host'], gethostname());
+                    $issue->statistic[date('Y-m-d')]['host'][gethostname()] = 1;
+                }
+            } else {
+                array_push($issue->statistic, date('Y-m-d'));
+                $issue->statistic[date('Y-m-d')] = [
+                    'recurrence' => 1,
+                    'host' => [
+                        gethostname() => 1
+                    ]
+                ];
+            }
             $issue->save();
 
             $issue->recurrence()->create([
