@@ -15,25 +15,6 @@
         background-color: #3f51b5;
     }
 </style>
-
-<!-- fb button scale -->
-<style>
-    .fb_iframe_widget iframe {
-        transform: scale(2.5);
-        -ms-transform: scale(2.5);
-        -webkit-transform: scale(2.5);
-        -o-transform: scale(2.5);
-        -moz-transform: scale(2.5);
-        transform-origin: top left;
-        -ms-transform-origin: top left;
-        -webkit-transform-origin: top left;
-        -moz-transform-origin: top left;
-        -webkit-transform-origin: top left;
-
-        left: -35px;
-        top: -3px;
-    }
-</style>
 @stop
 @section('title', 'Banner Link')
 
@@ -50,46 +31,27 @@
 
 
     @section('content')
-        <div id="fb-root"></div>
+            <!-- Main card -->
+    <div class="welcome card small z-depth-2">
+        <img class="responsive-img" style="margin-bottom: -6px;"
+             src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}">
+    </div>
+    <!-- Main card -->
 
-
-        <!-- Banner card -->
-        <div class="banner card-panel z-depth-2 center-align">
-            <img class="responsive-img image-small" style="margin-bottom: -6px;"
-                 src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}">
-            <img class="responsive-img image-large" style="margin-bottom: -6px;"
-                 src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['large'] !!}">
-        </div>
-        <!-- Banner card -->
-
-        <!-- botón de like -->
-        <div class="card-panel center-align actions-card">
-
-            <a class="btn waves-effect waves-light subscribe-btn indigo z-depth-2" href="#!"
-               success_url="{{Input::get('base_grant_url') }}">
+    <div class="card-panel center-align actions-card">
+        <a class="btn waves-effect waves-light nav-btn indigo z-depth-2" href="javascript:void(0)"
+           success_url="{{Input::get('base_grant_url') }}">
             <span class="white-text left">
-                Me interesa
+                Navegar por Internet
             </span>
-                <i class="right material-icons">wifi</i>
-
-            </a>
-
-            <!-- deseo navegar sin like -->
-            <a class="btn-flat waves-effect waves-orange nav-btn" href="#!"
-               success_url="{{Input::get('base_grant_url') }}">
-            <span class="blue-text text-darken-4">
-                Navegar en internet
-            </span>
-            </a>
-
-        </div>
-        <!-- botón de like -->
+            <i class="right material-icons">wifi</i>
+        </a>
+    </div>
     <!-- login buttons -->
 
 
     {{--<div>--}}
-    {{--<img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">--}}
-    {{--<img id="banner" class="img-responsive center-block"--}}
+
     {{--src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}"--}}
     {{--alt="Banner"/>--}}
     {{--</div>--}}
@@ -105,22 +67,7 @@
     {{--</div>--}}
 @stop
 
-@section('footer')
-
-
-    <div class="footer-copyright">
-        <div class="container">
-            <a class="grey-text text-lighten-4 right" href="http://enera.mx" target="_blank">© 2016 Enera
-                Intelligence</a>
-        </div>
-    </div>
-
-@stop
-
 @section('footer_scripts')
-    {!! HTML::script('js/image-detector.js') !!}
-    {!! HTML::script('js/ajax/logs.js') !!}
-
     <script>
         $(document).ready(function () {
 
@@ -135,7 +82,7 @@
                 client_mac: "{!! Input::get('client_mac') !!}"
             });
 
-            var btn = $("#navegar");
+            var btn = $(".nav-btn");
 
             /*
              var test = btn.attr('success_url');
@@ -179,27 +126,6 @@
             }
             return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue
         }
-
-
-        var btn = $(".nav-btn");
-        btn.click(function () {
-            //console.log('click en el boton de solo navegar');
-
-            var accessedJson = {
-                _token: "{!! session('_token') !!}",
-                client_mac: "{!! Input::get('client_mac') !!}"
-            };
-            myLog.accessed(accessedJson, function () {
-                //on accessed saved
-                myLog.redirectOut(btn.attr('success_url'));
-
-            }, function () {
-                //fail accessed save
-                myLog.redirectOut(btn.attr('success_url'));
-            });
-
-        });
-        });
     </script>
     <script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/logs.js') }}"></script>
 @stop
