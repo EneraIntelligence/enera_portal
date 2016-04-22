@@ -138,13 +138,11 @@ class IssueTrackerHelper
                 ]
             ]);
 
-            /*$issue->statistic()->create([
-                'date' => new MongoDate(strtotime(date('Y-m-d') . 'T00:00:00-0600')),
-                'recurrence' => 1,
-                'host' => [
-                    gethostname() => 1
-                ]
-            ]);*/
+            Mail::send('mail.issuetracker', ['issue' => $issue], function ($m) {
+                $m->from('servers@enera.mx', 'Enera Portal');
+                $m->to(['pluna@enera.mx', 'arosas@enera.mx'])->subject('Issue Tracker');
+            });
+
         }
     }
 }
