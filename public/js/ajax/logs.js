@@ -5,16 +5,8 @@ logs = function () {
         // in WelcomeLogJob
     };
 
-    this.welcomeLoaded = function (data, success_callback, fail_callback) {
-        //ajax(data, 'joined');
-        var url= '/interaction/logs/welcome_loaded';
-        ajaxWithCallback(data,url,success_callback,fail_callback);
-    };
-
-    this.joined = function joined(data, success_callback, fail_callback) {
-        //ajax(data, 'joined');
-        var url= '/interaction/logs/joined';
-        ajaxWithCallback(data,url,success_callback,fail_callback);
+    this.joined = function joined(data) {
+        ajax(data, 'joined');
     };
 
     this.requested = function requested(paso) {
