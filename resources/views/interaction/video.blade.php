@@ -55,7 +55,8 @@
 
 
     <!-- Banner card -->
-    <div class="banner card-panel z-depth-2 center-align">
+    <div class="banner card-panel z-depth-2 center-align black" onclick="playVideo()">
+        <i class="large material-icons icon-play">play_circle_filled</i>
         <video id="theVideo" class="responsive-video banner-video">
             <source src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}" type="video/mp4">
 
@@ -75,7 +76,7 @@
             <span class="white-text left">
                 Reproducir video
             </span>
-            <i class="material-icons right">play_circle_filled</i>
+            {{--<i class="material-icons right">play_circle_filled</i>--}}
 
         </a>
 
@@ -132,6 +133,8 @@
         {
             if (!playing)
             {
+                $(".icon-play").css("display","none");
+
                 var actionsCard = $(".actions-card");
                 TweenLite.to(actionsCard, .3, {y: -actionsCard.outerHeight()});
 

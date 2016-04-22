@@ -11,6 +11,19 @@ video::-webkit-media-controls-start-playback-button {
   display:none;
 }
 
+.icon-play
+{
+  color: white;
+  position: absolute;
+  opacity: 0.4;
+  filter: alpha(opacity=40); /* For IE8 and earlier */
+
+  left: 50%;
+  margin-left: -40px;
+  top: 50%;
+  margin-top: -40px;
+}
+
 .actions-card
 {
   max-width: 400px;
