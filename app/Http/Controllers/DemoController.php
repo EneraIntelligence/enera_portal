@@ -101,11 +101,15 @@ class DemoController extends Controller
         //hardcoded captcha
         $campaignSelected = new Campaign();
         $campaignSelected->_id = "demo_captcha";
+
+        $campaignType = "Portal\\Libraries\\Interactions\\MailingList";
+        $interaction = new $campaignType($campaignSelected);
         $campaignSelected->content = array(
-            'images' => array(
+            'images' => [
                 'small' => "1461297338.jpg",
                 "large" => "1461297353.jpg"
-            ),
+            ],
+            $interaction->getData(),
             'captcha' => 'test'
         );
 
