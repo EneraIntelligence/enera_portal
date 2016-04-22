@@ -1,57 +1,127 @@
-@extends('layouts.interaction')
-
-@section('title', 'Video')
-
+@extends('layouts.main')
 @section('head_scripts')
-    {!! HTML::style('css/video.css') !!}
+
+{!! HTML::style(asset('css/interaction-common.css')) !!}
+{!! HTML::style(asset('css/video.css')) !!}
+
+        <!-- branch colors -->
+<style>
+    body {
+        background-color: #e8eaf6;
+    }
+
+    .nav-wrapper, footer.page-footer {
+        background-color: #3f51b5;
+    }
+</style>
+
+<!-- fb button scale -->
+<style>
+    .fb_iframe_widget iframe {
+        transform: scale(2.5);
+        -ms-transform: scale(2.5);
+        -webkit-transform: scale(2.5);
+        -o-transform: scale(2.5);
+        -moz-transform: scale(2.5);
+        transform-origin: top left;
+        -ms-transform-origin: top left;
+        -webkit-transform-origin: top left;
+        -moz-transform-origin: top left;
+        -webkit-transform-origin: top left;
+
+        left: -35px;
+        top: -3px;
+    }
+</style>
+@stop
+
+@section('title', 'Interactúa')
+
+@section('header')
+    <nav>
+        <div class="nav-wrapper valign-wrapper">
+
+            <img class="circle avatar" src="http://graph.facebook.com/{{$fb_id}}/picture?type=square"
+                 alt="">
+            <p class="instructions valign center-align">Ve el siguiente anuncio <br> para navegar gratuitamente</p>
+
+        </div>
+    </nav>
 @stop
 
 @section('content')
-    <header style="font-weight: bold; font-size: 25px; width: 100%; margin: 5px auto; padding: 0px; text-align: center;">
-        Hola, {!! session('user_name') !!}
-    </header>
-    @if(session('device_os') != 'Iphone')
-        <h5 style="text-align: center;">Para obtener acceso te invitamos a ver el siguiente video</h5>
-        <div style="width: 100%;">
-            <video id="theVideo" controls autoplay>
-                <source src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}" type="video/mp4">
 
-                {{--<source src="http://media.w3.org/2010/05/sintel/trailer.webm" type="video/webm">--}}
-                {{--<source src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">--}}
-                Tu navegador no soporta reproduccion de video.
-            </video>
-        </div>
-        <div class="banner-button">
-            <div>
-                <button id="navegar" type="button" class="btn btn-primary btn-block"
-                        success_url="{{Input::get('base_grant_url') }}">
+    <div id="fb-root"></div>
+
+
+    <!-- Banner card -->
+    <div class="banner card-panel z-depth-2 center-align">
+        <video id="theVideo" class="responsive-video banner-video" autoplay>
+            <source src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}" type="video/mp4">
+
+            {{--<source src="http://media.w3.org/2010/05/sintel/trailer.webm" type="video/webm">--}}
+            {{--<source src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">--}}
+            Tu navegador no soporta reproduccion de video.
+        </video>
+    </div>
+    <!-- Banner card -->
+
+    <!-- botones -->
+    <div class="card-panel center-align actions-card">
+
+        <a class="btn waves-effect waves-light nav-btn indigo z-depth-2" href="#!"
+           success_url="{{Input::get('base_grant_url') }}">
+            <span class="white-text left">
                 Navegar en internet
-                </button>
-            </div>
-        </div>
-    @else
-        <div>
-            <img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$image }}" alt="Enera Portal">
-        </div>
-        <div class="banner-button">
-            <div>
-                <button id="navegar" type="button" class="btn btn-primary btn-block"
-                        success_url="{{Input::get('base_grant_url') }}">
-                Navegar en internet
-                </button>
-            </div>
-        </div>
-    @endif
+            </span>
+            <i class="right material-icons">wifi</i>
+
+        </a>
+
+
+    </div>
+    <!-- botones -->
+
+
 @stop
+
+@section('footer')
+
+
+    <div class="footer-copyright">
+        <div class="container">
+            <a class="grey-text text-lighten-4 right" href="http://enera.mx" target="_blank">© 2016 Enera
+                Intelligence</a>
+        </div>
+    </div>
+
+@stop
+
 @section('footer_scripts')
+
+
+    {!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}
+    {!! HTML::script('js/greensock/easing/EasePack.min.js') !!}
+    {!! HTML::script('js/greensock/TweenLite.min.js') !!}
+    {!! HTML::script('js/ajax/logs.js') !!}
+
+
     <script>
         $(document).ready(function () {
 
+
             var clicked=false;
 
-            document.getElementById('theVideo').addEventListener('ended', myHandler, false);
+            $('#theVideo').on('ended', myHandler);
+
             function myHandler(e) {
-//                console.log('Video Ended');
+                console.log('Video Ended');
+
+                var actionsCard = $(".actions-card");
+
+                actionsCard.css("display","block");
+                TweenLite.fromTo(actionsCard,.3, { y:-actionsCard.outerHeight() }, { y:0, ease:Quad.easeOut });
+
             }
 
             var myLog = new logs();
@@ -60,7 +130,7 @@
                 client_mac: "{!! Input::get('client_mac') !!}"
             });
 
-            var btn = $("#navegar");
+            var btn = $(".nav-btn");
             btn.click(function () {
                 if(!clicked) {
                     clicked = true;
@@ -82,4 +152,8 @@
         });
     </script>
 
-@stop
+
+    @stop
+
+
+
