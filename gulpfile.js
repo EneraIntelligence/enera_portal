@@ -25,6 +25,7 @@ elixir(function (mix) {
     mix.sass('interaction-common.scss', 'public/css/interaction-common.css');
     mix.sass('like.scss', 'public/css/like.css');
     mix.sass('bannerLink.scss', 'public/css/bannerLink.css');
+    mix.sass('material_icons.scss', 'public/css/material_icons.css');
 
     //materialize import to public
     mix.copy(
