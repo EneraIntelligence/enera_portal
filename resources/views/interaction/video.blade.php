@@ -125,6 +125,8 @@
         var video = $("#theVideo");
         var bannerVideo=$('video').get(0);
         var playing = false;
+        makeVideoPlayableInline(video);
+
 
         function playVideo()
         {
@@ -142,7 +144,6 @@
         $(document).ready(function ()
         {
 
-            makeVideoPlayableInline(video);
 
             var clicked = false;
 

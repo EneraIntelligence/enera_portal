@@ -42,7 +42,7 @@ elixir(function (mix) {
         'public/fonts'
     );
 
-    /*
+/*
     mix.copy(
         'node_modules/iphone-inline-video/dist/iphone-inline-video.es-modules.js',
         'public/js/iphone-inline-video.es-modules.js'
@@ -51,6 +51,7 @@ elixir(function (mix) {
     mix.copy(
         'node_modules/iphone-inline-video/dist/iphone-inline-video.common-js.js',
         'public/js/iphone-inline-video.common-js.js'
-    );*/
+    );
+*/
 
 });
