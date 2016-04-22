@@ -1,7 +1,6 @@
 @extends('layouts.main')
 @section('head_scripts')
 
-{!! HTML::style('http://fonts.googleapis.com/icon?family=Material+Icons') !!}
 {!! HTML::style(asset('css/interaction-common.css')) !!}
 {!! HTML::style(asset('css/mailing_list.css')) !!}
 

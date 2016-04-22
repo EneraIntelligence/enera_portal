@@ -14,10 +14,11 @@
     <!-- css -->
     {{--{!! HTML::style(asset('css/main.css')) !!}--}}
     {{--{!! HTML::style(asset('css/bootstrap.css')) !!}--}}
+    {!! HTML::style('css/material_icons.css') !!}
     {!! HTML::style('css/materialize.css') !!}
 
             <!-- apple icons -->
-    <link rel="icon" sizes="128x128" href="img/enera_logo_app.png">
+    {{--<link rel="icon" sizes="128x128" href="img/enera_logo_app.png">--}}
     <link rel="apple-touch-icon" sizes="128x128" href="img/enera_logo_app.png">
     <link rel="apple-touch-icon-precomposed" sizes="128x128" href="img/enera_logo_app.png ">
     @yield('head_scripts')
