@@ -1,11 +1,33 @@
-video {
-  width: 100%;
+.banner
+{
+  padding: 0;
+  margin: 10px -5% 0;
+  //max-width: 800px;
+  position: relative;
+  z-index: 5;
 }
 
-.banner-button {
-  margin: 15px 0;
-  position: absolute;
-  bottom: 10px;
-  width: 94%;
-  left: 3%;
+.actions-card
+{
+  max-width: 400px;
+  margin: 0 auto;
+  display: none;
 }
+
+.nav-btn
+{
+  margin-top: 10px;
+}
+
+.banner-video
+{
+  margin-bottom: -6px;
+}
+
+@media screen and (min-width: 400px) {
+  .banner
+  {
+    margin: 10px auto 0;
+  }
+}
+
