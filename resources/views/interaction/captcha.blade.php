@@ -18,25 +18,30 @@
         .input-field label {
             color: #000;
         }
+
         /* label focus color */
         .input-field input[type=text]:focus + label {
             color: #000;
         }
+
         /* label underline focus color */
         .input-field input[type=text]:focus {
             border-bottom: 1px solid #000;
             box-shadow: 0 1px 0 0 #000;
         }
+
         /* valid color */
         .input-field input[type=text].valid {
             border-bottom: 1px solid #000;
             box-shadow: 0 1px 0 0 #000;
         }
+
         /* invalid color */
         .input-field input[type=text].invalid {
             border-bottom: 1px solid #000;
             box-shadow: 0 1px 0 0 #000;
         }
+
         /* icon prefix focus color */
         .input-field .prefix.active {
             color: #000;
@@ -96,11 +101,11 @@
     <div class="card-panel center-align actions-card">
 
         {{--<a class="btn waves-effect waves-light subscribe-btn indigo z-depth-2" href="#!"--}}
-           {{--success_url="{{Input::get('base_grant_url') }}">--}}
-            {{--<span class="white-text left">--}}
-                {{--Navegar por Internet--}}
-            {{--</span>--}}
-            {{--<i class="right material-icons">wifi</i>--}}
+        {{--success_url="{{Input::get('base_grant_url') }}">--}}
+        {{--<span class="white-text left">--}}
+        {{--Navegar por Internet--}}
+        {{--</span>--}}
+        {{--<i class="right material-icons">wifi</i>--}}
         {{--</a>--}}
         <div id="captcha">
 
@@ -123,17 +128,17 @@
     </div>
     {{--<div id="captcha">--}}
 
-        {{--<form action="#">--}}
-            {{--<input id="captcha-value" type="text" name="Captcha"><br>--}}
-        {{--</form>--}}
-        {{--<div id="error">Respuesta invalida</div>--}}
-        {{--<button id="navegar" class="btn btn-primary btn-block"--}}
-                {{--success_url="{{Input::get('base_grant_url') }}">--}}
-            {{--Navegar por internet--}}
-        {{--</button>--}}
-        {{--<div>--}}
-            {{--<p> * Para navegar por internet ingresa la palabra en la imagen </p>--}}
-        {{--</div>--}}
+    {{--<form action="#">--}}
+    {{--<input id="captcha-value" type="text" name="Captcha"><br>--}}
+    {{--</form>--}}
+    {{--<div id="error">Respuesta invalida</div>--}}
+    {{--<button id="navegar" class="btn btn-primary btn-block"--}}
+    {{--success_url="{{Input::get('base_grant_url') }}">--}}
+    {{--Navegar por internet--}}
+    {{--</button>--}}
+    {{--<div>--}}
+    {{--<p> * Para navegar por internet ingresa la palabra en la imagen </p>--}}
+    {{--</div>--}}
     {{--</div>--}}
 
 @endsection
@@ -162,10 +167,11 @@
             $("button").click(function () {
                 var data = $("form").serializeArray();
                 $.each(data, function (i, field) {
-
+                    console.log(field.value);
                     if (field.value == "" || field.value == null) {
                         document.getElementById('error').style.display = 'block';
-                    } else if (field.value == '{¡¡ $captcha ¡¡}') {
+                    } else if (field.value == '{!! $captcha !!}') {
+                        document.getElementById('error').style.display = 'none';
                         var myLog = new logs();
                         myLog.loaded({
                             _token: "{!! session('_token') !!}",
@@ -173,26 +179,21 @@
                         });
 
                         var btn = $("#navegar");
-                        btn.click(function () {
+                        if (!clicked) {
+                            clicked = true;
+                            var completedJson = {
+                                _token: "{!! session('_token') !!}",
+                                client_mac: "{!! Input::get('client_mac') !!}"
+                            };
 
-                            if (!clicked) {
-                                clicked = true;
-                                var completedJson = {
-                                    _token: "{!! session('_token') !!}",
-                                    client_mac: "{!! Input::get('client_mac') !!}"
-                                };
+                            myLog.completed(completedJson, function () {
+                                //on completed saved
+                                myLog.redirectOut(btn.attr('success_url'));
 
-                                myLog.completed(completedJson, function () {
-                                    //on completed saved
-                                    myLog.redirectOut(btn.attr('success_url'));
-
-                                }, function () {
-                                    //fail completed save
-                                });
-                            }
-
-                        });
-
+                            }, function () {
+                                //fail completed save
+                            });
+                        }
                     } else {
                         document.getElementById('error').style.display = 'block';
                     }
@@ -207,8 +208,9 @@
         });
 
 
-        var btn = $(".nav-btn");
+        var btn = $("#navegar");
         btn.click(function () {
+            var myLog = new logs();
             //console.log('click en el boton de solo navegar');
 
             var accessedJson = {
