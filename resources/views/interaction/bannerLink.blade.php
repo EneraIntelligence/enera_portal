@@ -44,7 +44,7 @@
         <a class="btn waves-effect waves-light nav-btn indigo z-depth-2" href="javascript:void(0)"
            success_url="{{Input::get('base_grant_url') }}">
             <span class="white-text left">
-                Navegar por Internet
+                Navegar en Internet
             </span>
             <i class="right material-icons">wifi</i>
         </a>
