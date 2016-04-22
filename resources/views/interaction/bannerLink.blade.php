@@ -32,9 +32,11 @@
 
     @section('content')
             <!-- Main card -->
-    <div class="welcome card small z-depth-2">
-        <img class="responsive-img" style="margin-bottom: -6px;"
+    <div class="banner card z-depth-2">
+        <img class="responsive-img image-small" style="margin-bottom: -6px;"
              src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}">
+        <img class="responsive-img image-large" style="margin-bottom: -6px;"
+             src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['large'] !!}">
     </div>
     <!-- Main card -->
 
@@ -127,5 +129,6 @@
             return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue
         }
     </script>
+    {!! HTML::script('js/image-detector.js') !!}
     <script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/logs.js') }}"></script>
 @stop
