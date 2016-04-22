@@ -58,23 +58,22 @@ class IssueTrackerHelper
         if ($issue) {
             $issue_statistic = $issue->statistic;
             $issue_date = date('Y-m-d');
-            if (isset($issue_statistic[date('Y-m-d')])) {
+            if (isset($issue_statistic[$issue_date])) {
                 $issue_statistic[$issue_date]['recurrence']++;
                 if (isset($issue_statistic[$issue_date]['host'][gethostname()])) {
                     $issue_statistic[$issue_date]['host'][gethostname()]++;
                 } else {
                     $issue_statistic[$issue_date]['host'][gethostname()] = 1;
                 }
-                $issue->statistic = $issue_statistic;
             } else {
-                array_push($issue->statistic, date('Y-m-d'));
-                $issue->statistic[date('Y-m-d')] = [
+                $issue_statistic[$issue_date] = [
                     'recurrence' => 1,
                     'host' => [
                         gethostname() => 1
                     ]
                 ];
             }
+            $issue->statistic = $issue_statistic;
             $issue->save();
 
             $issue->recurrence()->create([
