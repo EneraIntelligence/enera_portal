@@ -125,7 +125,7 @@
         var video = $("#theVideo");
         var bannerVideo=$('video').get(0);
         var playing = false;
-        makeVideoPlayableInline(video);
+        makeVideoPlayableInline(bannerVideo);
 
 
         function playVideo()
