@@ -136,7 +136,7 @@
     {!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}
     {!! HTML::script('js/greensock/easing/EasePack.min.js') !!}
     {!! HTML::script('js/greensock/TweenLite.min.js') !!}
-    {!! HTML::script('js/survey.js') !!}
+    {{--{!! HTML::script('js/survey.js') !!}--}}
     {!! HTML::script('js/ajax/logs.js') !!}
 
     <script>

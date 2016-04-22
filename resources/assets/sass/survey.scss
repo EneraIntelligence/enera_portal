@@ -19,10 +19,19 @@
   z-index: 5;
 }
 
+.answer
+{
+  width: 99%;
+}
+
 @media screen and (min-width: 400px) {
   .banner
   {
     margin: 0 auto 0;
+  }
+  .answer
+  {
+    width: 90%;
   }
 }
 
