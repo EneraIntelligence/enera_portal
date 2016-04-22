@@ -45,7 +45,7 @@ class DemoController extends Controller
         return view($interaction->getView(), $link, array_merge(
             ['_id' => $campaignSelected->_id],
             $interaction->getData(),
-            ['fb_id'=>'10206656662069174']
+            ['fb_id' => '10206656662069174']
         ));
     }
 
@@ -69,7 +69,7 @@ class DemoController extends Controller
         return view($interaction->getView(), $link, array_merge(
             ['_id' => $campaignSelected->_id],
             $interaction->getData(),
-            ['fb_id'=>'10206656662069174']
+            ['fb_id' => '10206656662069174']
         ));
     }
 
@@ -92,7 +92,7 @@ class DemoController extends Controller
         return view($interaction->getView(), $link, array_merge(
             ['_id' => $campaignSelected->_id],
             $interaction->getData(),
-            ['fb_id'=>'10206656662069174']
+            ['fb_id' => '10206656662069174']
         ));
     }
 
@@ -115,7 +115,7 @@ class DemoController extends Controller
         return view($interaction->getView(), $link, array_merge(
             ['_id' => $campaignSelected->_id],
             $interaction->getData(),
-            ['fb_id'=>'10206656662069174']
+            ['fb_id' => '10206656662069174']
         ));
     }
 
@@ -126,34 +126,53 @@ class DemoController extends Controller
         $campaignSelected->_id = "demo_encuesta";
         $campaignSelected->content = array(
             'images' => array(
-                "survey" => "1452900259.jpg"
+                "survey" => "1461298197.jpg"
             ),
             "survey" => array(
                 "q1" => array(
-                    "question" => "Vasir?",
+                    "question" => "¿Tienes coche propio?",
                     "answers" => array(
-                        "a0" => "si",
-                        "a1" => "no"
+                        "a0" => "Si",
+                        "a1" => "No"
                     )
                 ),
                 "q2" => array(
-                    "question" => "La bebes o la derramas?",
+                    "question" => "¿Cada cuando sales de viaje de negocios?",
                     "answers" => array(
-                        "a0" => "La bebo",
-                        "a1" => "La derramo",
-                        "a2" => "Las 2 anteriores"
+                        "a0" => "3-5 veces por mes",
+                        "a1" => "1-2 veces por mes",
+                        "a2" => "cada dos meses",
+                        "a3" => "No salgo de viaje"
                     )
                 ),
                 "q3" => array(
-                    "question" => "On ta el compita?",
+                    "question" => "¿Cada cuando sales viaje por placer?",
                     "answers" => array(
-                        "a0" => "Quién pedro?",
-                        "a1" => "El nuevo?",
-                        "a2" => "en el baño",
-                        "a3" => "quien sabe"
+                        "a0" => "4-7 veces al año",
+                        "a1" => "2-3 veces al año",
+                        "a2" => "1 vez año",
+                        "a3" => "No salgo de viaje"
+                    )
+                ),
+                "q4" => array(
+                    "question" => "Cuando sales de viaje por placer ¿Con quién viajas? ",
+                    "answers" => array(
+                        "a0" => "Familia",
+                        "a1" => "Amigos",
+                        "a2" => "Pareja",
+                        "a3" => "Solo"
+                    )
+                ),
+                "q5" => array(
+                    "question" => "¿Que paginas para reservar hoteles utilizas? ",
+                    "answers" => array(
+                        "a0" => "hoteles.com",
+                        "a1" => "trivago.com",
+                        "a2" => "expedia.com",
+                        "a3" => "otro"
                     )
                 )
-            ),
+            )
         );
 
         $campaignType = "Portal\\Libraries\\Interactions\\Survey";
@@ -163,7 +182,7 @@ class DemoController extends Controller
         return view($interaction->getView(), $link, array_merge(
             ['_id' => $campaignSelected->_id],
             $interaction->getData(),
-            ['fb_id'=>'10206656662069174']
+            ['fb_id' => '10206656662069174']
         ));
     }
 
@@ -187,7 +206,7 @@ class DemoController extends Controller
         return view($interaction->getView(), $link, array_merge(
             ['_id' => $campaignSelected->_id],
             $interaction->getData(),
-            ['fb_id'=>'10206656662069174']
+            ['fb_id' => '10206656662069174']
         ));
     }
 }
