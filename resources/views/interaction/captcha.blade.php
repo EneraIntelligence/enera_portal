@@ -210,6 +210,7 @@
 
         var btn = $("#navegar");
         btn.click(function () {
+            var myLog = new logs();
             //console.log('click en el boton de solo navegar');
 
             var accessedJson = {
