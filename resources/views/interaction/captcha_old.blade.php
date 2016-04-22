@@ -14,12 +14,12 @@
                       alt="Banner"/>
             </div>
             <form action="#">
-                <input id="captcha-value" type="text" name="Captcha"><br>
+                <input id="captcha-value" type="text" name="captcha"><br>
             </form>
             <div id="error">Respuesta invalida</div>
             <button id="navegar" class="btn btn-primary btn-block"
                     success_url="{{Input::get('base_grant_url') }}">
-                Navegar por internet
+                Navegar en internet
             </button>
             <div>
                 <p> * Para navegar por internet ingresa la palabra en la imagen </p>
@@ -36,7 +36,8 @@
             var clicked = false;
 
             $("button").click(function () {
-                var data = $("form").serializeArray();
+                var data = $("form").serialize();
+                alert(data);
                 $.each(data, function (i, field) {
                     if (field.value == "" || field.value == null) {
                         document.getElementById('error').style.display = 'block';

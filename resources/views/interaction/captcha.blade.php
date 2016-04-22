@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('head_scripts')
-    {!! HTML::style('http://fonts.googleapis.com/icon?family=Material+Icons') !!}
+
     {!! HTML::style(asset('css/welcome.css')) !!}
     {!! HTML::style(asset('css/captcha.css')) !!}
     {!! HTML::style('css/interaction-common.css') !!}
@@ -12,6 +12,34 @@
 
         .nav-wrapper, footer.page-footer {
             background-color: #3f51b5;
+        }
+
+        /* label color */
+        .input-field label {
+            color: #000;
+        }
+        /* label focus color */
+        .input-field input[type=text]:focus + label {
+            color: #000;
+        }
+        /* label underline focus color */
+        .input-field input[type=text]:focus {
+            border-bottom: 1px solid #000;
+            box-shadow: 0 1px 0 0 #000;
+        }
+        /* valid color */
+        .input-field input[type=text].valid {
+            border-bottom: 1px solid #000;
+            box-shadow: 0 1px 0 0 #000;
+        }
+        /* invalid color */
+        .input-field input[type=text].invalid {
+            border-bottom: 1px solid #000;
+            box-shadow: 0 1px 0 0 #000;
+        }
+        /* icon prefix focus color */
+        .input-field .prefix.active {
+            color: #000;
         }
     </style>
 
@@ -67,25 +95,34 @@
     <!-- botón de navegar -->
     <div class="card-panel center-align actions-card">
 
-        <a class="btn waves-effect waves-light subscribe-btn indigo z-depth-2" href="#!"
-           success_url="{{Input::get('base_grant_url') }}">
-            <span class="white-text left">
-                Navegar por Internet
-            </span>
-            <i class="right material-icons">wifi</i>
+        {{--<a class="btn waves-effect waves-light subscribe-btn indigo z-depth-2" href="#!"--}}
+           {{--success_url="{{Input::get('base_grant_url') }}">--}}
+            {{--<span class="white-text left">--}}
+                {{--Navegar por Internet--}}
+            {{--</span>--}}
+            {{--<i class="right material-icons">wifi</i>--}}
+        {{--</a>--}}
+        <div id="captcha">
 
-        </a>
-
+            <form action="#">
+                <div class="input-field col s12">
+                    <input id="captcha-value" type="text" name="captcha">
+                    <label for="captcha-value" data-error="wrong" data-success="right">Captcha</label>
+                </div>
+            </form>
+            <div id="error">Respuesta invalida</div>
+            <button id="navegar" class="btn waves-effect waves-light subscribe-btn indigo z-depth-2"
+                    success_url="{{Input::get('base_grant_url') }}">
+                Navegar en internet
+            </button>
+            <div>
+                <p> * Para navegar por internet ingresa la palabra en la imagen </p>
+            </div>
+        </div>
 
     </div>
     {{--<div id="captcha">--}}
 
-        {{--<div>--}}
-            {{--<img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">--}}
-            {{--<img id="banner" class="img-responsive center-block"--}}
-                 {{--src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}"--}}
-                 {{--alt="Banner"/>--}}
-        {{--</div>--}}
         {{--<form action="#">--}}
             {{--<input id="captcha-value" type="text" name="Captcha"><br>--}}
         {{--</form>--}}
@@ -125,6 +162,7 @@
             $("button").click(function () {
                 var data = $("form").serializeArray();
                 $.each(data, function (i, field) {
+
                     if (field.value == "" || field.value == null) {
                         document.getElementById('error').style.display = 'block';
                     } else if (field.value == '{¡¡ $captcha ¡¡}') {

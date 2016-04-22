@@ -105,7 +105,8 @@ class DemoController extends Controller
             'images' => array(
                 'small' => "1461297338.jpg",
                 "large" => "1461297353.jpg"
-            )
+            ),
+            'captcha' => 'test'
         );
 
         $campaignType = "Portal\\Libraries\\Interactions\\Captcha";
