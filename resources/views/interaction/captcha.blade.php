@@ -106,7 +106,7 @@
 
             <form action="#">
                 <div class="input-field col s12">
-                    <input id="captcha-value" type="text" name="Captcha">
+                    <input id="captcha-value" type="text" name="captcha">
                     <label for="captcha-value" data-error="wrong" data-success="right">Captcha</label>
                 </div>
             </form>
@@ -165,7 +165,7 @@
 
                     if (field.value == "" || field.value == null) {
                         document.getElementById('error').style.display = 'block';
-                    } else if (field.value == {!! $captcha !!}) {
+                    } else if (field.value == '{¡¡ $captcha ¡¡}') {
                         var myLog = new logs();
                         myLog.loaded({
                             _token: "{!! session('_token') !!}",
