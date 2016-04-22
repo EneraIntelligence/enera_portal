@@ -95,7 +95,11 @@ class CampaignsController extends Controller
                     'user_id' => $user_id
                 ]);
 
-                return view($interaction->getView(), $link, array_merge(['_id' => $campaignSelected->_id], $interaction->getData()));
+                return view($interaction->getView(), $link, array_merge(
+                    ['_id' => $campaignSelected->_id],
+                    $interaction->getData(),
+                    ['fb_id'=>session('user_fbid')]
+                    ));
             }
         } else {
             return redirect()->route('welcome', Input::all());

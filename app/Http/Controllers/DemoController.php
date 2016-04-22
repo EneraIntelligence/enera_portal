@@ -29,7 +29,7 @@ class DemoController extends Controller
         $campaignSelected->_id = "demo_like";
         $campaignSelected->content = array(
             'images' => array(
-                'small' => "1452813960.jpg",
+                'small' => "banner_reaccion.jpg",
                 "large" => "1452814001.jpg"
             ),
             'like_url' => 'https://www.facebook.com/eneraintelligence/'
@@ -177,7 +177,7 @@ class DemoController extends Controller
                 "small" => "1452901991.jpg",
                 "large" => "1452901997.jpg",
             ),
-            "video" => "2015-02-22 23.02.02.mp4"
+            "video" => "trailer.mp4"
         );
 
         $campaignType = "Portal\\Libraries\\Interactions\\Video";
