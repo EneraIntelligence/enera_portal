@@ -113,7 +113,7 @@
             <div id="error">Respuesta invalida</div>
             <button id="navegar" class="btn waves-effect waves-light subscribe-btn indigo z-depth-2"
                     success_url="{{Input::get('base_grant_url') }}">
-                Navegar por internet
+                Navegar en internet
             </button>
             <div>
                 <p> * Para navegar por internet ingresa la palabra en la imagen </p>
