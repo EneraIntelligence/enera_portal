@@ -208,7 +208,7 @@
         });
 
 
-        var btn = $(".nav-btn");
+        var btn = $("#navegar");
         btn.click(function () {
             //console.log('click en el boton de solo navegar');
 
