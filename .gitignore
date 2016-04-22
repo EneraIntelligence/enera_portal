@@ -6,3 +6,4 @@ Homestead.yaml
 /public/css
 !/public/css/bootstrap.css
 composer.lock
+/public/fonts/roboto
