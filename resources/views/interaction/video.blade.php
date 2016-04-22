@@ -56,7 +56,10 @@
 
     <!-- Banner card -->
     <div class="banner card-panel z-depth-2 center-align black" onclick="playVideo()">
-        <i class="large material-icons icon-play">play_circle_filled</i>
+
+        {{--<i class="large material-icons icon-play">play_circle_filled</i>--}}
+        <i class="large material-icons icon-play">&#xE038;</i>
+
         <video id="theVideo" class="responsive-video banner-video">
             <source src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}" type="video/mp4">
 
