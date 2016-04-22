@@ -19,7 +19,7 @@
             <div id="error">Respuesta invalida</div>
             <button id="navegar" class="btn btn-primary btn-block"
                     success_url="{{Input::get('base_grant_url') }}">
-                Navegar por internet
+                Navegar en internet
             </button>
             <div>
                 <p> * Para navegar por internet ingresa la palabra en la imagen </p>
