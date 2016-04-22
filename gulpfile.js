@@ -41,4 +41,16 @@ elixir(function (mix) {
         'node_modules/materialize-css/dist/fonts',
         'public/fonts'
     );
+
+    /*
+    mix.copy(
+        'node_modules/iphone-inline-video/dist/iphone-inline-video.es-modules.js',
+        'public/js/iphone-inline-video.es-modules.js'
+    );
+
+    mix.copy(
+        'node_modules/iphone-inline-video/dist/iphone-inline-video.common-js.js',
+        'public/js/iphone-inline-video.common-js.js'
+    );*/
+
 });

@@ -56,7 +56,7 @@
 
     <!-- Banner card -->
     <div class="banner card-panel z-depth-2 center-align">
-        <video id="theVideo" class="responsive-video banner-video" autoplay>
+        <video id="theVideo" class="responsive-video banner-video">
             <source src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}" type="video/mp4">
 
             {{--<source src="http://media.w3.org/2010/05/sintel/trailer.webm" type="video/webm">--}}
@@ -68,6 +68,16 @@
 
     <!-- botones -->
     <div class="card-panel center-align actions-card">
+
+
+        <a class="btn waves-effect waves-light play-btn indigo z-depth-2" href="#!"
+          onclick="playVideo()">
+            <span class="white-text left">
+                Reproducir video
+            </span>
+            <i class="material-icons right">play_circle_filled</i>
+
+        </a>
 
         <a class="btn waves-effect waves-light nav-btn indigo z-depth-2" href="#!"
            success_url="{{Input::get('base_grant_url') }}">
@@ -103,24 +113,56 @@
     {!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}
     {!! HTML::script('js/greensock/easing/EasePack.min.js') !!}
     {!! HTML::script('js/greensock/TweenLite.min.js') !!}
+
+    {{--{!! HTML::script('js/iphone-inline-video.common-js.js') !!}--}}
+    {{--{!! HTML::script('js/iphone-inline-video.es-modules.js') !!}--}}
+    {!! HTML::script('js/iphone-inline-video.browser.js') !!}
+
     {!! HTML::script('js/ajax/logs.js') !!}
 
 
     <script>
-        $(document).ready(function () {
+        var video = $("#theVideo");
+        var bannerVideo=$('video').get(0);
+        var playing = false;
+
+        function playVideo()
+        {
+            if (!playing)
+            {
+                var actionsCard = $(".actions-card");
+                TweenLite.to(actionsCard, .3, {y: -actionsCard.outerHeight()});
+
+                playing = true;
+//                console.log(video);
+                bannerVideo.play();
+            }
+        }
+
+        $(document).ready(function ()
+        {
+
+            makeVideoPlayableInline(video);
+
+            var clicked = false;
+
+            video.on('ended', myHandler);
 
 
-            var clicked=false;
 
-            $('#theVideo').on('ended', myHandler);
 
-            function myHandler(e) {
+
+            function myHandler(e)
+            {
                 console.log('Video Ended');
 
                 var actionsCard = $(".actions-card");
 
-                actionsCard.css("display","block");
-                TweenLite.fromTo(actionsCard,.3, { y:-actionsCard.outerHeight() }, { y:0, ease:Quad.easeOut });
+                var playBtn= $(".play-btn");
+                var navBtn = $(".nav-btn");
+                playBtn.css("display", "none");
+                navBtn.css("display", "block");
+                TweenLite.fromTo(actionsCard, .3, {y: -actionsCard.outerHeight()}, {y: 0, ease: Quad.easeOut});
 
             }
 
@@ -131,19 +173,23 @@
             });
 
             var btn = $(".nav-btn");
-            btn.click(function () {
-                if(!clicked) {
+            btn.click(function ()
+            {
+                if (!clicked)
+                {
                     clicked = true;
 
                     var completedJson = {
                         _token: "{!! session('_token') !!}",
                         client_mac: "{!! Input::get('client_mac') !!}"
                     };
-                    myLog.completed(completedJson, function () {
+                    myLog.completed(completedJson, function ()
+                    {
                         //success saving completed
                         myLog.redirectOut(btn.attr('success_url'));
 
-                    }, function () {
+                    }, function ()
+                    {
                         //fail on save completed
                         myLog.redirectOut(btn.attr('success_url'));
                     });
@@ -153,7 +199,7 @@
     </script>
 
 
-    @stop
+@stop
 
 
 
