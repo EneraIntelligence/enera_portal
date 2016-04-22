@@ -29,8 +29,8 @@ class DemoController extends Controller
         $campaignSelected->_id = "demo_like";
         $campaignSelected->content = array(
             'images' => array(
-                'small' => "banner_reaccion.jpg",
-                "large" => "1452814001.jpg"
+                'small' => "1461297338.jpg",
+                "large" => "1461297353.jpg"
             ),
             'like_url' => 'https://www.facebook.com/eneraintelligence/'
         );
@@ -56,8 +56,8 @@ class DemoController extends Controller
         $campaignSelected->_id = "demo_banner";
         $campaignSelected->content = array(
             'images' => array(
-                'small' => "1452813960.jpg",
-                "large" => "1452814001.jpg"
+                'small' => "1461297338.jpg",
+                "large" => "1461297353.jpg"
             ),
             'banner_link' => 'http://enera.mx'
         );
@@ -80,8 +80,8 @@ class DemoController extends Controller
         $campaignSelected->_id = "demo_mailing";
         $campaignSelected->content = array(
             'images' => array(
-                'small' => "1452813960.jpg",
-                "large" => "1452814001.jpg"
+                "small" => "1456271559.jpg",
+                "large" => "1456271572.jpg",
             )
         );
 
@@ -103,8 +103,8 @@ class DemoController extends Controller
         $campaignSelected->_id = "demo_captcha";
         $campaignSelected->content = array(
             'images' => array(
-                'small' => "1452813960.jpg",
-                "large" => "1452814001.jpg"
+                'small' => "1461297338.jpg",
+                "large" => "1461297353.jpg"
             )
         );
 
