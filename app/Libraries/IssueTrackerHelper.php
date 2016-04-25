@@ -141,7 +141,7 @@ class IssueTrackerHelper
 
             Mail::send('mail.issuestracker', ['issue' => $issue], function ($m) {
                 $m->from('servers@enera.mx', 'Enera Portal');
-                $m->to(['pluna@enera.mx', 'arosas@enera.mx'])->subject('Issue Tracker');
+                $m->to('issuetracker@enera.mx', 'Enera Servers')->subject('Issue Tracker');
             });
 
         }
