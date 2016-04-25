@@ -81,10 +81,10 @@ class Handler extends ExceptionHandler
                 } else if ($e instanceof Exception) {
                     IssueTrackerHelper::create($request, $e, 'Portal');
                     return response()->view('errors.500', [], 500);
-                } else {
+                }/* else {
                     IssueTrackerHelper::create($request, $e, 'Portal');
                     return response()->view('errors.500', [], 500);
-                }
+                }*/
             }
         } elseif ($debug == 1) {
             if ($e instanceof ModelNotFoundException) {
