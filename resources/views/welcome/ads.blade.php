@@ -24,13 +24,15 @@
 <div class="welcome card small center-align">
     <div class="container">
         <h4>Bienvenido a Enera WiFi.</h4>
-        <p>Ve el siguiente anuncio para navegar gratuitamente.</p>
+        <p>Ahora estás conectado.</p>
     </div>
 </div>
 <!-- Main card -->
 
 <div class="ads card small z-depth-2">
-    <!-- ads -->
+
+
+    <!-- ads google --
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!— Rectangle Banner —>
     <ins class="adsbygoogle"
@@ -41,6 +43,10 @@
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
     <!-- ads -->
+
+
+    <script src="//go.mobtrks.com/notice.php?p=623555&interstitial=1"></script>
+
 </div>
 
 
