@@ -72,10 +72,7 @@ class Handler extends ExceptionHandler
         }
         $debug = env('APP_DEBUG');
         if ($debug == 0) {
-            if ($this->isHttpException($e)) {
-                IssueTrackerHelper::create($request, $e, 'Portal');
-                return $this->renderHttpException($e);
-            } else if ($e instanceof NotFoundHttpException) {
+            if ($e instanceof NotFoundHttpException) {
                 return response()->view('error.404', [], 404);
             } else if ($e instanceof FatalErrorException) {
                 IssueTrackerHelper::create($request, $e, 'Portal');
