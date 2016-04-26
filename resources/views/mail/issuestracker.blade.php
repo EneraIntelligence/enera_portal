@@ -50,6 +50,7 @@
         app/Jobs/FbLikesJob.php:55 · [main]</p>
     <p style="border: solid #696969 1px; background-color: #f0f0f0; padding:5px 20px; margin:0;">
         app/Jobs/FbLikesJob.php:55 · [main]</p>
+    <br>
 </main>
 
 </body>
