@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="">
 </head>
 <body style="margin:0;">
-<header>
-    <div style="background-color: #00BFFF; padding: 20px; text-align:center;">
+<header style="background-color: #00BFFF; padding: 20px; ">
+    <div style="display: inline-block">
+        <img src="{{asset('img/logo_enera.png')}}" alt="Enera">
+    </div>
+    <div style="width: 40%; display: inline-block;"></div>
+    <div style="display: inline-block;">
         <h1 style="margin: 0 auto; color: white;">Issues Traker</h1>
     </div>
 </header>
@@ -34,10 +38,12 @@
         </font>
     </p>
     <br>
-    <p><font size="4" color="#696969">STAGE</font></p>
-    <p><font size="3" color="#696969">production</font></p>
-    <p><font size="4" color="#696969">SEVERITY</font></p>
-    <p><font size="3" color="#696969">error</font></p>
+    <p style="margin:0 0 2px 0;"><font size="4" color="#000000" >STAGE</font></p>
+    <p style="margin:0 0 10px 0;"><font size="3" color="#696969" >production</font></p>
+    <p style="margin:0 0 2px 0;"><font size="4" color="#000000" >SEVERITY</font></p>
+    <p style="margin:0 0 10px 0;"><font size="3" color="#696969" >error</font></p>
+    <p style="margin:0 0 2px 0;"><font size="4" color="#000000" >Host</font></p>
+    <p style="margin:0 0 10px 0;"><font size="3" color="#696969" >Server 1</font></p>
     <br>
     <p><font size="9" color="#696969">Stacktrace summary</font></p>
     <p style="border: solid #696969 1px; background-color: #f0f0f0; padding:5px 20px; margin:0;">
