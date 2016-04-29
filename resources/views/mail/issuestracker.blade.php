@@ -21,15 +21,17 @@
 
 <main style="padding: 0 50px;">
     <p>
-        <font size="7" color="#696969">
-            {{ $issue->issue['title'] }}
+        <font size="6" color="#696969">
+            <a href="http://admins.enera-intelligence.mx/issuetracker/show/{{ $issue->_id }}">
+                {{ $issue->issue['title'] }}
+            </a>
         </font>
     </p>
     <p>
         <font size="4" color="#000000">
             {{ $issue->exception['msg'] }}
         </font><br>
-        <font size="4" color="#696969">
+        <font size="3" color="#696969">
             {{ $issue->issue['file']['path'] }}:{{ $issue->issue['file']['line'] }}
         </font>
     </p>
@@ -37,7 +39,7 @@
         <font size="4" color="#000000">
             ENTORNO
         </font><br>
-        <font size="4" color="#696969">
+        <font size="3" color="#696969">
             {{ $env }}
         </font>
     </p>
@@ -45,7 +47,7 @@
         <font size="4" color="#000000">
             HOST
         </font><br>
-        <font size="4" color="#696969">
+        <font size="3" color="#696969">
             {{ gethostname() }}
         </font>
     </p>
@@ -53,7 +55,7 @@
         <font size="4" color="#000000">
             URL
         </font><br>
-        <font size="4" color="#696969">
+        <font size="3" color="#696969">
             ---
         </font>
     </p>
