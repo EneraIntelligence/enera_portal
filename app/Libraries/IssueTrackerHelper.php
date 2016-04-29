@@ -147,7 +147,10 @@ class IssueTrackerHelper
                 ]
             ]);
 
-            Mail::send('mail.issuestracker', ['issue' => $issue], function ($m) {
+            Mail::send('mail.issuestracker', [
+                'issue' => $issue,
+                'env' => env('APP_ENV', 'local')
+            ], function ($m) {
                 $m->from('servers@enera.mx', 'Enera Servers');
                 $m->to('issuestracker@enera.mx', 'Enera IssueTracker')->subject('Issue Tracker');
             });
