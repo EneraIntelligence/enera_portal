@@ -8,10 +8,9 @@
 </head>
 <body style="margin:0;">
 <header style="background-color: #00BFFF; padding: 20px; ">
-    <div style="display: inline-block">
+    <div style="display: inline-block; margin-right: 20px;">
         <img src="{{ asset('img/Logo Enera Blanco-01.svg') }}" alt="Enera" width="25">
     </div>
-    <div style="width: 40%; display: inline-block;"></div>
     <div style="display: inline-block;">
         <h1 style="margin: 0 auto; color: white;">
             New exception in Enera {{ $issue->issue['platform'] }}
