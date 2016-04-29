@@ -6,7 +6,7 @@
     <title></title>
     <link rel="stylesheet" href="">
 </head>
-<body style="margin:0;">
+<body style="margin:0; width: 100%">
 
 <header style="background-color: #00BFFF; padding: 20px 20px 20px 0px;">
     <div style="display: inline-block; margin: 0px 12px;">
@@ -45,6 +45,14 @@
         </font>
     </p>
 </main>
+
+<footer style="background-color: #00BFFF; padding: 20px 20px 20px 0px;">
+    <div style="display: inline-block;">
+        <h4 style="margin: 0 auto; color: white; text-align: right;">
+            Enera Intelligence
+        </h4>
+    </div>
+</footer>
 
 </body>
 </html>
