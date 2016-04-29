@@ -34,23 +34,36 @@
         </font>
     </p>
     <p>
-        <font size="3" color="#696969">
-            <b>ENTORNO</b> : {{ $env }}
+        <font size="4" color="#000000">
+            ENTORNO
         </font><br>
-        <font size="3" color="#696969">
-            <b>HOST</b> : {{ gethostname() }}
+        <font size="4" color="#696969">
+            {{ $env }}
+        </font>
+    </p>
+    <p>
+        <font size="4" color="#000000">
+            HOST
         </font><br>
-        <font size="3" color="#696969">
-            <b>URL</b> : ----
+        <font size="4" color="#696969">
+            {{ gethostname() }}
+        </font>
+    </p>
+    <p>
+        <font size="4" color="#000000">
+            URL
+        </font><br>
+        <font size="4" color="#696969">
+            ---
         </font>
     </p>
 </main>
 
-<footer style="background-color: #00BFFF; padding: 20px 20px 20px 0px;">
-    <div style="display: inline-block;">
-        <h4 style="margin: 0 auto; color: white; text-align: right;">
+<footer style="background-color: #00BFFF; padding: 10px; margin-top: 20px;">
+    <div style="text-align: right;">
+        <h3 style="margin: 0 auto; color: white;">
             Enera Intelligence
-        </h4>
+        </h3>
     </div>
 </footer>
 
