@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="">
 </head>
 <body style="margin:0;">
-<header style="background-color: #00BFFF; padding: 20px; ">
+<header style="background-color: #00BFFF; padding: 20px; min-width: 500px;">
     <div style="display: inline-block; margin-right: 20px;">
         <img src="{{ asset('img/Logo Enera Blanco-01.svg') }}" alt="Enera" width="25">
     </div>
@@ -18,7 +18,7 @@
     </div>
 </header>
 
-<main style="padding: 0 50px;">
+<main style="padding: 0 50px; min-width: 500px;">
     <p>
         <font size="9" color="#696969">
             {{ $issue->issue['title'] }}
