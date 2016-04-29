@@ -28,20 +28,20 @@
     <br>
     <p>
         <font size="4" color="#000000">
-            {{ $issue->issue['file']['path'] }}:{{ $issue->issue['file']['line'] }}
+            {{ $issue->exception['msg'] }}
         </font><br>
         <font size="4" color="#696969">
-            {{ $issue->exception['msg'] }}
+            {{ $issue->issue['file']['path'] }}:{{ $issue->issue['file']['line'] }}
         </font>
     </p>
     <p>
         <font size="3" color="#696969">
             <b>HOST</b> : {{ gethostname() }}
+        </font><br>
+        <font size="3" color="#696969">
+            <b>URL</b> : ----
         </font>
     </p>
-    <br>
-    <p style="margin:0 0 2px 0;"><font size="4" color="#000000">URL</font></p>
-    <p style="margin:0 0 10px 0;"><font size="3" color="#696969">-----</font></p>
 </main>
 
 </body>
