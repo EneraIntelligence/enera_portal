@@ -35,6 +35,9 @@
     </p>
     <p>
         <font size="3" color="#696969">
+            <b>ENTORNO</b> : {{ $env }}
+        </font><br>
+        <font size="3" color="#696969">
             <b>HOST</b> : {{ gethostname() }}
         </font><br>
         <font size="3" color="#696969">
