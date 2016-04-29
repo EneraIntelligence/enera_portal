@@ -112,6 +112,10 @@ class IssueTrackerHelper
                     'trace' => $e->getTraceAsString(),
                 ],
                 'statistic' => [
+                    'recurrence' => inval(1),
+                    'host' => [
+                        gethostname() => intval('1')
+                    ],
                     date('Y-m-d') => [
                         'recurrence' => intval('1'),
                         'host' => [
