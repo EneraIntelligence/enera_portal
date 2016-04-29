@@ -75,7 +75,9 @@ class IssueTrackerHelper
                 ];
             }
             $issue_statistic['recurrence']++;
-            isset($issue_statistic['host'][gethostname()]) ? $issue_statistic['host'][gethostname()]++ : $issue_statistic['host'][gethostname()] = 1;
+            isset($issue_statistic['host'][gethostname()]) ?
+                $issue_statistic['host'][gethostname()]++ :
+                $issue_statistic['host'][gethostname()] = 1;
             $issue->statistic = $issue_statistic;
             $issue->save();
 
