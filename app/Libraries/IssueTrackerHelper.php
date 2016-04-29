@@ -114,7 +114,7 @@ class IssueTrackerHelper
                     'trace' => $e->getTraceAsString(),
                 ],
                 'statistic' => [
-                    'recurrence' => inval('1'),
+                    'recurrence' => intval('1'),
                     'host' => [
                         gethostname() => intval('1')
                     ],
@@ -148,8 +148,8 @@ class IssueTrackerHelper
             ]);
 
             Mail::send('mail.issuestracker', ['issue' => $issue], function ($m) {
-                $m->from('servers@enera.mx', 'Enera Portal');
-                $m->to('issuestracker@enera.mx', 'Enera Servers')->subject('Issue Tracker');
+                $m->from('servers@enera.mx', 'Enera Servers');
+                $m->to('issuestracker@enera.mx', 'Enera IssueTracker')->subject('Issue Tracker');
             });
 
         }
