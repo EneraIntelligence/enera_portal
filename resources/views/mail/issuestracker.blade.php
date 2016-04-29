@@ -9,8 +9,8 @@
 <body style="margin:0;">
 
 <header style="background-color: #00BFFF; padding: 20px 20px 20px 0px;">
-    <div style="display: inline-block; margin: 0px 13px;">
-        <img src="{{ asset('img/Logo Enera Blanco-01.svg') }}" alt="Enera" width="24">
+    <div style="display: inline-block; margin: 0px 12px;">
+        <img src="{{ asset('img/Logo Enera Blanco-01.svg') }}" alt="Enera" width="25" height="25">
     </div>
     <div style="display: inline-block;">
         <h1 style="margin: 0 auto; color: white;">
@@ -21,7 +21,7 @@
 
 <main style="padding: 0 50px;">
     <p>
-        <font size="9" color="#696969">
+        <font size="7" color="#696969">
             {{ $issue->issue['title'] }}
         </font>
     </p>
