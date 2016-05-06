@@ -24,10 +24,18 @@
 <div class="welcome card small center-align">
     <div class="container">
         <h4>Bienvenido a Enera WiFi.</h4>
-        <p>Ahora estás conectado.</p>
+        {{--<p>Ahora estás conectado.</p>--}}
+        <p>Ve el siguiente anuncio para navegar gratuitamente.</p>
     </div>
 </div>
 <!-- Main card -->
+
+<!-- ad video -->
+<div class="card z-depth-2">
+
+    <script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>
+
+</div>
 
 <div class="ads card small z-depth-2">
 
@@ -45,7 +53,8 @@
     <!-- ads -->
 
 
-    <script src="//go.mobtrks.com/notice.php?p=623555&interstitial=1"></script>
+    <!-- ad fullscreen mobile -->
+    {{--<script src="//go.mobtrks.com/notice.php?p=623555&interstitial=1"></script>--}}
 
 </div>
 
