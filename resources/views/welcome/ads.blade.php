@@ -31,12 +31,12 @@
 <!-- Main card -->
 
 <!-- ad video -->
-{{--<div class="card z-depth-2">--}}
+<div class="card z-depth-2">
 
-    {{--<script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>--}}
-    <iframe style="margin-left: -240px; left: 50%; position: relative; margin-top: 15px;" src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.html" width="480" height="270" frameborder="0" scrolling="auto" allowfullscreen></iframe>
+    <script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>
+    {{--<iframe style="margin-left: -240px; left: 50%; position: relative; margin-top: 15px;" src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.html" width="480" height="270" frameborder="0" scrolling="auto" allowfullscreen></iframe>--}}
 
-{{--</div>--}}
+</div>
 
 <div class="ads card small z-depth-2">
 
