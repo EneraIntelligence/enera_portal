@@ -33,7 +33,8 @@
 <!-- ad video -->
 <div class="card z-depth-2">
 
-    <script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>
+    {{--<script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>--}}
+    <iframe src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.html" width="480" height="270" frameborder="0" scrolling="auto" allowfullscreen></iframe>
 
 </div>
 
