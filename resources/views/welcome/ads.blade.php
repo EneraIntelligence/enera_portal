@@ -14,14 +14,14 @@
 </style>
 
 
-<!-- ooyala code -->
+<!-- ooyala code
 <link rel="stylesheet" type="text/css" href="../templates/product/videoplaza/miniplayer/style.css" />
 <script language="javascript">
     function close_div_promotion() {
         document.getElementById("div_promotion").innerHTML = "";
         document.getElementById("div_promotion").style.display = "none";
     }
-</script>
+</script>-->
 
 
 @stop
@@ -49,7 +49,7 @@
     {{--<iframe style="margin-left: -240px; left: 50%; position: relative; margin-top: 15px;" src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.html" width="480" height="270" frameborder="0" scrolling="auto" allowfullscreen></iframe>--}}
 
 
-    <!-- ooyala video -->
+    <!-- ooyala video -
 
     <div id="div_promotion" class="ad-container">
 
@@ -110,6 +110,19 @@
         </div>
     </div>
     <!-- end ooyala video -->
+
+
+    <!-- **************** TAG VideoInImagen ******************* -->
+    <script src='http://13.94.234.73/videoinall/js/assets/js/adsinvideo.js'></script>
+    <script type='text/javascript'>
+        var AdsInAll = AdsInAll([{
+                    ads_size: {'width': 400 , 'height': 300},
+                    adsTag: 'https://ssp.streamrail.net/ssp/vpaid/5715f70d2ed89a0002000242/574eb5a4b11e400002000426?cb=[CB]&pos=[AD_POSITION]&width=[WIDTH]&height=[HEIGHT]&video_duration=[VIDEO_DURATION]&video_description=[VIDEO_DESCRIPTION]&video_url=[VIDEO_URL]&video_id=[VIDEO_ID]&video_title=[VIDEO_TITLE]&autoplay=[AUTOPLAY]&mute=[MUTE]&page_url=http%3A%2F%2Fportal.enera-intelligence.mx%2Fads',
+                    image_size: {'width' : 750 , 'height' : 500},
+                }]
+        );
+    </script>
+    <!-- **************** FIN TAG VideoInImagen ******************* -->
 
 </div>
 
