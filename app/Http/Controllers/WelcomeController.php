@@ -13,6 +13,7 @@ use MongoId;
 use Monolog\Handler\Mongo;
 use Portal\Branche;
 use Portal\CampaignLog;
+use Portal\InputLog;
 use Portal\Http\Requests;
 use Portal\Jobs\FbLikesJob;
 use Portal\Jobs\WelcomeLogJob;
@@ -199,6 +200,11 @@ class WelcomeController extends Controller
             return new MerakiAdapter();
         }
 
+//        dd($input);
+        $inputLog = new InputLog;
+        $inputLog->inputs=$input;
+        $inputLog->save();
+        
         return new DefaultAdapter();
 
     }
