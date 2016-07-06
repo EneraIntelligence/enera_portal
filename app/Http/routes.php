@@ -22,7 +22,7 @@ Route::match(['post', 'get'], '/demo/captcha', ['as' => 'captcha', 'uses' => 'De
 Route::match(['post', 'get'], '/demo/encuesta', ['as' => 'encuesta', 'uses' => 'DemoController@encuesta']);
 Route::match(['post', 'get'], '/demo/video', ['as' => 'video', 'uses' => 'DemoController@video']);
 
-Route::match(['post', 'get'], '/auth', ['as' => 'openMeshAuth', 'uses' => 'WelcomeController@openMeshAuth']);
+Route::match(['post', 'get'], '/auth', ['as' => 'openMeshAuth', 'uses' => 'OpenMeshController@openMeshAuth']);
 
 Route::group(['middleware' => 'FbLogin'], function () {
     Route::group(['as' => 'welcome::', 'prefix' => 'welcome'], function () {
