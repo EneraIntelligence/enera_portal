@@ -13,6 +13,7 @@ use MongoId;
 use Monolog\Handler\Mongo;
 use Portal\Branche;
 use Portal\CampaignLog;
+use Portal\InputLog;
 use Portal\Http\Requests;
 use Portal\Jobs\FbLikesJob;
 use Portal\Jobs\WelcomeLogJob;
@@ -58,10 +59,146 @@ class WelcomeController extends Controller
         // clear session
         $this->checkSession();
 
+        //detecta marca de ap y asigna un adaptador
         $inputAdapter = $this->detectAPAdapter(Input::all());
+        //ajusta los inputs al estandar de enera
         $input = $inputAdapter->processInput(Input::all());
 
 
+        if(!$this->validWelcomeInput($input))
+        {
+            return $this->invalidNetworkView();
+        }
+
+
+        //renombrando variables para mejor manejo
+        $node_mac = $input['node_mac'];
+        $client_mac = $input['client_mac'];
+        $base_grant_url = $input['base_grant_url'];
+        $user_continue_url = $input['user_continue_url'];
+
+        //busca el branch del ap
+        $branche = Branche::whereIn('aps', [$node_mac])->first();
+
+        // Si el AP no fue dado de alta o no está asignado a una Branche
+        if (!$branche)
+        {
+            return $this->invalidNetworkView();
+        }
+
+        //check if the user continue url is valid, if not set it to the branch default
+        $user_continue_url = $inputAdapter->validateUserContinueURL($user_continue_url, $branche->portal['default_link']);
+        $url_vars = [
+            "duration" => $branche->portal['session_time'] * 60,
+            "continue_url" => $user_continue_url
+        ];
+        $base_grant_url = $inputAdapter->addVars($base_grant_url, $url_vars);
+
+        $agent = new Agent();
+
+        // welcome
+        $log = CampaignLog::where('user.session', session('_token'))
+            ->where('device.mac', $client_mac)->first();
+
+
+        // Paso 1: Welcome log
+        if ($log && !isset($log->interaction->welcome))
+        {
+            //se encontró log y está vacío, sin welcome
+            /* Eder: creo que nunca se entra aquí por que siempre se le agrega welcome al inicio*/
+            $log->interaction()->create(['welcome' => new MongoDate()]);
+        }
+        elseif (!$log)
+        {
+            //no existe log, creando
+            $new_log = CampaignLog::create([
+                'user' => [
+                    'session' => session('_token')
+                ],
+                'device' => [
+                    'mac' => $client_mac,
+                    'node_mac' => $node_mac,
+                    'os' => $agent->platform(),
+                    'branch_id' => Branche::whereIn('aps', [$node_mac])->first()->_id,
+                ]
+            ]);
+
+            //se introduce la info de welcome
+            $new_log->interaction()->create([
+                'welcome' => new MongoDate(),
+            ]);
+        }
+
+        /*$this->dispatch(new WelcomeLogJob([
+            'session' => session('_token'),
+            'client_mac' => $client_mac,
+            'node_mac' => $node_mac,
+            'os' => $agent->platform(),
+        ]));*/
+
+        session([
+            'image' => $branche->portal['image'],
+            'main_bg' => $branche->portal['background'],
+            'message' => $branche->portal['message'],
+            'session_time' => ($branche->portal['session_time'] * 60),
+            'device_os' => $agent->platform(),
+        ]);
+
+        $users = User::where('facebook.id', 'exists', true)
+            ->where(function ($q) use ($client_mac)
+            {
+                $q->where('devices.mac', $client_mac)
+                    ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
+            })
+            ->get();
+
+        //check if device has paired none or more than 1 facebook account
+        if ($users->count() != 1)
+        {
+            $url = route('welcome::response', [
+                'node_mac' => $node_mac,
+                //'client_ip' => Input::get('client_ip'),
+                'client_mac' => $client_mac,
+                'base_grant_url' => $base_grant_url,
+                'user_continue_url' => $user_continue_url
+            ]);
+
+            //open login view
+            return view('welcome.index', [
+                'image' => $branche->portal['image'],
+                'message' => $branche->portal['message'],
+                'spinner_color' => $branche->portal['spinner_color'],
+                'login_response' => $this->fbUtils->makeLoginUrl($url),
+                'client_mac' => $client_mac,
+            ]);
+
+        }
+
+
+        //device has exactly one facebook account paired
+        $user = $users[0];
+
+        session([
+            'user_email' => $user->facebook->email,
+            'user_name' => $user->facebook->first_name,
+            'user_fbid' => $user->facebook->id,
+            'user_ftime' => false,
+        ]);
+
+        //show campaign
+        return redirect()->route('campaign::show', [
+            'id' => $user->_id,
+            'node_mac' => $node_mac,
+            //'client_ip' => Input::get('client_ip'),
+            'client_mac' => $client_mac,
+            'base_grant_url' => $base_grant_url,
+            'user_continue_url' => $user_continue_url
+        ]);
+
+    }
+
+    private function validWelcomeInput($input)
+    {
         // valida que los parámetros estén presentes
         $validate = Validator::make($input, [
             'base_grant_url' => 'required',
@@ -69,126 +206,18 @@ class WelcomeController extends Controller
             'node_mac' => 'required',
             'client_mac' => 'required'
         ]);
-        if ($validate->passes())
-        {
 
-            $node_mac = $input['node_mac'];
-            $client_mac = $input['client_mac'];
-            $base_grant_url = $input['base_grant_url'];
-            $user_continue_url = $input['user_continue_url'];
+        return $validate->passes();
+    }
 
-
-            $branche = Branche::whereIn('aps', [$node_mac])->first();
-            // Si el AP fue dado de alta y asignado a una Branche
-            if ($branche)
-            {
-
-                $user_continue_url = $inputAdapter->validateUserContinueURL($user_continue_url, $branche->portal['default_link']);
-
-                $agent = new Agent();
-                // welcome
-                $log = CampaignLog::where('user.session', session('_token'))
-                    ->where('device.mac', $client_mac)->first();
-
-                // Paso 1: Welcome log
-                if ($log && !isset($log->interaction->welcome))
-                {
-                    $log->interaction()->create(['welcome' => new MongoDate()]);
-                } elseif (!$log)
-                {
-                    $new_log = CampaignLog::create([
-                        'user' => [
-                            'session' => session('_token')
-                        ],
-                        'device' => [
-                            'mac' => $client_mac,
-                            'node_mac' => $node_mac,
-                            'os' => $agent->platform(),
-                            'branch_id' => Branche::whereIn('aps', [$node_mac])->first()->_id,
-                        ]
-                    ]);
-                    $new_log->interaction()->create([
-                        'welcome' => new MongoDate(),
-                    ]);
-                }
-                /*$this->dispatch(new WelcomeLogJob([
-                    'session' => session('_token'),
-                    'client_mac' => $client_mac,
-                    'node_mac' => $node_mac,
-                    'os' => $agent->platform(),
-                ]));*/
-
-                $url_vars = [
-                    "duration" => $branche->portal['session_time'] * 60,
-                    "continue_url" => $user_continue_url
-                ];
-                $base_grant_url = $inputAdapter->addVars($base_grant_url, $url_vars);
-
-                session([
-                    'image' => $branche->portal['image'],
-                    'main_bg' => $branche->portal['background'],
-                    'message' => $branche->portal['message'],
-                    'session_time' => ($branche->portal['session_time'] * 60),
-                    'device_os' => $agent->platform(),
-                ]);
-
-                $user = User::where('facebook.id', 'exists', true)
-                    ->where(function ($q) use ($client_mac)
-                    {
-                        $q->where('devices.mac', $client_mac)
-                            ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
-                    })
-                    ->get();
-
-                if ($user->count() < 1 || $user->count() > 1)
-                {
-                    $url = route('welcome::response', [
-                        'node_mac' => $node_mac,
-                        //'client_ip' => Input::get('client_ip'),
-                        'client_mac' => $client_mac,
-                        'base_grant_url' => $base_grant_url,
-                        'user_continue_url' => $user_continue_url
-                    ]);
-
-                    return view('welcome.index', [
-                        'image' => $branche->portal['image'],
-                        'message' => $branche->portal['message'],
-                        'spinner_color' => $branche->portal['spinner_color'],
-                        'login_response' => $this->fbUtils->makeLoginUrl($url),
-                        'client_mac' => $client_mac,
-                    ]);
-
-                } elseif ($user->count() == 1)
-                {
-                    session([
-                        'user_email' => $user[0]->facebook->email,
-                        'user_name' => $user[0]->facebook->first_name,
-                        'user_fbid' => $user[0]->facebook->id,
-                        'user_ftime' => false,
-                    ]);
-
-                    return redirect()->route('campaign::show', [
-                        'id' => $user[0]->_id,
-                        'node_mac' => $node_mac,
-                        //'client_ip' => Input::get('client_ip'),
-                        'client_mac' => $client_mac,
-                        'base_grant_url' => $base_grant_url,
-                        'user_continue_url' => $user_continue_url
-                    ]);
-                }
-            }
-        }
-
-
-        //Bugsnag::notifyError("Error red invalida", "Falta algún parametro en la url o el node_mac es incorrecto");
-
-
+    private function invalidNetworkView()
+    {
         return view('welcome.invalid', [
             'main_bg' => 'bg_welcome.jpg'
         ]);
     }
 
-    public function detectAPAdapter($input)
+    private function detectAPAdapter($input)
     {
 
         if (isset($input['res']))
@@ -199,80 +228,14 @@ class WelcomeController extends Controller
             return new MerakiAdapter();
         }
 
+        $inputLog = new InputLog;
+        $inputLog->inputs=$input;
+        $inputLog->save();
+        
         return new DefaultAdapter();
 
     }
 
-    public function openMeshAuth()
-    {
-        /**
-         * secret - Shared secret between server and node
-         */
-        $secret = "3n3r41nt3ll1g3nc3";
-        /**
-         * response - Standard response (is modified depending on the result
-         */
-        $response = array(
-            'CODE' => 'REJECT',
-            'RA' => '0123456789abcdef0123456789abcdef',
-            'BLOCKED_MSG' => 'Rejected! This doesnt look like a valid request',
-        );
-
-        /* copy request authenticator */
-        if (array_key_exists('ra', $_GET) && strlen($_GET['ra']) == 32 && ($ra = hex2bin($_GET['ra'])) !== FALSE && strlen($ra) == 16)
-        {
-            $response['RA'] = $_GET['ra'];
-        }
-
-        /* decode password when available */
-        $password = FALSE;
-        if (array_key_exists('username', $_GET) && array_key_exists('password', $_GET))
-            $password = $this->decode_password($response, $_GET['password'], $secret);
-
-        /* store mac when available */
-        $mac = FALSE;
-        if (array_key_exists('mac', $_GET))
-            $mac = $_GET['mac'];
-
-        $duration = 900;
-        if (array_key_exists('duration', $_GET))
-            $duration = $_GET['duration'];
-
-        if (Session::has('session_time'))
-        {
-            $duration = session('session_time');
-        }
-
-        /* decode request */
-        if (array_key_exists('type', $_GET))
-        {
-            $type = $_GET['type'];
-            switch ($type)
-            {
-                case 'login':
-                    if ($password === FALSE)
-                        break;
-                    if ($password == 'test' && $_GET['username'] == 'test')
-                    {
-                        unset($response['BLOCKED_MSG']);
-                        $response['CODE'] = "ACCEPT";
-                        $response['SECONDS'] = $duration;
-                        $response['DOWNLOAD'] = 2000;
-                        $response['UPLOAD'] = 800;
-                    } else
-                    {
-                        $response['BLOCKED_MSG'] = "Invalid username or password";
-                    }
-                    break;
-            };
-        }
-
-
-        /* calculate new request authenticator based on answer and request -> send it out */
-        $this->calculate_new_ra($response, $secret);
-        $this->print_dictionary($response);
-
-    }
 
     /**
      * Obtiene la respuesta desde Facebook
@@ -437,88 +400,6 @@ class WelcomeController extends Controller
             'image' => $image
         ]);
     }
-
-
-    /*
-     * FUNCIONES AUXILIARES OPEN-MESH
-     */
-    /**
-     * print_dictionary - Print dictionary as encoded key-value pairs
-     * @dict: Dictionary to print
-     */
-    private function print_dictionary($dict)
-    {
-        foreach ($dict as $key => $value)
-        {
-            echo '"', rawurlencode($key), '" "', rawurlencode($value), "\"\n";
-        }
-    }
-
-    /**
-     * calculate_new_ra - calculate new request authenticator based on old ra, code
-     *  and secret
-     * @dict: Dictionary containing old ra and code. new ra is directly stored in it
-     * @secret: Shared secret between node and server
-     */
-    private function calculate_new_ra(&$dict, $secret)
-    {
-        if (!array_key_exists('CODE', $dict))
-            return;
-        $code = $dict['CODE'];
-        if (!array_key_exists('RA', $dict))
-            return;
-        if (strlen($dict['RA']) != 32)
-            return;
-        $ra = hex2bin($dict['RA']);
-        if ($ra === FALSE)
-            return;
-
-        $dict['RA'] = hash('md5', $code . $ra . $secret);
-    }
-
-    /**
-     * decode_password - decode encoded password to ascii string
-     * @dict: dictionary containing request RA
-     * @encoded: The encoded password
-     * @secret: Shared secret between node and server
-     *
-     * Returns decoded password or FALSE on error
-     */
-    private function decode_password($dict, $encoded, $secret)
-    {
-        if (!array_key_exists('RA', $dict))
-            return FALSE;
-        if (strlen($dict['RA']) != 32)
-            return FALSE;
-        $ra = hex2bin($dict['RA']);
-        if ($ra === FALSE)
-            return FALSE;
-        if ((strlen($encoded) % 32) != 0)
-            return FALSE;
-        $bincoded = hex2bin($encoded);
-        $password = "";
-        $last_result = $ra;
-        for ($i = 0; $i < strlen($bincoded); $i += 16)
-        {
-            $key = hash('md5', $secret . $last_result, TRUE);
-            for ($j = 0; $j < 16; $j++)
-                $password .= $key[$j] ^ $bincoded[$i + $j];
-            $last_result = substr($bincoded, $i, 16);
-        }
-        $j = 0;
-        for ($i = strlen($password); $i > 0; $i--)
-        {
-            if ($password[$i - 1] != "\x00")
-                break;
-            else
-                $j++;
-        }
-        if ($j > 0)
-        {
-            $password = substr($password, 0, strlen($password) - $j);
-        }
-
-        return $password;
-    }
+    
 
 }

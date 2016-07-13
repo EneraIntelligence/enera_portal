@@ -12,6 +12,18 @@
         background-color: #3f51b5;
     }
 </style>
+
+
+<!-- ooyala code-
+<link rel="stylesheet" type="text/css" href="../templates/product/videoplaza/miniplayer/style.css" />
+<script language="javascript">
+    function close_div_promotion() {
+        document.getElementById("div_promotion").innerHTML = "";
+        document.getElementById("div_promotion").style.display = "none";
+    }
+</script>-->
+
+
 @stop
 
 @section('header')
@@ -24,10 +36,98 @@
 <div class="welcome card small center-align">
     <div class="container">
         <h4>Bienvenido a Enera WiFi.</h4>
-        <p>Ahora estás conectado.</p>
+        {{--<p>Ahora estás conectado.</p>--}}
+        <p>Ve el siguiente anuncio para navegar gratuitamente.</p>
     </div>
 </div>
 <!-- Main card -->
+
+<!-- ad video -->
+<div class="card z-depth-2" >
+
+    {{--<script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>--}}
+    {{--<iframe style="margin-left: -240px; left: 50%; position: relative; margin-top: 15px;" src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.html" width="480" height="270" frameborder="0" scrolling="auto" allowfullscreen></iframe>--}}
+
+
+    <!-- ooyala video -
+
+    <div id="div_promotion" class="ad-container">
+
+        <div class="mplayer">
+            <script language="javascript">
+                var vpMiniPlayer = window.vpMiniPlayer = {
+                    init : function() {
+
+                        // ****** START - videoplaza plugin config ******
+                        var queryString = "vphost=http://vp-validation.videoplaza.tv";
+                        queryString += "&vpTags=standard";
+                        queryString += "&vpCategory=validation";
+                        queryString += "&closeButtonTimeout=5";
+
+                        // ****** END - videoplaza plugin config ******
+
+                        var objid = "vpMiniPlayer_" + Math.floor(Math.random()*11000);
+                        var queryArray = queryString.split('&');
+                        var queryMap = {};
+                        for (var idx in queryArray) {
+                            var keyValue = queryArray[idx];
+                            var eqIdx = keyValue.indexOf('=');
+                            var key = keyValue.substring(0,eqIdx);
+                            var val = keyValue.substring(eqIdx + 1, keyValue.length);
+                            queryMap[key] = val;
+                        }
+                        if (!queryMap.width) {
+                            queryMap.width = 557;
+                        }
+                        if (!queryMap.height) {
+                            queryMap.height = 320;
+                        }
+                        if (!queryMap.showCountdownText) {
+                            queryMap.showCountdownText = "true";
+                        }
+                        if (!queryMap.closeButtonTimeout) {
+                            queryMap.closeButtonTimeout = "-1";
+                        }
+
+                        var miniplayerURL = "http://cdn.videoplaza.tv/resources/flash/miniplayer/latest/miniplayer.swf";
+
+                        var flashvars = 'key=value';
+                        for (var key in queryMap) {
+                            flashvars += "&" + key + '=' + queryMap[key];
+                        }
+
+                        document.write('<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" ID="'+objid+'" WIDTH="' + queryMap.width + '" HEIGHT="' + queryMap.height + '"><PARAM NAME="movie" VALUE="'+miniplayerURL+'"><PARAM NAME="quality" VALUE="autohigh"><PARAM NAME="wmode" VALUE="opaque"><PARAM NAME="align" VALUE=""><PARAM NAME="FlashVars" VALUE="' + flashvars + '"><PARAM NAME="loop" VALUE="false"><PARAM NAME="allowScriptAccess" VALUE="always"><EMBED SRC="'+miniplayerURL+'" FlashVars="' + flashvars + '" NAME="'+queryMap.objid+'" quality="autohigh"  wmode="opaque" swLiveConnect="true" WIDTH="' + queryMap.width + '" HEIGHT="' + queryMap.height + '"    allowScriptAccess="always" TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"></EMBED></OBJECT>');
+                    },
+
+                    prerollDone : function() {
+                        close_div_promotion();
+                    }
+                };
+
+                vpMiniPlayer.init();
+            </script>
+
+        </div>
+    </div>
+    <!-- end ooyala video -->
+
+    <script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>
+
+
+</div>
+
+<!-- **************** TAG VideoInImagen ******************* -
+<script src='http://13.94.234.73/videoinall/js/assets/js/adsinvideo.js'></script>
+<script type='text/javascript'>
+    var AdsInAll = AdsInAll([{
+                ads_size: {'width': 400 , 'height': 300},
+                adsTag: 'https://ssp.streamrail.net/ssp/vpaid/5715f70d2ed89a0002000242/574eb5a4b11e400002000426?cb=[CB]&pos=[AD_POSITION]&width=[WIDTH]&height=[HEIGHT]&video_duration=[VIDEO_DURATION]&video_description=[VIDEO_DESCRIPTION]&video_url=[VIDEO_URL]&video_id=[VIDEO_ID]&video_title=[VIDEO_TITLE]&autoplay=[AUTOPLAY]&mute=[MUTE]&page_url=http%3A%2F%2Fportal.enera-intelligence.mx%2Fads',
+                image_size: {'width' : 750 , 'height' : 500},
+            }]
+    );
+</script>
+<!-- **************** FIN TAG VideoInImagen ******************* -->
+
 
 <div class="ads card small z-depth-2">
 
@@ -45,7 +145,8 @@
     <!-- ads -->
 
 
-    <script src="//go.mobtrks.com/notice.php?p=623555&interstitial=1"></script>
+    <!-- ad fullscreen mobile -->
+    {{--<script src="//go.mobtrks.com/notice.php?p=623555&interstitial=1"></script>--}}
 
 </div>
 

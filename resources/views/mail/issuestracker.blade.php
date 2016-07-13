@@ -6,52 +6,68 @@
     <title></title>
     <link rel="stylesheet" href="">
 </head>
-<body style="margin:0;">
-<header style="background-color: #00BFFF; padding: 20px; ">
-    <div style="display: inline-block">
-        <img src="{{asset('img/Logo Enera Blanco-01.svg')}}" alt="Enera" width="25">
+<body style="margin:0; width: 100%">
+
+<header style="background-color: #00BFFF; padding: 20px 20px 20px 0px;">
+    <div style="display: inline-block; margin: 0px 12px;">
+        <img src="{{ asset('img/Logo Enera Blanco-01.svg') }}" alt="Enera" width="25" height="25">
     </div>
-    <div style="width: 40%; display: inline-block;"></div>
     <div style="display: inline-block;">
-        <h1 style="margin: 0 auto; color: white;">Issues Tracker</h1>
+        <h1 style="margin: 0 auto; color: white;">
+            New exception in Enera {{ $issue->issue['platform'] }}
+        </h1>
     </div>
 </header>
 
 <main style="padding: 0 50px;">
     <p>
-        <font size="9" color="#696969">
-            New exception in Enera {{ $issue->issue['platform'] }}
+        <font size="6" color="#696969">
+            <a href="http://admins.enera-intelligence.mx/issuetracker/show/{{ $issue->_id }}">
+                {{ $issue->issue['title'] }}
+            </a>
         </font>
     </p>
-    <br>
     <p>
         <font size="4" color="#000000">
-            {{ $issue->issue['title'] }}
-        </font>
-        <font size="4" color="#696969">
-            - {{ $issue->issue['file']['path'] }}:{{ $issue->issue['file']['line'] }}
+            {{ $issue->exception['msg'] }}
+        </font><br>
+        <font size="3" color="#696969">
+            {{ $issue->issue['file']['path'] }}:{{ $issue->issue['file']['line'] }}
         </font>
     </p>
     <p>
+        <font size="4" color="#000000">
+            ENTORNO
+        </font><br>
         <font size="3" color="#696969">
-            {{ $issue->exception['msg'] }}
+            {{ $env }}
         </font>
     </p>
-    <br>
-    <p style="margin:0 0 2px 0;"><font size="4" color="#000000">STAGE</font></p>
-    <p style="margin:0 0 10px 0;"><font size="3" color="#696969">production</font></p>
-    <p style="margin:0 0 2px 0;"><font size="4" color="#000000">SEVERITY</font></p>
-    <p style="margin:0 0 10px 0;"><font size="3" color="#696969">error</font></p>
-    <p style="margin:0 0 2px 0;"><font size="4" color="#000000">Host</font></p>
-    <p style="margin:0 0 10px 0;"><font size="3" color="#696969">Server 1</font></p>
-    <br>
-    <p><font size="9" color="#696969">Stacktrace summary</font></p>
-    <p style="border: solid #696969 1px; background-color: #f0f0f0; padding:5px 20px; margin:0;">
-        app/Jobs/FbLikesJob.php:55 · [main]</p>
-    <p style="border: solid #696969 1px; background-color: #f0f0f0; padding:5px 20px; margin:0;">
-        app/Jobs/FbLikesJob.php:55 · [main]</p>
-    <br>
+    <p>
+        <font size="4" color="#000000">
+            HOST
+        </font><br>
+        <font size="3" color="#696969">
+            {{ gethostname() }}
+        </font>
+    </p>
+    <p>
+        <font size="4" color="#000000">
+            URL
+        </font><br>
+        <font size="3" color="#696969">
+            ---
+        </font>
+    </p>
 </main>
+
+<footer style="background-color: #00BFFF; padding: 10px; margin-top: 20px;">
+    <div style="text-align: right;">
+        <h3 style="margin: 0 auto; color: white;">
+            Enera Intelligence
+        </h3>
+    </div>
+</footer>
 
 </body>
 </html>

@@ -28,42 +28,32 @@ class OpenMeshAdapter implements IAdapter
         {
 
 
-            if ($input['res'] === "success") {
-
-                $redir = "http://enera.mx";
-                if(isset($redir)) {
-                    echo "<head>";
-                    echo '<meta http-equiv="refresh" content="3;URL=\'' . $redir . '\'">';
-                    echo "</head>";
-                }
-                else {
-                    echo "<h2>Log-in successful!</h2>";
-                }
-
+            if ($input['res'] === "success") 
+            {
+                $this->redirectToEnera();
                 return [];
             }
 
 
-            //connected via openmesh
+            //set variables to connect via openmesh server
             $uam_secret = "3n3r41nt3ll1g3nc3";
-
             $username="test";
             $password = "test";
-            $uamip = $input['uamip'];
-            $uamport = $input['uamport'];
             $challenge = $input['challenge'];
-            $user_url = $input['userurl'];
-
-            $node_mac = $this->formatMac($input['called']);
-            $client_mac =  $this->formatMac($input['mac']);
-
-
+            
             $encoded_password = $this->encode_password($password, $challenge, $uam_secret);
 
+
+            $uamip = $input['uamip'];
+            $uamport = $input['uamport'];
+            
             $redirect_url = "http://$uamip:$uamport/logon?" .
                 "username=" . urlencode($username) .
                 "&password=" . urlencode($encoded_password);
 
+
+            $user_url = $input['userurl'];
+            
             if(!isset($user_url) || $user_url=="")
             {
                 $user_url = "http://enera.mx/";
@@ -72,6 +62,10 @@ class OpenMeshAdapter implements IAdapter
             $redirect_url .= "&redir=" . urlencode( $user_url );
 
 
+            $node_mac = $this->formatMac($input['called']);
+            $client_mac =  $this->formatMac($input['mac']);
+            
+            //variables converted to match meraki's
             $resp = [
                 'base_grant_url' => $redirect_url,
                 'user_continue_url' => $user_url,
@@ -85,11 +79,17 @@ class OpenMeshAdapter implements IAdapter
         //validation failed goto invalid portal
         return [];
     }
+    
+    public function validateUserContinueURL($url, $defaultURL)
+    {
+        return $url;
+    }
 
     public function addVars($url, $vars)
     {
         $first = true;
 
+        //checks if the url already has variables
         if (strpos($url, '?') !== FALSE)
             $first=false;
 
@@ -98,11 +98,13 @@ class OpenMeshAdapter implements IAdapter
             {
                 if($first)
                 {
+                    //adding the first var
                     $first=false;
                     $url = $url.'?'.urlencode( $key ) .'='. urlencode($value);
                 }
                 else
                 {
+                    //adding a var that is not the first one
                     $url = $url.'&'.urlencode( $key ) .'='. urlencode($value);
                 }
             }
@@ -116,47 +118,6 @@ class OpenMeshAdapter implements IAdapter
         return str_replace("-", ":", $res);
     }
 
-    /**
-     * decode_password - decode encoded password to ascii string
-     * @dict: dictionary containing request RA
-     * @encoded: The encoded password
-     * @secret: Shared secret between node and server
-     *
-     * Returns decoded password or FALSE on error
-     */
-    private function decode_password($dict, $encoded, $secret)
-    {
-        if (!array_key_exists('RA', $dict))
-            return FALSE;
-        if (strlen($dict['RA']) != 32)
-            return FALSE;
-        $ra = hex2bin($dict['RA']);
-        if ($ra === FALSE)
-            return FALSE;
-        if ((strlen($encoded) % 32) != 0)
-            return FALSE;
-        $bincoded = hex2bin($encoded);
-        $password = "";
-        $last_result = $ra;
-        for ($i = 0; $i < strlen($bincoded); $i += 16) {
-            $key = hash('md5', $secret . $last_result, TRUE);
-            for ($j = 0; $j < 16; $j++)
-                $password .= $key[$j] ^ $bincoded[$i + $j];
-            $last_result = substr($bincoded, $i, 16);
-        }
-        $j = 0;
-        for ($i = strlen($password); $i > 0; $i--) {
-            if ($password[$i - 1] != "\x00")
-                break;
-            else
-                $j++;
-        }
-        if ($j > 0) {
-            $password = substr($password, 0, strlen($password) - $j);
-        }
-
-        return $password;
-    }
 
     /*
      * encodes the challenge with the secret for open-mesh login
@@ -191,8 +152,19 @@ class OpenMeshAdapter implements IAdapter
         return bin2hex($crypted);
     }
 
-    public function validateUserContinueURL($url, $defaultURL)
+    
+
+    private function redirectToEnera()
     {
-        return $url;
+        $redir = "http://enera.mx";
+        if(isset($redir)) {
+            echo "<head>";
+            echo '<meta http-equiv="refresh" content="3;URL=\'' . $redir . '\'">';
+            echo "</head>";
+        }
+        else {
+            echo "<h2>Log-in successful!</h2>";
+        }
+
     }
 }
