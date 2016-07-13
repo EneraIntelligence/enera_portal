@@ -80,7 +80,7 @@
                 <div>
                     @foreach($qv['answers'] as $ak => $av)
                         <a class="answer btn waves-effect waves-light indigo z-depth-2" href="#!">
-                        <span class="white-text left">
+                        <span class="white-text left" style="font-size: 10px;">
                             {{ $av }}
                         </span>
                             <i class="right material-icons">navigate_next</i>
