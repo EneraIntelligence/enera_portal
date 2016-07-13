@@ -135,11 +135,10 @@ class DemoController extends Controller
             ),
             "survey" => array(
                 "q1" => array(
-                    "question" => "¿Qué opinas de tener WiFi en tu plantel?",
+                    "question" => "¿Tienes coche propio?",
                     "answers" => array(
-                        "a0" => "Muy importante",
-                        "a1" => "Es una buena herramienta",
-                        "a2" => "No es indispensable"
+                        "a0" => "Si",
+                        "a1" => "No"
                     )
                 )
             )

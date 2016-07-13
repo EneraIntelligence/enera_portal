@@ -14,6 +14,12 @@
     .nav-wrapper, footer.page-footer {
         background-color: #3f51b5;
     }
+
+    @media (max-width: 420px) {
+        .font-size-mobile {
+            font-size: 10px;
+        }
+    }
 </style>
 
 <!-- fb button scale -->
@@ -80,7 +86,7 @@
                 <div>
                     @foreach($qv['answers'] as $ak => $av)
                         <a class="answer btn waves-effect waves-light indigo z-depth-2" href="#!">
-                        <span class="white-text left" style="font-size: 10px;">
+                        <span class="white-text left font-size-mobile">
                             {{ $av }}
                         </span>
                             <i class="right material-icons">navigate_next</i>
