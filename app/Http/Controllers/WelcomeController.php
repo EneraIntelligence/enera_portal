@@ -281,7 +281,7 @@ class WelcomeController extends Controller
                 'os' => $agent->platform(),
             ]);
         }
-        dd($user);
+
         session([
             'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
             'user_name' => $facebook_data['first_name'],
