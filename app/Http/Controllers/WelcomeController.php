@@ -248,10 +248,9 @@ class WelcomeController extends Controller
         $facebook_data = $this->fbUtils->getUserData();
         $likes = $this->fbUtils->getUserLikes();
 
-        $birthday = $facebook_data['birthday'];
-        $today = new DateTime();
-        $age = $birthday->diff($today);
-        $facebook_data['age'] = $age->y;
+        $start = new MongoDate(strtotime($facebook_data['birthday']->format(DateTime::ISO8601)));
+        $facebook_data['age'] = $start;
+
         //upsert user data
         $user_fb_id = $facebook_data['id'];
         $facebook_data['likes'] = [];
@@ -282,7 +281,7 @@ class WelcomeController extends Controller
                 'os' => $agent->platform(),
             ]);
         }
-
+        dd($user);
         session([
             'user_email' => isset($facebook_data['email']) ? $facebook_data['email'] : '',
             'user_name' => $facebook_data['first_name'],
