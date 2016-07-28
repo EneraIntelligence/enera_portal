@@ -3,6 +3,7 @@
 namespace Portal\Http\Controllers;
 
 use Carbon\Carbon;
+use DateTime;
 use DB;
 use Illuminate\Http\Request;
 
@@ -41,8 +42,7 @@ class WelcomeController extends Controller
     {
         $logs = CampaignLog::where('user.session', session('_token'))
             ->where('interaccion.requested', 'exists', true)->count();
-        if ($logs > 0)
-        {
+        if ($logs > 0) {
             Session::flush();
             Session::regenerate();
         }
@@ -65,8 +65,7 @@ class WelcomeController extends Controller
         $input = $inputAdapter->processInput(Input::all());
 
 
-        if(!$this->validWelcomeInput($input))
-        {
+        if (!$this->validWelcomeInput($input)) {
             return $this->invalidNetworkView();
         }
 
@@ -81,8 +80,7 @@ class WelcomeController extends Controller
         $branche = Branche::whereIn('aps', [$node_mac])->first();
 
         // Si el AP no fue dado de alta o no está asignado a una Branche
-        if (!$branche)
-        {
+        if (!$branche) {
             return $this->invalidNetworkView();
         }
 
@@ -102,14 +100,11 @@ class WelcomeController extends Controller
 
 
         // Paso 1: Welcome log
-        if ($log && !isset($log->interaction->welcome))
-        {
+        if ($log && !isset($log->interaction->welcome)) {
             //se encontró log y está vacío, sin welcome
             /* Eder: creo que nunca se entra aquí por que siempre se le agrega welcome al inicio*/
             $log->interaction()->create(['welcome' => new MongoDate()]);
-        }
-        elseif (!$log)
-        {
+        } elseif (!$log) {
             //no existe log, creando
             $new_log = CampaignLog::create([
                 'user' => [
@@ -129,12 +124,12 @@ class WelcomeController extends Controller
             ]);
         }
 
-        /*$this->dispatch(new WelcomeLogJob([
+        $this->dispatch(new WelcomeLogJob([
             'session' => session('_token'),
             'client_mac' => $client_mac,
             'node_mac' => $node_mac,
             'os' => $agent->platform(),
-        ]));*/
+        ]));
 
         session([
             'image' => $branche->portal['image'],
@@ -145,16 +140,14 @@ class WelcomeController extends Controller
         ]);
 
         $users = User::where('facebook.id', 'exists', true)
-            ->where(function ($q) use ($client_mac)
-            {
+            ->where(function ($q) use ($client_mac) {
                 $q->where('devices.mac', $client_mac)
                     ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
             })
             ->get();
 
         //check if device has paired none or more than 1 facebook account
-        if ($users->count() != 1)
-        {
+        if ($users->count() != 1) {
             $url = route('welcome::response', [
                 'node_mac' => $node_mac,
                 //'client_ip' => Input::get('client_ip'),
@@ -220,18 +213,16 @@ class WelcomeController extends Controller
     private function detectAPAdapter($input)
     {
 
-        if (isset($input['res']))
-        {
+        if (isset($input['res'])) {
             return new OpenMeshAdapter();
-        } else if (isset($input['base_grant_url']))
-        {
+        } else if (isset($input['base_grant_url'])) {
             return new MerakiAdapter();
         }
 
         $inputLog = new InputLog;
-        $inputLog->inputs=$input;
+        $inputLog->inputs = $input;
         $inputLog->save();
-        
+
         return new DefaultAdapter();
 
     }
@@ -243,8 +234,7 @@ class WelcomeController extends Controller
     public function response()
     {
 
-        if (!$this->fbUtils->isUserLoggedIn())
-        {
+        if (!$this->fbUtils->isUserLoggedIn()) {
             //echo "User is not logged in";
             return redirect()->route('welcome', [
                 'base_grant_url' => Input::get('base_grant_url'),
@@ -258,6 +248,9 @@ class WelcomeController extends Controller
         $facebook_data = $this->fbUtils->getUserData();
         $likes = $this->fbUtils->getUserLikes();
 
+        $start = new MongoDate(strtotime($facebook_data['birthday']->format(DateTime::ISO8601)));
+        $facebook_data['age'] = $start;
+
         //upsert user data
         $user_fb_id = $facebook_data['id'];
         $facebook_data['likes'] = [];
@@ -265,22 +258,19 @@ class WelcomeController extends Controller
         $agent = new Agent();
 
         $user = User::where('facebook.id', $user_fb_id)->first();
-        if ($user)
-        {
-            foreach ($facebook_data as $k => $v)
-            {
+
+        if ($user != null) {
+            foreach ($facebook_data as $k => $v) {
                 $user->facebook->{$k} = $v;
             }
             $user->facebook->save();
 
             $device = $user->devices()->where('devices.mac', Input::get('client_mac'))->first();
-            if ($device)
-            {
+            if ($device) {
                 $device->mac = Input::get('client_mac');
                 $device->save();
             }
-        } else
-        {
+        } else {
             $user = User::create([
                 'facebook' => $facebook_data,
                 'devices' => []
@@ -303,8 +293,7 @@ class WelcomeController extends Controller
 
         //este job maneja los likes por separado
         $chuck = array_chunk($likes, 200);
-        foreach ($chuck as $shard)
-        {
+        foreach ($chuck as $shard) {
             $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $device_os);
         }
 
@@ -320,14 +309,12 @@ class WelcomeController extends Controller
 
     public function welcome_loaded()
     {
-        if (Input::has('client_mac'))
-        {
+        if (Input::has('client_mac')) {
             $client_mac = Input::get('client_mac');
             $log = CampaignLog::where('user.session', session('_token'))
                 ->where('device.mac', $client_mac)->first();
 
-            if ($log && isset($log->interaction->welcome) && !isset($log->interaction->welcome_loaded))
-            {
+            if ($log && isset($log->interaction->welcome) && !isset($log->interaction->welcome_loaded)) {
                 $log->interaction->welcome_loaded = new MongoDate();
                 $log->interaction->save();
 
@@ -335,27 +322,23 @@ class WelcomeController extends Controller
                     'ok' => true,
                     'msg' => '',
                 ];
-            } elseif ($log && !isset($log->interaction->welcome))
-            {
+            } elseif ($log && !isset($log->interaction->welcome)) {
                 $response = [
                     'ok' => false,
                     'msg' => 'El campo "interaction.welcome" no existe',
                 ];
-            } elseif ($log && isset($log->interaction->welcome_loaded))
-            {
+            } elseif ($log && isset($log->interaction->welcome_loaded)) {
                 $response = [
                     'ok' => false,
                     'msg' => 'El campo "interaction.welcome_loaded" ya fue creado',
                 ];
-            } else
-            {
+            } else {
                 $response = [
                     'ok' => false,
                     'msg' => 'No existe un log para esta sesion.',
                 ];
             }
-        } else
-        {
+        } else {
             $response = [
                 'ok' => false,
                 'msg' => 'Falta al MAC Address del cliente/dispositivo',
@@ -381,16 +364,13 @@ class WelcomeController extends Controller
         $image = "";
         $main_bg = "";
         $color = "darkgrey";
-        if (Session::has('image'))
-        {
+        if (Session::has('image')) {
             $image = session('image');
         }
-        if (Session::has('main_bg'))
-        {
+        if (Session::has('main_bg')) {
             $main_bg = session('main_bg');
         }
-        if (Session::has('message'))
-        {
+        if (Session::has('message')) {
             $color = session('message')['color'];
         }
 
@@ -400,6 +380,6 @@ class WelcomeController extends Controller
             'image' => $image
         ]);
     }
-    
+
 
 }

@@ -140,42 +140,6 @@ class DemoController extends Controller
                         "a0" => "Si",
                         "a1" => "No"
                     )
-                ),
-                "q2" => array(
-                    "question" => "¿Cada cuando sales de viaje de negocios?",
-                    "answers" => array(
-                        "a0" => "3-5 veces por mes",
-                        "a1" => "1-2 veces por mes",
-                        "a2" => "cada dos meses",
-                        "a3" => "No salgo de viaje"
-                    )
-                ),
-                "q3" => array(
-                    "question" => "¿Cada cuando sales viaje por placer?",
-                    "answers" => array(
-                        "a0" => "4-7 veces al año",
-                        "a1" => "2-3 veces al año",
-                        "a2" => "1 vez año",
-                        "a3" => "No salgo de viaje"
-                    )
-                ),
-                "q4" => array(
-                    "question" => "Cuando sales de viaje por placer ¿Con quién viajas? ",
-                    "answers" => array(
-                        "a0" => "Familia",
-                        "a1" => "Amigos",
-                        "a2" => "Pareja",
-                        "a3" => "Solo"
-                    )
-                ),
-                "q5" => array(
-                    "question" => "¿Que paginas para reservar hoteles utilizas? ",
-                    "answers" => array(
-                        "a0" => "hoteles.com",
-                        "a1" => "trivago.com",
-                        "a2" => "expedia.com",
-                        "a3" => "otro"
-                    )
                 )
             )
         );
