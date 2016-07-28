@@ -66,7 +66,7 @@ class CampaignSelector
                 '$gte' => new MongoDate(strtotime($today))
             ],
             'filters.week_days' => [
-                '$in' => [intval(date('w'))]
+                '$in' => [intval(date('N'))]
             ],
 
 
