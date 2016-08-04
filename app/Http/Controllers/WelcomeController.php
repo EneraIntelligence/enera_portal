@@ -248,7 +248,12 @@ class WelcomeController extends Controller
         $facebook_data = $this->fbUtils->getUserData();
         $likes = $this->fbUtils->getUserLikes();
 
-        $start = new MongoDate(strtotime($facebook_data['birthday']->format(DateTime::ISO8601)));
+        if(isset($facebook_data['birthday'])){
+            $start = new MongoDate(strtotime($facebook_data['birthday']->format(DateTime::ISO8601)));
+        }else{
+            $start=0;
+        }
+
         $facebook_data['age'] = $start;
 
         //upsert user data
