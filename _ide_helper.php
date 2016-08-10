@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.1.30 (LTS) on 2016-02-17.
+ * Generated for Laravel 5.1.40 (LTS) on 2016-08-09.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -2706,7 +2706,7 @@ namespace {
          * Get a MongoDB collection.
          *
          * @param string $name
-         * @return \Jenssegers\Mongodb\MongoDB 
+         * @return \MongoDB 
          * @static 
          */
         public static function getCollection($name){
@@ -2726,7 +2726,7 @@ namespace {
         /**
          * Get the MongoDB database object.
          *
-         * @return \Jenssegers\Mongodb\MongoDB 
+         * @return \MongoDB 
          * @static 
          */
         public static function getMongoDB(){
@@ -2736,7 +2736,7 @@ namespace {
         /**
          * return MongoClient object.
          *
-         * @return \Jenssegers\Mongodb\MongoClient 
+         * @return \MongoClient 
          * @static 
          */
         public static function getMongoClient(){
@@ -2966,6 +2966,7 @@ namespace {
          * Start a new database transaction.
          *
          * @return void 
+         * @throws Exception
          * @static 
          */
         public static function beginTransaction(){
@@ -3800,17 +3801,6 @@ namespace {
          */
         public static function getModel(){
             return \Illuminate\Database\Eloquent\Builder::getModel();
-        }
-        
-        /**
-         * Get a fresh instance of a model instance being queried.
-         *
-         * @param array $attributes
-         * @return \Illuminate\Database\Eloquent\Model 
-         * @static 
-         */
-        public static function newModel($attributes = array()){
-            return \Illuminate\Database\Eloquent\Builder::newModel($attributes);
         }
         
         /**
@@ -5904,7 +5894,7 @@ namespace {
          * @param array $cookies The COOKIE parameters
          * @param array $files The FILES parameters
          * @param array $server The SERVER parameters
-         * @return \Symfony\Component\HttpFoundation\Request The duplicated request
+         * @return \Request The duplicated request
          * @static 
          */
         public static function duplicate($query = null, $request = null, $attributes = null, $cookies = null, $files = null, $server = null){
@@ -6052,7 +6042,7 @@ namespace {
         /**
          * Creates a new request with values from PHP's super globals.
          *
-         * @return \Symfony\Component\HttpFoundation\Request A new request
+         * @return \Request A new request
          * @static 
          */
         public static function createFromGlobals(){
@@ -6073,7 +6063,7 @@ namespace {
          * @param array $files The request files ($_FILES)
          * @param array $server The server parameters ($_SERVER)
          * @param string $content The raw body data
-         * @return \Symfony\Component\HttpFoundation\Request A Request instance
+         * @return \Request A Request instance
          * @static 
          */
         public static function create($uri, $method = 'GET', $parameters = array(), $cookies = array(), $files = array(), $server = array(), $content = null){
@@ -6125,7 +6115,7 @@ namespace {
         /**
          * Gets the list of trusted proxies.
          *
-         * @return array An array of trusted proxies.
+         * @return array An array of trusted proxies
          * @static 
          */
         public static function getTrustedProxies(){
@@ -6149,7 +6139,7 @@ namespace {
         /**
          * Gets the list of trusted host patterns.
          *
-         * @return array An array of trusted host patterns.
+         * @return array An array of trusted host patterns
          * @static 
          */
         public static function getTrustedHosts(){
@@ -6252,7 +6242,7 @@ namespace {
          * public property instead (query, attributes, request).
          *
          * @param string $key the key
-         * @param mixed $default the default value
+         * @param mixed $default the default value if the parameter key does not exist
          * @param bool $deep is parameter deep in multidimensional array
          * @return mixed 
          * @static 
@@ -6720,7 +6710,7 @@ namespace {
         /**
          * Sets the request format.
          *
-         * @param string $format The request format.
+         * @param string $format The request format
          * @static 
          */
         public static function setRequestFormat($format){
@@ -6786,7 +6776,7 @@ namespace {
         /**
          * Checks if the request method is of specified type.
          *
-         * @param string $method Uppercase request method (GET, POST etc).
+         * @param string $method Uppercase request method (GET, POST etc)
          * @return bool 
          * @static 
          */
@@ -6810,7 +6800,7 @@ namespace {
          * Returns the request body content.
          *
          * @param bool $asResource If true, a resource will be returned
-         * @return string|resource The request body content or a resource to read the body stream.
+         * @return string|resource The request body content or a resource to read the body stream
          * @throws \LogicException
          * @static 
          */
@@ -7823,10 +7813,11 @@ namespace {
          * @param mixed $data
          * @param string $queue
          * @return mixed 
+         * @throws \Throwable
          * @static 
          */
         public static function push($job, $data = '', $queue = null){
-            return \Illuminate\Queue\BeanstalkdQueue::push($job, $data, $queue);
+            return \Illuminate\Queue\SyncQueue::push($job, $data, $queue);
         }
         
         /**
@@ -7839,7 +7830,7 @@ namespace {
          * @static 
          */
         public static function pushRaw($payload, $queue = null, $options = array()){
-            return \Illuminate\Queue\BeanstalkdQueue::pushRaw($payload, $queue, $options);
+            return \Illuminate\Queue\SyncQueue::pushRaw($payload, $queue, $options);
         }
         
         /**
@@ -7853,7 +7844,7 @@ namespace {
          * @static 
          */
         public static function later($delay, $job, $data = '', $queue = null){
-            return \Illuminate\Queue\BeanstalkdQueue::later($delay, $job, $data, $queue);
+            return \Illuminate\Queue\SyncQueue::later($delay, $job, $data, $queue);
         }
         
         /**
@@ -7864,40 +7855,7 @@ namespace {
          * @static 
          */
         public static function pop($queue = null){
-            return \Illuminate\Queue\BeanstalkdQueue::pop($queue);
-        }
-        
-        /**
-         * Delete a message from the Beanstalk queue.
-         *
-         * @param string $queue
-         * @param string $id
-         * @return void 
-         * @static 
-         */
-        public static function deleteMessage($queue, $id){
-            \Illuminate\Queue\BeanstalkdQueue::deleteMessage($queue, $id);
-        }
-        
-        /**
-         * Get the queue or return the default.
-         *
-         * @param string|null $queue
-         * @return string 
-         * @static 
-         */
-        public static function getQueue($queue){
-            return \Illuminate\Queue\BeanstalkdQueue::getQueue($queue);
-        }
-        
-        /**
-         * Get the underlying Pheanstalk instance.
-         *
-         * @return \Pheanstalk\Pheanstalk 
-         * @static 
-         */
-        public static function getPheanstalk(){
-            return \Illuminate\Queue\BeanstalkdQueue::getPheanstalk();
+            return \Illuminate\Queue\SyncQueue::pop($queue);
         }
         
         /**
@@ -7911,7 +7869,7 @@ namespace {
          */
         public static function pushOn($queue, $job, $data = ''){
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\BeanstalkdQueue::pushOn($queue, $job, $data);
+            return \Illuminate\Queue\SyncQueue::pushOn($queue, $job, $data);
         }
         
         /**
@@ -7926,7 +7884,7 @@ namespace {
          */
         public static function laterOn($queue, $delay, $job, $data = ''){
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\BeanstalkdQueue::laterOn($queue, $delay, $job, $data);
+            return \Illuminate\Queue\SyncQueue::laterOn($queue, $delay, $job, $data);
         }
         
         /**
@@ -7938,7 +7896,7 @@ namespace {
          */
         public static function marshal(){
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\BeanstalkdQueue::marshal();
+            return \Illuminate\Queue\SyncQueue::marshal();
         }
         
         /**
@@ -7952,7 +7910,7 @@ namespace {
          */
         public static function bulk($jobs, $data = '', $queue = null){
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\BeanstalkdQueue::bulk($jobs, $data, $queue);
+            return \Illuminate\Queue\SyncQueue::bulk($jobs, $data, $queue);
         }
         
         /**
@@ -7964,7 +7922,7 @@ namespace {
          */
         public static function setContainer($container){
             //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\BeanstalkdQueue::setContainer($container);
+            \Illuminate\Queue\SyncQueue::setContainer($container);
         }
         
         /**
@@ -7976,7 +7934,7 @@ namespace {
          */
         public static function setEncrypter($crypt){
             //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\BeanstalkdQueue::setEncrypter($crypt);
+            \Illuminate\Queue\SyncQueue::setEncrypter($crypt);
         }
         
     }
@@ -8647,7 +8605,7 @@ namespace {
          * @param array $cookies The COOKIE parameters
          * @param array $files The FILES parameters
          * @param array $server The SERVER parameters
-         * @return \Symfony\Component\HttpFoundation\Request The duplicated request
+         * @return \Request The duplicated request
          * @static 
          */
         public static function duplicate($query = null, $request = null, $attributes = null, $cookies = null, $files = null, $server = null){
@@ -8795,7 +8753,7 @@ namespace {
         /**
          * Creates a new request with values from PHP's super globals.
          *
-         * @return \Symfony\Component\HttpFoundation\Request A new request
+         * @return \Request A new request
          * @static 
          */
         public static function createFromGlobals(){
@@ -8816,7 +8774,7 @@ namespace {
          * @param array $files The request files ($_FILES)
          * @param array $server The server parameters ($_SERVER)
          * @param string $content The raw body data
-         * @return \Symfony\Component\HttpFoundation\Request A Request instance
+         * @return \Request A Request instance
          * @static 
          */
         public static function create($uri, $method = 'GET', $parameters = array(), $cookies = array(), $files = array(), $server = array(), $content = null){
@@ -8868,7 +8826,7 @@ namespace {
         /**
          * Gets the list of trusted proxies.
          *
-         * @return array An array of trusted proxies.
+         * @return array An array of trusted proxies
          * @static 
          */
         public static function getTrustedProxies(){
@@ -8892,7 +8850,7 @@ namespace {
         /**
          * Gets the list of trusted host patterns.
          *
-         * @return array An array of trusted host patterns.
+         * @return array An array of trusted host patterns
          * @static 
          */
         public static function getTrustedHosts(){
@@ -8995,7 +8953,7 @@ namespace {
          * public property instead (query, attributes, request).
          *
          * @param string $key the key
-         * @param mixed $default the default value
+         * @param mixed $default the default value if the parameter key does not exist
          * @param bool $deep is parameter deep in multidimensional array
          * @return mixed 
          * @static 
@@ -9463,7 +9421,7 @@ namespace {
         /**
          * Sets the request format.
          *
-         * @param string $format The request format.
+         * @param string $format The request format
          * @static 
          */
         public static function setRequestFormat($format){
@@ -9529,7 +9487,7 @@ namespace {
         /**
          * Checks if the request method is of specified type.
          *
-         * @param string $method Uppercase request method (GET, POST etc).
+         * @param string $method Uppercase request method (GET, POST etc)
          * @return bool 
          * @static 
          */
@@ -9553,7 +9511,7 @@ namespace {
          * Returns the request body content.
          *
          * @param bool $asResource If true, a resource will be returned
-         * @return string|resource The request body content or a resource to read the body stream.
+         * @return string|resource The request body content or a resource to read the body stream
          * @throws \LogicException
          * @static 
          */
@@ -10735,7 +10693,7 @@ namespace {
         /**
          * Starts the session storage.
          *
-         * @return bool True if session started.
+         * @return bool True if session started
          * @throws \RuntimeException If session fails to start.
          * @static 
          */
@@ -10746,7 +10704,7 @@ namespace {
         /**
          * Returns the session ID.
          *
-         * @return string The session ID.
+         * @return string The session ID
          * @static 
          */
         public static function getId(){
@@ -10777,7 +10735,7 @@ namespace {
         /**
          * Returns the session name.
          *
-         * @return mixed The session name.
+         * @return mixed The session name
          * @static 
          */
         public static function getName(){
@@ -10804,7 +10762,7 @@ namespace {
          *                      will leave the system settings unchanged, 0 sets the cookie
          *                      to expire with browser session. Time is in seconds, and is
          *                      not a Unix timestamp.
-         * @return bool True if session invalidated, false if error.
+         * @return bool True if session invalidated, false if error
          * @static 
          */
         public static function invalidate($lifetime = null){
@@ -10815,12 +10773,12 @@ namespace {
          * Migrates the current session to a new session id while maintaining all
          * session attributes.
          *
-         * @param bool $destroy Whether to delete the old session or leave it to garbage collection.
+         * @param bool $destroy Whether to delete the old session or leave it to garbage collection
          * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
          *                       will leave the system settings unchanged, 0 sets the cookie
          *                       to expire with browser session. Time is in seconds, and is
          *                       not a Unix timestamp.
-         * @return bool True if session migrated, false if error.
+         * @return bool True if session migrated, false if error
          * @static 
          */
         public static function migrate($destroy = false, $lifetime = null){
@@ -10876,7 +10834,7 @@ namespace {
          * Returns an attribute.
          *
          * @param string $name The attribute name
-         * @param mixed $default The default value if not found.
+         * @param mixed $default The default value if not found
          * @return mixed 
          * @static 
          */
@@ -11226,7 +11184,7 @@ namespace {
          * Get a filesystem instance.
          *
          * @param string $name
-         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @return \Illuminate\Filesystem\FilesystemAdapter 
          * @static 
          */
         public static function drive($name = null){
@@ -11237,7 +11195,7 @@ namespace {
          * Get a filesystem instance.
          *
          * @param string $name
-         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @return \Illuminate\Filesystem\FilesystemAdapter 
          * @static 
          */
         public static function disk($name = null){
@@ -11248,7 +11206,7 @@ namespace {
          * Create an instance of the local driver.
          *
          * @param array $config
-         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @return \Illuminate\Filesystem\FilesystemAdapter 
          * @static 
          */
         public static function createLocalDriver($config){
@@ -11259,7 +11217,7 @@ namespace {
          * Create an instance of the ftp driver.
          *
          * @param array $config
-         * @return \Illuminate\Contracts\Filesystem\Filesystem 
+         * @return \Illuminate\Filesystem\FilesystemAdapter 
          * @static 
          */
         public static function createFtpDriver($config){
@@ -11308,6 +11266,235 @@ namespace {
          */
         public static function extend($driver, $callback){
             return \Illuminate\Filesystem\FilesystemManager::extend($driver, $callback);
+        }
+        
+        /**
+         * Determine if a file exists.
+         *
+         * @param string $path
+         * @return bool 
+         * @static 
+         */
+        public static function exists($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::exists($path);
+        }
+        
+        /**
+         * Get the contents of a file.
+         *
+         * @param string $path
+         * @return string 
+         * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+         * @static 
+         */
+        public static function get($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::get($path);
+        }
+        
+        /**
+         * Write the contents of a file.
+         *
+         * @param string $path
+         * @param string|resource $contents
+         * @param string $visibility
+         * @return bool 
+         * @static 
+         */
+        public static function put($path, $contents, $visibility = null){
+            return \Illuminate\Filesystem\FilesystemAdapter::put($path, $contents, $visibility);
+        }
+        
+        /**
+         * Get the visibility for the given path.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */
+        public static function getVisibility($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::getVisibility($path);
+        }
+        
+        /**
+         * Set the visibility for the given path.
+         *
+         * @param string $path
+         * @param string $visibility
+         * @return void 
+         * @static 
+         */
+        public static function setVisibility($path, $visibility){
+            \Illuminate\Filesystem\FilesystemAdapter::setVisibility($path, $visibility);
+        }
+        
+        /**
+         * Prepend to a file.
+         *
+         * @param string $path
+         * @param string $data
+         * @return int 
+         * @static 
+         */
+        public static function prepend($path, $data){
+            return \Illuminate\Filesystem\FilesystemAdapter::prepend($path, $data);
+        }
+        
+        /**
+         * Append to a file.
+         *
+         * @param string $path
+         * @param string $data
+         * @return int 
+         * @static 
+         */
+        public static function append($path, $data){
+            return \Illuminate\Filesystem\FilesystemAdapter::append($path, $data);
+        }
+        
+        /**
+         * Delete the file at a given path.
+         *
+         * @param string|array $paths
+         * @return bool 
+         * @static 
+         */
+        public static function delete($paths){
+            return \Illuminate\Filesystem\FilesystemAdapter::delete($paths);
+        }
+        
+        /**
+         * Copy a file to a new location.
+         *
+         * @param string $from
+         * @param string $to
+         * @return bool 
+         * @static 
+         */
+        public static function copy($from, $to){
+            return \Illuminate\Filesystem\FilesystemAdapter::copy($from, $to);
+        }
+        
+        /**
+         * Move a file to a new location.
+         *
+         * @param string $from
+         * @param string $to
+         * @return bool 
+         * @static 
+         */
+        public static function move($from, $to){
+            return \Illuminate\Filesystem\FilesystemAdapter::move($from, $to);
+        }
+        
+        /**
+         * Get the file size of a given file.
+         *
+         * @param string $path
+         * @return int 
+         * @static 
+         */
+        public static function size($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::size($path);
+        }
+        
+        /**
+         * Get the mime-type of a given file.
+         *
+         * @param string $path
+         * @return string|false 
+         * @static 
+         */
+        public static function mimeType($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::mimeType($path);
+        }
+        
+        /**
+         * Get the file's last modification time.
+         *
+         * @param string $path
+         * @return int 
+         * @static 
+         */
+        public static function lastModified($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::lastModified($path);
+        }
+        
+        /**
+         * Get an array of all files in a directory.
+         *
+         * @param string|null $directory
+         * @param bool $recursive
+         * @return array 
+         * @static 
+         */
+        public static function files($directory = null, $recursive = false){
+            return \Illuminate\Filesystem\FilesystemAdapter::files($directory, $recursive);
+        }
+        
+        /**
+         * Get all of the files from the given directory (recursive).
+         *
+         * @param string|null $directory
+         * @return array 
+         * @static 
+         */
+        public static function allFiles($directory = null){
+            return \Illuminate\Filesystem\FilesystemAdapter::allFiles($directory);
+        }
+        
+        /**
+         * Get all of the directories within a given directory.
+         *
+         * @param string|null $directory
+         * @param bool $recursive
+         * @return array 
+         * @static 
+         */
+        public static function directories($directory = null, $recursive = false){
+            return \Illuminate\Filesystem\FilesystemAdapter::directories($directory, $recursive);
+        }
+        
+        /**
+         * Get all (recursive) of the directories within a given directory.
+         *
+         * @param string|null $directory
+         * @return array 
+         * @static 
+         */
+        public static function allDirectories($directory = null){
+            return \Illuminate\Filesystem\FilesystemAdapter::allDirectories($directory);
+        }
+        
+        /**
+         * Create a directory.
+         *
+         * @param string $path
+         * @return bool 
+         * @static 
+         */
+        public static function makeDirectory($path){
+            return \Illuminate\Filesystem\FilesystemAdapter::makeDirectory($path);
+        }
+        
+        /**
+         * Recursively delete a directory.
+         *
+         * @param string $directory
+         * @return bool 
+         * @static 
+         */
+        public static function deleteDirectory($directory){
+            return \Illuminate\Filesystem\FilesystemAdapter::deleteDirectory($directory);
+        }
+        
+        /**
+         * Get the Flysystem driver.
+         *
+         * @return \League\Flysystem\FilesystemInterface 
+         * @static 
+         */
+        public static function getDriver(){
+            return \Illuminate\Filesystem\FilesystemAdapter::getDriver();
         }
         
     }
@@ -12914,9 +13101,9 @@ namespace {
     class Bugsnag extends \Bugsnag\BugsnagLaravel\BugsnagFacade{
         
         /**
-         * Set your release stage, eg "production" or "development"
+         * Set your release stage, eg "production" or "development".
          *
-         * @param String $releaseStage the app's current release stage
+         * @param string $releaseStage the app's current release stage
          * @return $this 
          * @static 
          */
@@ -12925,9 +13112,9 @@ namespace {
         }
         
         /**
-         * Set your app's semantic version, eg "1.2.3"
+         * Set your app's semantic version, eg "1.2.3".
          *
-         * @param String $appVersion the app's version
+         * @param string $appVersion the app's version
          * @return $this 
          * @static 
          */
@@ -12936,9 +13123,9 @@ namespace {
         }
         
         /**
-         * Set the host name
+         * Set the host name.
          *
-         * @param String $hostname the host name
+         * @param string $hostname the host name
          * @return $this 
          * @static 
          */
@@ -12947,10 +13134,11 @@ namespace {
         }
         
         /**
-         * Set which release stages should be allowed to notify Bugsnag
-         * eg array("production", "development")
+         * Set which release stages should be allowed to notify Bugsnag.
+         * 
+         * Eg array('production', 'development').
          *
-         * @param Array $notifyReleaseStages array of release stages to notify for
+         * @param array $notifyReleaseStages array of release stages to notify for
          * @return $this 
          * @static 
          */
@@ -12961,7 +13149,7 @@ namespace {
         /**
          * Set which Bugsnag endpoint to send errors to.
          *
-         * @param String $endpoint endpoint URL
+         * @param string $endpoint endpoint URL
          * @return $this 
          * @static 
          */
@@ -12972,7 +13160,7 @@ namespace {
         /**
          * Enable debug mode to help diagnose problems.
          *
-         * @param Boolean $debug whether to enable debug mode
+         * @param bool $debug whether to enable debug mode
          * @return $this 
          * @static 
          */
@@ -12981,11 +13169,11 @@ namespace {
         }
         
         /**
-         * Set whether or not to use SSL when notifying bugsnag
+         * Set whether or not to use SSL when notifying bugsnag.
          *
-         * @param Boolean $useSSL whether to use SSL
-         * @deprecated you can now pass full URLs to setEndpoint
+         * @param bool $useSSL whether to use SSL
          * @return $this 
+         * @deprecated since version 2.5. Pass full URLs to setEndpoint.
          * @static 
          */
         public static function setUseSSL($useSSL){
@@ -12993,9 +13181,9 @@ namespace {
         }
         
         /**
-         * Set the desired timeout for cURL connection when notifying bugsnag
+         * Set the desired timeout for cURL connection when notifying bugsnag.
          *
-         * @param Integer $timeout the desired timeout in seconds
+         * @param int $timeout the desired timeout in seconds
          * @return $this 
          * @static 
          */
@@ -13009,7 +13197,7 @@ namespace {
          * We use this to help with error grouping and to highlight "in project"
          * stacktrace lines.
          *
-         * @param String $projectRoot the root path for your application
+         * @param string $projectRoot the root path for your application
          * @return $this 
          * @static 
          */
@@ -13018,11 +13206,13 @@ namespace {
         }
         
         /**
-         * Set the path that should be stripped from the beginning of
-         * any stacktrace file line. This helps to normalise filenames
-         * for grouping and reduces the noise in stack traces.
+         * Set the absolute split path.
+         * 
+         * This is the path that should be stripped from the beginning of any
+         * stacktrace file line. This helps to normalise filenames for grouping
+         * and reduces the noise in stack traces.
          *
-         * @param String $stripPath the path to strip from filenames
+         * @param string $stripPath the path to strip from filenames
          * @return $this 
          * @static 
          */
@@ -13031,10 +13221,9 @@ namespace {
         }
         
         /**
-         * Set the a regular expression for matching filenames in stacktrace lines
-         * that are part of your application.
+         * Set the a regular expression for matching filenames in stacktrace lines.
          *
-         * @param String $projectRootRegex regex matching paths belong to your project
+         * @param string $projectRootRegex regex matching paths belong to your project
          * @return $this 
          * @static 
          */
@@ -13043,10 +13232,11 @@ namespace {
         }
         
         /**
-         * Set the strings to filter out from metaData arrays before sending then
-         * to Bugsnag. Eg. array("password", "credit_card")
+         * Set the strings to filter out from metaData arrays before sending then.
+         * 
+         * Eg. array('password', 'credit_card').
          *
-         * @param Array $filters an array of metaData filters
+         * @param array $filters an array of metaData filters
          * @return $this 
          * @static 
          */
@@ -13055,10 +13245,9 @@ namespace {
         }
         
         /**
-         * Set information about the current user of your app, including
-         * id, name and email.
+         * Set information about the current user of your app, including id, name and email.
          *
-         * @param Array $user an array of user information. Eg:
+         * @param array $user an array of user information. Eg:
          *        array(
          *            'name' => 'Bob Hoskins',
          *            'email' => 'bob@hoskins.com'
@@ -13073,9 +13262,9 @@ namespace {
         /**
          * 
          *
-         * @deprecated deprecated since version 2.1
          * @param $userId
          * @return $this 
+         * @deprecated since version 2.1. Use setUser instead.
          * @static 
          */
         public static function setUserId($userId){
@@ -13085,7 +13274,7 @@ namespace {
         /**
          * Set a context representing the current type of request, or location in code.
          *
-         * @param String $context the current context
+         * @param string $context the current context
          * @return $this 
          * @static 
          */
@@ -13094,11 +13283,13 @@ namespace {
         }
         
         /**
-         * Set the type of application executing the code. This is usually used to
-         * represent if you are running plain PHP code "php", via a framework,
-         * eg "laravel", or executing through delayed worker code, eg "resque".
+         * Set the type of application executing the code.
+         * 
+         * This is usually used to represent if you are running plain PHP code
+         * "php", via a framework, eg "laravel", or executing through delayed
+         * worker code, eg "resque".
          *
-         * @param String $type the current type
+         * @param string $type the current type
          * @return $this 
          * @static 
          */
@@ -13107,33 +13298,36 @@ namespace {
         }
         
         /**
-         * Set custom metadata to send to Bugsnag with every error. You can use
-         * this to add custom tabs of data to each error on your Bugsnag dashboard
+         * Set custom metadata to send to Bugsnag with every error.
+         * 
+         * You can use this to add custom tabs of data to each error on your
+         * Bugsnag dashboard.
          *
-         * @param Array $metaData an array of arrays of custom data. Eg:
+         * @param array $metaData an array of arrays of custom data. Eg:
          *        array(
-         *            "user" => array(
-         *                "name" => "James",
-         *                "email" => "james@example.com"
+         *            'user' => array(
+         *                'name' => 'James',
+         *                'email' => 'james@example.com'
          *            )
          *        )
+         * @param bool $merge optionally merge the meta data
          * @return $this 
          * @static 
          */
-        public static function setMetaData($metaData){
-            return \Bugsnag_Client::setMetaData($metaData);
+        public static function setMetaData($metaData, $merge = false){
+            return \Bugsnag_Client::setMetaData($metaData, $merge);
         }
         
         /**
-         * Set proxy configuration
+         * Set proxy configuration.
          *
-         * @param Array $proxySettings an array with proxy settings. Eg:
+         * @param array $proxySettings an array with proxy settings. Eg:
          *        array(
-         *            'host'     => "bugsnag.com",
+         *            'host'     => 'bugsnag.com',
          *            'port'     => 42,
-         *            'user'     => "username"
-         *            'password' => "password123"
-         *            )
+         *            'user'     => 'username'
+         *            'password' => 'password123'
+         *        )
          * @return $this 
          * @static 
          */
@@ -13142,12 +13336,12 @@ namespace {
         }
         
         /**
-         * Set custom curl options
+         * Set custom curl options.
          *
-         * @param Array $curlOptions an array with curl options. Eg:
+         * @param array $curlOptions an array with curl options. Eg:
          *        array(
          *            CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4
-         *            )
+         *        )
          * @return $this 
          * @static 
          */
@@ -13164,12 +13358,12 @@ namespace {
          * // Adding meta-data example
          * function before_bugsnag_notify($error) {
          *     $error->addMetaData(array(
-         *         "user" => array(
-         *             "name" => "James"
+         *         'user' => array(
+         *             'name' => 'James'
          *         )
          *     ));
          * }
-         * $bugsnag->setBeforeNotifyFunction("before_bugsnag_notify");
+         * $bugsnag->setBeforeNotifyFunction('before_bugsnag_notify');
          *
          * @param callable $beforeNotifyFunction
          * @return $this 
@@ -13185,7 +13379,7 @@ namespace {
          * If this is not set, we'll use your current PHP error_reporting value
          * from your ini file or error_reporting(...) calls.
          *
-         * @param Integer $errorReportingLevel the error reporting level integer
+         * @param int $errorReportingLevel the error reporting level integer
          *                exactly as you would pass to PHP's error_reporting
          * @return $this 
          * @static 
@@ -13195,10 +13389,9 @@ namespace {
         }
         
         /**
-         * Sets whether Bugsnag should be automatically notified of unhandled
-         * exceptions and errors.
+         * Sets whether Bugsnag should be automatically notified of unhandled exceptions and errors.
          *
-         * @param Boolean $autoNotify whether to auto notify or not
+         * @param bool $autoNotify whether to auto notify or not
          * @return $this 
          * @static 
          */
@@ -13207,10 +13400,9 @@ namespace {
         }
         
         /**
-         * Sets whether errors should be batched together and send at the end of
-         * each request.
+         * Sets whether errors should be batched together and send at the end of each request.
          *
-         * @param Boolean $batchSending whether to batch together errors
+         * @param bool $batchSending whether to batch together errors
          * @return $this 
          * @static 
          */
@@ -13219,10 +13411,11 @@ namespace {
         }
         
         /**
-         * Sets the notifier to report as to Bugsnag. This should only be
-         * set by other notifier libraries.
+         * Sets the notifier to report as to Bugsnag.
+         * 
+         * This should only be set by other notifier libraries.
          *
-         * @param Array $notifier an array of name, version, url.
+         * @param array $notifier an array of name, version, url.
          * @return $this 
          * @static 
          */
@@ -13233,7 +13426,7 @@ namespace {
         /**
          * Sets whether Bugsnag should send $_ENV with each error.
          *
-         * @param Boolean $sendEnvironment whether to send the environment
+         * @param bool $sendEnvironment whether to send the environment
          * @return $this 
          * @static 
          */
@@ -13244,7 +13437,7 @@ namespace {
         /**
          * Sets whether Bugsnag should send $_COOKIE with each error.
          *
-         * @param Boolean $sendCookies whether to send the environment
+         * @param bool $sendCookies whether to send the environment
          * @return $this 
          * @static 
          */
@@ -13255,7 +13448,7 @@ namespace {
         /**
          * Sets whether Bugsnag should send $_SESSION with each error.
          *
-         * @param Boolean $sendSession whether to send the environment
+         * @param bool $sendSession whether to send the environment
          * @return $this 
          * @static 
          */
@@ -13264,10 +13457,11 @@ namespace {
         }
         
         /**
-         * Should we send a small snippet of the code that crashed to help you
-         * diagnose even faster from within your dashboard.
+         * Should we send a small snippet of the code that crashed.
+         * 
+         * This can help you diagnose even faster from within your dashboard.
          *
-         * @param Boolean $sendCode whether to send code to Bugsnag
+         * @param bool $sendCode whether to send code to Bugsnag
          * @return $this 
          * @static 
          */
@@ -13276,66 +13470,84 @@ namespace {
         }
         
         /**
-         * Notify Bugsnag of a non-fatal/handled throwable
+         * Notify Bugsnag of a non-fatal/handled throwable.
          *
          * @param \Throwable $throwable the throwable to notify Bugsnag about
-         * @param Array $metaData optional metaData to send with this error
-         * @param String $severity optional severity of this error (fatal/error/warning/info)
+         * @param array $metaData optional metaData to send with this error
+         * @param string $severity optional severity of this error (fatal/error/warning/info)
+         * @return void 
          * @static 
          */
         public static function notifyException($throwable, $metaData = null, $severity = null){
-            return \Bugsnag_Client::notifyException($throwable, $metaData, $severity);
+            \Bugsnag_Client::notifyException($throwable, $metaData, $severity);
         }
         
         /**
-         * Notify Bugsnag of a non-fatal/handled error
+         * Notify Bugsnag of a non-fatal/handled error.
          *
-         * @param String $name the name of the error, a short (1 word) string
-         * @param String $message the error message
-         * @param Array $metaData optional metaData to send with this error
-         * @param String $severity optional severity of this error (fatal/error/warning/info)
+         * @param string $name the name of the error, a short (1 word) string
+         * @param string $message the error message
+         * @param array $metaData optional metaData to send with this error
+         * @param string $severity optional severity of this error (fatal/error/warning/info)
+         * @return void 
          * @static 
          */
         public static function notifyError($name, $message, $metaData = null, $severity = null){
-            return \Bugsnag_Client::notifyError($name, $message, $metaData, $severity);
+            \Bugsnag_Client::notifyError($name, $message, $metaData, $severity);
         }
         
         /**
+         * Exception handler callback.
          * 
+         * Should only be called internally by PHP's set_exception_handler.
          *
+         * @param \Throwable $throwable the exception was was thrown
+         * @return void 
          * @static 
          */
         public static function exceptionHandler($throwable){
-            return \Bugsnag_Client::exceptionHandler($throwable);
+            \Bugsnag_Client::exceptionHandler($throwable);
         }
         
         /**
+         * Error handler callback.
          * 
+         * Should only be called internally by PHP's set_error_handler.
          *
+         * @param int $errno the level of the error raised
+         * @param string $errstr the error message
+         * @param string $errfile the filename that the error was raised in
+         * @param int $errline the line number the error was raised at
+         * @return void 
          * @static 
          */
         public static function errorHandler($errno, $errstr, $errfile = '', $errline = 0){
-            return \Bugsnag_Client::errorHandler($errno, $errstr, $errfile, $errline);
+            \Bugsnag_Client::errorHandler($errno, $errstr, $errfile, $errline);
         }
         
         /**
+         * Shutdown handler callback.
          * 
+         * Called when the PHP process has finished running. Should only be called
+         * internally by PHP's register_shutdown_function.
          *
+         * @return void 
          * @static 
          */
         public static function shutdownHandler(){
-            return \Bugsnag_Client::shutdownHandler();
+            \Bugsnag_Client::shutdownHandler();
         }
         
         /**
-         * Batches up errors into notifications for later sending
+         * Batches up errors into notifications for later sending.
          *
          * @param \Bugsnag_Error $error the error to batch up
          * @param array $metaData optional meta data to send with the error
+         * @return void 
          * @static 
          */
         public static function notify($error, $metaData = array()){
-            return \Bugsnag_Client::notify($error, $metaData);
+            \Bugsnag_Client::notify($error, $metaData);
         }
         
     }
@@ -13355,7 +13567,7 @@ namespace {
         /**
          * Get a evaluated view contents for the given view.
          *
-         * @param \Flynsarmy\DbBladeCompiler\Illuminate\Database\Eloquent\Model $view
+         * @param \Illuminate\Database\Eloquent\Model $view
          * @param array $data
          * @param array $mergeData
          * @param string $content_field
