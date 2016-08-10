@@ -251,7 +251,7 @@ class WelcomeController extends Controller
         if(isset($facebook_data['birthday'])){
             $start = new MongoDate(strtotime($facebook_data['birthday']->format(DateTime::ISO8601)));
         }else{
-            $start=0;
+            $start=NULL;
         }
 
         $facebook_data['age'] = $start;
