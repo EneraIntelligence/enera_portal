@@ -31,7 +31,7 @@
 
         <div class="card-panel center welcome">
             <h4>Bienvenido a Enera WiFi.</h4>
-            <p>Selecciona un demo</p>
+            <p>Selecciona una interaccion.</p>
         </div>
     </div>
 
