@@ -35,7 +35,7 @@ class CampaignsController extends Controller
             ->where('interaction.welcome', 'exists', true)
             ->where('interaction.accessed', 'exists', false)->count();
 
-        if ($user && $log == 1) {
+        if ($user && $log >= 1) {
             $campaigns = new CampaignSelector($user_id);
             /**    valida que el user_continue_url tenga algo   **/
             if (Input::has('user_continue_url') | Input::get('user_continue_url') != '') {
