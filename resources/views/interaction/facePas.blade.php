@@ -27,10 +27,10 @@
 
         myLog.accessed(accessedJson, function () {
             //on accessed saved
-            //myLog.redirectOut(success_url);
+            myLog.redirectOut(success_url);
         }, function () {
             //fail accessed save
-            //myLog.redirectOut(success_url);
+            myLog.redirectOut(success_url);
         });
 
         function replaceUrlParam(url, paramName, paramValue){
