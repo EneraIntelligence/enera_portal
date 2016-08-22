@@ -55,7 +55,6 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-
         // clear session
         $this->checkSession();
 
@@ -212,6 +211,7 @@ class WelcomeController extends Controller
 
     private function detectAPAdapter($input)
     {
+        //TODO get ap vendor by mac address
 
         if (isset($input['res'])) {
             return new OpenMeshAdapter();
@@ -249,12 +249,16 @@ class WelcomeController extends Controller
         $likes = $this->fbUtils->getUserLikes();
 
         if(isset($facebook_data['birthday'])){
-            $start = new MongoDate(strtotime($facebook_data['birthday']->format(DateTime::ISO8601)));
+            $start = new MongoDate(strtotime($facebook_data['birthday']));
+            $facebook_data['birthday'] = array("date"=>$facebook_data['birthday']);
         }else{
-            $start=NULL;
+            $start = new MongoDate(strtotime("0"));
+            $facebook_data['birthday'] = array("date"=>"1998-01-01 00:00:00.000000");
         }
 
         $facebook_data['age'] = $start;
+
+//        dd($facebook_data);
 
         //upsert user data
         $user_fb_id = $facebook_data['id'];
@@ -268,6 +272,7 @@ class WelcomeController extends Controller
             foreach ($facebook_data as $k => $v) {
                 $user->facebook->{$k} = $v;
             }
+
             $user->facebook->save();
 
             $device = $user->devices()->where('devices.mac', Input::get('client_mac'))->first();
@@ -276,6 +281,7 @@ class WelcomeController extends Controller
                 $device->save();
             }
         } else {
+
             $user = User::create([
                 'facebook' => $facebook_data,
                 'devices' => []

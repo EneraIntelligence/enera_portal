@@ -6,7 +6,7 @@ use Jenssegers\Mongodb\Model as Model;
 
 class UserFacebook extends Model
 {
-    protected $fillable = ['name', 'birthday', 'email', 'lo cation', 'gender', 'likes', 'id'];
+    protected $fillable = ['name', 'birthday', 'email', 'location', 'gender', 'likes', 'id'];
     protected $collection = null;
 
     // relations
