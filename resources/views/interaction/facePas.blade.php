@@ -15,15 +15,22 @@
         var success_url = "{{ Input::get('base_grant_url') }}";
         //force redirect to banner link
         var adsLink = "{{ URL::route('ads') }}";
+
+        console.log(adsLink);
+        console.log(success_url);
+
         success_url = replaceUrlParam(success_url, "continue_url",adsLink);
         success_url = replaceUrlParam(success_url, "redir",adsLink);
 
+        console.log(success_url);
+
+
         myLog.accessed(accessedJson, function () {
             //on accessed saved
-            myLog.redirectOut(success_url);
+            //myLog.redirectOut(success_url);
         }, function () {
             //fail accessed save
-            myLog.redirectOut(success_url);
+            //myLog.redirectOut(success_url);
         });
 
         function replaceUrlParam(url, paramName, paramValue){
