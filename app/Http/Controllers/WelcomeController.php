@@ -248,10 +248,15 @@ class WelcomeController extends Controller
         $facebook_data = $this->fbUtils->getUserData();
         $likes = $this->fbUtils->getUserLikes();
 
+
+
         if(isset($facebook_data['birthday'])){
-            $start = new MongoDate(strtotime($facebook_data['birthday']->format(DateTime::ISO8601)));
+            $start = new MongoDate(strtotime($facebook_data['birthday']));
+            $facebook_data['birthday'] = array("date"=>$facebook_data['birthday']);
         }else{
-            $start=NULL;
+            $start = new MongoDate(strtotime("0"));
+            $facebook_data['birthday'] = array("date"=>"1998-01-01 00:00:00.000000");
+
         }
 
         $facebook_data['age'] = $start;
