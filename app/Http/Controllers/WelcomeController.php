@@ -41,7 +41,7 @@ class WelcomeController extends Controller
     private function checkSession()
     {
         $logs = CampaignLog::where('user.session', session('_token'))
-            ->where('interaccion.requested', 'exists', true)->count();
+            ->where('interaction.requested', 'exists', true)->count();
         if ($logs > 0) {
             Session::flush();
             Session::regenerate();
