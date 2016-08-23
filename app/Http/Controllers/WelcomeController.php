@@ -63,6 +63,7 @@ class WelcomeController extends Controller
         //ajusta los inputs al estandar de enera
         $input = $inputAdapter->processInput(Input::all());
 
+        var_dump(Input::all());
 
         if (!$this->validWelcomeInput($input)) {
             return $this->invalidNetworkView();
@@ -91,6 +92,7 @@ class WelcomeController extends Controller
         ];
         $base_grant_url = $inputAdapter->addVars($base_grant_url, $url_vars);
 
+        dd($base_grant_url);
         $agent = new Agent();
 
         // welcome
@@ -214,8 +216,10 @@ class WelcomeController extends Controller
         //TODO get ap vendor by mac address
 
         if (isset($input['res'])) {
+            echo 'open mesh <br>';
             return new OpenMeshAdapter();
         } else if (isset($input['base_grant_url'])) {
+            echo 'meraki <br>';
             return new MerakiAdapter();
         }
 
