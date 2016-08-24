@@ -92,7 +92,6 @@ class WelcomeController extends Controller
         ];
         $base_grant_url = $inputAdapter->addVars($base_grant_url, $url_vars);
 
-        dd($base_grant_url);
         $agent = new Agent();
 
         // welcome
