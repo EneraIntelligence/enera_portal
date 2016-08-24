@@ -4,7 +4,7 @@
 <script>
     $(document).ready(function () {
 //        var myLog = new logs();
-        //console.log("ready!");
+        console.log("ready!");
         var myLog = new logs();
 
         var accessedJson = {

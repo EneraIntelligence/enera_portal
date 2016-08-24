@@ -63,7 +63,7 @@ class WelcomeController extends Controller
         //ajusta los inputs al estandar de enera
         $input = $inputAdapter->processInput(Input::all());
 
-        var_dump(Input::all());
+//        var_dump(Input::all());
 
         if (!$this->validWelcomeInput($input)) {
             return $this->invalidNetworkView();
@@ -106,6 +106,7 @@ class WelcomeController extends Controller
             $log->interaction()->create(['welcome' => new MongoDate()]);
         } elseif (!$log) {
             //no existe log, creando
+            echo 'no hay log';
             $new_log = CampaignLog::create([
                 'user' => [
                     'session' => session('_token')
@@ -124,13 +125,6 @@ class WelcomeController extends Controller
             ]);
         }
 
-        $this->dispatch(new WelcomeLogJob([
-            'session' => session('_token'),
-            'client_mac' => $client_mac,
-            'node_mac' => $node_mac,
-            'os' => $agent->platform(),
-        ]));
-
         session([
             'image' => $branche->portal['image'],
             'main_bg' => $branche->portal['background'],
@@ -143,9 +137,9 @@ class WelcomeController extends Controller
             ->where(function ($q) use ($client_mac) {
                 $q->where('devices.mac', $client_mac)
                     ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
-            })
-            ->get();
+            })->get();
 
+//        dd($users->count());
         //check if device has paired none or more than 1 facebook account
         if ($users->count() != 1) {
             $url = route('welcome::response', [
@@ -215,10 +209,10 @@ class WelcomeController extends Controller
         //TODO get ap vendor by mac address
 
         if (isset($input['res'])) {
-            echo 'open mesh <br>';
+//            echo 'open mesh <br>';
             return new OpenMeshAdapter();
         } else if (isset($input['base_grant_url'])) {
-            echo 'meraki <br>';
+//            echo 'meraki <br>';
             return new MerakiAdapter();
         }
 
