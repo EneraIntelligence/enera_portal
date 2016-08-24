@@ -124,13 +124,6 @@ class WelcomeController extends Controller
             ]);
         }
 
-        $this->dispatch(new WelcomeLogJob([
-            'session' => session('_token'),
-            'client_mac' => $client_mac,
-            'node_mac' => $node_mac,
-            'os' => $agent->platform(),
-        ]));
-
         session([
             'image' => $branche->portal['image'],
             'main_bg' => $branche->portal['background'],
@@ -146,6 +139,7 @@ class WelcomeController extends Controller
             })
             ->get();
 
+//        dd($users->count());
         //check if device has paired none or more than 1 facebook account
         if ($users->count() != 1) {
             $url = route('welcome::response', [
