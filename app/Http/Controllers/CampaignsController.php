@@ -38,7 +38,7 @@ class CampaignsController extends Controller
         if ($user && $log >= 1) {
             $campaigns = new CampaignSelector($user_id);
             /**    valida que el user_continue_url tenga algo   **/
-            if (Input::has('user_continue_url') | Input::get('user_continue_url') != '') {
+            if (Input::has('user_continue_url') || Input::get('user_continue_url') != '') {
 //                echo 'entro a diferente';
                 if (Input::get('user_continue_url') == "''") {
                     $link['link'] = 'http://www.google.com';
