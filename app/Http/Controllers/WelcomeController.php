@@ -106,7 +106,7 @@ class WelcomeController extends Controller
             $log->interaction()->create(['welcome' => new MongoDate()]);
         } elseif (!$log) {
             //no existe log, creando
-            echo 'no hay log';
+            //echo 'no hay log';
             $new_log = CampaignLog::create([
                 'user' => [
                     'session' => session('_token')
