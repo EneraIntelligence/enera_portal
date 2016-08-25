@@ -242,14 +242,12 @@ class WelcomeController extends Controller
         $facebook_data = $this->fbUtils->getUserData();
         $likes = $this->fbUtils->getUserLikes();
 
-
-
-        if(isset($facebook_data['birthday'])){
+        if (isset($facebook_data['birthday'])) {
             $start = new MongoDate(strtotime($facebook_data['birthday']));
-            $facebook_data['birthday'] = array("date"=>$facebook_data['birthday']);
-        }else{
+            $facebook_data['birthday'] = array("date" => $facebook_data['birthday']);
+        } else {
             $start = new MongoDate(strtotime("0"));
-            $facebook_data['birthday'] = array("date"=>"1998-01-01 00:00:00.000000");
+            $facebook_data['birthday'] = array("date" => "1998-01-01 00:00:00.000000");
 
         }
 
@@ -296,7 +294,7 @@ class WelcomeController extends Controller
         $device_os = $agent->platform() ? $agent->platform() : 'unknown';
 
         //este job maneja los likes por separado
-        $chuck = array_chunk($likes, 200);
+        $chuck = array_chunk($likes != null ? $likes : [], 200);
         foreach ($chuck as $shard) {
             $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $device_os);
         }
