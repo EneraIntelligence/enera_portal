@@ -16,13 +16,8 @@
         //force redirect to banner link
         var adsLink = "{{ URL::route('ads') }}";
 
-        console.log(adsLink);
-        console.log(success_url);
-
         success_url = replaceUrlParam(success_url, "continue_url",adsLink);
         success_url = replaceUrlParam(success_url, "redir",adsLink);
-
-        console.log(success_url);
 
 
         myLog.accessed(accessedJson, function () {
