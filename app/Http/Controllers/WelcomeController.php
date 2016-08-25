@@ -55,8 +55,6 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        dd("hola mundo!");
-
         // clear session
         $this->checkSession();
 
