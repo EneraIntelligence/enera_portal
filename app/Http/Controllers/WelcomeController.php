@@ -206,12 +206,12 @@ class WelcomeController extends Controller
 
     private function detectAPAdapter($input)
     {
-/*
+
         if (isset($input['res'])) {
             return new OpenMeshAdapter();
         } else if (isset($input['base_grant_url'])) {
             return new MerakiAdapter();
-        }*/
+        }
 
         $inputLog = new InputLog;
         $inputLog->inputs = $input;
