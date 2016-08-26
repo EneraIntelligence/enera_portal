@@ -19,18 +19,11 @@
         "jenssegers/mongodb-session": "^1.1",
         "bugsnag/bugsnag-laravel": "1.*"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/teepluss/laravel-console"
-        }
-    ],
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.0",
-        "phpspec/phpspec": "~2.1",
-        "darsain/laravel-console": "dev-L5"
+        "phpspec/phpspec": "~2.1"
     },
     "autoload": {
         "classmap": [

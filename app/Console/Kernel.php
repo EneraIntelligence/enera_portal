@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \Portal\Console\Commands\Inspire::class,
+        \Portal\Console\Commands\TestRadius::class,
     ];
 
     /**
