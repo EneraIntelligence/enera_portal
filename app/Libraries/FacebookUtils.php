@@ -23,7 +23,7 @@ class FacebookUtils
             $this->fb = new Facebook\Facebook([
                 'app_id' => env('FACEBOOK_CLIENT_ID'),
                 'app_secret' => env('FACEBOOK_CLIENT_SECRET'),
-                'default_graph_version' => 'v2.2',
+                'default_graph_version' => 'v2.4',
             ]);
         }
 
