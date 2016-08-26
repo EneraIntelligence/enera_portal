@@ -41,7 +41,7 @@ class WelcomeController extends Controller
     private function checkSession()
     {
         $logs = CampaignLog::where('user.session', session('_token'))
-            ->where('interaction.requested', 'exists', true)->count();
+            ->where('interaccion.requested', 'exists', true)->count();
         if ($logs > 0) {
             Session::flush();
             Session::regenerate();
@@ -55,6 +55,7 @@ class WelcomeController extends Controller
      */
     public function index()
     {
+
         // clear session
         $this->checkSession();
 
@@ -63,7 +64,6 @@ class WelcomeController extends Controller
         //ajusta los inputs al estandar de enera
         $input = $inputAdapter->processInput(Input::all());
 
-//        var_dump(Input::all());
 
         if (!$this->validWelcomeInput($input)) {
             return $this->invalidNetworkView();
@@ -106,7 +106,6 @@ class WelcomeController extends Controller
             $log->interaction()->create(['welcome' => new MongoDate()]);
         } elseif (!$log) {
             //no existe log, creando
-            //echo 'no hay log';
             $new_log = CampaignLog::create([
                 'user' => [
                     'session' => session('_token')
@@ -137,7 +136,8 @@ class WelcomeController extends Controller
             ->where(function ($q) use ($client_mac) {
                 $q->where('devices.mac', $client_mac)
                     ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
-            })->get();
+            })
+            ->get();
 
 //        dd($users->count());
         //check if device has paired none or more than 1 facebook account
@@ -206,15 +206,12 @@ class WelcomeController extends Controller
 
     private function detectAPAdapter($input)
     {
-        //TODO get ap vendor by mac address
-
+/*
         if (isset($input['res'])) {
-//            echo 'open mesh <br>';
             return new OpenMeshAdapter();
         } else if (isset($input['base_grant_url'])) {
-//            echo 'meraki <br>';
             return new MerakiAdapter();
-        }
+        }*/
 
         $inputLog = new InputLog;
         $inputLog->inputs = $input;
@@ -245,17 +242,16 @@ class WelcomeController extends Controller
         $facebook_data = $this->fbUtils->getUserData();
         $likes = $this->fbUtils->getUserLikes();
 
-        if(isset($facebook_data['birthday'])){
+        if (isset($facebook_data['birthday'])) {
             $start = new MongoDate(strtotime($facebook_data['birthday']));
-            $facebook_data['birthday'] = array("date"=>$facebook_data['birthday']);
-        }else{
+            $facebook_data['birthday'] = array("date" => $facebook_data['birthday']);
+        } else {
             $start = new MongoDate(strtotime("0"));
-            $facebook_data['birthday'] = array("date"=>"1998-01-01 00:00:00.000000");
+            $facebook_data['birthday'] = array("date" => "1998-01-01 00:00:00.000000");
+
         }
 
         $facebook_data['age'] = $start;
-
-//        dd($facebook_data);
 
         //upsert user data
         $user_fb_id = $facebook_data['id'];
@@ -269,7 +265,6 @@ class WelcomeController extends Controller
             foreach ($facebook_data as $k => $v) {
                 $user->facebook->{$k} = $v;
             }
-
             $user->facebook->save();
 
             $device = $user->devices()->where('devices.mac', Input::get('client_mac'))->first();
@@ -278,7 +273,6 @@ class WelcomeController extends Controller
                 $device->save();
             }
         } else {
-
             $user = User::create([
                 'facebook' => $facebook_data,
                 'devices' => []
@@ -300,7 +294,7 @@ class WelcomeController extends Controller
         $device_os = $agent->platform() ? $agent->platform() : 'unknown';
 
         //este job maneja los likes por separado
-        $chuck = array_chunk($likes, 200);
+        $chuck = array_chunk($likes != null ? $likes : [], 200);
         foreach ($chuck as $shard) {
             $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $device_os);
         }
