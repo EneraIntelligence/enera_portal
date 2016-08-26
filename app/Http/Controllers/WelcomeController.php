@@ -207,14 +207,14 @@ class WelcomeController extends Controller
     private function detectAPAdapter($input)
     {
         //TODO get ap vendor by mac address
-
+/*
         if (isset($input['res'])) {
 //            echo 'open mesh <br>';
             return new OpenMeshAdapter();
         } else if (isset($input['base_grant_url'])) {
 //            echo 'meraki <br>';
             return new MerakiAdapter();
-        }
+        }*/
 
         $inputLog = new InputLog;
         $inputLog->inputs = $input;
