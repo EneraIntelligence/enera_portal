@@ -117,6 +117,7 @@ class Radius
         $this->SetUdpTimeout($udp_timeout);
         $this->SetUsername();
         $this->SetPassword();
+
         $this->SetNasIpAddress();
         $this->SetNasPort();
         
