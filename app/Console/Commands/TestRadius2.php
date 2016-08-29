@@ -11,7 +11,7 @@ class TestRadius2 extends Command
      *
      * @var string
      */
-    protected $signature = 'radius:auth2 {radius_ip} {radius_secret} {--user} {--pass}';
+    protected $signature = 'radius:auth2 {radius_ip} {radius_secret} {--user=} {--pass=}';
 
     /**
      * The console command description.
@@ -45,7 +45,7 @@ class TestRadius2 extends Command
         $this->radius_ip = $this->argument('radius_ip');
         $this->radius_secret = $this->argument('radius_secret');
         $this->user = $this->option('user');
-        $this->pass = $this->option('password');
+        $this->pass = $this->option('pass');
 
         $radius = radius_auth_open();
         radius_add_server($radius, $this->radius_ip, 1812, $this->radius_secret, 5, 3);
