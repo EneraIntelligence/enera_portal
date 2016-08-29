@@ -11,7 +11,7 @@ class TestRadius2 extends Command
      *
      * @var string
      */
-    protected $signature = 'radius:auth2 {radius_ip} {radius_secret} {--U|user} {--P|password}';
+    protected $signature = 'radius:auth2 {radius_ip} {radius_secret} {--user} {--pass}';
 
     /**
      * The console command description.
