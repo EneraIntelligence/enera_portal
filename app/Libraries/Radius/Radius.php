@@ -562,7 +562,11 @@ class Radius
         $packet_data .= $attributes_content;
 
         $_socket_to_server = socket_create(AF_INET, SOCK_DGRAM, 17); // UDP packet = 17
-        
+
+        $this->info('ip: '.$this->_ip_radius_server);
+        $this->info('port: '.$this->_authentication_port);
+
+
         if ($_socket_to_server === FALSE)
         {
             $this->_last_error_code    = socket_last_error();
