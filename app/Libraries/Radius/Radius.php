@@ -561,7 +561,7 @@ class Radius
         $packet_data .= $this->_request_authenticator;
         $packet_data .= $attributes_content;
 
-        $_socket_to_server = socket_create(AF_INET, SOCK_DGRAM, 17); // UDP packet = 17
+        $_socket_to_server = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP ); // UDP packet = 17
         
         if ($_socket_to_server === FALSE)
         {
