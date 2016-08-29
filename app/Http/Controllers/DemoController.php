@@ -22,6 +22,11 @@ class DemoController extends Controller
         return view("welcome.demo");
     }
 
+    public function login()
+    {
+        return view("welcome.login");
+    }
+    
     public function like()
     {
         //hardcoded like

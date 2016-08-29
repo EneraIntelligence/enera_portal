@@ -280,7 +280,8 @@
 
     <div class="footer-copyright">
         <div class="container">
-            <a class="grey-text text-lighten-4 right" href="http://enera.mx" target="_blank">© 2016 Enera
+            <a href="{{url("demo/login")}}" class="grey-text left text-lighten-4"></a>
+            <a class="grey-text text-lighten-4 right" href="http://enera.mx" target="_blank">© {{date("Y")}} Enera
                 Intelligence</a>
         </div>
     </div>
