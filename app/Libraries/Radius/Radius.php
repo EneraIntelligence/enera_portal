@@ -48,7 +48,7 @@ class Radius
      * @param integer accounting port
      * @return NULL
      *********************************************************************/
-    public function Radius($ip_radius_server = '127.0.0.1', $shared_secret = 'testing123', $radius_suffix = '', $udp_timeout = 5, $authentication_port = 1812, $accounting_port = 1813)
+    public function Radius($ip_radius_server = '127.0.0.1', $shared_secret = '', $radius_suffix = '', $udp_timeout = 5, $authentication_port = 1812, $accounting_port = 1813)
     {
         $this->_radius_packet_info[1] = 'Access-Request';
         $this->_radius_packet_info[2] = 'Access-Accept';
@@ -562,10 +562,6 @@ class Radius
         $packet_data .= $attributes_content;
 
         $_socket_to_server = socket_create(AF_INET, SOCK_DGRAM, 17); // UDP packet = 17
-
-        $this->info('ip: '.$this->_ip_radius_server);
-        $this->info('port: '.$this->_authentication_port);
-
 
         if ($_socket_to_server === FALSE)
         {
