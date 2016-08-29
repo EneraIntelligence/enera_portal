@@ -117,6 +117,7 @@ class Radius
         $this->SetUdpTimeout($udp_timeout);
         $this->SetUsername();
         $this->SetPassword();
+
         $this->SetNasIpAddress();
         $this->SetNasPort();
         
@@ -561,7 +562,7 @@ class Radius
         $packet_data .= $attributes_content;
 
         $_socket_to_server = socket_create(AF_INET, SOCK_DGRAM, 17); // UDP packet = 17
-        
+
         if ($_socket_to_server === FALSE)
         {
             $this->_last_error_code    = socket_last_error();

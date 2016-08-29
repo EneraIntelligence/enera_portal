@@ -49,7 +49,11 @@ class TestRadius extends Command
         $radius = new Radius($this->radius_ip, $this->radius_secret);
         $radius->SetNasPort(0);
         $radius->SetNasIpAddress('127.0.1.1'); // Needed for some devices (not always auto-detected)
-        if ($radius->AccessRequest($this->user != "" ? $this->user : 'guest', $this->pass != "" ? $this->pass : 'guest')) {
+
+        $this->info('ip: '.$this->radius_ip);
+        $this->info('secret: '.$this->radius_secret);
+//        if ($radius->AccessRequest($this->user != "" ? $this->user : 'guest', $this->pass != "" ? $this->pass : 'guest')) {
+        if ($radius->AccessRequest('enera','enera')) {
             $this->info('Authentication accepted');
         } else {
             $this->error('Authentication rejected');
