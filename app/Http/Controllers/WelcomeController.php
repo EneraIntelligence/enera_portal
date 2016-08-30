@@ -27,6 +27,7 @@ use Session;
 //adapters
 use Portal\Libraries\APAdapters\OpenMeshAdapter;
 use Portal\Libraries\APAdapters\MerakiAdapter;
+use Portal\Libraries\APAdapters\RuckusAdapter;
 use Portal\Libraries\APAdapters\DefaultAdapter;
 
 class WelcomeController extends Controller
@@ -207,13 +208,16 @@ class WelcomeController extends Controller
     private function detectAPAdapter($input)
     {
 
-        if (isset($input['res'])) {
-            return new OpenMeshAdapter();
-        } else if (isset($input['base_grant_url'])) {
+        if (isset($input['base_grant_url'])) {
             return new MerakiAdapter();
+        }else if (isset($input['res'])) {
+            return new OpenMeshAdapter();
+        } else if( isset($input['sip']))
+        {
+            return new RuckusAdapter();
         }
 
-        $inputLog = new InputLog;
+            $inputLog = new InputLog;
         $inputLog->inputs = $input;
         $inputLog->save();
 
@@ -381,6 +385,12 @@ class WelcomeController extends Controller
             'color' => $color,
             'image' => $image
         ]);
+    }
+
+    public function radius()
+    {
+        //TODO connect to the radius server
+        echo "Error connecting to radius server :C";
     }
 
 
