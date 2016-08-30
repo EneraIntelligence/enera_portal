@@ -42,7 +42,7 @@ class RuckusAdapter implements IAdapter
         {
             $node_mac = $this->formatMac($input['mac']);
             $client_mac = $this->formatMac($input['client_mac']);
-            $user_url = $this->formatMac($input['url']);
+            $user_url = $input['url'];
 
 
             $resp = [
