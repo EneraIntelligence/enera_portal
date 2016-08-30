@@ -3,6 +3,7 @@
 namespace Portal\Libraries\APAdapters;
 
 use Portal\Libraries\APAdapters\IAdapter;
+use URL;
 use Validator;
 
 
