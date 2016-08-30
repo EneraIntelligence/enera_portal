@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1592a17c0cf275bbd9710ed15ddc4baa",
-    "content-hash": "d906a09465265f8d56eaec710d3385ad",
+    "hash": "ded0e82b400d319e3cdc05d1a612ed9e",
+    "content-hash": "94fb89308c1122eb1145d5bcf0855414",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -440,12 +440,12 @@
             "version": "5.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/facebook/facebook-php-sdk-v4.git",
+                "url": "https://github.com/facebook/php-graph-sdk.git",
                 "reference": "7ed1ecdae6a5b2f8b8f60e132d06594b39b16fb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/7ed1ecdae6a5b2f8b8f60e132d06594b39b16fb1",
+                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/7ed1ecdae6a5b2f8b8f60e132d06594b39b16fb1",
                 "reference": "7ed1ecdae6a5b2f8b8f60e132d06594b39b16fb1",
                 "shasum": ""
             },
@@ -490,6 +490,7 @@
                 "facebook",
                 "sdk"
             ],
+            "abandoned": "facebook/graph-sdk",
             "time": "2016-08-09 11:32:26"
         },
         {
@@ -542,16 +543,16 @@
         },
         {
             "name": "graham-campbell/flysystem",
-            "version": "v3.4.0",
+            "version": "v3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Laravel-Flysystem.git",
-                "reference": "e723fca0e22442bd28b7900d82823c5989d351ef"
+                "reference": "a3d69206a67ce1b68e867dbc0ea30a88c5992b40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Flysystem/zipball/e723fca0e22442bd28b7900d82823c5989d351ef",
-                "reference": "e723fca0e22442bd28b7900d82823c5989d351ef",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Flysystem/zipball/a3d69206a67ce1b68e867dbc0ea30a88c5992b40",
+                "reference": "a3d69206a67ce1b68e867dbc0ea30a88c5992b40",
                 "shasum": ""
             },
             "require": {
@@ -595,7 +596,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "3.5-dev"
                 }
             },
             "autoload": {
@@ -627,7 +628,7 @@
                 "laravel",
                 "s3"
             ],
-            "time": "2016-04-26 14:23:32"
+            "time": "2016-08-28 09:18:27"
         },
         {
             "name": "graham-campbell/manager",
@@ -1167,16 +1168,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.1.41",
+            "version": "v5.1.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "4f338f494ee2fffe6605f70a7cb8a36c93da95b6"
+                "reference": "db580b5b073ea3f1e095b30a75ae5d6394eb8e51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/4f338f494ee2fffe6605f70a7cb8a36c93da95b6",
-                "reference": "4f338f494ee2fffe6605f70a7cb8a36c93da95b6",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/db580b5b073ea3f1e095b30a75ae5d6394eb8e51",
+                "reference": "db580b5b073ea3f1e095b30a75ae5d6394eb8e51",
                 "shasum": ""
             },
             "require": {
@@ -1292,7 +1293,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-08-10 12:23:27"
+            "time": "2016-08-26 11:44:21"
         },
         {
             "name": "laravelcollective/html",
@@ -3000,47 +3001,6 @@
     ],
     "packages-dev": [
         {
-            "name": "darsain/laravel-console",
-            "version": "dev-L5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/teepluss/laravel-console.git",
-                "reference": "f4e1ee829985a416313d27abd0b332858919d033"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/teepluss/laravel-console/zipball/f4e1ee829985a416313d27abd0b332858919d033",
-                "reference": "f4e1ee829985a416313d27abd0b332858919d033",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": ">=5.0.1",
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/controllers"
-                ],
-                "psr-0": {
-                    "Darsain\\Console\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Browser console for Laravel Framework.",
-            "keywords": [
-                "browser",
-                "console",
-                "laravel"
-            ],
-            "support": {
-                "source": "https://github.com/teepluss/laravel-console/tree/L5"
-            },
-            "time": "2016-01-12 09:32:57"
-        },
-        {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
             "source": {
@@ -4417,9 +4377,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "darsain/laravel-console": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
