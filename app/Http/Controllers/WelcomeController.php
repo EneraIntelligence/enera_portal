@@ -20,6 +20,7 @@ use Portal\Jobs\FbLikesJob;
 use Portal\Jobs\WelcomeLogJob;
 use Portal\Http\Controllers\Controller;
 use Portal\Libraries\FacebookUtils;
+use Portal\Libraries\Radius\Radius;
 use Portal\User;
 use Validator;
 use Session;
@@ -389,8 +390,12 @@ class WelcomeController extends Controller
 
     public function radius()
     {
+        $radiusConnection = new Radius();
+        $radiusConnection->auth("enera", "enera");
+        echo $radiusConnection->strResponse();
+
         //TODO connect to the radius server
-        echo "Error connecting to radius server :C";
+        //echo "Error connecting to radius server :C";
     }
 
 
