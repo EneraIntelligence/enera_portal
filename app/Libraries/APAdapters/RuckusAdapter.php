@@ -69,14 +69,14 @@ class RuckusAdapter implements IAdapter
     private function formatMac($mac)
     {
         $mac = strtolower($mac);
-
+/*
         $length = strlen($mac);
 
         $res=substr($mac,0,2);
 
         for ($i=2; $i<$length; $i+=2) {
             $res .= ":".$mac[$i].$mac[$i+1];
-        }
+        }*/
 
         return $res;
     }
