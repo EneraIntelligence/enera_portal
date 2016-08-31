@@ -78,7 +78,7 @@ class RuckusAdapter implements IAdapter
             $res .= ":".$mac[$i].$mac[$i+1];
         }*/
 
-        return $res;
+        return $mac;
     }
 
 
