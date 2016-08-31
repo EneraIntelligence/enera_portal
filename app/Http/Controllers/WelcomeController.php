@@ -397,22 +397,33 @@ class WelcomeController extends Controller
         echo $radiusConnection->strResponse();
 */
 
-        $url = '/admin/_portalintf.jsp';
-        $ch = curl_init();
-        curl_setopt( $ch, CURLOPT_URL, $url );
-        curl_setopt( $ch, CURLOPT_POST, true );
-        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-        curl_setopt( $ch, CURLOPT_POSTFIELDS,
-            '<ruckus>
+
+
+        $xml = '<ruckus>
                 <req-password>admin</req-password>
                  <version>1.0</version>
                  <command cmd="user-authenticate" ipaddr="172.16.17.101" macaddr="DC-9B-9C-4A-B6-C1" name="enera" password="enera"/>
-            </ruckus>' );
-        $result = curl_exec($ch);
-        curl_close($ch);
+            </ruckus>';
+        $url = '/admin/_portalintf.jsp';
 
-        echo "done: ". $result;
+
+        $post_data = array(
+            "xml" => $xml,
+        );
+
+        $stream_options = array(
+            'http' => array(
+                'method'  => 'POST',
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'content' => http_build_query($post_data),
+            ),
+        );
+
+        $context  = stream_context_create($stream_options);
+        $response = file_get_contents($url, null, $context);
+
+
+        echo "done: ". $response;
 
         //TODO connect to the radius server
         //echo "Error connecting to radius server :C";
