@@ -34,6 +34,10 @@ class Radius
     public function auth($user, $pass)
     {
         radius_add_server($this->radius, $this->radius_ip, $this->radius_port, $this->radius_secret, 5, 3);
+        
+        //test if this gives access
+        radius_put_addr($this->radius, RADIUS_NAS_IP_ADDRESS, '192.168.128.14');
+
         radius_create_request($this->radius, RADIUS_ACCESS_REQUEST);
         radius_put_attr($this->radius, RADIUS_USER_NAME, $user);
         radius_put_attr($this->radius, RADIUS_USER_PASSWORD, $pass);
