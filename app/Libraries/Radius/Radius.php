@@ -69,8 +69,8 @@ class Radius
         radius_put_addr($this->radius, RADIUS_NAS_IP_ADDRESS, "192.168.128.3");
 
 
-        radius_put_vendor_string($this->radius,RADIUS_CALLING_STATION_ID, "DC-9B-9C-4A-B6-C1");
-        radius_put_vendor_string($this->radius,RADIUS_CALLED_STATION_ID, "6C-AA-B3-2D-A8-98:WIFI_RUCKUS");
+        radius_put_string($this->radius,RADIUS_CALLING_STATION_ID, "DC-9B-9C-4A-B6-C1");
+        radius_put_string($this->radius,RADIUS_CALLED_STATION_ID, "6C-AA-B3-2D-A8-98:WIFI_RUCKUS");
 
 
         $this->response = radius_send_request($this->radius);
