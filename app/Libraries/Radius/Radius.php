@@ -101,6 +101,7 @@ class Radius
          */
 
         print_r($this->response);
+        echo "\n";
 
         if ($this->response == RADIUS_ACCESS_ACCEPT) {
 
