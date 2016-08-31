@@ -397,36 +397,11 @@ class WelcomeController extends Controller
         echo $radiusConnection->strResponse();
 */
 
-
-
-        $xml = '<ruckus>
-                <req-password>admin</req-password>
-                 <version>1.0</version>
-                 <command cmd="user-authenticate" ipaddr="172.16.17.101" macaddr="DC-9B-9C-4A-B6-C1" name="enera" password="enera"/>
-            </ruckus>';
-        $url = 'http://192.168.128.14/admin/_portalintf.jsp';
-
-
-        $post_data = array(
-            "xml" => $xml,
-        );
-
-        $stream_options = array(
-            'http' => array(
-                'method'  => 'POST',
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'content' => http_build_query($post_data),
-            ),
-        );
-
-        $context  = stream_context_create($stream_options);
-        $response = file_get_contents($url, null, $context);
-
-
-        echo "done: ". $response;
-
         //TODO connect to the radius server
         //echo "Error connecting to radius server :C";
+
+
+        return view('welcome.ruckus');
     }
 
 
