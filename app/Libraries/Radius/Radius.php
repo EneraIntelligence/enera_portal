@@ -40,8 +40,37 @@ class Radius
         radius_put_attr($this->radius, RADIUS_USER_NAME, $user);
         radius_put_attr($this->radius, RADIUS_USER_PASSWORD, $pass);
 
+
+        /**
+         *
+        rad_recv: Accounting-Request packet from host 189.168.139.141 port 14245, id=0, length=240
+        User-Name = "dc9b9c4ab6c1"
+        Acct-Status-Type = Start
+        Acct-Authentic = Local
+        Framed-IP-Address = 192.168.128.3
+        Calling-Station-Id = "DC-9B-9C-4A-B6-C1"
+        NAS-IP-Address = 192.168.128.14
+        NAS-Port = 6
+        Called-Station-Id = "6C-AA-B3-2D-A8-98:WIFI_RUCKUS"
+        NAS-Port-Type = Wireless-802.11
+        NAS-Identifier = "6C-AA-B3-2D-A8-98"
+        Connect-Info = "CONNECT 802.11g/n"
+        Acct-Session-Id = "57CD5A69-0000004E"
+        Acct-Multi-Session-Id = "6caab32da898dc9b9c4ab6c157c71ccd004d"
+        Ruckus-Attr-3 = 0x574946495f5255434b5553
+        Event-Timestamp = "Aug 31 2016 14:07:11 EDT"
+         */
         //test if this gives access
         radius_put_addr($this->radius, RADIUS_NAS_IP_ADDRESS, '192.168.128.14');
+
+        radius_put_addr($this->radius, RADIUS_NAS_IP_ADDRESS, "192.168.128.14");
+        radius_put_int($this->radius, RADIUS_NAS_PORT, 6);
+
+        radius_put_addr($this->radius, RADIUS_NAS_IP_ADDRESS, "192.168.128.3");
+
+
+        radius_put_vendor_str($this->radius,RADIUS_CALLING_STATION_ID, "DC-9B-9C-4A-B6-C1");
+        radius_put_vendor_str($this->radius,RADIUS_CALLED_STATION_ID, "6C-AA-B3-2D-A8-98:WIFI_RUCKUS");
 
 
         $this->response = radius_send_request($this->radius);
