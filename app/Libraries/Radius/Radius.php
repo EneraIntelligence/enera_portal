@@ -97,10 +97,10 @@ class Radius
         Event-Timestamp = "Aug 31 2016 15:00:34 EDT"
          */
 
-        echo $this->response.'<br>';
+        //echo $this->response.'<br>';
 
         if ($this->response == RADIUS_ACCESS_ACCEPT) {
-
+/*
             radius_add_server($this->radiusAcct, $this->radius_ip, $this->radius_acct_port, $this->radius_secret, 5, 3);
 
 
@@ -123,7 +123,7 @@ class Radius
 
             $this->response = radius_send_request($this->radiusAcct);
             echo $this->response.'<br>';
-
+*/
 
                 return true;
             } else {
