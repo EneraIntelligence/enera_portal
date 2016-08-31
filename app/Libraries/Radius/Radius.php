@@ -98,6 +98,8 @@ class Radius
             radius_put_int($this->radius,RADIUS_ACCT_STATUS_TYPE, RADIUS_START);
             radius_put_int($this->radius,RADIUS_ACCT_AUTHENTIC, RADIUS_AUTH_RADIUS);
 
+            $this->response = radius_send_request($this->radius);
+
 
                 return true;
             } else {
