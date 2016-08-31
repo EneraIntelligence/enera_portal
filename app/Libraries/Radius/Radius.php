@@ -43,22 +43,18 @@ class Radius
 
         /**
          *
-        rad_recv: Accounting-Request packet from host 189.168.139.141 port 14245, id=0, length=240
-        User-Name = "dc9b9c4ab6c1"
-        -Acct-Status-Type = Start
-        -Acct-Authentic = Local
-        -Framed-IP-Address = 192.168.128.3
-        -Calling-Station-Id = "DC-9B-9C-4A-B6-C1"
-        -NAS-IP-Address = 192.168.128.14
-        -NAS-Port = 6
-        -Called-Station-Id = "6C-AA-B3-2D-A8-98:WIFI_RUCKUS"
-        -NAS-Port-Type = Wireless-802.11
-        -NAS-Identifier = "6C-AA-B3-2D-A8-98"
-        Connect-Info = "CONNECT 802.11g/n"
-        Acct-Session-Id = "57CD5A69-0000004E"
-        Acct-Multi-Session-Id = "6caab32da898dc9b9c4ab6c157c71ccd004d"
-        Ruckus-Attr-3 = 0x574946495f5255434b5553
-        Event-Timestamp = "Aug 31 2016 14:07:11 EDT"
+        rad_recv: Access-Request packet from host 189.168.139.141 port 17315, id=18, length=181
+        User-Name = "enera"
+        User-Password = "enera"
+        NAS-Identifier = "6C-AA-B3-6D-A8-98"
+        NAS-IP-Address = 192.168.128.14
+        Framed-IP-Address = 192.168.128.3
+        Called-Station-Id = "6C-AA-B3-6D-A8-98:RUCKUS_CAPTIVE"
+        Service-Type = Login-User
+        Calling-Station-Id = "DC-9B-9C-4A-B6-C1"
+        NAS-Port-Type = Wireless-802.11
+        Ruckus-Attr-3 = 0x5255434b55535f43415054495645
+        Message-Authenticator = 0x378014f18df9e4b5976ebfc5e954946e
          */
         //test if this gives access
 
@@ -71,26 +67,47 @@ class Radius
         radius_put_int($this->radius,RADIUS_NAS_PORT_TYPE , RADIUS_WIRELESS_IEEE_802_11);
 
         /*
-        radius_put_int($this->radius, RADIUS_NAS_PORT, 6);
+        radius_put_int($this->radius, RADIUS_NAS_PORT, 3);
 
         radius_put_string($this->radius,RADIUS_NAS_IDENTIFIER , "6C-AA-B3-2D-A8-98");
 
         radius_put_int($this->radius,RADIUS_ACCT_STATUS_TYPE, RADIUS_START);
-        radius_put_int($this->radius,RADIUS_ACCT_AUTHENTIC, RADIUS_AUTH_LOCAL);
+        radius_put_int($this->radius,RADIUS_ACCT_AUTHENTIC, RADIUS_AUTH_RADIUS);
 */
 
         $this->response = radius_send_request($this->radius);
 
         if ($this->response == RADIUS_ACCESS_ACCEPT) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
-    /**
-     * @return radius_response
-     */
+            radius_create_request($this->radius, RADIUS_ACCESS_REQUEST);
+            radius_put_attr($this->radius, RADIUS_USER_NAME, $user);
+            radius_put_attr($this->radius, RADIUS_USER_PASSWORD, $pass);
+
+
+            radius_put_string($this->radius, RADIUS_NAS_IDENTIFIER, '6C-AA-B3-2D-A8-98');
+            radius_put_addr($this->radius, RADIUS_NAS_IP_ADDRESS, '192.168.128.14');
+            radius_put_addr($this->radius, RADIUS_FRAMED_IP_ADDRESS , "192.168.128.3");
+            radius_put_string($this->radius,RADIUS_CALLED_STATION_ID, "6C-AA-B3-2D-A8-98:WIFI_RUCKUS");
+            radius_put_int($this->radius, RADIUS_SERVICE_TYPE, RADIUS_LOGIN);
+            radius_put_string($this->radius,RADIUS_CALLING_STATION_ID, "DC-9B-9C-4A-B6-C1");
+            radius_put_int($this->radius,RADIUS_NAS_PORT_TYPE , RADIUS_WIRELESS_IEEE_802_11);
+
+
+            radius_put_int($this->radius, RADIUS_NAS_PORT, 3);
+            radius_put_string($this->radius,RADIUS_NAS_IDENTIFIER , "6C-AA-B3-2D-A8-98");
+            radius_put_int($this->radius,RADIUS_ACCT_STATUS_TYPE, RADIUS_START);
+            radius_put_int($this->radius,RADIUS_ACCT_AUTHENTIC, RADIUS_AUTH_RADIUS);
+
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        /**
+         * @return radius_response
+         */
     public function Response()
     {
         return $this->response;
