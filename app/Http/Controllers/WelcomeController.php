@@ -394,6 +394,8 @@ class WelcomeController extends Controller
         $radiusConnection->auth("enera", "enera");
         echo $radiusConnection->strResponse();
 
+
+        return redirect("http://apple.com");
         //TODO connect to the radius server
         //echo "Error connecting to radius server :C";
     }
