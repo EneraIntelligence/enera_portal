@@ -37,6 +37,8 @@ class Radius
     {
         radius_add_server($this->radius, $this->radius_ip, $this->radius_port, $this->radius_secret, 5, 3);
 
+        radius_add_server($this->radiusAcct, $this->radius_ip, $this->radius_acct_port, $this->radius_secret, 5, 3);
+
 
         radius_create_request($this->radius, RADIUS_ACCESS_REQUEST);
         radius_put_attr($this->radius, RADIUS_USER_NAME, $user);
@@ -98,9 +100,10 @@ class Radius
         Event-Timestamp = "Aug 31 2016 15:00:34 EDT"
          */
 
+        print_r($this->response);
+
         if ($this->response == RADIUS_ACCESS_ACCEPT) {
 
-            radius_add_server($this->radiusAcct, $this->radius_ip, $this->radius_acct_port, $this->radius_secret, 5, 3);
 
             radius_create_request($this->radiusAcct, RADIUS_ACCOUNTING_REQUEST);
             radius_put_attr($this->radiusAcct, RADIUS_USER_NAME, $user);
