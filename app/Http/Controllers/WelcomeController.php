@@ -404,7 +404,7 @@ class WelcomeController extends Controller
                  <version>1.0</version>
                  <command cmd="user-authenticate" ipaddr="172.16.17.101" macaddr="DC-9B-9C-4A-B6-C1" name="enera" password="enera"/>
             </ruckus>';
-        $url = '/admin/_portalintf.jsp';
+        $url = 'http://192.168.128.14/admin/_portalintf.jsp';
 
 
         $post_data = array(
