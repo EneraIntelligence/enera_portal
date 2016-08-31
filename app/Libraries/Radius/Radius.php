@@ -100,25 +100,22 @@ class Radius
         Event-Timestamp = "Aug 31 2016 15:00:34 EDT"
          */
 
-        print_r($this->response);
-        echo "\n";
-
         if ($this->response == RADIUS_ACCESS_ACCEPT) {
 
 
             radius_create_request($this->radiusAcct, RADIUS_ACCOUNTING_REQUEST);
             radius_put_attr($this->radiusAcct, RADIUS_USER_NAME, $user);
 
-            radius_put_string($this->radiusAcct, RADIUS_NAS_IDENTIFIER, '6C-AA-B3-2D-A8-98');
+            radius_put_string($this->radiusAcct, RADIUS_NAS_IDENTIFIER, '6C-AA-B3-6D-A8-9C');
             radius_put_addr($this->radiusAcct, RADIUS_NAS_IP_ADDRESS, '192.168.128.14');
             radius_put_addr($this->radiusAcct, RADIUS_FRAMED_IP_ADDRESS , "192.168.128.3");
-            radius_put_string($this->radiusAcct,RADIUS_CALLED_STATION_ID, "6C-AA-B3-2D-A8-98:WIFI_RUCKUS");
+            radius_put_string($this->radiusAcct,RADIUS_CALLED_STATION_ID, "6C-AA-B3-2D-A8-98:RUCKUS_CAPTIVE");
             radius_put_int($this->radiusAcct, RADIUS_SERVICE_TYPE, RADIUS_LOGIN);
             radius_put_string($this->radiusAcct,RADIUS_CALLING_STATION_ID, "DC-9B-9C-4A-B6-C1");
             radius_put_int($this->radiusAcct,RADIUS_NAS_PORT_TYPE , RADIUS_WIRELESS_IEEE_802_11);
 
 
-            radius_put_int($this->radiusAcct, RADIUS_NAS_PORT, 3);
+            radius_put_int($this->radiusAcct, RADIUS_NAS_PORT, 7);
             radius_put_string($this->radiusAcct,RADIUS_NAS_IDENTIFIER , "6C-AA-B3-2D-A8-98");
             radius_put_int($this->radiusAcct,RADIUS_ACCT_STATUS_TYPE, RADIUS_START);
             radius_put_int($this->radiusAcct,RADIUS_ACCT_AUTHENTIC, RADIUS_AUTH_RADIUS);
