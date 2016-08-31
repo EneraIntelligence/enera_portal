@@ -108,7 +108,7 @@ class Radius
             radius_put_string($this->radiusAcct, RADIUS_NAS_IDENTIFIER, '6C-AA-B3-6D-A8-9C');
             radius_put_addr($this->radiusAcct, RADIUS_NAS_IP_ADDRESS, '192.168.128.14');
             radius_put_addr($this->radiusAcct, RADIUS_FRAMED_IP_ADDRESS , "192.168.128.3");
-            radius_put_string($this->radiusAcct,RADIUS_CALLED_STATION_ID, "6C-AA-B3-2D-A8-98:RUCKUS_CAPTIVE");
+            radius_put_string($this->radiusAcct,RADIUS_CALLED_STATION_ID, "6C-AA-B3-6D-A8-9C:RUCKUS_CAPTIVE");
             radius_put_int($this->radiusAcct, RADIUS_SERVICE_TYPE, RADIUS_LOGIN);
             radius_put_string($this->radiusAcct,RADIUS_CALLING_STATION_ID, "DC-9B-9C-4A-B6-C1");
             radius_put_int($this->radiusAcct,RADIUS_NAS_PORT_TYPE , RADIUS_WIRELESS_IEEE_802_11);
