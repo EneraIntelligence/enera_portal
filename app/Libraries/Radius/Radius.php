@@ -45,15 +45,15 @@ class Radius
          *
         rad_recv: Accounting-Request packet from host 189.168.139.141 port 14245, id=0, length=240
         User-Name = "dc9b9c4ab6c1"
-        Acct-Status-Type = Start
-        Acct-Authentic = Local
-        Framed-IP-Address = 192.168.128.3
-        Calling-Station-Id = "DC-9B-9C-4A-B6-C1"
-        NAS-IP-Address = 192.168.128.14
-        NAS-Port = 6
-        Called-Station-Id = "6C-AA-B3-2D-A8-98:WIFI_RUCKUS"
-        NAS-Port-Type = Wireless-802.11
-        NAS-Identifier = "6C-AA-B3-2D-A8-98"
+        -Acct-Status-Type = Start
+        -Acct-Authentic = Local
+        -Framed-IP-Address = 192.168.128.3
+        -Calling-Station-Id = "DC-9B-9C-4A-B6-C1"
+        -NAS-IP-Address = 192.168.128.14
+        -NAS-Port = 6
+        -Called-Station-Id = "6C-AA-B3-2D-A8-98:WIFI_RUCKUS"
+        -NAS-Port-Type = Wireless-802.11
+        -NAS-Identifier = "6C-AA-B3-2D-A8-98"
         Connect-Info = "CONNECT 802.11g/n"
         Acct-Session-Id = "57CD5A69-0000004E"
         Acct-Multi-Session-Id = "6caab32da898dc9b9c4ab6c157c71ccd004d"
@@ -62,15 +62,16 @@ class Radius
          */
         //test if this gives access
         radius_put_addr($this->radius, RADIUS_NAS_IP_ADDRESS, '192.168.128.14');
-
-        radius_put_addr($this->radius, RADIUS_NAS_IP_ADDRESS, "192.168.128.14");
         radius_put_int($this->radius, RADIUS_NAS_PORT, 6);
-
-        radius_put_addr($this->radius, RADIUS_NAS_IP_ADDRESS, "192.168.128.3");
-
+        radius_put_addr($this->radius, RADIUS_FRAMED_IP_ADDRESS , "192.168.128.3");
 
         radius_put_string($this->radius,RADIUS_CALLING_STATION_ID, "DC-9B-9C-4A-B6-C1");
         radius_put_string($this->radius,RADIUS_CALLED_STATION_ID, "6C-AA-B3-2D-A8-98:WIFI_RUCKUS");
+        radius_put_string($this->radius,RADIUS_NAS_IDENTIFIER , "6C-AA-B3-2D-A8-98");
+        radius_put_int($this->radius,RADIUS_NAS_PORT_TYPE , RADIUS_WIRELESS_IEEE_802_11);
+
+        radius_put_int($this->radius,RADIUS_ACCT_STATUS_TYPE, RADIUS_START);
+        radius_put_int($this->radius,RADIUS_ACCT_AUTHENTIC, RADIUS_AUTH_LOCAL);
 
 
         $this->response = radius_send_request($this->radius);
