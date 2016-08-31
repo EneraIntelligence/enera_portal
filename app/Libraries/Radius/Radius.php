@@ -22,7 +22,7 @@ class Radius
         $this->radius_ip = env('RADIUS_IP');
         $this->radius_secret = env('RADIUS_SECRET');
         $this->radius_port = env('RADIUS_PORT', 1812);
-        $this->radius_acct_port = env('RADIUS_PORT', 1813);
+        $this->radius_acct_port = env('RADIUS_ACCCT_PORT', 1813);
         $this->radius = radius_auth_open();
         $this->radiusAcct = radius_acct_open();
 
@@ -36,9 +36,6 @@ class Radius
     public function auth($user, $pass)
     {
         radius_add_server($this->radius, $this->radius_ip, $this->radius_port, $this->radius_secret, 5, 3);
-
-        radius_add_server($this->radiusAcct, $this->radius_ip, $this->radius_acct_port, $this->radius_secret, 5, 3);
-
 
         radius_create_request($this->radius, RADIUS_ACCESS_REQUEST);
         radius_put_attr($this->radius, RADIUS_USER_NAME, $user);
@@ -101,6 +98,8 @@ class Radius
          */
 
         if ($this->response == RADIUS_ACCESS_ACCEPT) {
+
+            radius_add_server($this->radiusAcct, $this->radius_ip, $this->radius_acct_port, $this->radius_secret, 5, 3);
 
 
             radius_create_request($this->radiusAcct, RADIUS_ACCOUNTING_REQUEST);
