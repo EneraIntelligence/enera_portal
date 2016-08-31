@@ -61,7 +61,7 @@
                 '</ruckus>';
 
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST","http://192.168.128.14/admin/_portalintf.jsp",true);
+        xmlhttp.open("POST","/admin/_portalintf.jsp",true);
         xmlhttp.send(encodeURI(xml));
     </script>
     {{--{!! HTML::script('js/welcome.js') !!}--}}
