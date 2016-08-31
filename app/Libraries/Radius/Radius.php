@@ -62,7 +62,7 @@ class Radius
          */
         //test if this gives access
 
-        radius_put_addr($this->radius, RADIUS_NAS_IDENTIFIER, '6C-AA-B3-2D-A8-98');
+        radius_put_string($this->radius, RADIUS_NAS_IDENTIFIER, '6C-AA-B3-2D-A8-98');
         radius_put_addr($this->radius, RADIUS_NAS_IP_ADDRESS, '192.168.128.14');
         radius_put_addr($this->radius, RADIUS_FRAMED_IP_ADDRESS , "192.168.128.3");
         radius_put_string($this->radius,RADIUS_CALLED_STATION_ID, "6C-AA-B3-2D-A8-98:WIFI_RUCKUS");
