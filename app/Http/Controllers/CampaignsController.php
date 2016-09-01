@@ -83,7 +83,7 @@ class CampaignsController extends Controller
                 return view($interaction->getView(), $link);
             } else {
                 //choose random campaign
-                $campaignIndex = count($campaigns->campaign) > 1 ? rand(0, count($campaigns) - 1) : 0;
+                $campaignIndex = count($campaigns->campaign) > 1 ? rand(0, count($campaigns->campaign) - 1) : 0;
 
                 $campaignSelected = $campaigns->campaign[$campaignIndex];
 
