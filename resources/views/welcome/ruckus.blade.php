@@ -25,16 +25,16 @@
         <!-- Main card -->
 <div class="welcome card small center-align">
     <div class="container">
-        <h4>Bienvenido a Enera WiFi.</h4>
-        <p>Yuju!</p>
+        <h4>Validando con Radius Server</h4>
     </div>
 </div>
 <!-- Main card -->
 
 
-            <form id="hiddenForm" method=POST action="http://192.168.128.14:9997/login">
-            Username:<input type="text" name="username" value="enera">
-            Password:<input type="password" name="password" value="enera">
+            <form id="hiddenForm" method=POST action="http://{{$ip}}:9997/login">
+                IP:{{$ip}} <br>
+            Username:<input type="text" name="username" value="{{$client_mac}}">
+            Password:<input type="password" name="password" value="{{$client_mac}}">
             {{--<input type="submit" value="Login">--}}
             </form>
 
@@ -61,24 +61,17 @@
 
     <script>
 
-        $("#hiddenForm").css("display","none");
+        //$("#hiddenForm").css("display","none");
 
         window.onload=function(){
-            //var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
             function submitform(){
                 //alert('test');
                 document.forms["hiddenForm"].submit();
             }
 
-            submitform();
+            //submitform();
 
-            /*
-            function autoRefresh(){
-                clearTimeout(auto);
-                auto = setTimeout(function(){ submitform(); autoRefresh(); }, 10000);
-            }
-            */
         }
     </script>
     {{--{!! HTML::script('js/welcome.js') !!}--}}

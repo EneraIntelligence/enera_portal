@@ -46,7 +46,7 @@ class RuckusAdapter implements IAdapter
 
 
             $resp = [
-                'base_grant_url' => URL::route('radius-connect'),
+                'base_grant_url' => URL::route('radius-connect',[ 'ip'=>$input['sip'], 'client_mac'=>$client_mac ]),
                 'user_continue_url' => $user_url,
                 'node_mac' => $node_mac,
                 'client_mac' => $client_mac
