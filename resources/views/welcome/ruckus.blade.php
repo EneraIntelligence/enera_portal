@@ -32,21 +32,11 @@
 <!-- Main card -->
 
 
-        <html>
-        <head><title>Wireless Internet
-                Service</title></head>
-        <body>
-        <br/><center><h2>Wireless Internet
-                Service</h2>
-            <br/>
-            <form method=POST action="http://192.168.128.14:9997/login">
-            Username:<input type="text" name="username">
-            Password:<input type="password" name="password">
-            <input type="submit" value="Login">
+            <form id="hiddenForm" method=POST action="http://192.168.128.14:9997/login">
+            Username:<input type="text" name="username" value="enera">
+            Password:<input type="password" name="password" value="enera">
+            {{--<input type="submit" value="Login">--}}
             </form>
-        </center>
-        </body>
-        </html>
 
 
 @stop
@@ -107,6 +97,26 @@
                 console.log(thrownError);
             }
         });*/
+
+        $("#hiddenForm").css("display","none");
+
+        window.onload=function(){
+            //var auto = setTimeout(function(){ autoRefresh(); }, 100);
+
+            function submitform(){
+                //alert('test');
+                document.forms["hiddenForm"].submit();
+            }
+
+            submitform();
+
+            /*
+            function autoRefresh(){
+                clearTimeout(auto);
+                auto = setTimeout(function(){ submitform(); autoRefresh(); }, 10000);
+            }
+            */
+        }
     </script>
     {{--{!! HTML::script('js/welcome.js') !!}--}}
 
