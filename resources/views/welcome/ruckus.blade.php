@@ -60,43 +60,6 @@
 @section('footer_scripts')
 
     <script>
-        /*
-        var xml = '' +
-                "<?xml version='1.0' encoding='UTF-8'?>" +
-                '<ruckus>'+
-                '<req-password>myPassword</req-password>'+
-                '<version>1.0</version>'+
-                '<command cmd="unrestricted" ipaddr="172.18.110.221" macaddr="c4:17:fe:03:0d:1b" name="frank"/>'+
-                '</ruckus>';
-
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST","http://192.168.128.14/admin/_portalintf.jsp",true);
-        xmlhttp.send(encodeURI(xml));
-*/
-
-/*
-        var xml = '' +
-                "<?xml version='1.0' encoding='UTF-8'?>" +
-                '<ruckus>'+
-                '<req-password>myPassword</req-password>'+
-                '<version>1.0</version>'+
-                '<command cmd="unrestricted" ipaddr="172.18.110.221" macaddr="c4:17:fe:03:0d:1b" name="frank"/>'+
-                '</ruckus>';
-
-        $.ajax({
-            url: "http://192.168.128.14/admin/_portalintf.jsp",
-            data: xml,
-            type: 'POST',
-            contentType: "text/xml",
-            dataType: "text",
-            success : function () {
-                console.log("success");
-            },
-            error : function (xhr, ajaxOptions, thrownError){
-                console.log(xhr.status);
-                console.log(thrownError);
-            }
-        });*/
 
         $("#hiddenForm").css("display","none");
 

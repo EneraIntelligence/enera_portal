@@ -78,6 +78,10 @@ class WelcomeController extends Controller
         $base_grant_url = $input['base_grant_url'];
         $user_continue_url = $input['user_continue_url'];
 
+        session([
+            'success_redirect_url' => $user_continue_url
+        ]);
+
         //busca el branch del ap
         $branche = Branche::whereIn('aps', [$node_mac])->first();
 
@@ -421,5 +425,9 @@ class WelcomeController extends Controller
         return view("welcome.ruckus");
     }
 
+    public function success()
+    {
+        return redirect(session('success_redirect_url'));
+    }
 
 }

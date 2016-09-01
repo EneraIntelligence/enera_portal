@@ -15,6 +15,8 @@ Route::match(['post', 'get'], '/', ['as' => 'welcome', 'uses' => 'WelcomeControl
 Route::match(['post', 'get'], '/guest', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
 Route::match(['post', 'get'], '/guest/s/default', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
 
+Route::match(['post', 'get'], '/success', ['as' => 'success', 'uses' => 'WelcomeController@success']);
+
 Route::match(['post', 'get'], '/ads', ['as' => 'ads', 'uses' => 'WelcomeController@ads']);
 Route::match(['post', 'get'], '/radius-connect', ['as' => 'radius-connect', 'uses' => 'WelcomeController@radius']);
 

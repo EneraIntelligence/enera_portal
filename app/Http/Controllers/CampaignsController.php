@@ -18,6 +18,7 @@ use Portal\Jobs\SendFirstMailJob;
 use Portal\Libraries\CampaignSelector;
 use Portal\User;
 use Session;
+use URL;
 
 class CampaignsController extends Controller
 {
@@ -67,6 +68,12 @@ class CampaignsController extends Controller
                     'campaign_id' => $campaignSelected->_id,
                     'user_id' => $user_id
                 ]));*/
+
+
+                session([
+                    'success_redirect_url' =>  URL::route('ads')
+                ]);
+                
                 $this->requested([
                     'session' => session('_token'),
                     'client_mac' => Input::get('client_mac'),
