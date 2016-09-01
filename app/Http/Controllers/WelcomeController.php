@@ -392,7 +392,7 @@ class WelcomeController extends Controller
         ]);
     }
 
-    public function radius($ip)
+    public function radius($ip,$client_mac)
     {
 
         /*
@@ -422,7 +422,7 @@ class WelcomeController extends Controller
         //TODO connect to the radius server
         //echo "Error connecting to radius server :C";
 
-        return view("welcome.ruckus",array('ip'=>$ip));
+        return view("welcome.ruckus",array('ip'=>$ip, 'client_mac'=>$client_mac));
     }
 
     public function success()
