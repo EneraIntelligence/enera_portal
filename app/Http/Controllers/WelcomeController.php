@@ -397,14 +397,13 @@ class WelcomeController extends Controller
     {
         if( Input::has("continue_url") )
         {
-            echo Input::has("continue_url");
+            //echo Input::has("continue_url");
             session([
                 'success_redirect_url' =>  Input::get("continue_url")
             ]);
 
         }
 
-        dd(Input::all());
 
         $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
 
