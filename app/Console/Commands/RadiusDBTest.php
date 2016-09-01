@@ -45,38 +45,41 @@ class RadiusDBTest extends Command
 
 //        $this->info('Query: '.$query);
 
-        $user = DB::connection('radius')->select("select * from radcheck where username=?",[$this->user_mac]);
+        $users = DB::connection('radius')->select("select * from radcheck where username=?", [$this->user_mac]);
 
-        $this->info('User retrieved: '.$user["username"]);
-/*
+        foreach ($users as $user)
+        {
+            $this->info('User retrieved: ' . $user["username"]);
+        }
+        /*
 
-        $this->radius_secret = $this->argument('radius_secret');
-        $this->user = $this->option('user');
-        $this->pass = $this->option('pass');
+                $this->radius_secret = $this->argument('radius_secret');
+                $this->user = $this->option('user');
+                $this->pass = $this->option('pass');
 
-        $radius = radius_auth_open();
-        radius_add_server($radius, $this->radius_ip, 1812, $this->radius_secret, 5, 3);
-        radius_create_request($radius, RADIUS_ACCESS_REQUEST);
-        radius_put_attr($radius, RADIUS_USER_NAME, $this->user);
-        radius_put_attr($radius, RADIUS_USER_PASSWORD, $this->pass);
+                $radius = radius_auth_open();
+                radius_add_server($radius, $this->radius_ip, 1812, $this->radius_secret, 5, 3);
+                radius_create_request($radius, RADIUS_ACCESS_REQUEST);
+                radius_put_attr($radius, RADIUS_USER_NAME, $this->user);
+                radius_put_attr($radius, RADIUS_USER_PASSWORD, $this->pass);
 
-        $result = radius_send_request($radius);
+                $result = radius_send_request($radius);
 
-        switch ($result) {
-            case RADIUS_ACCESS_ACCEPT:
-                // An Access-Accept response to an Access-Request indicating that the RADIUS server authenticated the user successfully.
-                $this->info('Authentication successful');
-                break;
-            case RADIUS_ACCESS_REJECT:
-                // An Access-Reject response to an Access-Request indicating that the RADIUS server could not authenticate the user.
-                $this->error('Authentication failed');
-                break;
-            case RADIUS_ACCESS_CHALLENGE:
-                // An Access-Challenge response to an Access-Request indicating that the RADIUS server requires further information in another Access-Request before authenticating the user.
-                $this->error('Challenge required');
-                break;
-            default:
-                $this->error('A RADIUS error has occurred: ' . radius_strerror($radius));
-        }*/
+                switch ($result) {
+                    case RADIUS_ACCESS_ACCEPT:
+                        // An Access-Accept response to an Access-Request indicating that the RADIUS server authenticated the user successfully.
+                        $this->info('Authentication successful');
+                        break;
+                    case RADIUS_ACCESS_REJECT:
+                        // An Access-Reject response to an Access-Request indicating that the RADIUS server could not authenticate the user.
+                        $this->error('Authentication failed');
+                        break;
+                    case RADIUS_ACCESS_CHALLENGE:
+                        // An Access-Challenge response to an Access-Request indicating that the RADIUS server requires further information in another Access-Request before authenticating the user.
+                        $this->error('Challenge required');
+                        break;
+                    default:
+                        $this->error('A RADIUS error has occurred: ' . radius_strerror($radius));
+                }*/
     }
 }
