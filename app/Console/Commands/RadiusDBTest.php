@@ -49,7 +49,7 @@ class RadiusDBTest extends Command
 
         foreach ($users as $user)
         {
-            $this->info('User retrieved: ' . $user["username"]);
+            $this->info('User retrieved: ' . $user->username);
         }
         /*
 
