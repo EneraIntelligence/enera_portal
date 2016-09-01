@@ -50,11 +50,6 @@
         </a>
     </div>
 
-    <?php
-    session([
-            'success_redirect_url' => $banner_link
-    ]);
-    ?>
     <!-- login buttons -->
 
 
