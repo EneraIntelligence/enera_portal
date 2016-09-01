@@ -71,7 +71,7 @@ class CampaignsController extends Controller
 
 
                 session([
-                    'success_redirect_url' =>  URL::route('ads')
+                    'success_redirect_url' =>  $link
                 ]);
                 
                 $this->requested([

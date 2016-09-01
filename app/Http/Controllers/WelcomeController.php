@@ -22,6 +22,7 @@ use Portal\Http\Controllers\Controller;
 use Portal\Libraries\FacebookUtils;
 use Portal\Libraries\Radius\Radius;
 use Portal\User;
+use URL;
 use Validator;
 use Session;
 
@@ -408,7 +409,10 @@ class WelcomeController extends Controller
 
     public function success()
     {
-        return redirect(session('success_redirect_url'));
+        if(Session::has('success_redirect_url'))
+            return redirect(session('success_redirect_url'));
+        else
+            return redirect(URL::route('ads'));
     }
 
 }
