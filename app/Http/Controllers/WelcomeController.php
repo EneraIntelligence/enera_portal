@@ -393,12 +393,12 @@ class WelcomeController extends Controller
         ]);
     }
 
-    public function radius($ip,$client_mac, $continue_url=null)
+    public function radius($ip,$client_mac)
     {
-        if(isset($continue_url))
+        if( Input::has("continue_url") )
         {
             session([
-                'success_redirect_url' =>  $continue_url
+                'success_redirect_url' =>  Input::get("continue_url")
             ]);
 
         }
