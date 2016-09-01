@@ -394,7 +394,7 @@ class WelcomeController extends Controller
 
     public function radius($ip,$client_mac)
     {
-        $users = DB::connection('radius')->select("select * from radcheck where username=?", [$this->user_mac]);
+        $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
 
         if(count($users)==0)
         {
