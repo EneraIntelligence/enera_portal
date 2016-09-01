@@ -397,6 +397,7 @@ class WelcomeController extends Controller
     {
         if( Input::has("continue_url") )
         {
+            echo Input::has("continue_url");
             session([
                 'success_redirect_url' =>  Input::get("continue_url")
             ]);
