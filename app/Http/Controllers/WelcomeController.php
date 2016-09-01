@@ -393,8 +393,16 @@ class WelcomeController extends Controller
         ]);
     }
 
-    public function radius($ip,$client_mac)
+    public function radius($ip,$client_mac, $continue_url=null)
     {
+        if(isset($continue_url))
+        {
+            session([
+                'success_redirect_url' =>  $continue_url
+            ]);
+
+        }
+        
         $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
 
         if(count($users)==0)

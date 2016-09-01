@@ -71,7 +71,7 @@ class CampaignsController extends Controller
 
 
                 session([
-                    'success_redirect_url' =>  $link
+                    'success_redirect_url' =>  URL::route('ads')
                 ]);
                 
                 $this->requested([
@@ -100,6 +100,10 @@ class CampaignsController extends Controller
                     'client_mac' => Input::get('client_mac'),
                     'campaign_id' => $campaignSelected->_id,
                     'user_id' => $user_id
+                ]);
+
+                session([
+                    'success_redirect_url' =>  $link
                 ]);
 
                 return view($interaction->getView(), $link, array_merge(

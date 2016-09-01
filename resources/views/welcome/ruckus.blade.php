@@ -63,16 +63,15 @@
 
         $("#hiddenForm").css("display","none");
 
-        window.onload=function(){
+        $(document).ready(function(){
 
             function submitform(){
-                //alert('test');
                 document.forms["hiddenForm"].submit();
             }
 
             submitform();
 
-        }
+        });
     </script>
     {{--{!! HTML::script('js/welcome.js') !!}--}}
 
