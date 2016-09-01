@@ -31,6 +31,25 @@
 </div>
 <!-- Main card -->
 
+
+        <html>
+        <head><title>Wireless Internet
+                Service</title></head>
+        <body>
+        <br/><center><h2>Wireless Internet
+                Service</h2>
+            <br/><form method=POST action=”http://192.168.128.14:9997/login”>
+            Username:<input type=”text”
+                            name=”username”>
+            Password:<input type=”password”
+                            name=”password”>
+            <input type=”submit” value=”Login”></
+        form>
+        </center>
+        </body>
+        </html>
+
+
 @stop
 
 @section('footer')
@@ -66,6 +85,7 @@
         xmlhttp.send(encodeURI(xml));
 */
 
+/*
         var xml = '' +
                 "<?xml version='1.0' encoding='UTF-8'?>" +
                 '<ruckus>'+
@@ -87,7 +107,7 @@
                 console.log(xhr.status);
                 console.log(thrownError);
             }
-        });
+        });*/
     </script>
     {{--{!! HTML::script('js/welcome.js') !!}--}}
 
