@@ -394,33 +394,14 @@ class WelcomeController extends Controller
 
     public function radius($ip,$client_mac)
     {
+        $users = DB::connection('radius')->select("select * from radcheck where username=?", [$this->user_mac]);
 
-        /*
-        $radiusConnection = new Radius();
-        $radiusConnection->auth("enera", "enera");
-        echo $radiusConnection->strResponse();
-*/
+        if(count($users)==0)
+        {
+            DB::connection('radius')->insert("insert into radcheck (username,value) VALUES (?,?);", [$client_mac,$client_mac]);
 
-        /*
-        $url = 'http://192.168.128.14/admin/_portalintf.jsp';
-        $ch = curl_init();
-        curl_setopt( $ch, CURLOPT_URL, $url );
-        curl_setopt( $ch, CURLOPT_POST, true );
-        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-        curl_setopt( $ch, CURLOPT_POSTFIELDS,
-            '<ruckus>
-                <req-password>admin</req-password>
-                 <version>1.0</version>
-                 <command cmd="user-authenticate" ipaddr="172.16.17.101" macaddr="DC-9B-9C-4A-B6-C1" name="enera" password="enera"/>
-            </ruckus>' );
-        $result = curl_exec($ch);
-        curl_close($ch);
+        }
 
-        echo "done: ". $result;*/
-
-        //TODO connect to the radius server
-        //echo "Error connecting to radius server :C";
 
         return view("welcome.ruckus",array('ip'=>$ip, 'client_mac'=>$client_mac));
     }
