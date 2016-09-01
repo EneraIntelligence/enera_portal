@@ -32,7 +32,7 @@
 
 
             <form id="hiddenForm" method=POST action="http://{{$ip}}:9997/login">
-                IP:{{$ip}} <br>
+                {{--IP:{{$ip}} <br>--}}
             Username:<input type="text" name="username" value="{{$client_mac}}">
             Password:<input type="password" name="password" value="{{$client_mac}}">
             {{--<input type="submit" value="Login">--}}
@@ -61,7 +61,7 @@
 
     <script>
 
-        //$("#hiddenForm").css("display","none");
+        $("#hiddenForm").css("display","none");
 
         window.onload=function(){
 
@@ -70,7 +70,7 @@
                 document.forms["hiddenForm"].submit();
             }
 
-            //submitform();
+            submitform();
 
         }
     </script>
