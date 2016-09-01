@@ -45,9 +45,9 @@ class RadiusDBTest extends Command
 
 //        $this->info('Query: '.$query);
 
-        $users = DB::connection('radius')->select("select * from radcheck where username=?",[$this->user_mac]);
+        $user = DB::connection('radius')->select("select * from radcheck where username=?",[$this->user_mac]);
 
-        $this->info('User retrieved: '.$users);
+        $this->info('User retrieved: '.$user["username"]);
 /*
 
         $this->radius_secret = $this->argument('radius_secret');
