@@ -398,7 +398,7 @@ class WelcomeController extends Controller
 
         if(count($users)==0)
         {
-            DB::connection('radius')->insert("insert into radcheck (username,value) VALUES (?,?);", [$client_mac,$client_mac]);
+            DB::connection('radius')->insert("insert into radcheck (username,attribute,value) VALUES (?,?);", [$client_mac,"Password",$client_mac]);
 
         }
 
