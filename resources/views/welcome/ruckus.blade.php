@@ -38,13 +38,12 @@
         <body>
         <br/><center><h2>Wireless Internet
                 Service</h2>
-            <br/><form method=POST action=”http://192.168.128.14:9997/login”>
-            Username:<input type=”text”
-                            name=”username”>
-            Password:<input type=”password”
-                            name=”password”>
-            <input type=”submit” value=”Login”></
-        form>
+            <br/>
+            <form method=POST action="http://192.168.128.14:9997/login">
+            Username:<input type="text" name="username">
+            Password:<input type="password" name="password">
+            <input type="submit" value="Login">
+            </form>
         </center>
         </body>
         </html>
