@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f8d44f28a786516447c8b8b5609cbd3",
-    "content-hash": "be943e661aa68b2f52cb37b45bc34c45",
+    "hash": "ded0e82b400d319e3cdc05d1a612ed9e",
+    "content-hash": "94fb89308c1122eb1145d5bcf0855414",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -543,16 +543,16 @@
         },
         {
             "name": "graham-campbell/flysystem",
-            "version": "v3.4.0",
+            "version": "v3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Laravel-Flysystem.git",
-                "reference": "e723fca0e22442bd28b7900d82823c5989d351ef"
+                "reference": "a3d69206a67ce1b68e867dbc0ea30a88c5992b40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Flysystem/zipball/e723fca0e22442bd28b7900d82823c5989d351ef",
-                "reference": "e723fca0e22442bd28b7900d82823c5989d351ef",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Flysystem/zipball/a3d69206a67ce1b68e867dbc0ea30a88c5992b40",
+                "reference": "a3d69206a67ce1b68e867dbc0ea30a88c5992b40",
                 "shasum": ""
             },
             "require": {
@@ -596,7 +596,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "3.5-dev"
                 }
             },
             "autoload": {
@@ -628,7 +628,7 @@
                 "laravel",
                 "s3"
             ],
-            "time": "2016-04-26 14:23:32"
+            "time": "2016-08-28 09:18:27"
         },
         {
             "name": "graham-campbell/manager",
@@ -1168,16 +1168,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.1.42",
+            "version": "v5.1.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "876189b5ce03d40f0d9380c06fb61a3d0743b19c"
+                "reference": "db580b5b073ea3f1e095b30a75ae5d6394eb8e51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/876189b5ce03d40f0d9380c06fb61a3d0743b19c",
-                "reference": "876189b5ce03d40f0d9380c06fb61a3d0743b19c",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/db580b5b073ea3f1e095b30a75ae5d6394eb8e51",
+                "reference": "db580b5b073ea3f1e095b30a75ae5d6394eb8e51",
                 "shasum": ""
             },
             "require": {
@@ -1293,7 +1293,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-08-23 13:02:52"
+            "time": "2016-08-26 11:44:21"
         },
         {
             "name": "laravelcollective/html",

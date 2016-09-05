@@ -18,6 +18,7 @@ use Portal\Jobs\SendFirstMailJob;
 use Portal\Libraries\CampaignSelector;
 use Portal\User;
 use Session;
+use URL;
 
 class CampaignsController extends Controller
 {
@@ -35,8 +36,7 @@ class CampaignsController extends Controller
             ->where('interaction.welcome', 'exists', true)
             ->where('interaction.accessed', 'exists', false)->count();
 
-//        dd($log);
-        if ($user && $log >= 1) {
+        if ( isset($user) && $log >= 1) {
             $campaigns = new CampaignSelector($user_id);
             /**    valida que el user_continue_url tenga algo   **/
             if (Input::has('user_continue_url') || Input::get('user_continue_url') != '') {
@@ -68,6 +68,12 @@ class CampaignsController extends Controller
                     'campaign_id' => $campaignSelected->_id,
                     'user_id' => $user_id
                 ]));*/
+
+
+                session([
+                    'success_redirect_url' =>  URL::route('ads')
+                ]);
+                
                 $this->requested([
                     'session' => session('_token'),
                     'client_mac' => Input::get('client_mac'),
@@ -77,7 +83,7 @@ class CampaignsController extends Controller
                 return view($interaction->getView(), $link);
             } else {
                 //choose random campaign
-                $campaignIndex = count($campaigns->campaign) > 1 ? rand(0, count($campaigns) - 1) : 0;
+                $campaignIndex = count($campaigns->campaign) > 1 ? rand(0, count($campaigns->campaign) - 1) : 0;
 
                 $campaignSelected = $campaigns->campaign[$campaignIndex];
 
@@ -94,6 +100,10 @@ class CampaignsController extends Controller
                     'client_mac' => Input::get('client_mac'),
                     'campaign_id' => $campaignSelected->_id,
                     'user_id' => $user_id
+                ]);
+
+                session([
+                    'success_redirect_url' =>  $link
                 ]);
 
                 return view($interaction->getView(), $link, array_merge(

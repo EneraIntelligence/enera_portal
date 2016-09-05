@@ -56,6 +56,18 @@ return [
             'options'  => []
         ],
 
+        'radius' => [
+            'driver'    => 'mysql',
+            'host'      => env('DB_HOST_RADIUS', '104.236.11.133'),
+            'database'  => env('DB_DATABASE_RADIUS', 'radiusdb'),
+            'username'  => env('DB_USERNAME_RADIUS', 'root'),
+            'password'  => env('DB_PASSWORD_RADIUS', 'YwUk2TJrem'),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ],
+
         'sqlite' => [
             'driver'   => 'sqlite',
             'database' => storage_path('database.sqlite'),

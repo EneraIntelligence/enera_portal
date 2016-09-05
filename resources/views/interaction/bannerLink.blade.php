@@ -1,20 +1,20 @@
 @extends('layouts.main')
 @section('head_scripts')
 
-{!! HTML::style(asset('css/welcome.css')) !!}
-{!! HTML::style('css/bannerLink.css') !!}
-{!! HTML::style('css/interaction-common.css') !!}
+    {!! HTML::style(asset('css/welcome.css')) !!}
+    {!! HTML::style('css/bannerLink.css') !!}
+    {!! HTML::style('css/interaction-common.css') !!}
 
-        <!-- branch colors -->
-<style>
-    body {
-        background-color: #e8eaf6;
-    }
+    <!-- branch colors -->
+    <style>
+        body {
+            background-color: #e8eaf6;
+        }
 
-    .nav-wrapper, footer.page-footer {
-        background-color: #3f51b5;
-    }
-</style>
+        .nav-wrapper, footer.page-footer {
+            background-color: #3f51b5;
+        }
+    </style>
 @stop
 @section('title', 'Banner Link')
 
@@ -27,11 +27,11 @@
 
         </div>
     </nav>
-    @stop
+@stop
 
 
-    @section('content')
-            <!-- Main card -->
+@section('content')
+    <!-- Main card -->
     <div class="banner card z-depth-2">
         <img class="responsive-img image-small" style="margin-bottom: -6px;"
              src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}">
@@ -49,6 +49,7 @@
             <i class="right material-icons">wifi</i>
         </a>
     </div>
+
     <!-- login buttons -->
 
 

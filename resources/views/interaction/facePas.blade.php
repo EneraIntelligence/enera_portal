@@ -4,7 +4,7 @@
 <script>
     $(document).ready(function () {
 //        var myLog = new logs();
-        //console.log("ready!");
+        console.log("ready!");
         var myLog = new logs();
 
         var accessedJson = {
@@ -15,8 +15,10 @@
         var success_url = "{{ Input::get('base_grant_url') }}";
         //force redirect to banner link
         var adsLink = "{{ URL::route('ads') }}";
+
         success_url = replaceUrlParam(success_url, "continue_url",adsLink);
         success_url = replaceUrlParam(success_url, "redir",adsLink);
+
 
         myLog.accessed(accessedJson, function () {
             //on accessed saved

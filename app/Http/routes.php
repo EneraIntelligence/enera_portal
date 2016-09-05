@@ -12,9 +12,16 @@
 */
 
 Route::match(['post', 'get'], '/', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
+Route::match(['post', 'get'], '/guest', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
+Route::match(['post', 'get'], '/guest/s/default', ['as' => 'welcome', 'uses' => 'WelcomeController@index']);
+
+Route::match(['post', 'get'], '/success', ['as' => 'success', 'uses' => 'WelcomeController@success']);
+
 Route::match(['post', 'get'], '/ads', ['as' => 'ads', 'uses' => 'WelcomeController@ads']);
+Route::match(['post', 'get'], '/radius-connect/ip/{ip}/client_mac/{client_mac}', ['as' => 'radius-connect', 'uses' => 'WelcomeController@radius']);
 
 Route::match(['post', 'get'], '/demo', ['as' => 'demo', 'uses' => 'DemoController@index']);
+Route::match(['post', 'get'], '/demo/login', ['as' => 'login', 'uses' => 'DemoController@login']);
 Route::match(['post', 'get'], '/demo/like', ['as' => 'like', 'uses' => 'DemoController@like']);
 Route::match(['post', 'get'], '/demo/banner_link', ['as' => 'banner_link', 'uses' => 'DemoController@banner_link']);
 Route::match(['post', 'get'], '/demo/mailing_list', ['as' => 'mailing_list', 'uses' => 'DemoController@mailing_list']);

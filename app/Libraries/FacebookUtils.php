@@ -100,7 +100,9 @@ class FacebookUtils
         }
 
         $userArray = json_decode($userNode->asJson(),true);
+
         return $userArray;
+
     }
 
     public function getUserLikes()

@@ -40,9 +40,12 @@ class MerakiAdapter implements IAdapter
     public function validateUserContinueURL($url, $defaultURL)
     {
         $newURL=$url;
+//        echo $newURL;
         if(strpos($url,'network-auth.com')!==false)
         {
+//            echo 'la url esta vacia';
             $newURL=$defaultURL;
+//            echo $newURL;
         }
 
         return $newURL;

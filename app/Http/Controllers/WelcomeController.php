@@ -20,13 +20,16 @@ use Portal\Jobs\FbLikesJob;
 use Portal\Jobs\WelcomeLogJob;
 use Portal\Http\Controllers\Controller;
 use Portal\Libraries\FacebookUtils;
+use Portal\Libraries\Radius\Radius;
 use Portal\User;
+use URL;
 use Validator;
 use Session;
 
 //adapters
 use Portal\Libraries\APAdapters\OpenMeshAdapter;
 use Portal\Libraries\APAdapters\MerakiAdapter;
+use Portal\Libraries\APAdapters\RuckusAdapter;
 use Portal\Libraries\APAdapters\DefaultAdapter;
 
 class WelcomeController extends Controller
@@ -75,6 +78,10 @@ class WelcomeController extends Controller
         $client_mac = $input['client_mac'];
         $base_grant_url = $input['base_grant_url'];
         $user_continue_url = $input['user_continue_url'];
+
+        session([
+            'success_redirect_url' => $user_continue_url
+        ]);
 
         //busca el branch del ap
         $branche = Branche::whereIn('aps', [$node_mac])->first();
@@ -207,13 +214,16 @@ class WelcomeController extends Controller
     private function detectAPAdapter($input)
     {
 
-        if (isset($input['res'])) {
-            return new OpenMeshAdapter();
-        } else if (isset($input['base_grant_url'])) {
+        if (isset($input['base_grant_url'])) {
             return new MerakiAdapter();
+        }else if (isset($input['res'])) {
+            return new OpenMeshAdapter();
+        } else if( isset($input['sip']))
+        {
+            return new RuckusAdapter();
         }
 
-        $inputLog = new InputLog;
+            $inputLog = new InputLog;
         $inputLog->inputs = $input;
         $inputLog->save();
 
@@ -383,5 +393,36 @@ class WelcomeController extends Controller
         ]);
     }
 
+    public function radius($ip,$client_mac)
+    {
+        if( Input::has("continue_url") )
+        {
+            //echo Input::has("continue_url");
+            session([
+                'success_redirect_url' =>  Input::get("continue_url")
+            ]);
+
+        }
+
+
+        $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
+
+        if(count($users)==0)
+        {
+            DB::connection('radius')->insert("insert into radcheck (username,attribute,value) VALUES (?,?,?);", [$client_mac,"Password",$client_mac]);
+
+        }
+
+
+        return view("welcome.ruckus",array('ip'=>$ip, 'client_mac'=>$client_mac));
+    }
+
+    public function success()
+    {
+        if(Session::has('success_redirect_url'))
+            return redirect(session('success_redirect_url'));
+        else
+            return redirect(URL::route('ads'));
+    }
 
 }
