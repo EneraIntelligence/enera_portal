@@ -19,6 +19,7 @@ Route::match(['post', 'get'], '/success', ['as' => 'success', 'uses' => 'Welcome
 
 Route::match(['post', 'get'], '/ads', ['as' => 'ads', 'uses' => 'WelcomeController@ads']);
 Route::match(['post', 'get'], '/radius-connect/ip/{ip}/client_mac/{client_mac}', ['as' => 'radius-connect', 'uses' => 'WelcomeController@radius']);
+Route::match(['post', 'get'], '/cisco-connect/ip/{ip}/client_mac/{client_mac}', ['as' => 'cisco-connect', 'uses' => 'WelcomeController@cisco']);
 
 Route::match(['post', 'get'], '/demo', ['as' => 'demo', 'uses' => 'DemoController@index']);
 Route::match(['post', 'get'], '/demo/login', ['as' => 'login', 'uses' => 'DemoController@login']);

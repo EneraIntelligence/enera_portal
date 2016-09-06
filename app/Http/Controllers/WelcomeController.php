@@ -31,6 +31,7 @@ use Portal\Libraries\APAdapters\OpenMeshAdapter;
 use Portal\Libraries\APAdapters\MerakiAdapter;
 use Portal\Libraries\APAdapters\RuckusAdapter;
 use Portal\Libraries\APAdapters\DefaultAdapter;
+use Portal\Libraries\APAdapters\CiscoAdapter;
 
 class WelcomeController extends Controller
 {
@@ -221,6 +222,10 @@ class WelcomeController extends Controller
         } else if( isset($input['sip']))
         {
             return new RuckusAdapter();
+        }
+        else if(isset($input['switch_url']))
+        {
+            return new CiscoAdapter();
         }
 
             $inputLog = new InputLog;
@@ -415,6 +420,30 @@ class WelcomeController extends Controller
 
 
         return view("welcome.ruckus",array('ip'=>$ip, 'client_mac'=>$client_mac));
+    }
+
+    public function cisco($ip,$client_mac)
+    {
+        if( Input::has("continue_url") )
+        {
+            //echo Input::has("continue_url");
+            session([
+                'success_redirect_url' =>  Input::get("continue_url")
+            ]);
+
+        }
+
+
+        $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
+
+        if(count($users)==0)
+        {
+            DB::connection('radius')->insert("insert into radcheck (username,attribute,value) VALUES (?,?,?);", [$client_mac,"Password",$client_mac]);
+
+        }
+
+
+        return view("welcome.cisco",array('ip'=>$ip, 'client_mac'=>$client_mac));
     }
 
     public function success()
