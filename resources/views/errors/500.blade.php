@@ -41,6 +41,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">Ups! Algo salio mal</div>
+                {!! $_SERVER[REQUEST_URI] !!}
             </div>
         </div>
     </body>
