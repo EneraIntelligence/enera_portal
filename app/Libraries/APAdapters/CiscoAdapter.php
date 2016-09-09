@@ -36,9 +36,13 @@ class CiscoAdapter implements IAdapter
             $client_mac = $input['client_mac'];
             $user_url = $input['redirect'];
 
+            $url = $input['switch_url'];
+            $ip = explode("/",$url);
+//            print $ip[2];
+
 
             $resp = [
-                'base_grant_url' => URL::route('cisco-connect',[ 'ip'=> urlencode($input['switch_url']), 'client_mac'=>$client_mac ]),
+                'base_grant_url' => URL::route('cisco-connect',[ 'ip'=> $ip[2], 'client_mac'=>$client_mac ]),
                 'user_continue_url' => $user_url,
                 'node_mac' => $node_mac,
                 'client_mac' => $client_mac

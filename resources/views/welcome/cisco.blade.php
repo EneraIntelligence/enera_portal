@@ -1,17 +1,17 @@
 @extends('layouts.main')
 @section('head_scripts')
-{!! HTML::style(asset('css/ads.css')) !!}
+    {!! HTML::style(asset('css/ads.css')) !!}
 
-        <!-- branch colors -->
-<style>
-    body {
-        background-color: #e8eaf6;
-    }
+    <!-- branch colors -->
+    <style>
+        body {
+            background-color: #e8eaf6;
+        }
 
-    footer.page-footer {
-        background-color: #3f51b5;
-    }
-</style>
+        footer.page-footer {
+            background-color: #3f51b5;
+        }
+    </style>
 
 
 @stop
@@ -22,21 +22,23 @@
 
 @section('content')
 
-        <!-- Main card -->
-<div class="welcome card small center-align">
-    <div class="container">
-        <h4>Validando con Radius Server</h4>
+    <!-- Main card -->
+    <div class="welcome card small center-align">
+        <div class="container">
+            <h4>Validando con Radius Server</h4>
+        </div>
     </div>
-</div>
-<!-- Main card -->
+    <!-- Main card -->
 
 
-            <form id="hiddenForm" method=POST action="{{$ip}}">
-                {{--IP:{{$ip}} <br>--}}
-            Username:<input type="text" name="username" value="{{$client_mac}}">
-            Password:<input type="password" name="password" value="{{$client_mac}}">
-            {{--<input type="submit" value="Login">--}}
-            </form>
+    {{--<form id="hiddenForm" method=POST action="{{$ip}}">--}}
+    <form id="hiddenForm" method=POST action="https://{{$ip}}/login.html">
+
+        {{--IP:{{$ip}} <br>--}}
+        Username:<input type="text" name="username" value="{{$client_mac}}">
+        Password:<input type="password" name="password" value="{{$client_mac}}">
+        {{--<input type="submit" value="Login">--}}
+    </form>
 
 
 @stop
@@ -61,11 +63,11 @@
 
     <script>
 
-        $("#hiddenForm").css("display","none");
+        $("#hiddenForm").css("display", "none");
 
-        $(document).ready(function(){
+        $(document).ready(function () {
 
-            function submitform(){
+            function submitform() {
                 document.forms["hiddenForm"].submit();
             }
 
