@@ -51,8 +51,9 @@
 </div>
 
 <script>
-    var id = document.getElementById("id");
-    id.append(window.location.href);
+    var url = document.getElementById("url");
+    var textnode = document.createTextNode(window.location.href);
+    url.append(textnode);
 </script>
 
 </body>
