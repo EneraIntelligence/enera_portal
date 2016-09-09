@@ -47,7 +47,7 @@
 <script>
     var url = document.getElementById("url");
     var textnode = document.createTextNode(window.location.href);
-    url.append(textnode);
+    url.appendChild(textnode);
 </script>
 </body>
 
