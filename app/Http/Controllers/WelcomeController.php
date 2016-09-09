@@ -443,7 +443,7 @@ class WelcomeController extends Controller
         }
 
 
-        return view("welcome.cisco",array('ip'=>$ip, 'client_mac'=>$client_mac));
+        return view("welcome.cisco",array('ip'=> urldecode($ip), 'client_mac'=>$client_mac));
     }
 
     public function success()
