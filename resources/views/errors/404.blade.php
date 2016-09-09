@@ -45,9 +45,15 @@
                 <img style="width:450px" src="{!! asset('img/enera_logo.png') !!}" alt="">
             </div>
             El documento no fue encontrado
-            {!! $_SERVER[REQUEST_URI] !!}
+            <div id="url"></div>
         </div>
     </div>
 </div>
+
+<script>
+    var id = document.getElementById("id");
+    id.append(window.location.href);
+</script>
+
 </body>
 </html>
