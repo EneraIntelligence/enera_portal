@@ -37,6 +37,8 @@
         {{--IP:{{$ip}} <br>--}}
         Username:<input type="text" name="username" value="{{$client_mac}}">
         Password:<input type="password" name="password" value="{{$client_mac}}">
+        redirect_url:<input type="text" name="redirect_url" value="http://potal.enera-intelligence.mx/success">
+        buttonClicked:<input type="text" name="buttonClicked" value="4">
         {{--<input type="submit" value="Login">--}}
     </form>
 
@@ -69,6 +71,39 @@
 
             function submitform() {
                 document.forms["hiddenForm"].submit();
+
+
+                /*
+                var link = document.location.href;
+                var searchString = "redirect=";
+                var equalIndex = link.indexOf(searchString);
+                var redirectUrl = "";
+
+                if (document.forms[0].action == "") {
+                    var url = window.location.href;
+                    var args = new Object();
+                    var query = location.search.substring(1);
+                    var pairs = query.split("&");
+                    for (var i = 0; i < pairs.length; i++) {
+                        var pos = pairs[i].indexOf('=');
+                        if (pos == -1) continue;
+                        var argname = pairs[i].substring(0, pos);
+                        var value = pairs[i].substring(pos + 1);
+                        args[argname] = unescape(value);
+                    }
+                    document.forms[0].action = args.switch_url;
+                }
+                if (equalIndex >= 0) {
+                    equalIndex += searchString.length;
+                    redirectUrl = "";
+                    redirectUrl += link.substring(equalIndex);
+                }
+                if (redirectUrl.length > 255)
+                    redirectUrl = redirectUrl.substring(0, 255);
+                document.forms[0].redirect_url.value = redirectUrl;
+                document.forms[0].buttonClicked.value = 4;
+                document.forms[0].submit();*/
+
             }
 
             submitform();
