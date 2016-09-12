@@ -283,6 +283,7 @@
             {
 
                 userAnswers['q' + qId] = "a" + aId;
+                console.log("saved answer: q-"+qId+" _ a-"+aId);
 
             }
 
