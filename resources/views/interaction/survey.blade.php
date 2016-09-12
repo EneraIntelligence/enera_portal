@@ -147,6 +147,10 @@
 
     <script>
 
+        var currentQuestion = 0;
+        var userAnswers = {};
+        var inTransition = false;
+
 
         $(document).ready(function ()
         {
@@ -208,9 +212,7 @@
             });
 
 
-            var currentQuestion = 0;
-            var userAnswers = {};
-            var inTransition = false;
+
 
             setupQuestionsClick();
 
@@ -284,6 +286,8 @@
 
                 userAnswers['q' + qId] = "a" + aId;
                 console.log("saved answer: q-"+qId+" _ a-"+aId);
+
+                console.log(userAnswers);
 
             }
 
