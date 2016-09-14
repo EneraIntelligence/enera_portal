@@ -227,5 +227,53 @@ class InteractionsController extends Controller
         $campaign->history()->create($log);
         $this->dispatch(new EmailEndJob($log['administrator_id'], $campaign->id));
     }
+    
+    public function brandcaptcha()
+    {
+
+        include(app_path() . '/includes/brandcaptchalib.php');
+
+        // the response from BrandCAPTCHA
+        $resp = null;
+        // the error code from BrandCAPTCHA, if any
+        $error = null;
+
+        $privatekey = "8c5865dd075cd6a1f5a26c47241eba2e0158f64d";
+
+        //dd($_POST);
+
+        $response = [
+            'ok' => false,
+            'error' => "no inputs"
+        ];
+        // was there a BrandCAPTCHA response?
+        if (isset($_POST["brand_cap_answer"]) && $_POST["brand_cap_answer"])
+        {
+            $resp = brandcaptcha_check_answer($privatekey,
+                $_SERVER["REMOTE_ADDR"],
+                $_POST["brand_cap_challenge"],
+                $_POST["brand_cap_answer"]);
+
+            if ($resp->is_valid)
+            {
+                // Your code here to handle a successful verification
+                $response = [
+                    'ok' => true
+                ];
+            } else
+            {
+                // set the error code so that we can display it
+                $response = [
+                    'ok' => false,
+                    'error' => "wrong input",
+                    'input' => $_POST["brand_cap_answer"]
+                ];
+            }
+        }
+
+
+
+        return response()->json($response);
+    }
 }
 
