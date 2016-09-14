@@ -87,7 +87,10 @@ class CampaignsController extends Controller
                     'campaign_id' => $campaignSelected->_id,
                     'user_id' => $user_id
                 ]);
-                return view($interaction->getView(), $link);
+                return view($interaction->getView(), $link, array_merge(
+                    ['fb_id'=>session('user_fbid')]
+                    )
+                );
             } else {
                 //choose random campaign
                 $campaignIndex = count($campaigns->campaign) > 1 ? rand(0, count($campaigns->campaign) - 1) : 0;
