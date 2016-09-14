@@ -16,8 +16,8 @@
         }
 
         .banner {
-            padding: 20px;
-            width: 440px;
+            padding: 20px 0;
+            max-width: 440px;
         }
 
         #brand_cap_widget {
