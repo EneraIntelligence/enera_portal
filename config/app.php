@@ -147,7 +147,6 @@ return [
         /* Custom Service Providers */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider::class,
         Jenssegers\Mongodb\Session\SessionServiceProvider::class,
@@ -205,7 +204,7 @@ return [
         'Moloquent' => Jenssegers\Mongodb\Model::class,
         'Form'      => Collective\Html\FormFacade::class,
         'HTML'      => Collective\Html\HtmlFacade::class,
-        'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
+        'Bugsnag'   => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
 
 
     ],

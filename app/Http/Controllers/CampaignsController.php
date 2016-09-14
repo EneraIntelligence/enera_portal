@@ -20,6 +20,8 @@ use Portal\User;
 use Session;
 use URL;
 
+
+
 class CampaignsController extends Controller
 {
     /**
@@ -54,12 +56,17 @@ class CampaignsController extends Controller
             }
 
             if (count($campaigns->campaign) == 0) {
+                
                 //default campaign
+                
+                //fake campaign
                 $campaignSelected = new Campaign();
                 $campaignSelected->_id = "default";
                 $campaignSelected->content = array();
 
-                $campaignType = "Portal\\Libraries\\Interactions\\FacePas";
+                //facepas
+              $campaignType = "Portal\\Libraries\\Interactions\\FacePas";
+//                $campaignType = "Portal\\Libraries\\Interactions\\BrandCaptcha";
                 $interaction = new $campaignType($campaignSelected);
 
                 /*$this->dispatch(new RequestedLogJob([

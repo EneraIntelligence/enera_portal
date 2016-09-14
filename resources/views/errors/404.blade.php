@@ -45,8 +45,16 @@
                 <img style="width:450px" src="{!! asset('img/enera_logo.png') !!}" alt="">
             </div>
             El documento no fue encontrado
+            <div id="url"></div>
         </div>
     </div>
 </div>
+
+<script>
+    var url = document.getElementById("url");
+    var textnode = document.createTextNode(window.location.href);
+    url.appendChild(textnode);
+</script>
+
 </body>
 </html>

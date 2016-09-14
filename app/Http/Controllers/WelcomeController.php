@@ -31,6 +31,7 @@ use Portal\Libraries\APAdapters\OpenMeshAdapter;
 use Portal\Libraries\APAdapters\MerakiAdapter;
 use Portal\Libraries\APAdapters\RuckusAdapter;
 use Portal\Libraries\APAdapters\DefaultAdapter;
+use Portal\Libraries\APAdapters\CiscoAdapter;
 
 class WelcomeController extends Controller
 {
@@ -45,7 +46,8 @@ class WelcomeController extends Controller
     {
         $logs = CampaignLog::where('user.session', session('_token'))
             ->where('interaccion.requested', 'exists', true)->count();
-        if ($logs > 0) {
+        if ($logs > 0)
+        {
             Session::flush();
             Session::regenerate();
         }
@@ -68,7 +70,8 @@ class WelcomeController extends Controller
         $input = $inputAdapter->processInput(Input::all());
 
 
-        if (!$this->validWelcomeInput($input)) {
+        if (!$this->validWelcomeInput($input))
+        {
             return $this->invalidNetworkView();
         }
 
@@ -87,7 +90,8 @@ class WelcomeController extends Controller
         $branche = Branche::whereIn('aps', [$node_mac])->first();
 
         // Si el AP no fue dado de alta o no está asignado a una Branche
-        if (!$branche) {
+        if (!$branche)
+        {
             return $this->invalidNetworkView();
         }
 
@@ -107,11 +111,13 @@ class WelcomeController extends Controller
 
 
         // Paso 1: Welcome log
-        if ($log && !isset($log->interaction->welcome)) {
+        if ($log && !isset($log->interaction->welcome))
+        {
             //se encontró log y está vacío, sin welcome
             /* Eder: creo que nunca se entra aquí por que siempre se le agrega welcome al inicio*/
             $log->interaction()->create(['welcome' => new MongoDate()]);
-        } elseif (!$log) {
+        } elseif (!$log)
+        {
             //no existe log, creando
             $new_log = CampaignLog::create([
                 'user' => [
@@ -140,7 +146,8 @@ class WelcomeController extends Controller
         ]);
 
         $users = User::where('facebook.id', 'exists', true)
-            ->where(function ($q) use ($client_mac) {
+            ->where(function ($q) use ($client_mac)
+            {
                 $q->where('devices.mac', $client_mac)
                     ->where('devices.updated_at', '>', new MongoDate(strtotime(Carbon::today()->subDays(30)->format('Y-m-d') . 'T00:00:00-0600')));
             })
@@ -148,7 +155,8 @@ class WelcomeController extends Controller
 
 //        dd($users->count());
         //check if device has paired none or more than 1 facebook account
-        if ($users->count() != 1) {
+        if ($users->count() != 1)
+        {
             $url = route('welcome::response', [
                 'node_mac' => $node_mac,
                 //'client_ip' => Input::get('client_ip'),
@@ -214,16 +222,21 @@ class WelcomeController extends Controller
     private function detectAPAdapter($input)
     {
 
-        if (isset($input['base_grant_url'])) {
+        if (isset($input['base_grant_url']))
+        {
             return new MerakiAdapter();
-        }else if (isset($input['res'])) {
+        } else if (isset($input['res']))
+        {
             return new OpenMeshAdapter();
-        } else if( isset($input['sip']))
+        } else if (isset($input['sip']))
         {
             return new RuckusAdapter();
+        } else if (isset($input['switch_url']))
+        {
+            return new CiscoAdapter();
         }
 
-            $inputLog = new InputLog;
+        $inputLog = new InputLog;
         $inputLog->inputs = $input;
         $inputLog->save();
 
@@ -238,7 +251,8 @@ class WelcomeController extends Controller
     public function response()
     {
 
-        if (!$this->fbUtils->isUserLoggedIn()) {
+        if (!$this->fbUtils->isUserLoggedIn())
+        {
             //echo "User is not logged in";
             return redirect()->route('welcome', [
                 'base_grant_url' => Input::get('base_grant_url'),
@@ -252,10 +266,12 @@ class WelcomeController extends Controller
         $facebook_data = $this->fbUtils->getUserData();
         $likes = $this->fbUtils->getUserLikes();
 
-        if (isset($facebook_data['birthday'])) {
+        if (isset($facebook_data['birthday']))
+        {
             $start = new MongoDate(strtotime($facebook_data['birthday']));
             $facebook_data['birthday'] = array("date" => $facebook_data['birthday']);
-        } else {
+        } else
+        {
             $start = new MongoDate(strtotime("0"));
             $facebook_data['birthday'] = array("date" => "1998-01-01 00:00:00.000000");
 
@@ -271,18 +287,22 @@ class WelcomeController extends Controller
 
         $user = User::where('facebook.id', $user_fb_id)->first();
 
-        if ($user != null) {
-            foreach ($facebook_data as $k => $v) {
+        if ($user != null)
+        {
+            foreach ($facebook_data as $k => $v)
+            {
                 $user->facebook->{$k} = $v;
             }
             $user->facebook->save();
 
             $device = $user->devices()->where('devices.mac', Input::get('client_mac'))->first();
-            if ($device) {
+            if ($device)
+            {
                 $device->mac = Input::get('client_mac');
                 $device->save();
             }
-        } else {
+        } else
+        {
             $user = User::create([
                 'facebook' => $facebook_data,
                 'devices' => []
@@ -305,7 +325,8 @@ class WelcomeController extends Controller
 
         //este job maneja los likes por separado
         $chuck = array_chunk($likes != null ? $likes : [], 200);
-        foreach ($chuck as $shard) {
+        foreach ($chuck as $shard)
+        {
             $this->dispatch(new FbLikesJob($shard, $user_fb_id, Input::get('client_mac')), $device_os);
         }
 
@@ -321,12 +342,14 @@ class WelcomeController extends Controller
 
     public function welcome_loaded()
     {
-        if (Input::has('client_mac')) {
+        if (Input::has('client_mac'))
+        {
             $client_mac = Input::get('client_mac');
             $log = CampaignLog::where('user.session', session('_token'))
                 ->where('device.mac', $client_mac)->first();
 
-            if ($log && isset($log->interaction->welcome) && !isset($log->interaction->welcome_loaded)) {
+            if ($log && isset($log->interaction->welcome) && !isset($log->interaction->welcome_loaded))
+            {
                 $log->interaction->welcome_loaded = new MongoDate();
                 $log->interaction->save();
 
@@ -334,23 +357,27 @@ class WelcomeController extends Controller
                     'ok' => true,
                     'msg' => '',
                 ];
-            } elseif ($log && !isset($log->interaction->welcome)) {
+            } elseif ($log && !isset($log->interaction->welcome))
+            {
                 $response = [
                     'ok' => false,
                     'msg' => 'El campo "interaction.welcome" no existe',
                 ];
-            } elseif ($log && isset($log->interaction->welcome_loaded)) {
+            } elseif ($log && isset($log->interaction->welcome_loaded))
+            {
                 $response = [
                     'ok' => false,
                     'msg' => 'El campo "interaction.welcome_loaded" ya fue creado',
                 ];
-            } else {
+            } else
+            {
                 $response = [
                     'ok' => false,
                     'msg' => 'No existe un log para esta sesion.',
                 ];
             }
-        } else {
+        } else
+        {
             $response = [
                 'ok' => false,
                 'msg' => 'Falta al MAC Address del cliente/dispositivo',
@@ -376,13 +403,16 @@ class WelcomeController extends Controller
         $image = "";
         $main_bg = "";
         $color = "darkgrey";
-        if (Session::has('image')) {
+        if (Session::has('image'))
+        {
             $image = session('image');
         }
-        if (Session::has('main_bg')) {
+        if (Session::has('main_bg'))
+        {
             $main_bg = session('main_bg');
         }
-        if (Session::has('message')) {
+        if (Session::has('message'))
+        {
             $color = session('message')['color'];
         }
 
@@ -393,13 +423,13 @@ class WelcomeController extends Controller
         ]);
     }
 
-    public function radius($ip,$client_mac)
+    public function radius($ip, $client_mac)
     {
-        if( Input::has("continue_url") )
+        if (Input::has("continue_url"))
         {
             //echo Input::has("continue_url");
             session([
-                'success_redirect_url' =>  Input::get("continue_url")
+                'success_redirect_url' => Input::get("continue_url")
             ]);
 
         }
@@ -407,22 +437,47 @@ class WelcomeController extends Controller
 
         $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
 
-        if(count($users)==0)
+        if (count($users) == 0)
         {
-            DB::connection('radius')->insert("insert into radcheck (username,attribute,value) VALUES (?,?,?);", [$client_mac,"Password",$client_mac]);
+            DB::connection('radius')->insert("insert into radcheck (username,attribute,value) VALUES (?,?,?);", [$client_mac, "Password", $client_mac]);
 
         }
 
 
-        return view("welcome.ruckus",array('ip'=>$ip, 'client_mac'=>$client_mac));
+        return view("welcome.ruckus", array('ip' => $ip, 'client_mac' => $client_mac));
+    }
+
+    public function cisco($ip, $client_mac)
+    {
+        if (Input::has("continue_url"))
+        {
+            //echo Input::has("continue_url");
+            session([
+                'success_redirect_url' => Input::get("continue_url")
+            ]);
+
+        }
+
+
+        $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
+
+        if (count($users) == 0)
+        {
+            DB::connection('radius')->insert("insert into radcheck (username,attribute,value) VALUES (?,?,?);", [$client_mac, "Password", $client_mac]);
+
+        }
+
+
+        return view("welcome.cisco", array('ip' => urldecode($ip), 'client_mac' => $client_mac));
     }
 
     public function success()
     {
-        if(Session::has('success_redirect_url'))
+        if (Session::has('success_redirect_url'))
             return redirect(session('success_redirect_url'));
         else
             return redirect(URL::route('ads'));
     }
+
 
 }

@@ -19,6 +19,7 @@ Route::match(['post', 'get'], '/success', ['as' => 'success', 'uses' => 'Welcome
 
 Route::match(['post', 'get'], '/ads', ['as' => 'ads', 'uses' => 'WelcomeController@ads']);
 Route::match(['post', 'get'], '/radius-connect/ip/{ip}/client_mac/{client_mac}', ['as' => 'radius-connect', 'uses' => 'WelcomeController@radius']);
+Route::match(['post', 'get'], '/cisco-connect/ip/{ip}/client_mac/{client_mac}', ['as' => 'cisco-connect', 'uses' => 'WelcomeController@cisco']);
 
 Route::match(['post', 'get'], '/demo', ['as' => 'demo', 'uses' => 'DemoController@index']);
 Route::match(['post', 'get'], '/demo/login', ['as' => 'login', 'uses' => 'DemoController@login']);
@@ -57,6 +58,8 @@ Route::group(['as' => 'interaction::'], function () {
             Route::match(['get', 'post'], 'loaded', ['as' => 'loaded', 'uses' => 'InteractionsController@loaded']);
             Route::match(['get', 'post'], 'completed', ['as' => 'completed', 'uses' => 'InteractionsController@completed']);
             Route::match(['get', 'post'], 'accessed', ['as' => 'accessed', 'uses' => 'InteractionsController@accessed']);
+
+            Route::match(['get', 'post'], 'brandcaptcha', ['as' => 'brandcaptcha', 'uses' => 'InteractionsController@brandcaptcha']);
 
             Route::match(['get', 'post'], 'saveUserSurvey', ['as' => 'saveUserSurvey', 'uses' => 'InteractionsController@saveUserSurvey']);
 
