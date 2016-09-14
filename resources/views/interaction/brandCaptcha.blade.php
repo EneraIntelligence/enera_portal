@@ -26,7 +26,7 @@
         }
     </style>
 @stop
-@section('title', 'Banner Link')
+@section('title', 'Brand Captcha')
 
 @section('header')
     <nav>

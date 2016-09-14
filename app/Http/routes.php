@@ -27,6 +27,7 @@ Route::match(['post', 'get'], '/demo/like', ['as' => 'like', 'uses' => 'DemoCont
 Route::match(['post', 'get'], '/demo/banner_link', ['as' => 'banner_link', 'uses' => 'DemoController@banner_link']);
 Route::match(['post', 'get'], '/demo/mailing_list', ['as' => 'mailing_list', 'uses' => 'DemoController@mailing_list']);
 Route::match(['post', 'get'], '/demo/captcha', ['as' => 'captcha', 'uses' => 'DemoController@captcha']);
+Route::match(['post', 'get'], '/demo/brandcaptcha', ['as' => 'brandcaptcha', 'uses' => 'DemoController@brandcaptcha']);
 Route::match(['post', 'get'], '/demo/encuesta', ['as' => 'encuesta', 'uses' => 'DemoController@encuesta']);
 Route::match(['post', 'get'], '/demo/video', ['as' => 'video', 'uses' => 'DemoController@video']);
 

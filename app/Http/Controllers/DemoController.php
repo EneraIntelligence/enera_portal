@@ -107,7 +107,7 @@ class DemoController extends Controller
         $campaignSelected = new Campaign();
         $campaignSelected->_id = "demo_captcha";
 
-        $campaignType = "Portal\\Libraries\\Interactions\\MailingList";
+        $campaignType = "Portal\\Libraries\\Interactions\\Captcha";
         $interaction = new $campaignType($campaignSelected);
         $campaignSelected->content = array(
             'images' => [
@@ -118,7 +118,31 @@ class DemoController extends Controller
             'captcha' => 'test'
         );
 
-        $campaignType = "Portal\\Libraries\\Interactions\\Captcha";
+//        $campaignType = "Portal\\Libraries\\Interactions\\Captcha";
+        $interaction = new $campaignType($campaignSelected);
+
+        $link['link'] = "http://enera.mx";
+        return view($interaction->getView(), $link, array_merge(
+            ['_id' => $campaignSelected->_id],
+            $interaction->getData(),
+            ['fb_id' => '10206656662069174']
+        ));
+    }
+
+    public function brandcaptcha()
+    {
+        //hardcoded brandcaptcha
+        $campaignSelected = new Campaign();
+        $campaignSelected->_id = "demo_brandcaptcha";
+        $campaignSelected->content = array(
+            'images' => array(
+                "small" => "1452901991.jpg",
+                "large" => "1452901997.jpg",
+            ),
+            "video" => "trailer.mp4"
+        );
+
+        $campaignType = "Portal\\Libraries\\Interactions\\Brandcaptcha";
         $interaction = new $campaignType($campaignSelected);
 
         $link['link'] = "http://enera.mx";
@@ -162,9 +186,9 @@ class DemoController extends Controller
 
     public function video()
     {
-        //hardcoded captcha
+        //hardcoded video
         $campaignSelected = new Campaign();
-        $campaignSelected->_id = "demo_encuesta";
+        $campaignSelected->_id = "demo_video";
         $campaignSelected->content = array(
             'images' => array(
                 "small" => "1452901991.jpg",

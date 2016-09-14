@@ -267,6 +267,20 @@
                 </a>
 
             </div>
+
+            <div class="col s12 m6 l8">
+                <a href="{{url("demo/brandcaptcha")}}">
+
+                    <div class="card-panel center">
+
+                        <img class="responsive-img" src="img/brandcaptcha.svg" alt="">
+                        <h5>BrandCaptcha</h5>
+                    </div>
+                </a>
+
+            </div>
+
+
         </div>
 
     <!-- Main card -->
