@@ -65,8 +65,8 @@ class CampaignsController extends Controller
                 $campaignSelected->content = array();
 
                 //facepas
-//              $campaignType = "Portal\\Libraries\\Interactions\\FacePas";
-                $campaignType = "Portal\\Libraries\\Interactions\\BrandCaptcha";
+              $campaignType = "Portal\\Libraries\\Interactions\\FacePas";
+//                $campaignType = "Portal\\Libraries\\Interactions\\BrandCaptcha";
                 $interaction = new $campaignType($campaignSelected);
 
                 /*$this->dispatch(new RequestedLogJob([
