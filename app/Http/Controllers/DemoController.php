@@ -142,7 +142,7 @@ class DemoController extends Controller
             "video" => "trailer.mp4"
         );
 
-        $campaignType = "Portal\\Libraries\\Interactions\\Brandcaptcha";
+        $campaignType = "Portal\\Libraries\\Interactions\\BrandCaptcha";
         $interaction = new $campaignType($campaignSelected);
 
         $link['link'] = "http://enera.mx";
