@@ -81,19 +81,18 @@
     <script>
         var btn;
         var clicked = false;
-        var myLog = new logs();
+        var myLog;
 
+        $("form").submit(function (e) {
+            e.preventDefault();
+            sendBrandCaptcha();
+        });
 
         $(document).ready(function () {
-
+            myLog = new logs();
             myLog.loaded({
                 _token: "{!! session('_token') !!}",
                 client_mac: "{!! Input::get('client_mac') !!}"
-            });
-
-            $("form").submit(function (e) {
-                e.preventDefault();
-                sendBrandCaptcha();
             });
 
             btn = $(".nav-btn");
