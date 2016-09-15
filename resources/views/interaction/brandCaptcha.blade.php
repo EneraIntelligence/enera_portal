@@ -81,12 +81,10 @@
     <script>
         var btn;
         var clicked = false;
+        var myLog = new logs();
+
 
         $(document).ready(function () {
-
-
-
-            var myLog = new logs();
 
             myLog.loaded({
                 _token: "{!! session('_token') !!}",
