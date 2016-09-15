@@ -156,7 +156,7 @@
                         });
                     }
                     else {
-                        alert("Captcha incorrecto");
+                        alert("Frase incorrecta, intenta de nuevo.");
                         $("#brand_cap_button_reload")[0].click();
                         clicked=false;
                     }
