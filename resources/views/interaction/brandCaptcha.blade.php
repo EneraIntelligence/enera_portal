@@ -33,7 +33,7 @@
         <div class="nav-wrapper z-depth-3 valign-wrapper">
             <img class="circle avatar" src="http://graph.facebook.com/{{@$fb_id}}/picture?type=square"
                  alt="">
-            <p class="instructions valign center-align">Ve el siguiente anuncio <br> para navegar gratuitamente</p>
+            <p class="instructions valign center-align">Ingresa la frase solicitada <br>para navegar gratuitamente</p>
 
         </div>
     </nav>
