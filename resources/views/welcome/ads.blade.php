@@ -37,7 +37,7 @@
     <div class="container">
         <h4>Bienvenido a Enera WiFi.</h4>
         {{--<p>Ahora estás conectado.</p>--}}
-        <p>Ve el siguiente anuncio para navegar gratuitamente.</p>
+        <p>Ahora tienes conexión a internet.</p>
     </div>
 </div>
 <!-- Main card -->

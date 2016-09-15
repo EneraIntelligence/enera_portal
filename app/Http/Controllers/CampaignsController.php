@@ -66,6 +66,8 @@ class CampaignsController extends Controller
 
                 //facepas
 //              $campaignType = "Portal\\Libraries\\Interactions\\FacePas";
+                
+                //brand captcha where there are no campaigns
                 $campaignType = "Portal\\Libraries\\Interactions\\BrandCaptcha";
                 $interaction = new $campaignType($campaignSelected);
 
