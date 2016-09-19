@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('head_scripts')
-{!! HTML::style(asset('css/demo.css',null, array(), true)) !!}
+{!! HTML::style(asset('css/demo.css')) !!}
 
         <!-- branch colors -->
 <style>
