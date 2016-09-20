@@ -141,7 +141,6 @@ class DemoController extends Controller
         $link['link'] = "http://enera.mx";
         return view($interaction->getView(), $link, array_merge(
             ['_id' => $campaignSelected->_id],
-            $interaction->getData(),
             ['fb_id' => '10206656662069174'],
             ['public_key','437969bb4001422bd3df303e7c819e9746a6aea6']
         ));
