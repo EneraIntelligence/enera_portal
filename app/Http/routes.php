@@ -61,6 +61,7 @@ Route::group(['as' => 'interaction::'], function () {
             Route::match(['get', 'post'], 'accessed', ['as' => 'accessed', 'uses' => 'InteractionsController@accessed']);
 
             Route::match(['get', 'post'], 'brandcaptcha', ['as' => 'brandcaptcha', 'uses' => 'InteractionsController@brandcaptcha']);
+            Route::match(['get', 'post'], 'brandcaptchademo', ['as' => 'brandcaptchademo', 'uses' => 'InteractionsController@brandcaptchaDemo']);
 
             Route::match(['get', 'post'], 'saveUserSurvey', ['as' => 'saveUserSurvey', 'uses' => 'InteractionsController@saveUserSurvey']);
 

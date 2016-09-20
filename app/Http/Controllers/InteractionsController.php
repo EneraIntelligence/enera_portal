@@ -227,8 +227,14 @@ class InteractionsController extends Controller
         $campaign->history()->create($log);
         $this->dispatch(new EmailEndJob($log['administrator_id'], $campaign->id));
     }
+
+    public function brandcaptchaDemo()
+    {
+        //demo private key
+        return $this->brandcaptcha('c16f871660447bf2d17d730af3aea44e9ad0aa0b');
+    }
     
-    public function brandcaptcha()
+    public function brandcaptcha($private_key="8c5865dd075cd6a1f5a26c47241eba2e0158f64d")
     {
 
         include(app_path() . '/includes/brandcaptchalib.php');
@@ -238,7 +244,8 @@ class InteractionsController extends Controller
         // the error code from BrandCAPTCHA, if any
         $error = null;
 
-        $privatekey = "8c5865dd075cd6a1f5a26c47241eba2e0158f64d";
+        //production key (default)
+        //$privatekey = "8c5865dd075cd6a1f5a26c47241eba2e0158f64d";
 
         //dd($_POST);
 
@@ -249,7 +256,7 @@ class InteractionsController extends Controller
         // was there a BrandCAPTCHA response?
         if (isset($_POST["brand_cap_answer"]) && $_POST["brand_cap_answer"])
         {
-            $resp = brandcaptcha_check_answer($privatekey,
+            $resp = brandcaptcha_check_answer($private_key,
                 $_SERVER["REMOTE_ADDR"],
                 $_POST["brand_cap_challenge"],
                 $_POST["brand_cap_answer"]);

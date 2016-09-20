@@ -52,6 +52,8 @@
             include(app_path() . '/includes/brandcaptchalib.php');
 
             $publickey = "1d49e1794e929ea8ac80eb9386dfa79372e6f856";
+            if (isset($public_key))
+                $publickey = $public_key;
 
             if (!isset($error))
                 echo brandcaptcha_get_html($publickey);
@@ -82,7 +84,6 @@
         var btn;
         var clicked = false;
         var myLog;
-
 
 
         $(document).ready(function () {
@@ -123,8 +124,18 @@
                 json_data = o;
                 //alert(json_data);
 
+                <?php
+                $bcURL = '/interaction/logs/brandcaptcha/';
+                if (isset($public_key))
+                {
+                    $bcURL = '/interaction/logs/brandcaptchademo/';
+                }
+                ?>
+
+                var bcValidationURL = "{!! $bcURL !!}";
+
                 $.ajax({
-                    url: '/interaction/logs/brandcaptcha/',
+                    url: bcValidationURL,
                     type: 'POST',
                     dataType: 'JSON',
                     data: json_data
@@ -158,7 +169,7 @@
                     else {
                         alert("Frase incorrecta, intenta de nuevo.");
                         $("#brand_cap_button_reload")[0].click();
-                        clicked=false;
+                        clicked = false;
                     }
 
                 }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -169,7 +180,7 @@
                     alert("Hubo un problema intenta de nuevo");
 
                     $("#brand_cap_button_reload")[0].click();
-                    clicked=false;
+                    clicked = false;
 
                 });
 

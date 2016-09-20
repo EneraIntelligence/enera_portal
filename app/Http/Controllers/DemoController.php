@@ -134,13 +134,6 @@ class DemoController extends Controller
         //hardcoded brandcaptcha
         $campaignSelected = new Campaign();
         $campaignSelected->_id = "demo_brandcaptcha";
-        $campaignSelected->content = array(
-            'images' => array(
-                "small" => "1452901991.jpg",
-                "large" => "1452901997.jpg",
-            ),
-            "video" => "trailer.mp4"
-        );
 
         $campaignType = "Portal\\Libraries\\Interactions\\BrandCaptcha";
         $interaction = new $campaignType($campaignSelected);
@@ -149,7 +142,8 @@ class DemoController extends Controller
         return view($interaction->getView(), $link, array_merge(
             ['_id' => $campaignSelected->_id],
             $interaction->getData(),
-            ['fb_id' => '10206656662069174']
+            ['fb_id' => '10206656662069174'],
+            ['public_key','437969bb4001422bd3df303e7c819e9746a6aea6']
         ));
     }
 
