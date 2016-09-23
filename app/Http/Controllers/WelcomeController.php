@@ -72,8 +72,7 @@ class WelcomeController extends Controller
 
         if (!$this->validWelcomeInput($input))
         {
-            echo 'mac-'.$input['node_mac'];
-            //return $this->invalidNetworkView();
+            return $this->invalidNetworkView();
         }
 
 
@@ -93,6 +92,7 @@ class WelcomeController extends Controller
         // Si el AP no fue dado de alta o no está asignado a una Branche
         if (!$branche)
         {
+            echo 'mac-'.$input['node_mac'];
             return $this->invalidNetworkView();
         }
 
