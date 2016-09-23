@@ -121,6 +121,13 @@
             {
                 clicked = true;
 
+                var success_url = btn.attr('success_url');
+                //force redirect to banner link
+                <?php if(isset($banner_link)): ?>
+                success_url = replaceUrlParam(success_url, "continue_url", "{{$banner_link}}");
+                success_url = replaceUrlParam(success_url, "redir", "{{$banner_link}}");
+                <?php endif;?>
+
                 //log the access
                 var accessedJson = {
                     _token: "{!! session('_token') !!}",
@@ -129,12 +136,12 @@
                 myLog.accessed(accessedJson, function ()
                 {
                     //on accessed saved
-                    myLog.redirectOut(btn.attr('success_url'));
+                    myLog.redirectOut(success_url);
 
                 }, function ()
                 {
                     //fail accessed save
-                    myLog.redirectOut(btn.attr('success_url'));
+                    myLog.redirectOut(success_url);
 
                 });
             }
