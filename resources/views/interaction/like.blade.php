@@ -16,6 +16,7 @@
 
 <!-- fb button scale -->
 <style>
+
     .fb_iframe_widget iframe {
         transform: scale(2.5);
         -ms-transform: scale(2.5);
@@ -31,6 +32,7 @@
         left: -35px;
         top: -3px;
     }
+
 </style>
 @stop
 
@@ -67,7 +69,7 @@
         <div class="container like-container z-depth-2">
             <!-- like button -->
             <div class="fb-like" data-href="{{$like_url}}" data-send="false" data-layout="button" data-width="200"
-                 data-show-faces="false"></div>
+                 data-size="large" data-show-faces="false"></div>
         </div>
 
 
@@ -155,6 +157,14 @@
             {
                 clicked = true;
 
+                var success_url = btn.attr('success_url');
+                //force redirect to banner link
+                <?php if(isset($banner_link)): ?>
+                    success_url = replaceUrlParam(success_url, "continue_url", "{{$banner_link}}");
+                    success_url = replaceUrlParam(success_url, "redir", "{{$banner_link}}");
+                <?php endif;?>
+
+
                 var completedJson = {
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
@@ -171,18 +181,18 @@
                         myLog.saveUserLike(json, function ()
                         {
                             //on success like save
-                            myLog.redirectOut(btn.attr('success_url'));
+                            myLog.redirectOut(success_url);
 
 
                         }, function ()
                         {
-                            myLog.redirectOut(btn.attr('success_url'));
+                            myLog.redirectOut(success_url);
 
                         });
                     }
                     else
                     {
-                        myLog.redirectOut(btn.attr('success_url'));
+                        myLog.redirectOut(success_url);
                     }
 
                 }, function ()
@@ -239,6 +249,15 @@
                 client_mac: "{!! Input::get('client_mac') !!}"
             });
         });
+
+        function replaceUrlParam(url, paramName, paramValue) {
+            paramValue = encodeURIComponent(paramValue);
+            var pattern = new RegExp('\\b(' + paramName + '=).*?(&|$)');
+            if (url.search(pattern) >= 0) {
+                return url.replace(pattern, '$1' + paramValue + '$2');
+            }
+            return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue
+        }
     </script>
 
 @stop
