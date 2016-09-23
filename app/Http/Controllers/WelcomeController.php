@@ -72,8 +72,8 @@ class WelcomeController extends Controller
 
         if (!$this->validWelcomeInput($input))
         {
-            print_r($input);
-            return $this->invalidNetworkView();
+            echo 'mac-'.$input['node_mac'];
+            //return $this->invalidNetworkView();
         }
 
 
