@@ -16,7 +16,7 @@
 
 <!-- fb button scale -->
 <style>
-    /*
+
     .fb_iframe_widget iframe {
         transform: scale(2.5);
         -ms-transform: scale(2.5);
@@ -32,7 +32,7 @@
         left: -35px;
         top: -3px;
     }
-    */
+
 </style>
 @stop
 
