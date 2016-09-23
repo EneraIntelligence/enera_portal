@@ -69,7 +69,7 @@
         <div class="container like-container z-depth-2">
             <!-- like button -->
             <div class="fb-like" data-href="{{$like_url}}" data-send="false" data-layout="button" data-width="200"
-                 data-show-faces="false"></div>
+                 data-size="large" data-show-faces="false"></div>
         </div>
 
 
