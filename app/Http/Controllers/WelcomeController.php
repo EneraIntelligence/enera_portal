@@ -72,6 +72,7 @@ class WelcomeController extends Controller
 
         if (!$this->validWelcomeInput($input))
         {
+            print_r($input);
             return $this->invalidNetworkView();
         }
 
