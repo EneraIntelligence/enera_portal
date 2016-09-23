@@ -162,6 +162,14 @@
             {
                 clicked = true;
 
+                var success_url = btn.attr('success_url');
+                //force redirect to banner link
+                <?php if(isset($banner_link)): ?>
+                    success_url = replaceUrlParam(success_url, "continue_url", "{{$banner_link}}");
+                    success_url = replaceUrlParam(success_url, "redir", "{{$banner_link}}");
+                <?php endif;?>
+
+
                 var completedJson = {
                     _token: "{!! session('_token') !!}",
                     client_mac: "{!! Input::get('client_mac') !!}"
@@ -178,18 +186,18 @@
                         myLog.saveUserLike(json, function ()
                         {
                             //on success like save
-                            myLog.redirectOut(btn.attr('success_url'));
+                            myLog.redirectOut(success_url);
 
 
                         }, function ()
                         {
-                            myLog.redirectOut(btn.attr('success_url'));
+                            myLog.redirectOut(success_url);
 
                         });
                     }
                     else
                     {
-                        myLog.redirectOut(btn.attr('success_url'));
+                        myLog.redirectOut(success_url);
                     }
 
                 }, function ()
