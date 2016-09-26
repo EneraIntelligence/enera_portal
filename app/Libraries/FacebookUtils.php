@@ -67,7 +67,7 @@ class FacebookUtils
                 $this->helper = $this->fb->getRedirectLoginHelper();
             }
 
-            if ($this->accessToken == (string)$this->helper->getAccessToken()) {
+            if ($this->accessToken = (string)$this->helper->getAccessToken()) {
                 Session::put('facebook_access_token',$this->accessToken);
                 $this->fb->setDefaultAccessToken($this->accessToken);
                 return true;
