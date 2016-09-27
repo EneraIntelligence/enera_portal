@@ -55,6 +55,8 @@
             if (isset($public_key))
                 $publickey = $public_key;
 
+                echo $publickey;
+
             if (!isset($error))
                 echo brandcaptcha_get_html($publickey);
             else
