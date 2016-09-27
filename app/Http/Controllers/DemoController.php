@@ -142,7 +142,7 @@ class DemoController extends Controller
         return view($interaction->getView(), $link, array_merge(
             ['_id' => $campaignSelected->_id],
             ['fb_id' => '10206656662069174'],
-            ['public_key','437969bb4001422bd3df303e7c819e9746a6aea6']
+            ['public_key'=>'437969bb4001422bd3df303e7c819e9746a6aea6']
         ));
     }
 
