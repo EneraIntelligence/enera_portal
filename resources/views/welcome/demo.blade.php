@@ -273,7 +273,7 @@
 
                     <div class="card-panel center">
 
-                        <img class="responsive-img" src="img/brandcaptcha.svg" alt="">
+                        <img class="responsive-img" src="{{asset('img/brandcaptcha.svg')}}" alt="">
                         <h5>BrandCaptcha</h5>
                     </div>
                 </a>

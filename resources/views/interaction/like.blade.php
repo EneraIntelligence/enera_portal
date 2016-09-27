@@ -33,6 +33,29 @@
         top: -3px;
     }
 
+    .loader-full
+    {
+        position: fixed;
+        background-color: white;
+        top:0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 10;
+
+    }
+
+    .progress
+    {
+        top: -8px;
+        background-color: #e8eaf6;
+    }
+
+    .progress .indeterminate
+    {
+        background-color: #3f51b5;
+    }
+
 </style>
 @stop
 
@@ -51,6 +74,12 @@
 @stop
 
 @section('content')
+
+    <div id="loader" class="loader-full">
+        <div class="progress">
+            <div class="indeterminate"></div>
+        </div>
+    </div>
 
     <div id="fb-root"></div>
 
@@ -107,6 +136,8 @@
     {{--{!! HTML::script('js/greensock/TweenLite.min.js') !!}--}}
     {!! HTML::script('js/image-detector.js') !!}
     {!! HTML::script('js/ajax/logs.js') !!}
+    {!! HTML::script('js/greensock/TweenLite.min.js') !!}
+    {!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}
 
 
     <script>
@@ -264,6 +295,19 @@
                 return url.replace(pattern, '$1' + paramValue + '$2');
             }
             return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue
+        }
+
+
+        window.onload = function () {
+            console.log("removing loader");
+            //remove loader
+
+
+            TweenLite.to("#loader", .3, {
+                "opacity": 0, delay:1, onComplete: function () {
+                    $("#loader").css("display", "none");
+                }
+            });
         }
     </script>
 
