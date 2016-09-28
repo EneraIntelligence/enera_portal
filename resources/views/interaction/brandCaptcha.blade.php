@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('head_scripts')
 
-    {!! HTML::style(asset('css/welcome.css')) !!}
+    {{--{!! HTML::style(asset('css/welcome.css')) !!}--}}
     {!! HTML::style('css/bannerLink.css') !!}
     {!! HTML::style('css/interaction-common.css') !!}
 
@@ -24,6 +24,29 @@
             margin: 0 auto;
             width: 310px;
         }
+
+        .loader-full
+        {
+            position: fixed;
+            background-color: white;
+            top:0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 10;
+
+        }
+
+        .progress
+        {
+            top: -8px;
+            background-color: #e8eaf6;
+        }
+
+        .progress .indeterminate
+        {
+            background-color: #3f51b5;
+        }
     </style>
 @stop
 @section('title', 'Brand Captcha')
@@ -41,6 +64,13 @@
 
 
 @section('content')
+
+    <div id="loader" class="loader-full">
+        <div class="progress">
+            <div class="indeterminate"></div>
+        </div>
+    </div>
+
     <!-- Main card -->
 
     <form action="" method="post">
@@ -80,6 +110,13 @@
 @stop
 
 @section('footer_scripts')
+
+    {!! HTML::script('js/image-detector.js') !!}
+    {!! HTML::script('js/ajax/logs.js') !!}
+    {!! HTML::script('js/greensock/TweenLite.min.js') !!}
+    {!! HTML::script('js/greensock/easing/EasePack.min.js') !!}
+    {!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}
+
     <script>
         var btn;
         var clicked = false;
@@ -198,7 +235,17 @@
             }
             return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue
         }
+
+        window.onload = function () {
+            console.log("removing loader");
+            //remove loader
+
+
+            TweenLite.to("#loader", .3, {
+                "opacity": 0, delay:1, onComplete: function () {
+                    $("#loader").css("display", "none");
+                }
+            });
+        };
     </script>
-    {!! HTML::script('js/image-detector.js') !!}
-    <script language="JavaScript" type="text/javascript" src="{{ URL::asset('js/ajax/logs.js') }}"></script>
 @stop
