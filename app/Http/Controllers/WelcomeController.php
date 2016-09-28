@@ -160,8 +160,8 @@ class WelcomeController extends Controller
 
 
         //fix this later :: forcing login with facebook
-        //if ($users->count() != 1)
-        //{
+        if ($users->count() != 1)
+        {
             $url = route('welcome::response', [
                 'node_mac' => $node_mac,
                 //'client_ip' => Input::get('client_ip'),
@@ -179,7 +179,7 @@ class WelcomeController extends Controller
                 'client_mac' => $client_mac,
             ]);
 
-        //}
+        }
 
 
         //device has exactly one facebook account paired
