@@ -119,7 +119,7 @@
 @section('footer')
 
 
-    <div class="footer-copyright">
+    <div class="footer-copyright" onclick="loginClick()">
         <div class="container">
             <a class="grey-text text-lighten-4 right" href="http://enera.mx" target="_blank">© 2016 Enera
                 Intelligence</a>
@@ -131,12 +131,10 @@
 @section('footer_scripts')
 
 
-    {{--{!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}--}}
-    {{--{!! HTML::script('js/greensock/easing/EasePack.min.js') !!}--}}
-    {{--{!! HTML::script('js/greensock/TweenLite.min.js') !!}--}}
     {!! HTML::script('js/image-detector.js') !!}
     {!! HTML::script('js/ajax/logs.js') !!}
     {!! HTML::script('js/greensock/TweenLite.min.js') !!}
+    {!! HTML::script('js/greensock/easing/EasePack.min.js') !!}
     {!! HTML::script('js/greensock/plugins/CSSPlugin.min.js') !!}
 
 
@@ -184,6 +182,7 @@
         var finished_rendering = function ()
         {
             //console.log("finished rendering fb plugins");
+
         };
 
 
@@ -264,6 +263,8 @@
 
             FB.Event.subscribe('edge.create', page_like_callback);
             FB.Event.subscribe('edge.remove', page_unlike_callback);
+
+
         };
 
         (function (d, s, id)
@@ -286,6 +287,8 @@
                 _token: "{!! session('_token') !!}",
                 client_mac: "{!! Input::get('client_mac') !!}"
             });
+
+
         });
 
         function replaceUrlParam(url, paramName, paramValue) {
@@ -308,7 +311,10 @@
                     $("#loader").css("display", "none");
                 }
             });
-        }
+
+
+        };
+
     </script>
 
 @stop
