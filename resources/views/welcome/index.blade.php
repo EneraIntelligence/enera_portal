@@ -495,6 +495,9 @@
 
             });
 
+
+            alert(window.location.href );
+
         });
 
         var clicked = false;
