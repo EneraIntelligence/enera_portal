@@ -62,6 +62,9 @@ class WelcomeController extends Controller
     public function index()
     {
 
+        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        dd($actual_link);
+
         // clear session
         $this->checkSession();
 
