@@ -3,6 +3,7 @@
 namespace Portal\Libraries\APAdapters;
 
 use Portal\Libraries\APAdapters\IAdapter;
+use URL;
 use Validator;
 
 
@@ -45,7 +46,7 @@ class ArubaAdapter implements IAdapter
 */
 
             
-            $redirect_url = 'http://portaldev.enera-intelligence.mx/ads';//$input['switchip'];
+            $redirect_url = URL::route('aruba-auth');//$input['switchip'];
 
 
             $user_url = $input['url'];
@@ -55,7 +56,7 @@ class ArubaAdapter implements IAdapter
                 $user_url = "http://enera.mx/";
             }
 
-            $redirect_url .= "&redir=" . urlencode( $user_url );
+            //$redirect_url .= "&redir=" . urlencode( $user_url );
 
 
             $node_mac = $this->formatMac($input['apname']);

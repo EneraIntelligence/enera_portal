@@ -13,7 +13,6 @@
     }
 </style>
 
-<meta name="pass" content="EneraPass"/>
 
 
 <!-- ooyala code-

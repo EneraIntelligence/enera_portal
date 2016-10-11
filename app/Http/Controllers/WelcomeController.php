@@ -480,6 +480,12 @@ class WelcomeController extends Controller
         return view("welcome.cisco", array('ip' => urldecode($ip), 'client_mac' => $client_mac));
     }
 
+
+    public function aruba()
+    {
+        return view("welcome.aruba_auth");
+    }
+
     public function success()
     {
         if (Session::has('success_redirect_url'))
