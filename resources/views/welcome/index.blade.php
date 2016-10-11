@@ -24,7 +24,7 @@
     <!-- Main card -->
     <div class="welcome card small z-depth-2">
         <img class="responsive-img" style="margin-bottom: -6px;"
-             src="https://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/{!! $image !!}">
+             src="http://s3-us-west-1.amazonaws.com/enera-publishers/branch_items/{!! $image !!}">
     </div>
     <!-- Main card -->
 

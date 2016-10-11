@@ -61,7 +61,7 @@
         <i class="large material-icons icon-play">&#xE038;</i>
 
         <video id="theVideo" class="responsive-video banner-video">
-            <source src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}" type="video/mp4">
+            <source src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}" type="video/mp4">
 
             {{--<source src="http://media.w3.org/2010/05/sintel/trailer.webm" type="video/webm">--}}
             {{--<source src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">--}}

@@ -93,7 +93,7 @@
     <!-- Banner card -->
     <div class="banner card-panel z-depth-2 center-align">
         <img class="responsive-img image-small" style="margin-bottom: -6px;"
-             src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['survey'] !!}">
+             src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['survey'] !!}">
     </div>
     <!-- Banner card -->
 

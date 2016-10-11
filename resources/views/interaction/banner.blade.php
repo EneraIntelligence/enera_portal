@@ -10,7 +10,7 @@
     <div>
         {{--<img id="banner" class="img-responsive center-block" src="{{asset('img').'/'.$images['small'] }}" alt="Enera Portal">--}}
         <img  id="banner" class="img-responsive center-block"
-              src="https://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}"
+              src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}"
               alt="Banner"/>
 
     </div>
