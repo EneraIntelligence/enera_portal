@@ -32,6 +32,7 @@ use Portal\Libraries\APAdapters\MerakiAdapter;
 use Portal\Libraries\APAdapters\RuckusAdapter;
 use Portal\Libraries\APAdapters\DefaultAdapter;
 use Portal\Libraries\APAdapters\CiscoAdapter;
+use Portal\Libraries\APAdapters\ArubaAdapter;
 
 class WelcomeController extends Controller
 {
@@ -239,6 +240,9 @@ class WelcomeController extends Controller
         } else if (isset($input['switch_url']))
         {
             return new CiscoAdapter();
+        }else if (isset($input['apname']))
+        {
+            return new ArubaAdapter();
         }
 
         $inputLog = new InputLog;
