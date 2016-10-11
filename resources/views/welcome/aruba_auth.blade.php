@@ -30,7 +30,8 @@
     </div>
     <!-- Main card -->
 
-    EneraPass
+    <input type="hidden" value="EneraPass">
+
 
 @stop
 
