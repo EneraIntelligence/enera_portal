@@ -17,6 +17,18 @@
 
 @section('header')
 
+    <script>
+        <?php
+        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        ?>
+        var actualLink = "{!! $actual_link !!}";
+        var currentUrl = window.location.href;
+        if( !currentUrl.includes("enera-intelligence.mx") )
+        {
+            window.location.href = actualLink;
+        }
+    </script>
+
 @stop
 
 @section('content')
@@ -475,15 +487,7 @@
     <script>
         var myLog = new logs();
 
-        <?php
-            $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        ?>
-        var actualLink = "{!! $actual_link !!}";
-        var currentUrl = window.location.href;
-        if( !currentUrl.includes("enera-intelligence.mx") )
-        {
-            window.location.href = actualLink;
-        }
+
 
         $(document).ready(function ()
         {
