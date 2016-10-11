@@ -13,6 +13,8 @@
     }
 </style>
 
+<meta name="pass" content="EneraPass"/>
+
 
 <!-- ooyala code-
 <link rel="stylesheet" type="text/css" href="../templates/product/videoplaza/miniplayer/style.css" />
