@@ -45,7 +45,7 @@ class ArubaAdapter implements IAdapter
 */
 
             
-            $redirect_url = $input['switchip'];
+            $redirect_url = 'http://portaldev.enera-intelligence.mx/ads';//$input['switchip'];
 
 
             $user_url = $input['url'];
