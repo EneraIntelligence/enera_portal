@@ -25,6 +25,23 @@ class RuckusAdapter implements IAdapter
             "ssid" : "WIFI_RUCKUS", 
             "loc" : "", 
             "vlan" : "1"
+         *
+         *
+         *
+         * Tellum example
+         *          *
+         * http://portal.enera-intelligence.mx/?
+         * nbiIP=192.168.223.130&
+         * wlan=2158&
+         * reason=Un-Auth-Captive&
+         * mac=e0:10:7f:10:6a:80&
+         * uip=10.196.55.100&
+         * url=http%3A%2F%2Fwww.apple.com%2F&zoneName=Pruebas_ZonaYOO&
+         * client_mac=90:72:40:7d:e3:0c&
+         * sip=10.254.1.3&
+         * StartURL=http%3A%2F%2Fportal.enera-intelligence.mx%2Fsuccess&proxy=0&
+         * ssid=Enera_Test&wlanName=Enera_Test&dn=
+
          * 
          */
 
@@ -35,7 +52,7 @@ class RuckusAdapter implements IAdapter
             'uip' => 'required',
             'url' => 'required',
             'ssid' => 'required',
-            'vlan' => 'required',
+            //'vlan' => 'required',
         ]);
 
         if ($ruckusValidator->passes())
