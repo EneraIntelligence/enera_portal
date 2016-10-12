@@ -51,6 +51,7 @@ class RuckusAdapter implements IAdapter
             'uip' => 'required',
             'url' => 'required',
             'ssid' => 'required',
+            'nbiIP' => 'required',
             //'vlan' => 'required',
         ]);
 
@@ -71,7 +72,8 @@ class RuckusAdapter implements IAdapter
 
 
             $resp = [
-                'base_grant_url' => URL::route('radius-connect', ['ip' => $input['sip'], 'client_mac' => $client_mac]),
+//                'base_grant_url' => URL::route('radius-connect', ['ip' => $input['sip'], 'client_mac' => $client_mac]),
+                'base_grant_url' => URL::route('radius-connect', ['ip' => $input['nbiIP'], 'client_mac' => $client_mac]),
                 'user_continue_url' => $user_url,
                 'node_mac' => $node_mac,
                 'client_mac' => $client_mac
