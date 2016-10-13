@@ -32,12 +32,14 @@
 
 
         {{--<form id="hiddenForm" method=POST action="http://{{$ip}}:9997/login">--}}
+
+        {{--
+
             <form id="hiddenForm" method=POST action="https://{{$ip}}:9443/portalintf">
-                {{--IP:{{$ip}} <br>--}}
             Username:<input type="text" name="username" value="{{$client_mac}}">
             Password:<input type="password" name="password" value="{{$client_mac}}">
-            {{--<input type="submit" value="Login">--}}
             </form>
+        --}}
 
     <div id="status" class="black-text">
 
@@ -80,7 +82,7 @@
 
         $(document).ready(function()
         {
-            var url = "https://{{$ip}}:9443/portalintf";
+            var url = "https://{!! $ip !!}:9443/portalintf";
 
             var statusLog=$("#status");
             statusLog.append("<p>Iniciando conexión a "+url+"</p>");
