@@ -80,6 +80,10 @@
 
         });*/
 
+
+
+
+/*
         $(document).ready(function()
         {
             var url = "https://{!! $ip !!}:9443/portalintf";
@@ -103,7 +107,7 @@
                 url: url,
                 type: 'POST',
                 dataType: 'JSON',
-                data: json_data
+                data: json_datawel
             }).done(function (data)
             {
                 console.log("success");
@@ -123,7 +127,7 @@
             });
 
 
-        });
+        });*/
 
 
     </script>

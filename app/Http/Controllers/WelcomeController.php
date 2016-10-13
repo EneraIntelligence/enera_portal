@@ -440,6 +440,7 @@ class WelcomeController extends Controller
         }
 
 
+
         $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
 
         if (count($users) == 0)
@@ -447,6 +448,10 @@ class WelcomeController extends Controller
             DB::connection('radius')->insert("insert into radcheck (username,attribute,value) VALUES (?,?,?);", [$client_mac, "Password", $client_mac]);
 
         }
+
+
+        //nbi
+        //207.248.45.101
 
 
         return view("welcome.ruckus", array('ip' => $ip, 'client_mac' => $client_mac));

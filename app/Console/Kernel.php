@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         \Portal\Console\Commands\Inspire::class,
         \Portal\Console\Commands\TestRadius2::class,
         \Portal\Console\Commands\RadiusDBTest::class,
+        \Portal\Console\Commands\NBITest::class,
     ];
 
     /**
