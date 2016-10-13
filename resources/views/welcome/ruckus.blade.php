@@ -39,7 +39,7 @@
             {{--<input type="submit" value="Login">--}}
             </form>
 
-    <div id="status">
+    <div id="status" class="black-text">
 
     </div>
 
