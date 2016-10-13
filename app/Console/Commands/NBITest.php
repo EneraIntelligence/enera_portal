@@ -40,7 +40,8 @@ class NBITest extends Command
     {
         //
 
-        $url = "https://207.248.45.101:9443/portalintf";
+//        $url = "https://207.248.45.101:9443/portalintf";
+        $url = "http://207.248.45.101:9080/portalintf";
 
         $json_data = array(
             "Vendor" => "ruckus",
