@@ -75,7 +75,7 @@ class NBITest extends Command
 
         $response = json_decode($json_response, true);
 
-        $this->info("response: " . $response );
+        $this->info("response: " . $json_response );
 
 
     }
