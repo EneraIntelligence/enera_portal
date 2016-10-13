@@ -87,7 +87,7 @@ class NBITest extends Command
             "APIVersion" => "1.0",
             "RequestCategory" => "GetConfig",
             "RequestType" => "Encrypt",
-            "Data" => "172.21.134.87"
+            "Data" => "172.21.134.101"
         );
         $content = json_encode($json_data);
 
@@ -119,7 +119,8 @@ class NBITest extends Command
 
 
         //start login
-        $this->info("sending access request enc-mac: " . $response['Data']);
+        $this->info("sending access request enc-mac: " . $encIp);
+        $this->info("sending access request enc-mac: " . $encMac);
 
         $json_data = array(
             "Vendor" => "ruckus",
