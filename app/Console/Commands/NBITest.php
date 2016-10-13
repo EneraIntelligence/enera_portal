@@ -87,7 +87,7 @@ class NBITest extends Command
             "APIVersion" => "1.0",
             "RequestCategory" => "GetConfig",
             "RequestType" => "Encrypt",
-            "Data" => "11:22:33:44"
+            "Data" => "172.21.134.87"
         );
         $content = json_encode($json_data);
 
