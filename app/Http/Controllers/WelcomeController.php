@@ -518,7 +518,7 @@ class WelcomeController extends Controller
         $response = json_decode($json_response, true);
         $rCode = $response['ResponseCode'];
 
-        if($rCode=="101")
+        if($rCode=="201")
         {
             if (Session::has('success_redirect_url'))
                 return redirect(session('success_redirect_url'));
