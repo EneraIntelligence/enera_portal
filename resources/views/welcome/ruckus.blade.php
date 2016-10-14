@@ -42,7 +42,9 @@
         --}}
 
     <div id="status" class="black-text">
-        {{$resp}}
+        <p>{{$query}}</p>
+        <p>{{$resp}}</p>
+
     </div>
 
 
