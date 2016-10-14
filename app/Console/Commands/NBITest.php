@@ -49,7 +49,7 @@ class NBITest extends Command
             "APIVersion" => "1.0",
             "RequestCategory" => "GetConfig",
             "RequestType" => "Encrypt",
-            "Data" => "11:22:33:44"
+            "Data" => "04:4f:aa:32:25:f0"
         );
 
         $json_response = $this->makeCurl($url, $json_data);
@@ -83,7 +83,7 @@ class NBITest extends Command
 
 
         //start login
-        
+
 
         $json_data = array(
             "Vendor" => "ruckus",
@@ -94,8 +94,8 @@ class NBITest extends Command
             "UE-IP" => $encIp,
             "UE-MAC" => $encMac,
             "UE-Proxy" => "0",
-            "UE-Username" => "test",
-            "UE-Password" => "mal-password"
+            "UE-Username" => "enera",
+            "UE-Password" => "enera"
         );
 
         $json_response = $this->makeCurl($url, $json_data);
