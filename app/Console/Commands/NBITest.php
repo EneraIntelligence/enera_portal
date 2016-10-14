@@ -83,8 +83,7 @@ class NBITest extends Command
 
 
         //start login
-        $this->info("sending access request enc-mac: " . $encIp);
-        $this->info("sending access request enc-mac: " . $encMac);
+        
 
         $json_data = array(
             "Vendor" => "ruckus",
@@ -92,8 +91,8 @@ class NBITest extends Command
             "APIVersion" => "1.0",
             "RequestCategory" => "UserOnlineControl",
             "RequestType" => "Login",
-            "UE-IP" => $encMac,
-            "UE-MAC" => $encIp,
+            "UE-IP" => $encIp,
+            "UE-MAC" => $encMac,
             "UE-Proxy" => "0",
             "UE-Username" => "test",
             "UE-Password" => "mal-password"
