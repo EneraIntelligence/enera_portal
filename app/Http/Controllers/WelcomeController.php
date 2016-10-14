@@ -515,9 +515,22 @@ class WelcomeController extends Controller
 
         //$this->info("response: " . $json_response);
 
+        $response = json_decode($json_response, true);
+        $rCode = $response['ResponseCode'];
 
-        return view("welcome.ruckus", array('ip' => $ip, 'client_mac' => $client_mac, 
-            'query'=>json_encode($json_data),'resp'=>$json_response));
+        if($rCode=="101")
+        {
+            if (Session::has('success_redirect_url'))
+                return redirect(session('success_redirect_url'));
+            else
+                return redirect(URL::route('ads'));
+        }
+        else
+        {
+            return view("welcome.ruckus", array('ip' => $ip, 'client_mac' => $client_mac,
+                'query'=>json_encode($json_data),'resp'=>$json_response));
+        }
+
     }
 
 
