@@ -64,6 +64,7 @@ class NBITest extends Command
 
 
         //start ip
+        /*
         $json_data = array(
             "Vendor" => "ruckus",
             "RequestPassword" => "t3!um123",
@@ -77,7 +78,7 @@ class NBITest extends Command
 
         $this->info("Enc-ip: " . $response['Data']);
         $encIp = $response['Data'];
-
+*/
         //end ip
 
 
@@ -91,7 +92,7 @@ class NBITest extends Command
             "APIVersion" => "1.0",
             "RequestCategory" => "UserOnlineControl",
             "RequestType" => "Login",
-            "UE-IP" => $encIp,
+            //"UE-IP" => $encIp,
             "UE-MAC" => $encMac,
             "UE-Proxy" => "0",
             "UE-Username" => "enera",

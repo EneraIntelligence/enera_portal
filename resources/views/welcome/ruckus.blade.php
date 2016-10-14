@@ -42,7 +42,7 @@
         --}}
 
     <div id="status" class="black-text">
-
+        {{$resp}}
     </div>
 
 
