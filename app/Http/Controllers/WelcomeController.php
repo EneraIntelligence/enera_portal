@@ -430,6 +430,7 @@ class WelcomeController extends Controller
 
     public function radius($ip, $client_mac)
     {
+        /*
         if (Input::has("continue_url"))
         {
             //echo Input::has("continue_url");
@@ -437,7 +438,7 @@ class WelcomeController extends Controller
                 'success_redirect_url' => Input::get("continue_url")
             ]);
 
-        }
+        }*/
 
 
 
