@@ -301,10 +301,16 @@ class WelcomeController extends Controller
             $user->facebook->save();
 
             $device = $user->devices()->where('devices.mac', Input::get('client_mac'))->first();
-            if ($device)
+            if ($device==null)
             {
+
+                $user->devices()->create([
+                    'mac' => Input::get('client_mac'),
+                    'os' => $agent->platform(),
+                ]);
+                /*
                 $device->mac = Input::get('client_mac');
-                $device->save();
+                $device->save();*/
             }
         } else
         {
