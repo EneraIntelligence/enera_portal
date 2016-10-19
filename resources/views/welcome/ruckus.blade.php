@@ -31,12 +31,21 @@
 <!-- Main card -->
 
 
-            <form id="hiddenForm" method=POST action="http://{{$ip}}:9997/login">
-                {{--IP:{{$ip}} <br>--}}
+        {{--<form id="hiddenForm" method=POST action="http://{{$ip}}:9997/login">--}}
+
+        {{--
+
+            <form id="hiddenForm" method=POST action="https://{{$ip}}:9443/portalintf">
             Username:<input type="text" name="username" value="{{$client_mac}}">
             Password:<input type="password" name="password" value="{{$client_mac}}">
-            {{--<input type="submit" value="Login">--}}
             </form>
+        --}}
+
+    <div id="status" class="black-text">
+        <p>{{$query}}</p>
+        <p>{{$resp}}</p>
+
+    </div>
 
 
 @stop
@@ -60,7 +69,7 @@
 @section('footer_scripts')
 
     <script>
-
+/*
         $("#hiddenForm").css("display","none");
 
         $(document).ready(function(){
@@ -71,7 +80,58 @@
 
             submitform();
 
-        });
+        });*/
+
+
+
+
+/*
+        $(document).ready(function()
+        {
+            var url = "https://{!! $ip !!}:9443/portalintf";
+
+            var statusLog=$("#status");
+            statusLog.append("<p>Iniciando conexión a "+url+"</p>");
+
+            var json_data={
+                "Vendor": "ruckus",
+                "RequestPassword": "t3!um123",
+                "APIVersion": "1.0",
+                "RequestCategory": "GetConfig",
+                "RequestType": "Encrypt",
+                "Data": "{!! $client_mac !!}"
+            };
+
+            statusLog.append("<p>Encriptando mac: "+json_data.Data+"</p>");
+
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'JSON',
+                data: json_datawel
+            }).done(function (data)
+            {
+                console.log("success");
+                statusLog.append("<p>conexión exitosa, mac encriptada: "+data.Data+"</p>");
+
+                //console.log(data);
+            }).fail(function (jqXHR, textStatus, errorThrown)
+            {
+
+
+                statusLog.append("<p>error de conexión: </p>");
+
+                statusLog.append("<p>"+jqXHR+"</p>");
+                statusLog.append("<p>"+textStatus+"</p>");
+                statusLog.append("<p>"+errorThrown+"</p>");
+
+            });
+
+
+        });*/
+
+
     </script>
     {{--{!! HTML::script('js/welcome.js') !!}--}}
 
