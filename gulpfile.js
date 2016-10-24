@@ -15,6 +15,11 @@ elixir(function (mix) {
     mix.sass('main.scss', 'public/css/main.css');
     mix.sass('app.scss', 'public/css/app.css');
     mix.sass('welcome.scss', 'public/css/welcome.css');
+    
+    mix.sass('portal.scss', 'public/css/portal.css');
+    // mix.typescript('portal.ts', 'public/js/portal.js');
+    mix.scripts('portal.js', 'public/js/portal.js');
+    
     mix.sass('captcha.scss', 'public/css/captcha.css');
     mix.sass('banner.scss', 'public/css/banner.css');
     mix.sass('video.scss', 'public/css/video.css');

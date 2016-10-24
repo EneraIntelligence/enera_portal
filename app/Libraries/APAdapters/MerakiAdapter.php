@@ -3,14 +3,27 @@
 namespace Portal\Libraries\APAdapters;
 
 use Portal\Libraries\APAdapters\IAdapter;
+use Validator;
 
 class MerakiAdapter implements IAdapter
 {
 
     public function processInput($input)
     {
-        //return data as is
-        return $input;
+        $validate = Validator::make($input, [
+            'base_grant_url' => 'required',
+            'user_continue_url' => 'required',
+            'node_mac' => 'required',
+            'client_mac' => 'required'
+        ]);
+
+        if($validate->passes())
+        {
+            //return data as is
+            return $input;
+        }
+        
+        return null;
     }
 
     public function addVars($url, $vars)
