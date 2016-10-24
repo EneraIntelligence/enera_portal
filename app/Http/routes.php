@@ -18,7 +18,7 @@ Route::match(['post', 'get'], '/guest/s/default', ['as' => 'welcome', 'uses' => 
 
 //new portal
 Route::match(['post', 'get'], '/portal', ['as' => 'portal', 'uses' => 'PortalController@index']);
-Route::match( ['post','get'], '/portal/grant_access',['as'=>'grant_access', 'uses'=>'PortalController@grantAccess'] );
+Route::match( ['post','get'], '/grant_access',['as'=>'grant_access', 'uses'=>'PortalController@grantAccess'] );
 //*/
 
 Route::match(['post', 'get'], '/success', ['as' => 'success', 'uses' => 'WelcomeController@success']);
