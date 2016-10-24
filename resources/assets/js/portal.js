@@ -14,6 +14,7 @@ var Enera;
         function Portal(grantAccessURL) {
             var _this = this;
             this.acceptedTerms = function () {
+                _this.log.joined();
                 TweenLite.to("#progress-bar", 1, { width: "50%" });
                 TweenLite.to("#step-2", .3, { delay: 1, backgroundColor: "#2196F3" });
                 TweenLite.to("#step-2-text", .3, { delay: 1, color: "#2196F3" });
@@ -23,8 +24,17 @@ var Enera;
                 setTimeout(_this.adsCard.flipShow, 600);
                 setTimeout(_this.btnCard.showUp, 1500, .3);
                 setTimeout(_this.btnCard.countDown, 1500, .3);
+                setTimeout(_this.requested, 600);
+                setTimeout(_this.loaded, 1500);
+            };
+            this.requested = function () {
+                _this.log.requested();
+            };
+            this.loaded = function () {
+                _this.log.loaded();
             };
             this.clickInternet = function () {
+                _this.log.completed();
                 TweenLite.to("#progress-bar", 1, { width: "100%" });
                 TweenLite.to("#step-2", .3, { scale: 1 });
                 TweenLite.to("#step-3", .3, { delay: 1, backgroundColor: "#2196F3" });
@@ -43,7 +53,8 @@ var Enera;
                 window.location.href = _this.grantURL;
             };
             this.grantURL = grantAccessURL;
-            console.log("url: " + this.grantURL);
+            this.log = new PortalLog();
+            this.log.welcome();
         }
         Portal.prototype.setup = function () {
             //initialize modals
@@ -59,6 +70,9 @@ var Enera;
             TweenLite.set("#ads-card", { display: 'none' });
             TweenLite.set("#btn-card", { display: 'none' });
             this.termsCheckbox.change(this.acceptedTerms);
+        };
+        Portal.prototype.onLoaded = function () {
+            this.log.welcomeLoaded();
         };
         return Portal;
     }());
@@ -137,5 +151,58 @@ var Enera;
         }
         return BtnCard;
     }(Card));
+    var PortalLog = (function () {
+        function PortalLog(token, client_mac) {
+            this.token = token;
+            this.client_mac = client_mac;
+        }
+        PortalLog.prototype.welcome = function () {
+            var url = '/interaction/logs/log_welcome';
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        };
+        PortalLog.prototype.welcomeLoaded = function () {
+            var url = '/interaction/logs/log_welcome_loaded';
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        };
+        PortalLog.prototype.joined = function () {
+            var url = '/interaction/logs/log_joined';
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        };
+        PortalLog.prototype.requested = function () {
+            var url = '/interaction/logs/log_requested';
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        };
+        PortalLog.prototype.loaded = function () {
+            var url = '/interaction/logs/log_loaded';
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        };
+        PortalLog.prototype.completed = function () {
+            var url = '/interaction/logs/log_completed';
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        };
+        PortalLog.prototype.onSuccess = function (data) {
+            console.log("success");
+            console.log(data);
+        };
+        PortalLog.prototype.onFail = function () {
+            console.log("fail");
+        };
+        PortalLog.prototype.ajaxWithCallback = function (json_data, url, success_callback, fail_callback) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'JSON',
+                data: json_data
+            }).done(function (data) {
+                success_callback(data);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+                fail_callback();
+            });
+        };
+        return PortalLog;
+    }());
 })(Enera || (Enera = {}));
 //# sourceMappingURL=portal.js.map

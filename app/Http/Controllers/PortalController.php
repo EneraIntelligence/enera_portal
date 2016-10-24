@@ -5,7 +5,9 @@ namespace Portal\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Input;
+use MongoDate;
 use Portal\Branche;
+use Portal\CampaignLog;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
 use Portal\InputLog;
@@ -59,26 +61,41 @@ class PortalController extends Controller
 
         $apGrantURL =session('base_grant_url');
 
-        $query = parse_url($apGrantURL, PHP_URL_QUERY);
-
-        // Returns a string if the URL has parameters or NULL if not
-        if ($query) {
-            $apGrantURL .= '&continue_url='.urlencode('http://www.ffwd.mx/') ;
-            $apGrantURL .= '?redir='.urlencode('http://www.ffwd.mx/') ;
-        } else {
-            $apGrantURL .= '?continue_url='.urlencode('http://www.ffwd.mx/') ;
-            $apGrantURL .= '?redir='.urlencode('http://www.ffwd.mx/') ;
-        }
-
-        dd($apGrantURL);
-
         if( isset( $apGrantURL ) )
         {
+            $query = parse_url($apGrantURL, PHP_URL_QUERY);
+
+            $bannerUrl = 'http://www.ffwd.mx/';
+            // Returns a string if the URL has parameters or NULL if not
+            if ($query) {
+                $apGrantURL .= '&continue_url='.urlencode($bannerUrl) ;
+            } else {
+                $apGrantURL .= '?continue_url='.urlencode($bannerUrl) ;
+            }
+
+            $apGrantURL .= '?redir='.urlencode($bannerUrl) ;
+            $apGrantURL .= '?duration=1800';
+
+
+            $client_mac = session('client_mac');
+            $log = CampaignLog::where('user.session', session('_token'))
+                ->where('device.mac', $client_mac)->first();
+
+            if ($log)
+            {
+
+                $log->interaction->accessed = new MongoDate();
+                $log->interaction->save();
+
+            }
+
+            //dd($apGrantURL);
+            
             return redirect($apGrantURL);
         }
         else
         {
-            return redirect('welcome');
+            return redirect('portal');
         }
 
     }

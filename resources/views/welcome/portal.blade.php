@@ -40,6 +40,14 @@
 
 @section('content')
 
+    <!-- loader that hides content until ads loaded -->
+    <div id="loader" class="loader-full">
+        <div class="progress">
+            <div class="indeterminate"></div>
+        </div>
+    </div>
+
+
     <!-- Main card -->
     <div class="welcome-container">
         <div id="welcome-card" class="portal-img z-depth-2">
@@ -504,70 +512,27 @@
     {!! HTML::script('js/ajax/logs.js') !!}
 
     <script>
-        var myLog = new logs();
         var portal = new Enera.Portal("{!! $grant_access_url !!}");
 
         $(document).ready(function ()
         {
             portal.setup();
 
-            //welcome loaded
-            var loadedJson = {
-                _token: "{!! session('_token') !!}",
-                client_mac: "{!! $client_mac !!}"
-            };
-
-            myLog.welcomeLoaded(loadedJson, function()
-            {
-                //success
-                console.log("Success log welcome_loaded");
-            },
-            function(){
-                //fail
-                console.log("Fail log welcome_loaded");
-
-            });
-
-
         });
 
-        var clicked = false;
 
-        function showLoader(loaderId)
-        {
-            if (!clicked)
-            {
-                clicked=true;
-                $("#" + loaderId).css("opacity", "1");
+        window.onload = function () {
+            //remove loader
+            console.log("removing loader");
 
-                var data={
-                    _token: "{!! session('_token') !!}",
-                    client_mac: "{!! Input::get('client_mac') !!}"
-                };
+            portal.onLoaded();
 
-                myLog.joined(data, fbRedirect, logFail);
-
-            }
-        }
-
-        function fbRedirect()
-        {
-            console.log("Success log joined");
-            {{--window.location.replace( "{!! HTML::decode($login_response) !!}");--}}
-        }
-
-        function logFail()
-        {
-            console.log("Fail log joined, retrying...");
-
-            //retry log
-            var data={
-                _token: "{!! session('_token') !!}",
-                client_mac: "{!! Input::get('client_mac') !!}"
-            };
-
-            myLog.joined(data, fbRedirect, logFail);
-        }
+            TweenLite.to("#loader", .3, {
+                "opacity": 0, delay:1, onComplete: function () {
+                    $("#loader").css("display", "none");
+                }
+            });
+        };
 
 
     </script>

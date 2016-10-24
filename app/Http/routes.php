@@ -60,12 +60,22 @@ Route::group(['as' => 'interaction::'], function () {
     /* Logs */
     Route::group(['as' => 'logs::', 'middleware' => 'ajax', 'prefix' => 'interaction'], function () {
         Route::group(['prefix' => 'logs'], function () {
+            
             Route::match(['get', 'post'], 'welcome_loaded', ['as' => 'welcome_loaded', 'uses' => 'WelcomeController@welcome_loaded']);
             Route::match(['get', 'post'], 'joined', ['as' => 'joined', 'uses' => 'InteractionsController@joined']);
             // Route::match(['get', 'post'], 'requested', ['as' => 'requested', 'uses' => 'InteractionsController@requested']);
             Route::match(['get', 'post'], 'loaded', ['as' => 'loaded', 'uses' => 'InteractionsController@loaded']);
             Route::match(['get', 'post'], 'completed', ['as' => 'completed', 'uses' => 'InteractionsController@completed']);
             Route::match(['get', 'post'], 'accessed', ['as' => 'accessed', 'uses' => 'InteractionsController@accessed']);
+
+            //new logs
+            Route::match(['get', 'post'], 'log_welcome', ['as' => 'log_welcome', 'uses' => 'logsController@welcome']);
+            Route::match(['get', 'post'], 'log_welcome_loaded', ['as' => 'log_welcome_loaded', 'uses' => 'logsController@welcome_loaded']);
+            Route::match(['get', 'post'], 'log_joined', ['as' => 'log_joined', 'uses' => 'logsController@joined']);
+            Route::match(['get', 'post'], 'log_requested', ['as' => 'log_requested', 'uses' => 'logsController@requested']);
+            Route::match(['get', 'post'], 'log_loaded', ['as' => 'log_loaded', 'uses' => 'logsController@loaded']);
+            Route::match(['get', 'post'], 'log_completed', ['as' => 'log_completed', 'uses' => 'logsController@completed']);
+
 
             Route::match(['get', 'post'], 'brandcaptcha', ['as' => 'brandcaptcha', 'uses' => 'InteractionsController@brandcaptcha']);
             Route::match(['get', 'post'], 'brandcaptchademo', ['as' => 'brandcaptchademo', 'uses' => 'InteractionsController@brandcaptchaDemo']);

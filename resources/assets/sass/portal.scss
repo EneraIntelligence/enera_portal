@@ -23,6 +23,29 @@ nav
   }
 }
 
+.loader-full
+{
+  position: fixed;
+  background-color: white;
+  top:0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+
+}
+
+.progress
+{
+  top: -8px;
+  background-color: #e8eaf6;
+}
+
+.progress .indeterminate
+{
+  background-color: #3f51b5;
+}
+
 .portal-img
 {
   position: relative;

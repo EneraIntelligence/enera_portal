@@ -15,11 +15,14 @@ module Enera
         private adsCard:Card;
         private btnCard:Card;
         private grantURL:string;
+        private log:PortalLog;
 
         constructor(grantAccessURL:string)
         {
             this.grantURL = grantAccessURL;
-            console.log("url: "+this.grantURL);
+            this.log = new PortalLog();
+
+            this.log.welcome();
         }
 
         setup():void
@@ -46,8 +49,16 @@ module Enera
             this.termsCheckbox.change(this.acceptedTerms);
         }
 
+        onLoaded()
+        {
+            this.log.welcomeLoaded();
+        }
+
         private acceptedTerms=():void=>
         {
+
+            this.log.joined();
+
 
             TweenLite.to("#progress-bar",1, {width:"50%"});
             TweenLite.to("#step-2",.3, { delay:1, backgroundColor:"#2196F3"});
@@ -63,6 +74,8 @@ module Enera
                 this.adsCard.flipShow
                 ,600);
 
+            
+
             setTimeout(
                 this.btnCard.showUp
             ,1500,.3);
@@ -70,10 +83,34 @@ module Enera
             setTimeout(
                 this.btnCard.countDown
                 ,1500,.3);
+
+
+
+            setTimeout(
+                this.requested
+                ,600);
+
+
+            setTimeout(
+                this.loaded
+                ,1500);
         }
+        
+        private requested=():void=>
+        {
+            this.log.requested();
+        };
+
+        private loaded=():void=>
+        {
+            this.log.loaded();
+        };
 
         private clickInternet=():void=>
         {
+            this.log.completed();
+
+
             TweenLite.to("#progress-bar",1, {width:"100%"});
 
             TweenLite.to("#step-2",.3, { scale:1});
@@ -98,7 +135,7 @@ module Enera
 
             setTimeout(this.grantAccess
                 ,1200);
-        }
+        };
 
         public grantAccess=():void=>
         {
@@ -211,6 +248,86 @@ module Enera
                 this.btn.click(this.btnAction);
 
             }
+        }
+    }
+    
+    class PortalLog
+    {
+        private token:string;
+        private client_mac:string;
+
+        constructor(token:string, client_mac:string)
+        {
+            this.token = token;
+            this.client_mac = client_mac;
+        }
+        
+        public welcome() {
+            var url = '/interaction/logs/log_welcome';
+            
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        }
+
+        public welcomeLoaded() {
+            var url = '/interaction/logs/log_welcome_loaded';
+
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        }
+
+        public joined() {
+            var url = '/interaction/logs/log_joined';
+
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        }
+
+        public requested() {
+            var url = '/interaction/logs/log_requested';
+
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        }
+
+        public loaded() {
+            var url = '/interaction/logs/log_loaded';
+
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        }
+        
+        public completed() {
+            var url = '/interaction/logs/log_completed';
+
+
+            this.ajaxWithCallback({}, url, this.onSuccess, this.onFail);
+        }
+        
+        private onSuccess(data)
+        {
+            console.log("success");
+            console.log(data);
+        }
+
+        private onFail()
+        {
+            console.log("fail");
+        }
+
+
+        private ajaxWithCallback(json_data, url, success_callback:Function, fail_callback:Function)
+        {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'JSON',
+                data: json_data
+            }).done(function (data)
+            {
+                success_callback(data);
+            }).fail(function (jqXHR, textStatus, errorThrown)
+            {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+                fail_callback();
+            });
         }
     }
 
