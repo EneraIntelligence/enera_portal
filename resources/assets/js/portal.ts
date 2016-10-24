@@ -19,6 +19,7 @@ module Enera
         constructor(grantAccessURL:string)
         {
             this.grantURL = grantAccessURL;
+            console.log("url: "+this.grantURL);
         }
 
         setup():void
@@ -95,13 +96,14 @@ module Enera
                 }
                 ,600);
 
-            setTimeout(
-                function()
-                {
-                    window.location.href = this.grantURL;
-
-                }
+            setTimeout(this.grantAccess
                 ,1200);
+        }
+
+        public grantAccess=():void=>
+        {
+            // console.log("grant url: "+this.grantURL);
+            window.location.href = this.grantURL;
         }
 
     }

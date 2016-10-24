@@ -21,6 +21,8 @@ class PortalController extends Controller
     public function index()
     {
 
+//        dd(url('grant_access'));
+
         $rawInput = Input::all();
 
         if(env('APP_ENV')=='local')
@@ -67,6 +69,8 @@ class PortalController extends Controller
             $apGrantURL .= '?continue_url='.urlencode('http://www.ffwd.mx/') ;
             $apGrantURL .= '?redir='.urlencode('http://www.ffwd.mx/') ;
         }
+
+        dd($apGrantURL);
 
         if( isset( $apGrantURL ) )
         {

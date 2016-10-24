@@ -36,11 +36,14 @@ var Enera;
                     TweenLite.set('.final-message', { opacity: 0, display: "block" });
                     TweenLite.to('.final-message', .3, { opacity: 1 });
                 }, 600);
-                setTimeout(function () {
-                    window.location.href = this.grantURL;
-                }, 1200);
+                setTimeout(_this.grantAccess, 1200);
+            };
+            this.grantAccess = function () {
+                // console.log("grant url: "+this.grantURL);
+                window.location.href = _this.grantURL;
             };
             this.grantURL = grantAccessURL;
+            console.log("url: " + this.grantURL);
         }
         Portal.prototype.setup = function () {
             //initialize modals
