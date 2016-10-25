@@ -203,10 +203,10 @@ class LogsController extends Controller
                 $age = $birthday->diff(new DateTime($today));
                 $u['age'] = $age->y;
                 $u['session'] = session('_token');
-                
+
                 $log->user = $u;
 
-                $log->user->save();
+                $log->save();
             }
 
 
