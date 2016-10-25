@@ -69,12 +69,12 @@ Route::group(['as' => 'interaction::'], function () {
             Route::match(['get', 'post'], 'accessed', ['as' => 'accessed', 'uses' => 'InteractionsController@accessed']);
 
             //new logs
-            Route::match(['get', 'post'], 'log_welcome', ['as' => 'log_welcome', 'uses' => 'logsController@welcome']);
-            Route::match(['get', 'post'], 'log_welcome_loaded', ['as' => 'log_welcome_loaded', 'uses' => 'logsController@welcome_loaded']);
-            Route::match(['get', 'post'], 'log_joined', ['as' => 'log_joined', 'uses' => 'logsController@joined']);
-            Route::match(['get', 'post'], 'log_requested', ['as' => 'log_requested', 'uses' => 'logsController@requested']);
-            Route::match(['get', 'post'], 'log_loaded', ['as' => 'log_loaded', 'uses' => 'logsController@loaded']);
-            Route::match(['get', 'post'], 'log_completed', ['as' => 'log_completed', 'uses' => 'logsController@completed']);
+            Route::match(['get', 'post'], 'log_welcome', ['as' => 'log_welcome', 'uses' => 'LogsController@welcome']);
+            Route::match(['get', 'post'], 'log_welcome_loaded', ['as' => 'log_welcome_loaded', 'uses' => 'LogsController@welcome_loaded']);
+            Route::match(['get', 'post'], 'log_joined', ['as' => 'log_joined', 'uses' => 'LogsController@joined']);
+            Route::match(['get', 'post'], 'log_requested', ['as' => 'log_requested', 'uses' => 'LogsController@requested']);
+            Route::match(['get', 'post'], 'log_loaded', ['as' => 'log_loaded', 'uses' => 'LogsController@loaded']);
+            Route::match(['get', 'post'], 'log_completed', ['as' => 'log_completed', 'uses' => 'LogsController@completed']);
 
 
             Route::match(['get', 'post'], 'brandcaptcha', ['as' => 'brandcaptcha', 'uses' => 'InteractionsController@brandcaptcha']);
