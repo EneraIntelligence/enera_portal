@@ -2,6 +2,7 @@
 
 namespace Portal\Http\Controllers;
 
+use DateTime;
 use Illuminate\Http\Request;
 
 use Jenssegers\Agent\Agent;
@@ -195,7 +196,16 @@ class LogsController extends Controller
 
             if($user)
             {
-                $log->user->id=$user->id;
+                $u['id']=$user->_id;
+                $u['gender'] = $user->facebook->gender;
+                $birthday = new DateTime($user->facebook->birthday['date']);
+                $today = date('Y-m-d');
+                $age = $birthday->diff(new DateTime($today));
+                $u['age'] = $age->y;
+                $u['session'] = session('_token');
+                
+                $log->user = $u;
+
                 $log->user->save();
             }
 
