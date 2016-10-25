@@ -49,6 +49,7 @@ class PortalController extends Controller
         $input = $inputAdapter->processInput($rawInput);
 
         session($input);
+        session(['campaign_id'=>'580e7414fd30b44734ebd6c7']);
 
         return view('welcome.portal', $this->getPortalData());
 

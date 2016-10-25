@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 use MongoDate;
 use Portal\Branche;
+use Portal\Campaign;
 use Portal\CampaignLog;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
@@ -169,6 +170,19 @@ class LogsController extends Controller
             return response()->json($response);
         }
 
+        $campaign_id=session('campaign_id');
+        if (!isset($campaign_id))
+        {
+            $response = [
+                'ok' => false,
+                'msg' => 'Requested::No campaign id',
+            ];
+
+
+            return response()->json($response);
+        }
+
+
 
         $client_mac = session('client_mac');
         $log = CampaignLog::where('user.session', session('_token'))
@@ -176,6 +190,9 @@ class LogsController extends Controller
 
         if ($log)
         {
+
+            $log->campaign_id = $campaign_id;
+            $log->save();
 
             $log->interaction->requested = new MongoDate();
             $log->interaction->save();
@@ -253,6 +270,17 @@ class LogsController extends Controller
         }
 
 
+        $campaign_id=session('campaign_id');
+        if (!isset($campaign_id))
+        {
+            $response = [
+                'ok' => false,
+                'msg' => 'Completed::No campaign id',
+            ];
+
+            return response()->json($response);
+        }
+
         $client_mac = session('client_mac');
         $log = CampaignLog::where('user.session', session('_token'))
             ->where('device.mac', $client_mac)->first();
@@ -261,6 +289,32 @@ class LogsController extends Controller
         {
 
             $log->interaction->completed = new MongoDate();
+
+
+            //Monetization
+            $campaign = $log->campaign;
+            $balanceBefore = floatval($campaign->balance['current']);
+
+            $interactionAmount = floatval($campaign->interaction['price']);
+            $interactionMultiplier = floatval(1);
+            $interactionTotal = floatval($interactionAmount * $interactionMultiplier);
+
+            //decrement amount on current balance
+            Campaign::where('_id', $log->campaign_id)->decrement('balance.current', $interactionTotal);
+            $campaignDecremented = Campaign::where('_id', $log->campaign_id)->first();
+
+            $balanceAfter = floatval($campaignDecremented->balance['current']);
+
+            //save log
+            $log->cost = array();
+            $log->cost['balance_before'] = $balanceBefore;
+            $log->cost['balance_after'] = $balanceAfter;
+            $log->cost['base'] = $interactionAmount;
+            $log->cost['multiplier'] = $interactionMultiplier;
+            $log->cost['amount'] = $interactionTotal;
+
+
+            $log->cost->save();
             $log->interaction->save();
 
             $response = [
@@ -279,5 +333,6 @@ class LogsController extends Controller
         return response()->json($response);
 
     }
+
 
 }

@@ -46,7 +46,9 @@ var Enera;
                     TweenLite.set('.final-message', { opacity: 0, display: "block" });
                     TweenLite.to('.final-message', .3, { opacity: 1 });
                 }, 600);
-                setTimeout(_this.grantAccess, 1200);
+                /*
+                setTimeout(this.grantAccess
+                    ,1200);*/
             };
             this.grantAccess = function () {
                 // console.log("grant url: "+this.grantURL);
