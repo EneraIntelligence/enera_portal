@@ -133,9 +133,9 @@ module Enera
                 }
                 ,600);
 
-            /*
+            
             setTimeout(this.grantAccess
-                ,1200);*/
+                ,1200);
         };
 
         public grantAccess=():void=>

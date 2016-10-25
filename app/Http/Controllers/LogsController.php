@@ -11,6 +11,7 @@ use Portal\Campaign;
 use Portal\CampaignLog;
 use Portal\Http\Requests;
 use Portal\Http\Controllers\Controller;
+use Portal\User;
 
 class LogsController extends Controller
 {
@@ -182,14 +183,23 @@ class LogsController extends Controller
             return response()->json($response);
         }
 
-
-
         $client_mac = session('client_mac');
+
+        $user = User::where('devices.mac',$client_mac)->first();
+
         $log = CampaignLog::where('user.session', session('_token'))
             ->where('device.mac', $client_mac)->first();
 
         if ($log)
         {
+
+            if($user)
+            {
+                $log->user->id=$user->id;
+                $log->user->save();
+            }
+
+
 
             $log->campaign_id = $campaign_id;
             $log->save();
