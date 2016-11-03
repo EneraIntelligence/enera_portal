@@ -96,10 +96,9 @@ class LogsController extends Controller
 
         if ($log)
         {
-        
             $log->interaction->welcome_loaded = new MongoDate();
             $log->interaction->save();
-        
+
             $response = [
                 'ok' => true,
                 'msg' => 'welcome_loaded',
