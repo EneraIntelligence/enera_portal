@@ -74,8 +74,8 @@ class PortalController extends Controller
                 $apGrantURL .= '?continue_url='.urlencode($bannerUrl) ;
             }
 
-            $apGrantURL .= '?redir='.urlencode($bannerUrl) ;
-            $apGrantURL .= '?duration=1800';
+            $apGrantURL .= '&redir='.urlencode($bannerUrl) ;
+            $apGrantURL .= '&duration=1800';
 
 
             $client_mac = session('client_mac');
