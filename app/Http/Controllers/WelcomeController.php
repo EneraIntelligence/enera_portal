@@ -531,6 +531,19 @@ class WelcomeController extends Controller
 
         if($rCode=="201")
         {
+            //success
+            $client_mac = session('client_mac');
+            $log = CampaignLog::where('user.session', session('_token'))
+                ->where('device.mac', $client_mac)->first();
+
+            if ($log)
+            {
+                //saving completed
+                $log->interaction->accessed = new MongoDate();
+                $log->interaction->save();
+            }
+
+
             if (Session::has('success_redirect_url'))
                 return redirect(session('success_redirect_url'));
             else
