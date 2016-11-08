@@ -77,6 +77,8 @@ class PortalController extends Controller
             $apGrantURL .= '&redir='.urlencode($bannerUrl) ;
             $apGrantURL .= '&duration=1800';
 
+            session(['success_redirect_url'=>$bannerUrl]);
+
 
             $client_mac = session('client_mac');
             $log = CampaignLog::where('user.session', session('_token'))
