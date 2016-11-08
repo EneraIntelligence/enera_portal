@@ -24,7 +24,11 @@ Route::match( ['post','get'], '/grant_access',['as'=>'grant_access', 'uses'=>'Po
 Route::match(['post', 'get'], '/success', ['as' => 'success', 'uses' => 'WelcomeController@success']);
 
 Route::match(['post', 'get'], '/ads', ['as' => 'ads', 'uses' => 'WelcomeController@ads']);
-Route::match(['post', 'get'], '/radius-connect/ip/{ip}/client_mac/{client_mac}', ['as' => 'radius-connect', 'uses' => 'WelcomeController@radius']);
+
+Route::match(['post', 'get'], '/ruckus-radius/ip/{ip}/client_mac/{client_mac}', ['as' => 'ruckus-radius', 'uses' => 'WelcomeController@ruckus_radius']);
+Route::match(['post', 'get'], '/ruckus-nbi/ip/{ip}/client_mac/{client_mac}', ['as' => 'ruckus-nbi', 'uses' => 'WelcomeController@ruckus_nbi']);
+
+
 Route::match(['post', 'get'], '/cisco-connect/ip/{ip}/client_mac/{client_mac}', ['as' => 'cisco-connect', 'uses' => 'WelcomeController@cisco']);
 Route::match(['post', 'get'], '/aruba-auth}', ['as' => 'aruba-auth', 'uses' => 'WelcomeController@aruba']);
 

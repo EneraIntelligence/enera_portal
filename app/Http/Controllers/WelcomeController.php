@@ -438,9 +438,9 @@ class WelcomeController extends Controller
         ]);
     }
 
-    public function radius($ip, $client_mac)
+    public function ruckus_radius($ip, $client_mac)
     {
-        /*
+        
         if (Input::has("continue_url"))
         {
             //echo Input::has("continue_url");
@@ -448,9 +448,27 @@ class WelcomeController extends Controller
                 'success_redirect_url' => Input::get("continue_url")
             ]);
 
-        }*/
+        }
 
+        $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
 
+        if (count($users) == 0)
+        {
+            DB::connection('radius')->insert("insert into radcheck (username,attribute,value) VALUES (?,?,?);", [$client_mac, "Password", $client_mac]);
+
+        }
+
+        return view("welcome.ruckus", 
+            [
+                'ip' => $ip, 
+                'client_mac' => $client_mac
+            ] 
+        );
+
+    }
+
+    public function ruckus_nbi($ip, $client_mac)
+    {
 
         $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
 
@@ -482,30 +500,8 @@ class WelcomeController extends Controller
         //$this->info("Enc-mac: " . $response['Data']);
         $encMac = $response['Data'];
         //end mac
-
-
-
-
-        //start ip
-        /*
-        $json_data = array(
-            "Vendor" => "ruckus",
-            "RequestPassword" => "t3!um123",
-            "APIVersion" => "1.0",
-            "RequestCategory" => "GetConfig",
-            "RequestType" => "Encrypt",
-            "Data" => "172.21.134.101"
-        );
-        $json_response = $this->makeCurl($url, $json_data);
-        $response = json_decode($json_response, true);
-
-        //$this->info("Enc-ip: " . $response['Data']);
-        $encIp = $response['Data'];
-*/
-        //end ip
-
-
-
+        
+        
         //start login
 
 
@@ -524,7 +520,6 @@ class WelcomeController extends Controller
 
         $json_response = $this->makeCurl($url, $json_data);
 
-        //$this->info("response: " . $json_response);
 
         $response = json_decode($json_response, true);
         $rCode = $response['ResponseCode'];

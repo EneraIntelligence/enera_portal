@@ -51,7 +51,7 @@ class RuckusAdapter implements IAdapter
             'uip' => 'required',
             'url' => 'required',
             'ssid' => 'required',
-            'nbiIP' => 'required',
+//            'nbiIP' => 'required',
             //'vlan' => 'required',
         ]);
 
@@ -71,13 +71,30 @@ class RuckusAdapter implements IAdapter
             $user_url = $input['url'];
 
 
-            $resp = [
+            $nbiIP = $input['nbiIP'];
+
+            if(isset($nbiIP))
+            {
+                $resp = [
+                'base_grant_url' => URL::route('ruckus-radius', ['ip' => $input['sip'], 'client_mac' => $client_mac]),
+//                    'base_grant_url' => URL::route('radius-connect', ['ip' => $input['nbiIP'], 'client_mac' => $client_mac]),
+                    'user_continue_url' => $user_url,
+                    'node_mac' => $node_mac,
+                    'client_mac' => $client_mac
+                ];
+            }
+            else
+            {
+                $resp = [
 //                'base_grant_url' => URL::route('radius-connect', ['ip' => $input['sip'], 'client_mac' => $client_mac]),
-                'base_grant_url' => URL::route('radius-connect', ['ip' => $input['nbiIP'], 'client_mac' => $client_mac]),
-                'user_continue_url' => $user_url,
-                'node_mac' => $node_mac,
-                'client_mac' => $client_mac
-            ];
+                    'base_grant_url' => URL::route('radius-connect', ['ip' => $input['nbiIP'], 'client_mac' => $client_mac]),
+                    'user_continue_url' => $user_url,
+                    'node_mac' => $node_mac,
+                    'client_mac' => $client_mac
+                ];
+            }
+
+
 
             return $resp;
 
