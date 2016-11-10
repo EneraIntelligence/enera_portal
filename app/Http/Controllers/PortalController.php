@@ -66,7 +66,8 @@ class PortalController extends Controller
         {
             $query = parse_url($apGrantURL, PHP_URL_QUERY);
 
-            $bannerUrl = 'http://www.ffwd.mx/';
+//            $bannerUrl = 'http://www.ffwd.mx/';
+            $bannerUrl = url('ads');
             // Returns a string if the URL has parameters or NULL if not
             if ($query) {
                 $apGrantURL .= '&continue_url='.urlencode($bannerUrl) ;

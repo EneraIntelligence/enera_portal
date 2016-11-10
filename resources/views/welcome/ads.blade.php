@@ -33,13 +33,47 @@
 
 @section('content')
 
+{{--    <iframe src="data:text/html;charset=utf-8,{!!$encodedResponse !!}" width="320" height="480" ></iframe>--}}
+
         <!-- Main card -->
 <div class="welcome card small center-align">
     <div class="container">
-        <h4>Bienvenido a Enera WiFi.</h4>
+        {{--<h4>Bienvenido a Enera WiFi.</h4>--}}
         {{--<p>Ahora estás conectado.</p>--}}
-        <p>Ahora tienes conexión a internet.</p>
+        <p>Para darte acceso baja una de las siguientes apps:</p>
     </div>
+
+    <!-- Start App grid -->
+    <div id='__kx_ad_7074'></div>
+    <script type="text/javascript" language="javascript">
+        var __kx_ad_slots = __kx_ad_slots || [];
+
+        (function () {
+            var slot = 7074;
+            var h = false;
+            __kx_ad_slots.push(slot);
+            if (typeof __kx_ad_start == 'function') {
+                __kx_ad_start();
+            } else {
+                var s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.async = true;
+                s.src = '//cdn.kixer.com/ad/load.js';
+                s.onload = s.onreadystatechange = function(){
+                    if (!h && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
+                        h = true;
+                        s.onload = s.onreadystatechange = null;
+                        __kx_ad_start();
+                    }
+                };
+                var x = document.getElementsByTagName('script')[0];
+                x.parentNode.insertBefore(s, x);
+            }
+        })();
+    </script>
+    <!-- End App grid -->
+
+
 </div>
 <!-- Main card -->
 
