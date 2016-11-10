@@ -37,9 +37,9 @@
 
         <!-- Main card -->
 
-<script async="async" type="text/javascript" src="//go.mobisla.com/notice.php?p=874377&interactive=1&pushup=1"></script>
+{{--<script async="async" type="text/javascript" src="//go.mobisla.com/notice.php?p=874377&interactive=1&pushup=1"></script>--}}
 
-<script src="//go.mobtrks.com/notice.php?p=623555&interstitial=1"></script>
+{{--<script src="//go.mobtrks.com/notice.php?p=623555&interstitial=1"></script>--}}
 
 <div class="welcome card small center-align">
     <div class="container">
