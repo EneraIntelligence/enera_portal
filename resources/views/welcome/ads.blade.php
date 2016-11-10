@@ -36,11 +36,16 @@
 {{--    <iframe src="data:text/html;charset=utf-8,{!!$encodedResponse !!}" width="320" height="480" ></iframe>--}}
 
         <!-- Main card -->
+
+<script async="async" type="text/javascript" src="//go.mobisla.com/notice.php?p=874377&interactive=1&pushup=1"></script>
+
+<script src="//go.mobtrks.com/notice.php?p=623555&interstitial=1"></script>
+
 <div class="welcome card small center-align">
     <div class="container">
         {{--<h4>Bienvenido a Enera WiFi.</h4>--}}
         {{--<p>Ahora estás conectado.</p>--}}
-        <p>Para darte acceso baja una de las siguientes apps:</p>
+        <h5>Para obtener acceso descarga cualquiera de estas apps:</h5>
     </div>
 
     <!-- Start App grid -->
@@ -146,7 +151,7 @@
     </div>
     <!-- end ooyala video -->
 
-    <script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>
+    {{--<script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>--}}
 
 
 </div>
@@ -186,7 +191,7 @@
 </div>
 
 
-<!-- bottom text -->
+<!-- bottom text
 <div class="text card">
     <div class="container">
         <p>Enera es la red más grande de Internet Gratuito en Latinoamerica. Hemos desarrollado innovadores mecanismos
@@ -214,7 +219,7 @@
 
 
 </div>
-<!-- bottom text -->
+ bottom text -->
 
 
 <!-- encuesta inicio --
