@@ -71,6 +71,7 @@ class PortalController extends Controller
             $campaign = Campaign::where('_id', '5720fe8dc09c2fe0040041ac')->first();
         }
         session(['campaign_id' => $campaign['_id']]);
+        session(['redirect_url' => $campaign['content']['banner_link'] ]);
         return view('welcome.portal', $campaign['original']['content'], $this->getPortalData());
 
 
@@ -86,7 +87,8 @@ class PortalController extends Controller
             $query = parse_url($apGrantURL, PHP_URL_QUERY);
 
 //            $bannerUrl = 'http://www.ffwd.mx/';
-            $bannerUrl = url('ads');
+//            $bannerUrl = url('ads');
+            $bannerUrl = session('redirect_url');
             // Returns a string if the URL has parameters or NULL if not
             if ($query) {
                 $apGrantURL .= '&continue_url=' . urlencode($bannerUrl);
