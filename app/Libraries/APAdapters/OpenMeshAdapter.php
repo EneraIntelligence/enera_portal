@@ -53,14 +53,15 @@ class OpenMeshAdapter implements IAdapter
 
 
             $user_url = $input['userurl'];
-            
+
+            /*
             if(!isset($user_url) || $user_url=="")
             {
                 $user_url = "http://enera.mx/";
             }
 
             $redirect_url .= "&redir=" . urlencode( $user_url );
-
+*/
 
             $node_mac = $this->formatMac($input['called']);
             $client_mac =  $this->formatMac($input['mac']);
