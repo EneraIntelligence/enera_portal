@@ -52,7 +52,7 @@ class PortalController extends Controller
         $input = $inputAdapter->processInput($rawInput);
 
         session($input);
-        $client_mac = $rawInput['client_mac'];
+        $client_mac = $input['client_mac'];
 
         $user = User::where('facebook.id', 'exists', true)
             ->whereIn('devices.mac', [$client_mac])
