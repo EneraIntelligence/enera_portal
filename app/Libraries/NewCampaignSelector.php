@@ -172,7 +172,6 @@ class NewCampaignSelector
     private static function perBranch()
     {
         $branch = Branche::whereIn('aps', [session('node_mac')])
-            ->orWhere('filters.external_ads', true)
             ->lists('_id');
 
         $filter = Campaign::whereIn('branches', $branch->all())->where('status', 'active')->lists('_id');
