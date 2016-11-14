@@ -62,7 +62,6 @@ class PortalController extends Controller
             $campaignSelection = NewCampaignSelector::allUsers()->all();
         else
             $campaignSelection = NewCampaignSelector::facebookUsers($user['_id']);
-        dd($campaignSelection);
         
 
         $count = count($campaignSelection->all());
