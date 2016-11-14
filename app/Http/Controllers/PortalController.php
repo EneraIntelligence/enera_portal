@@ -55,7 +55,7 @@ class PortalController extends Controller
         $user = User::where('facebook.id', 'exists', true)
             ->whereIn('devices.mac', [$client_mac])
             ->first();
-
+        
         if (!isset($user))
             $campaignSelection = NewCampaignSelector::allUsers()->all();
         else

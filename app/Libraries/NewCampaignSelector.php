@@ -12,6 +12,7 @@ namespace Portal\Libraries;
 use Carbon\Carbon;
 use DB;
 use MongoDate;
+use Portal\Branche;
 use Portal\Campaign;
 use Portal\CampaignLog;
 use Portal\User;
@@ -28,18 +29,20 @@ class NewCampaignSelector
         $weekday = self::campaignPerWeekDay(); //campañas filtardas por día de la semana
         $hour = self::campaignPerHour(); //camapañas filtradas por hora del día
         $period = self::periodTime(); //Verifica el periodo de vida de las campañas
+        $branch = self::perBranch();
 
 
-        $campaigns = Campaign::whereNotIn('_id', $uniqueCampaign)
+        $campaigns = Campaign::where('status', 'active')
             ->whereNotIn('_id', $uniquePerDay)
             ->whereNotIn('_id', $maxInteractions)
             ->whereNotIn('_id', $maxInteractionsPerDay)
             ->whereIn('_id', $weekday)
             ->whereIn('_id', $hour)
             ->whereIn('_id', $period)
-            ->where('status', 'active')
+            ->whereIn('_id', $branch)
+            ->whereNotIn('_id', $uniqueCampaign)
             ->get();
-       
+
         return $campaigns;
     }
 
@@ -56,19 +59,22 @@ class NewCampaignSelector
         $weekday = self::campaignPerWeekDay(); //campañas filtardas por día de la semana
         $hour = self::campaignPerHour(); //camapañas filtradas por hora del día
         $period = self::periodTime(); //Verifica el periodo de vida de las campañas
-        
-        $campaigns = Campaign::whereNotIn('_id', $uniqueCampaign)
+        $branch = self::perBranch();
+
+        $campaigns = Campaign::where('status', 'active')
+            ->whereNotIn('_id', $uniqueCampaign)
             ->whereNotIn('_id', $uniquePerDay)
             ->whereNotIn('_id', $maxInteractions)
             ->whereNotIn('_id', $maxInteractionsPerDay)
             ->whereIn('_id', $weekday)
             ->whereIn('_id', $hour)
             ->whereIn('_id', $period)
-            ->where('status', 'active')
+            ->whereIn('_id', $branch)
             ->whereIn('filters.gender', [$user['facebook']['gender']])
-            ->Where('filters.age.0', '<=', $age)->where('filters.age.1' , '>=', $age)
+            ->Where('filters.age.0', '<=', $age)->where('filters.age.1', '>=', $age)
             ->get();
-        
+
+
         return $campaigns;
     }
 
@@ -109,7 +115,8 @@ class NewCampaignSelector
 
             $campaign = Campaign::where('_id', $campaign_max)
                 ->where('filters.max_interactions', '<', $count)->first();
-            array_push($filter, $campaign['_id']);
+            if ($campaign)
+                array_push($filter, $campaign['_id']);
         }
 
         return $filter;
@@ -160,5 +167,17 @@ class NewCampaignSelector
             ->where('filters.date.end', '>=', new MongoDate(strtotime($today)))->where('status', 'active')->lists('_id');
 
         return $campaign->all();
+    }
+
+    private static function perBranch()
+    {
+        $branch = Branche::whereIn('aps', [session('node_mac')])
+            ->orWhere('filters.external_ads', true)
+            ->lists('_id');
+
+        $filter = Campaign::whereIn('branches', $branch->all())->where('status', 'active')->lists('_id');
+
+
+        return $filter->all();
     }
 }
