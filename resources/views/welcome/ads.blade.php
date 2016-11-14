@@ -33,13 +33,52 @@
 
 @section('content')
 
+{{--    <iframe src="data:text/html;charset=utf-8,{!!$encodedResponse !!}" width="320" height="480" ></iframe>--}}
+
         <!-- Main card -->
+
+{{--<script async="async" type="text/javascript" src="//go.mobisla.com/notice.php?p=874377&interactive=1&pushup=1"></script>--}}
+
+{{--<script src="//go.mobtrks.com/notice.php?p=623555&interstitial=1"></script>--}}
+
 <div class="welcome card small center-align">
     <div class="container">
-        <h4>Bienvenido a Enera WiFi.</h4>
+        {{--<h4>Bienvenido a Enera WiFi.</h4>--}}
         {{--<p>Ahora estás conectado.</p>--}}
-        <p>Ahora tienes conexión a internet.</p>
+        <h5>Para obtener acceso descarga cualquiera de estas apps:</h5>
     </div>
+
+    <!-- Start App grid -->
+    <div id='__kx_ad_7074'></div>
+    <script type="text/javascript" language="javascript">
+        var __kx_ad_slots = __kx_ad_slots || [];
+
+        (function () {
+            var slot = 7074;
+            var h = false;
+            __kx_ad_slots.push(slot);
+            if (typeof __kx_ad_start == 'function') {
+                __kx_ad_start();
+            } else {
+                var s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.async = true;
+                s.src = '//cdn.kixer.com/ad/load.js';
+                s.onload = s.onreadystatechange = function(){
+                    if (!h && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
+                        h = true;
+                        s.onload = s.onreadystatechange = null;
+                        __kx_ad_start();
+                    }
+                };
+                var x = document.getElementsByTagName('script')[0];
+                x.parentNode.insertBefore(s, x);
+            }
+        })();
+    </script>
+    <!-- End App grid -->
+
+
 </div>
 <!-- Main card -->
 
@@ -112,7 +151,7 @@
     </div>
     <!-- end ooyala video -->
 
-    <script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>
+    {{--<script src="//content.jwplatform.com/players/BYPLoEu3-p9g86TeQ.js"></script>--}}
 
 
 </div>
@@ -152,7 +191,7 @@
 </div>
 
 
-<!-- bottom text -->
+<!-- bottom text
 <div class="text card">
     <div class="container">
         <p>Enera es la red más grande de Internet Gratuito en Latinoamerica. Hemos desarrollado innovadores mecanismos
@@ -180,7 +219,7 @@
 
 
 </div>
-<!-- bottom text -->
+ bottom text -->
 
 
 <!-- encuesta inicio --

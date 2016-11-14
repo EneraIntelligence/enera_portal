@@ -47,15 +47,17 @@ class PortalController extends Controller
             $this->saveInputLog($rawInput);
             return $this->invalidNetworkView();
         }
+
         //ajusta los inputs al estandar de enera
         $input = $inputAdapter->processInput($rawInput);
+
         session($input);
         $client_mac = $rawInput['client_mac'];
 
         $user = User::where('facebook.id', 'exists', true)
             ->whereIn('devices.mac', [$client_mac])
             ->first();
-
+        
         if (!isset($user))
             $campaignSelection = NewCampaignSelector::allUsers()->all();
         else
@@ -82,7 +84,8 @@ class PortalController extends Controller
         if (isset($apGrantURL)) {
             $query = parse_url($apGrantURL, PHP_URL_QUERY);
 
-            $bannerUrl = 'http://www.ffwd.mx/';
+//            $bannerUrl = 'http://www.ffwd.mx/';
+            $bannerUrl = url('ads');
             // Returns a string if the URL has parameters or NULL if not
             if ($query) {
                 $apGrantURL .= '&continue_url=' . urlencode($bannerUrl);
@@ -92,6 +95,8 @@ class PortalController extends Controller
 
             $apGrantURL .= '&redir=' . urlencode($bannerUrl);
             $apGrantURL .= '&duration=1800';
+
+            session(['success_redirect_url'=>$bannerUrl]);
 
 
             $client_mac = session('client_mac');

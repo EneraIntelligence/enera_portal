@@ -431,10 +431,28 @@ class WelcomeController extends Controller
             $color = session('message')['color'];
         }
 
+
+        /*
+        http://s2s.startappnetwork.com/s2s/1.3/htmlads?
+        partner=110786237&
+        token=778645132&
+        adw=320&
+        adh=480&
+        os=1&
+        osVer=4.1&
+        segId=65437653&
+        pub=1&
+        prod=com.foobar.app&
+        dip=205.232.37.108&
+        ua=%20Mozilla%2F5.0%20(Linux%3B%20U%3B%20Android%204.0.3%3B%20de-ch%3B%20HTC%20Sensation%20Build%2FIML74K)%20AppleWebKit%2F534.30%20(KHTML%2C%20like%20Gecko)%20Version%2F4.0%20Mobile%20Safari%2F534.30&loc=44.000000%2C-2.000000&isp=42501&gen=0&age=25&maturity=1&test=true&dId=17e3ce3518af76e4&reqId=1245
+        */
+        $resp="";
+
         return view('welcome.ads', [
             'main_bg' => $main_bg,
             'color' => $color,
-            'image' => $image
+            'image' => $image,
+            'encodedResponse'=>$resp
         ]);
     }
 
