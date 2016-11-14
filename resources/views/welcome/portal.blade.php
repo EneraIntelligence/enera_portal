@@ -71,7 +71,7 @@
     <div class="ads-container">
         <div id="ads-card" class="portal-img z-depth-2">
             <img class="responsive-img"
-                 src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{{$images['small']}}">
+                 src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}">
         </div>
 
         <div class="terms card small" id="btn-card">
