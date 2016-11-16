@@ -53,7 +53,9 @@
     <script>
 
         $( document ).ready(function() {
-            window.location.href = "{!! route('aruba_success') !!}";
+            setTimeout(function () {
+                window.location.href = "{!! route('aruba_success') !!}";
+            },300);
         });
 
 
