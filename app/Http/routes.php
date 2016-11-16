@@ -22,6 +22,7 @@ Route::match( ['post','get'], '/grant_access',['as'=>'grant_access', 'uses'=>'Po
 //*/
 
 Route::match(['post', 'get'], '/success', ['as' => 'success', 'uses' => 'WelcomeController@success']);
+Route::match(['post', 'get'], '/aruba_success', ['as' => 'aruba_success', 'uses' => 'PortalController@aruba_success']);
 
 Route::match(['post', 'get'], '/ads', ['as' => 'ads', 'uses' => 'WelcomeController@ads']);
 

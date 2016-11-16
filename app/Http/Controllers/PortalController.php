@@ -17,6 +17,7 @@ use Portal\Libraries\APAdapters\APUtils;
 use Portal\Libraries\CampaignSelector;
 use Portal\Libraries\NewCampaignSelector;
 use Portal\User;
+use Session;
 
 class PortalController extends Controller
 {
@@ -160,5 +161,13 @@ class PortalController extends Controller
             'grant_access_url' => url('grant_access'),
             'client_mac' => session('client_mac'),
         ];
+    }
+
+    public function aruba_success()
+    {
+        if (Session::has('redirect_url'))
+            return redirect(session('redirect_url'));
+        else
+            return redirect(route('ads'));
     }
 }

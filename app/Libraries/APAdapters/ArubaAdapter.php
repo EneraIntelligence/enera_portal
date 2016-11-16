@@ -37,16 +37,8 @@ class ArubaAdapter implements IAdapter
         if ($arubaValidator->passes())
         {
 
-/*
-            if ($input['res'] === "success") 
-            {
-                $this->redirectToEnera();
-                return [];
-            }
-*/
 
-            
-            $redirect_url = URL::route('aruba-auth');//$input['switchip'];
+            $redirect_url = URL::route('aruba-auth');
 
 
             $user_url = $input['url'];
@@ -55,9 +47,6 @@ class ArubaAdapter implements IAdapter
             {
                 $user_url = "http://enera.mx/";
             }
-
-            //$redirect_url .= "&redir=" . urlencode( $user_url );
-
 
             $node_mac = $this->formatMac($input['apname']);
             $client_mac =  $this->formatMac($input['mac']);
