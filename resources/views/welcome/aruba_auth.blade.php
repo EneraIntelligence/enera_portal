@@ -50,6 +50,14 @@
 
 @section('footer_scripts')
 
+    <script>
+
+        $( document ).ready(function() {
+            window.location.href = "{!! route('aruba_success') !!}";
+        });
+
+
+    </script>
 
 @stop
 
