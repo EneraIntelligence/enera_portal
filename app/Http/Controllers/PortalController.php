@@ -71,8 +71,10 @@ class PortalController extends Controller
         } else {
             $campaign = Campaign::where('_id', '5720fe8dc09c2fe0040041ac')->first();
         }
+//        dd($campaign['original']['content']['video']);
         session(['campaign_id' => $campaign['_id']]);
         session(['redirect_url' => $campaign['content']['banner_link'] ]);
+        session(['campaign_type' => $campaign['interaction']['name']]);
         return view('welcome.portal', $campaign['original']['content'], $this->getPortalData());
 
 
