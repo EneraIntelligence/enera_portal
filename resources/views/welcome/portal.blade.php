@@ -1,11 +1,11 @@
 @extends('layouts.main')
 @section('head_scripts')
-    {!! HTML::style(asset('css/portal.css')) !!}
+{!! HTML::style(asset('css/portal.css')) !!}
 
-    <!-- branch colors -->
-    <style>
+        <!-- branch colors -->
+<style>
 
-    </style>
+</style>
 @stop
 
 @section('title', 'Bienvenido')
@@ -16,13 +16,12 @@
 
         //revisa si se esta viendo el portal dentro de enera
 
-        <?php
-        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        ?>
+                <?php
+                $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                ?>
         var actualLink = "{!! $actual_link !!}";
         var currentUrl = window.location.href;
-        if( !currentUrl.includes("enera-intelligence.mx") && !currentUrl.includes("localhost") )
-        {
+        if (!currentUrl.includes("enera-intelligence.mx") && !currentUrl.includes("localhost")) {
             window.location.href = actualLink;
         }
 
@@ -36,11 +35,11 @@
 
         </div>
     </nav>
-@stop
+    @stop
 
-@section('content')
+    @section('content')
 
-    <!-- loader that hides content until ads loaded -->
+            <!-- loader that hides content until ads loaded -->
     <div id="loader" class="loader-full">
         <div class="progress">
             <div class="indeterminate"></div>
@@ -60,7 +59,8 @@
             <p class="center-align">
 
                 <input type="checkbox" id="terms-checkbox"/>
-                <label class="black-text" for="terms-checkbox">Acepto los <a class="modal-trigger" href="#terms-modal">Términos y
+                <label class="black-text" for="terms-checkbox">Acepto los <a class="modal-trigger" href="#terms-modal">Términos
+                        y
                         condiciones</a></label>
             </p>
         </div>
@@ -68,17 +68,29 @@
     </div>
 
     <!-- Ads card -->
+    @if(session('campaign_type') == 'banner_link')
     <div class="ads-container">
         <div id="ads-card" class="portal-img z-depth-2">
             <img class="responsive-img"
                  src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}">
         </div>
-
         <div class="terms card small" id="btn-card">
             <div class="btn blue darken-4 disabled">Navegar en Internet</div>
         </div>
-
     </div>
+    @elseif(session('campaign_type') == 'video')
+        <div class="ads-container">
+            <div id="ads-card" class="portal-img z-depth-2">
+                <video width="320" height="240" controls>
+                    <source src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="terms card small" id="btn-card">
+                <div class="btn blue darken-4 disabled">Navegar en Internet</div>
+            </div>
+        </div>
+    @endif
 
 
 
@@ -514,8 +526,7 @@
     <script>
         var portal = new Enera.Portal("{!! $grant_access_url !!}");
 
-        $(document).ready(function ()
-        {
+        $(document).ready(function () {
             portal.setup();
 
         });
@@ -528,7 +539,7 @@
             portal.onLoaded();
 
             TweenLite.to("#loader", .3, {
-                "opacity": 0, delay:1, onComplete: function () {
+                "opacity": 0, delay: 1, onComplete: function () {
                     $("#loader").css("display", "none");
                 }
             });
