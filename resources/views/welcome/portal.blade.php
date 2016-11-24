@@ -81,13 +81,13 @@
     @elseif(session('campaign_type') == 'video')
         <div class="ads-container">
             <div id="ads-card" class="portal-img z-depth-2">
-                <video width="320" height="240" controls>
+                <video width="320" height="240" controls id="myVideo">
                     <source src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <div class="terms card small" id="btn-card">
-                <div class="btn blue darken-4 disabled">Navegar en Internet</div>
+                <div class="btn blue darken-4 disabled" id="btn-video">Navegar en Internet</div>
             </div>
         </div>
     @endif
