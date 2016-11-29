@@ -1,11 +1,11 @@
 @extends('layouts.main')
 @section('head_scripts')
-{!! HTML::style(asset('css/portal.css')) !!}
+    {!! HTML::style(asset('css/portal.css')) !!}
 
-        <!-- branch colors -->
-<style>
+    <!-- branch colors -->
+    <style>
 
-</style>
+    </style>
 @stop
 
 @section('title', 'Bienvenido')
@@ -16,9 +16,9 @@
 
         //revisa si se esta viendo el portal dentro de enera
 
-                <?php
-                $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-                ?>
+            <?php
+            $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            ?>
         var actualLink = "{!! $actual_link !!}";
         var currentUrl = window.location.href;
         if (!currentUrl.includes("enera-intelligence.mx") && !currentUrl.includes("localhost")) {
@@ -35,11 +35,11 @@
 
         </div>
     </nav>
-    @stop
+@stop
 
-    @section('content')
+@section('content')
 
-            <!-- loader that hides content until ads loaded -->
+    <!-- loader that hides content until ads loaded -->
     <div id="loader" class="loader-full">
         <div class="progress">
             <div class="indeterminate"></div>
@@ -69,20 +69,21 @@
 
     <!-- Ads card -->
     @if(session('campaign_type') == 'banner_link')
-    <div class="ads-container">
-        <div id="ads-card" class="portal-img z-depth-2">
-            <img class="responsive-img"
-                 src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}">
+        <div class="ads-container">
+            <div id="ads-card" class="portal-img z-depth-2">
+                <img class="responsive-img"
+                     src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $images['small'] !!}">
+            </div>
+            <div class="terms card small" id="btn-card">
+                <div class="btn blue darken-4 disabled">Navegar en Internet</div>
+            </div>
         </div>
-        <div class="terms card small" id="btn-card">
-            <div class="btn blue darken-4 disabled">Navegar en Internet</div>
-        </div>
-    </div>
     @elseif(session('campaign_type') == 'video')
         <div class="ads-container">
             <div id="ads-card" class="portal-img z-depth-2">
                 <video width="320" height="240" controls id="myVideo">
-                    <source src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}" type="video/mp4">
+                    <source src="http://s3-us-west-1.amazonaws.com/enera-publishers/items/{!! $video !!}"
+                            type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -90,6 +91,45 @@
                 <div class="btn blue darken-4 disabled" id="btn-video">Navegar en Internet</div>
             </div>
         </div>
+    @elseif(session('campaign_type') == 'survey')
+        <div class="ads-container">
+            <div id="ads-card" class="portal-img z-depth-2 white">
+                <div class="carousel" style="width: 100%;">
+                    <form action="#">
+                        <a class="carousel-item" href="#one!" style="width: 100%;">
+                            <div class="container">
+                                <br><br><br>
+                                <div>
+                                    <p>Gracias por contestar la encuesta</p>
+                                </div>
+                                <br>
+                                <div class="terms small" id="btn-card">
+                                    <div class="btn blue darken-4 disabled">Navegar en Internet</div>
+                                </div>
+                            </div>
+                        </a>
+                        @foreach($survey as $k => $sur)
+                            <a class="carousel-item" href="#two!" style="width: 100%;">
+                                <div class="container">
+                                    <div class="input-field col s12">
+                                        <br><br>
+                                        <p style="width: 250px;">{{$sur['question']}}</p>
+                                        <hr>
+                                        @foreach($sur['answers'] as $key => $ans)
+                                            <p>
+                                                <input name="{{$k.$key}}" type="radio" id="test1"/>
+                                                <label for="test1">{{$ans}}</label>
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </form>
+                </div>
+            </div>
+        </div>
+
     @endif
 
 
@@ -530,6 +570,12 @@
             portal.setup();
 
         });
+        $('.carousel').carousel(
+            {
+                full_width: true,
+                indicators: true
+            }
+        );
 
 
         window.onload = function () {
@@ -544,6 +590,11 @@
                 }
             });
         };
+
+
+        $("input").click(function () {
+            $('.carousel').carousel('next');
+        });
 
 
     </script>
