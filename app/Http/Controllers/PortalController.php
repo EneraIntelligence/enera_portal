@@ -65,10 +65,10 @@ class PortalController extends Controller
             $campaignSelection = NewCampaignSelector::facebookUsers($user['_id']);
 
         $count = count($campaignSelection->all());
-        if ($count > 0) {
+        if ($count == 0) {
             $campaign = $campaignSelection->all()[rand(0, $count - 1)];
         } else {
-            $campaign = Campaign::where('_id', '5720fe8dc09c2fe0040041ac')->first();
+            $campaign = Campaign::where('_id', '580e7414fd30b44734ebd6c7')->first();
         }
         session(['campaign_id' => $campaign['_id']]);
         session(['redirect_url' => $campaign['content']['banner_link'] ]);
