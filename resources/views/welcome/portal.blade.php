@@ -599,7 +599,7 @@
         });
 
         function survey() {
-            alert('hola mundo')
+            console.log('survey enter')
         }
 
     </script>
