@@ -40,7 +40,6 @@
         </form>
 
     <div id="status" class="black-text">
-        {{dd($query)}}
         <p>{{$query}}</p>
         <p>{{$resp}}</p>
 
