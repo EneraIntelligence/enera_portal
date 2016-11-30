@@ -98,13 +98,15 @@
                     <form action="#">
                         <a class="carousel-item" href="#one!" style="width: 100%;">
                             <div class="container">
-                                <br><br><br>
-                                <div>
-                                    <p>Gracias por contestar la encuesta</p>
-                                </div>
-                                <br>
-                                <div class="terms small" id="btn-card">
-                                    <div class="btn blue darken-4 disabled">Navegar en Internet</div>
+                                <div class="col 12" style="margin-left: 35px;">
+                                    <br><br><br>
+                                    <div>
+                                        <p>Gracias por contestar la encuesta</p>
+                                    </div>
+                                    <br>
+                                    <div class="terms small" id="btn-card">
+                                        <div class="btn blue darken-4 disabled" onclick="survey()">Navegar en Internet</div>
+                                    </div>
                                 </div>
                             </div>
                         </a>
@@ -117,8 +119,8 @@
                                         <hr>
                                         @foreach($sur['answers'] as $key => $ans)
                                             <p>
-                                                <input name="{{$k.$key}}" type="radio" id="test1"/>
-                                                <label for="test1">{{$ans}}</label>
+                                                <input name="{{$k}}" type="radio" id="{{$k.$key}}" value="{{$key}}"/>
+                                                <label for="{{$k.$key}}">{{$ans}}</label>
                                             </p>
                                         @endforeach
                                     </div>
@@ -596,6 +598,9 @@
             $('.carousel').carousel('next');
         });
 
+        function survey() {
+            alert('hola mundo')
+        }
 
     </script>
 @stop
