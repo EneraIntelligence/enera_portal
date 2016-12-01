@@ -75,6 +75,7 @@ class RuckusAdapter implements IAdapter
 
             if(isset($nbiIP))
             {
+                dd('ruckus 1');
                 $resp = [
                 'base_grant_url' => URL::route('ruckus-radius', ['ip' => $input['sip'], 'client_mac' => $client_mac]),
 //                    'base_grant_url' => URL::route('radius-connect', ['ip' => $input['nbiIP'], 'client_mac' => $client_mac]),
@@ -85,6 +86,7 @@ class RuckusAdapter implements IAdapter
             }
             else
             {
+                dd('rucks 2');
                 $resp = [
 //                'base_grant_url' => URL::route('radius-connect', ['ip' => $input['sip'], 'client_mac' => $client_mac]),
                     'base_grant_url' => URL::route('radius-connect', ['ip' => $input['nbiIP'], 'client_mac' => $client_mac]),
