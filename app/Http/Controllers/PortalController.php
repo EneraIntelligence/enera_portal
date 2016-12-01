@@ -65,7 +65,7 @@ class PortalController extends Controller
             $campaignSelection = NewCampaignSelector::facebookUsers($user['_id']);
 
         $count = count($campaignSelection->all());
-        if ($count == 0) {
+        if ($count > 0) {
             $campaign = $campaignSelection->all()[rand(0, $count - 1)];
         } else {
             $campaign = Campaign::where('_id', '580e7414fd30b44734ebd6c7')->first();
