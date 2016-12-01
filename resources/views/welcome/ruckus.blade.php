@@ -42,7 +42,7 @@
     <div id="status" class="black-text">
         {{--<p>{{$query}}</p>--}}
         {{--<p>{{$resp}}</p>--}}
-        {{$test}}
+        {{dd($test)}}
 
     </div>
 
