@@ -66,9 +66,10 @@ class PortalController extends Controller
 
         $count = count($campaignSelection->all());
         if ($count > 0) {
+            dd($campaignSelection);
             $campaign = $campaignSelection->all()[rand(0, $count - 1)];
         } else {
-            $campaign = Campaign::where('_id', '57ea85e4303a9c2a68167dc8')->first();
+            $campaign = Campaign::where('_id', '57e99662e24d83a6088b4579')->first();
         }
         session(['campaign_id' => $campaign['_id']]);
         session(['redirect_url' => $campaign['content']['banner_link'] ]);
