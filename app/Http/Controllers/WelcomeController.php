@@ -514,6 +514,7 @@ class WelcomeController extends Controller
         $json_response = $this->makeCurl($url, $json_data);
 
         $response = json_decode($json_response, true);
+        dd($response);
         //$this->info("Enc-mac: " . $response['Data']);
         $encMac = $response['Data'];
         //end mac
@@ -565,7 +566,7 @@ class WelcomeController extends Controller
         else
         {
             return view("welcome.ruckus", array('ip' => $ip, 'client_mac' => $client_mac,
-                'query'=>json_encode($json_data),'resp'=>$json_response, 'test' => $response));
+                'query'=>json_encode($json_data),'resp'=>$json_response));
         }
 
     }
