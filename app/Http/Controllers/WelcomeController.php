@@ -564,9 +564,8 @@ class WelcomeController extends Controller
         }
         else
         {
-              dd($response);
-//            return view("welcome.ruckus", array('ip' => $ip, 'client_mac' => $client_mac,
-//                'query'=>json_encode($json_data),'resp'=>$json_response));
+            return view("welcome.ruckus", array('ip' => $ip, 'client_mac' => $client_mac,
+                'query'=>json_encode($json_data),'resp'=>$json_response));
         }
 
     }
