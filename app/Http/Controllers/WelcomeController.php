@@ -513,7 +513,6 @@ class WelcomeController extends Controller
 
         $json_response = $this->makeCurl($url, $json_data);
         $response = json_decode($json_response, true);
-        dd($json_response);
         //$this->info("Enc-mac: " . $response['Data']);
         $encMac = $response['Data'];
         //end mac
@@ -540,7 +539,7 @@ class WelcomeController extends Controller
 
         $response = json_decode($json_response, true);
         $rCode = $response['ResponseCode'];
-
+        dd($response);
 
         if($rCode=="201")
         {
