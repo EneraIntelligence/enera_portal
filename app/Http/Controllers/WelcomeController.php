@@ -513,7 +513,7 @@ class WelcomeController extends Controller
 
         $json_response = $this->makeCurl($url, $json_data);
         $response = json_decode($json_response, true);
-        dd($response);
+        dd($json_response);
         //$this->info("Enc-mac: " . $response['Data']);
         $encMac = $response['Data'];
         //end mac
