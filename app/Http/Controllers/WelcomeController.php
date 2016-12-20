@@ -490,11 +490,15 @@ class WelcomeController extends Controller
 
         $users = DB::connection('radius')->select("select * from radcheck where username=?", [$client_mac]);
 
+
+        $dbInsertion='none';
         if (count($users) == 0)
         {
-            DB::connection('radius')->insert("insert into radcheck (username,attribute,value) VALUES (?,?,?);", [$client_mac, "Password", $client_mac]);
+            $dbInsertion = DB::connection('radius')->insert("insert into radcheck (username,attribute,value) VALUES (?,?,?);", [$client_mac, "Password", $client_mac]);
 
         }
+
+
 
 
         //nbi
@@ -539,7 +543,6 @@ class WelcomeController extends Controller
 
         $response = json_decode($json_response, true);
         $rCode = $response['ResponseCode'];
-        dd($response);
 
         if($rCode=="201")
         {
@@ -563,6 +566,8 @@ class WelcomeController extends Controller
         }
         else
         {
+            echo 'db insertion results: '.$dbInsertion.' - ';
+            dd($response);
             return view("welcome.ruckus", array('ip' => $ip, 'client_mac' => $client_mac,
                 'query'=>json_encode($json_data),'resp'=>$json_response));
         }
